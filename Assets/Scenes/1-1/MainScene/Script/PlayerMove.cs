@@ -34,9 +34,11 @@ public class PlayerMove : MonoBehaviour
             //rigid.transform.position += new Vector3(0.1f, 0.0f, 0.0f);
 
             // ‘¬“x‚ª10ˆÈ‰º‚È‚ç‚Î—Í‚ð‰Á‚¦‚é
-            if(rigid.velocity.magnitude < 10.0f)
+            if(rigid.velocity.x < 10.0f && rigid.velocity.x > -10.0f)
             {
                 rigid.AddForce(vec);
+
+                //rigid.velocity = new Vector3(speed, 0.0f, 0.0f);
             }
             
         }
