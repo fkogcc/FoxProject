@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class PlayerMove : MonoBehaviour
 {
-    bool jumpNow;
-    private Rigidbody rigid;
-    float jumpPower = 25.0f;
+    bool jumpNow;// ジャンプしているかどうか
+    private Rigidbody rigid;// プレイヤーのリジットボディ
+    float jumpPower = 25.0f;// ジャンプ力
 
     // Start is called before the first frame update
     void Start()
