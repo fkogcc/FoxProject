@@ -111,6 +111,7 @@ public class PlayerMove : MonoBehaviour
 
     private void FixedUpdate()
     {
+        // —‚¿‚½‚ç‰ŠúˆÊ’u‚É–ß‚·
         if(transform.position.y < -10)
         {
             transform.position = new Vector3(-6.0f,1.0f,0.0f);
@@ -119,6 +120,7 @@ public class PlayerMove : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
+        // ’n–Ê‚©‚ç—£‚ê‚½‚ç
         if (jumpNow)
         {
             jumpNow = false;
@@ -127,6 +129,7 @@ public class PlayerMove : MonoBehaviour
 
     private void OnCollisionExit(Collision collision)
     {
+        // ’n–Ê‚É‚Â‚¢‚½‚ç
         if (!jumpNow)
         {
             jumpNow = true;
