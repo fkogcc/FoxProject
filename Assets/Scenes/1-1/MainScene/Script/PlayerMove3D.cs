@@ -21,8 +21,10 @@ public class PlayerMove3D : MonoBehaviour
     {
         float hori = Input.GetAxis("Horizontal");
         float vert = Input.GetAxis("Vertical");
-        float speedX = hori * 25.0f;// 速さ
-        float speedZ = vert * 25.0f;// 速さ
+        float speedX = hori * 0.01f;// 速さ
+        float speedZ = vert * 0.01f;// 速さ
+        //float speedX = hori * 25.0f;// 速さ
+        //float speedZ = vert * 25.0f;// 速さ
         Vector3 vec = new Vector3(speedX, 0, speedZ);
 
         if (hori != 0 || vert != 0)
@@ -36,7 +38,7 @@ public class PlayerMove3D : MonoBehaviour
             latestPos = transform.position;
 
             // スティックの方向け度合いで速度調整
-            //rigid.transform.position += new Vector3(speedX, 0.0f, speedZ);
+            rigid.transform.position += new Vector3(speedX, 0.0f, speedZ);
 
             if(diff.magnitude > 0.01f)
             {
@@ -49,7 +51,7 @@ public class PlayerMove3D : MonoBehaviour
             if (rigid.velocity.x < topSpeed && rigid.velocity.x > -topSpeed &&
                 rigid.velocity.z < topSpeed && rigid.velocity.z > -topSpeed)
             {
-                rigid.AddForce(vec);
+                //rigid.AddForce(vec);
 
                 //rigid.velocity = new Vector3(speed, 0.0f, 0.0f);
             }
