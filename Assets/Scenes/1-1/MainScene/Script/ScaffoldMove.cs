@@ -4,17 +4,17 @@ using UnityEngine;
 
 public class ScaffoldMove : MonoBehaviour
 {
-    float top;
-    float bottom;
-    float speed = 0.05f;
-    float exchange = 0.05f;
+    float _top;
+    float _bottom;
+    float _speed = 0.05f;
+    float _exchange = 0.05f;
     
 
     // Start is called before the first frame update
     void Start()
     {
-        top = gameObject.transform.position.y + 3.0f;
-        bottom = gameObject.transform.position.y - 3.0f;
+        _top = gameObject.transform.position.y + 3.0f;
+        _bottom = gameObject.transform.position.y - 3.0f;
 
     }
 
@@ -26,17 +26,17 @@ public class ScaffoldMove : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if(gameObject.transform.position.y > top)
+        if(gameObject.transform.position.y > _top)
         {
-            exchange = -speed;
+            _exchange = -_speed;
         }
 
-        if(gameObject.transform.position.y < bottom)
+        if(gameObject.transform.position.y < _bottom)
         {
-            exchange = speed;
+            _exchange = _speed;
         }
 
-        gameObject.transform.Translate(0, exchange, 0);
+        gameObject.transform.Translate(0, _exchange, 0);
     }
 
     

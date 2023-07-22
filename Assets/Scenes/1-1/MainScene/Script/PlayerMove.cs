@@ -4,14 +4,14 @@ using UnityEngine;
 
 public class PlayerMove : MonoBehaviour
 {
-    bool jumpNow;// ジャンプしているかどうか
-    private Rigidbody rigid;// プレイヤーのリジットボディ
-    float jumpPower = 25.0f;// ジャンプ力
+    bool _isJumpNow;// ジャンプしているかどうか
+    private Rigidbody _rigid;// プレイヤーのリジットボディ
+    float _jumpPower = 25.0f;// ジャンプ力
 
     // Start is called before the first frame update
     void Start()
     {
-        rigid = GetComponent<Rigidbody>();
+        _rigid = GetComponent<Rigidbody>();
     }
     
     // Update is called once per frame
@@ -34,9 +34,9 @@ public class PlayerMove : MonoBehaviour
             //rigid.transform.position += new Vector3(0.1f, 0.0f, 0.0f);
 
             // 速度が10以下ならば力を加える
-            if(rigid.velocity.x < 10.0f && rigid.velocity.x > -10.0f)
+            if(_rigid.velocity.x < 10.0f && _rigid.velocity.x > -10.0f)
             {
-                rigid.AddForce(vec);
+                _rigid.AddForce(vec);
 
                 //rigid.velocity = new Vector3(speed, 0.0f, 0.0f);
             }
@@ -121,30 +121,30 @@ public class PlayerMove : MonoBehaviour
     private void OnCollisionEnter(Collision collision)
     {
         // 地面から離れたら
-        if (jumpNow)
+        if (_isJumpNow)
         {
-            jumpNow = false;
+            _isJumpNow = false;
         }
     }
 
     private void OnCollisionExit(Collision collision)
     {
         // 地面についたら
-        if (!jumpNow)
+        if (!_isJumpNow)
         {
-            jumpNow = true;
+            _isJumpNow = true;
         }
     }
 
     // ジャンプ処理
     void Jump()
     {
-        if(jumpNow)
+        if(_isJumpNow)
         {
             return;
         }
-        rigid.AddForce(transform.up* jumpPower, ForceMode.Impulse);
-        jumpNow = true;
+        _rigid.AddForce(transform.up* _jumpPower, ForceMode.Impulse);
+        _isJumpNow = true;
     }
 
 }

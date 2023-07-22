@@ -4,16 +4,16 @@ using UnityEngine;
 
 public class PlayerMove3D : MonoBehaviour
 {
-    bool jumpNow;// ジャンプしているかどうか
-    private Rigidbody rigid;// プレイヤーのリジットボディ
-    float jumpPower = 25.0f;// ジャンプ力
-    private Vector3 latestPos;// 前回のPosition
-    float topSpeed = 5.0f;
+    bool _isJumpNow;// ジャンプしているかどうか
+    private Rigidbody _Rigid;// プレイヤーのリジットボディ
+    float _jumpPower = 25.0f;// ジャンプ力
+    private Vector3 _latestPos;// 前回のPosition
+    float _topSpeed = 5.0f;
 
     // Start is called before the first frame update
     void Start()
     {
-        rigid = GetComponent<Rigidbody>();
+        _Rigid = GetComponent<Rigidbody>();
     }
 
     // Update is called once per frame
@@ -34,22 +34,22 @@ public class PlayerMove3D : MonoBehaviour
             //rigid.transform.position += new Vector3(speed, 0.0f, 0.0f);
             //rigid.transform.position += new Vector3(0.1f, 0.0f, 0.0f);
 
-            Vector3 diff = new Vector3(transform.position.x - latestPos.x, 0.0f, transform.position.z - latestPos.z);// 前回からどこに進んだかをベクトルで取得
-            latestPos = transform.position;
+            Vector3 diff = new Vector3(transform.position.x - _latestPos.x, 0.0f, transform.position.z - _latestPos.z);// 前回からどこに進んだかをベクトルで取得
+            _latestPos = transform.position;
 
             // スティックの方向け度合いで速度調整
-            rigid.transform.position += new Vector3(speedX, 0.0f, speedZ);
+            _Rigid.transform.position += new Vector3(speedX, 0.0f, speedZ);
 
             if(diff.magnitude > 0.01f)
             {
-                rigid.transform.rotation = Quaternion.LookRotation(diff);// 向きの変更
+                _Rigid.transform.rotation = Quaternion.LookRotation(diff);// 向きの変更
             }
 
 
 
             // 速度が10以下ならば力を加える
-            if (rigid.velocity.x < topSpeed && rigid.velocity.x > -topSpeed &&
-                rigid.velocity.z < topSpeed && rigid.velocity.z > -topSpeed)
+            if (_Rigid.velocity.x < _topSpeed && _Rigid.velocity.x > -_topSpeed &&
+                _Rigid.velocity.z < _topSpeed && _Rigid.velocity.z > -_topSpeed)
             {
                 //rigid.AddForce(vec);
 
@@ -78,29 +78,29 @@ public class PlayerMove3D : MonoBehaviour
     private void OnCollisionEnter(Collision collision)
     {
         // 地面から離れたら
-        if (jumpNow)
+        if (_isJumpNow)
         {
-            jumpNow = false;
+            _isJumpNow = false;
         }
     }
 
     private void OnCollisionExit(Collision collision)
     {
         // 地面についたら
-        if (!jumpNow)
+        if (!_isJumpNow)
         {
-            jumpNow = true;
+            _isJumpNow = true;
         }
     }
 
     // ジャンプ処理
     void Jump()
     {
-        if (jumpNow)
+        if (_isJumpNow)
         {
             return;
         }
-        rigid.AddForce(transform.up * jumpPower, ForceMode.Impulse);
-        jumpNow = true;
+        _Rigid.AddForce(transform.up * _jumpPower, ForceMode.Impulse);
+        _isJumpNow = true;
     }
 }
