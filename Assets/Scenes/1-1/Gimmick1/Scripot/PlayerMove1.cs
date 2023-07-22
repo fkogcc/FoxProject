@@ -17,7 +17,7 @@ public class PlayerMove1 : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        const float speed = 0.01f;
+        const float speed = 0.10f;
         if(Input.GetKey(KeyCode.RightArrow))
         {
             transform.position += new Vector3(speed, 0.0f, 0.0f);
