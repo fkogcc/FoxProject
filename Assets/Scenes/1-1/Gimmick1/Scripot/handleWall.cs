@@ -24,10 +24,7 @@ public class handleWall : MonoBehaviour
             if (Input.GetKey("s"))
             {
                 Debug.Log("S‰Ÿ‚µ‚Ü‚µ‚½");
-                 _coll.GetHandleFlag(true);
-                 _coll._isItemGet = false;
-                 _coll._isHit = false;
-                _coll._isHandleWallSet = true;
+
             }
         }
 

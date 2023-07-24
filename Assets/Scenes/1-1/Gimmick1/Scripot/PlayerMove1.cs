@@ -6,7 +6,6 @@ public class PlayerMove1 : MonoBehaviour
 {
     bool jumpNow;
     public Rigidbody rigid;
-    float jumpPower = 10.0f;
 
     // Start is called before the first frame update
     void Start()
@@ -17,7 +16,7 @@ public class PlayerMove1 : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        const float speed = 0.10f;
+        const float speed = 0.02f;
         if(Input.GetKey(KeyCode.RightArrow))
         {
             transform.position += new Vector3(speed, 0.0f, 0.0f);
@@ -42,9 +41,5 @@ public class PlayerMove1 : MonoBehaviour
         {
             return;
         }
-
-        //rigid.AddForce(transform.up * jumpPower, )
-
-        
     }
 }
