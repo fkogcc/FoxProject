@@ -4,82 +4,57 @@ using UnityEngine;
 
 public class Coll : MonoBehaviour
 {
-   public bool _isHit;
-    public bool _isItemGet;
-    public bool _isHandleWallSet;
-    GameObject _playerObj;
-    GameObject _handleWallObj;
-    public static handleWall _wall;
+    // ハンドルタグのオブジェクトに当たっているかどうか
+    private bool _isHandleHit;
+    private bool _isHandleWallHit;
+    
     private void Start()
     {
-        _isHit = false;
-        _isItemGet = false;
-        _isHandleWallSet = false;
-
-        // プレイヤ―
-        _playerObj = GameObject.Find("fox");
-        _handleWallObj = GameObject.Find("handleWall1");
+        _isHandleHit = false;
+        _isHandleWallHit = false;
     }
 
     private void Update()
     {
-        if(!_isHandleWallSet)
-        {
-            if(_isHit)
-            {
-                if(Input.GetKey("a"))
-                {
-                    Debug.Log("押してます");
-                    _isItemGet = true;  
-                }
-            }
-        }
-        // ハンドルの位置とプレイヤーの位置を同じにする
-        if(_isItemGet)
-        {
-            this.transform.position = _playerObj.transform.position;
-        }
-        else
-        {
-            Debug.Log("離します");
-        }
-        if(!_wall._isHandleSet)
-        {
-            Debug.Log("セットします");
-            this.transform.position = _handleWallObj.transform.position;
-        }
+    
     }
 
-    void OnTriggerStay(Collider collision)
+    void OnTriggerEnter(Collider collision)
     {
-        // ぶつかった相手の名前を取得
-        Debug.Log(collision.gameObject.name); 
-
         // プレイヤーに当たる
-        if (collision.tag == "Player")
-        {
-            _isHit = true;
+        if (collision.tag == "handle")
+        {           
+            _isHandleHit = true;
         }
-        else
+        // プレイヤーに当たる
+        if (collision.tag == "handleWall")
         {
-            _isHit = false;
+            _isHandleWallHit = true;
         }
-    }
-    public void GetHandleFlag(bool isItemPosSet)
-    {
-        _isHandleWallSet = isItemPosSet;
     }
 
-    //private void Awake()
-    //{
-    //    if(_coll == null)
-    //    {
-    //        _coll = this;
-    //        DontDestroyOnLoad(this.gameObject);
-    //    }
-    //    else
-    //    {
-    //        Destroy(this.gameObject);
-    //    }
-    //}
+    void OnTriggerExit(Collider collision)
+    {
+        // プレイヤーに当たっていない場合
+        if (collision.tag == "handle")
+        {
+            _isHandleHit = false;
+        }
+        // プレイヤーに当たっていない場合
+        if (collision.tag == "handleWall")
+        {
+            _isHandleWallHit = false;
+        }
+    }
+
+    // ハンドルに当たっているかどうか
+    public bool HitHandle()
+    {
+        return _isHandleHit;
+    }
+    // ハンドル差し込む壁に当たっているかどうか
+    public bool HitHandleWall()
+    {
+        return _isHandleWallHit;
+    }
 }
