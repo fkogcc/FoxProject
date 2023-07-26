@@ -1,12 +1,12 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerMove : MonoBehaviour
 {
-    bool _isJumpNow;// ƒWƒƒƒ“ƒv‚µ‚Ä‚¢‚é‚©‚Ç‚¤‚©
-    private Rigidbody _rigid;// ƒvƒŒƒCƒ„[‚ÌƒŠƒWƒbƒgƒ{ƒfƒB
-    float _jumpPower = 25.0f;// ƒWƒƒƒ“ƒv—Í
+    bool _isJumpNow;// ã‚¸ãƒ£ãƒ³ãƒ—ã—ã¦ã„ã‚‹ã‹ã©ã†ã‹
+    private Rigidbody _rigid;// ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®ãƒªã‚¸ãƒƒãƒˆãƒœãƒ‡ã‚£
+    float _jumpPower = 25.0f;// ã‚¸ãƒ£ãƒ³ãƒ—åŠ›
 
     // Start is called before the first frame update
     void Start()
@@ -19,7 +19,7 @@ public class PlayerMove : MonoBehaviour
     {
         float hori = Input.GetAxis("Horizontal");
         float vert = Input.GetAxis("Vertical");
-        float speed = hori * 25.0f;// ‘¬‚³
+        float speed = hori * 25.0f;// é€Ÿã•
         Vector3 vec = new Vector3(speed, 0, 0);
         if ((hori != 0) || (vert != 0))
         {
@@ -29,11 +29,11 @@ public class PlayerMove : MonoBehaviour
         if (hori != 0)
         {
             //transform.position += new Vector3(hori / 10.0f, 0.0f, 0.0f);
-            // ƒXƒeƒBƒbƒN‚Ì•ûŒü‚¯“x‡‚¢‚Å‘¬“x’²®
+            // ã‚¹ãƒ†ã‚£ãƒƒã‚¯ã®æ–¹å‘ã‘åº¦åˆã„ã§é€Ÿåº¦èª¿æ•´
             //rigid.transform.position += new Vector3(speed, 0.0f, 0.0f);
             //rigid.transform.position += new Vector3(0.1f, 0.0f, 0.0f);
 
-            // ‘¬“x‚ª10ˆÈ‰º‚È‚ç‚Î—Í‚ğ‰Á‚¦‚é
+            // é€Ÿåº¦ãŒ10ä»¥ä¸‹ãªã‚‰ã°åŠ›ã‚’åŠ ãˆã‚‹
             if(_rigid.velocity.x < 10.0f && _rigid.velocity.x > -10.0f)
             {
                 _rigid.AddForce(vec);
@@ -111,7 +111,7 @@ public class PlayerMove : MonoBehaviour
 
     private void FixedUpdate()
     {
-        // —‚¿‚½‚ç‰ŠúˆÊ’u‚É–ß‚·
+        // è½ã¡ãŸã‚‰åˆæœŸä½ç½®ã«æˆ»ã™
         if(transform.position.y < -10)
         {
             transform.position = new Vector3(-6.0f,1.0f,0.0f);
@@ -120,7 +120,7 @@ public class PlayerMove : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        // ’n–Ê‚©‚ç—£‚ê‚½‚ç
+        // åœ°é¢ã‹ã‚‰é›¢ã‚ŒãŸã‚‰
         if (_isJumpNow)
         {
             _isJumpNow = false;
@@ -129,14 +129,14 @@ public class PlayerMove : MonoBehaviour
 
     private void OnCollisionExit(Collision collision)
     {
-        // ’n–Ê‚É‚Â‚¢‚½‚ç
+        // åœ°é¢ã«ã¤ã„ãŸã‚‰
         if (!_isJumpNow)
         {
             _isJumpNow = true;
         }
     }
 
-    // ƒWƒƒƒ“ƒvˆ—
+    // ã‚¸ãƒ£ãƒ³ãƒ—å‡¦ç†
     void Jump()
     {
         if(_isJumpNow)
