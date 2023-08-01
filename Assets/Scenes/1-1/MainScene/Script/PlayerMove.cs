@@ -129,7 +129,11 @@ public class PlayerMove : MonoBehaviour
                 _isJumpNow = false;
             }
         }
-        
+        // 敵に当たったら体力を1減らす
+        if (collision.gameObject.name == "Enemy")
+        {
+            _hp -= 1;
+        }
     }
 
     private void OnCollisionExit(Collision collision)
@@ -141,15 +145,6 @@ public class PlayerMove : MonoBehaviour
             {
                 _isJumpNow = true;
             }
-        }
-    }
-
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        // 敵に当たったら
-        if(collision.gameObject.name == "Cylinder")
-        {
-            _hp -= 1;
         }
     }
 
