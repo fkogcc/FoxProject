@@ -44,6 +44,7 @@ public class GearRotation : MonoBehaviour
         if (!_playerRptation)
         {
             _gearDegree = this.transform.localEulerAngles.y % 360;
+            //Debug.Log(_gearDegree);
             if (_gearDegree >= 355.0f)
             {
                 Debug.Log("‚±‚¦‚½");
