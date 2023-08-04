@@ -9,7 +9,7 @@ public class Player3DMove : MonoBehaviour
     GameObject _camera;
 
     private Rigidbody _Rigid;// プレイヤーのリジットボディ
-    float _speed = 1.0f;// 移動スピード
+    public static float _speed = 5.0f;// 移動スピード
     float _jumpPower = 8.0f;// ジャンプ力
     float gravity = 10.0f;// 重力
 
@@ -44,7 +44,7 @@ public class Player3DMove : MonoBehaviour
         Vector3 moveZ = cameraForward * Input.GetAxis("Vertical") * _speed;// 前後
         Vector3 moveX = _camera.transform.right * Input.GetAxis("Horizontal") * _speed;// 左右
 
-        Debug.Log(_playerController.isGrounded);
+        //Debug.Log(_playerController.isGrounded);
         if (_playerController.isGrounded)
         {
             // Aボタン押したらジャンプ
@@ -70,6 +70,15 @@ public class Player3DMove : MonoBehaviour
 
         // Moveは指定したベクトルだけ移動させる命令
         _playerController.Move(_moveDirection * Time.deltaTime);
+    }
+
+    private void FixedUpdate()
+    {
+        if(this.transform.position.y <= -5.0f)
+        {
+            this.transform.position = new Vector3(0.0f, 1.0f, 0.0f);
+        }
+        
     }
 
     // ジャンプ処理
