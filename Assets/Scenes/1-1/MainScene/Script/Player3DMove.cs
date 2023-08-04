@@ -78,7 +78,6 @@ public class Player3DMove : MonoBehaviour
         {
             this.transform.position = new Vector3(0.0f, 1.0f, 0.0f);
         }
-        
     }
 
     // ƒWƒƒƒ“ƒvˆ—
