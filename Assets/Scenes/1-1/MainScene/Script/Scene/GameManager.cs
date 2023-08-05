@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -14,5 +15,18 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        Debug.Log("“–‚½‚Á‚Ä‚¢‚é");
+        if (other.tag == "Gimmick1")
+        {
+            if (Input.GetKeyDown("joystick button 3"))
+            {
+                Debug.Log("‰Ÿ‚µ‚½");
+                SceneManager.LoadScene("Gimmick1Scene");
+            }
+        }
     }
 }

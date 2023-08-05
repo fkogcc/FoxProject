@@ -116,7 +116,7 @@ public class PlayerMove : MonoBehaviour
 
             this.gameObject.SetActive(false);
         }
-        Debug.Log(_hp);
+        //Debug.Log(_hp);
     }
 
     private void OnCollisionEnter(Collision collision)
