@@ -416,7 +416,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 05ff5de2f6c598143a48059147563877, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 0.056
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 05ff5de2f6c598143a48059147563877, type: 3}
       propertyPath: m_LocalPosition.z
@@ -453,6 +453,14 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 05ff5de2f6c598143a48059147563877, type: 3}
       propertyPath: m_Name
       value: X Bot
+      objectReference: {fileID: 0}
+    - target: {fileID: 5866666021909216657, guid: 05ff5de2f6c598143a48059147563877, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 374bc989f2667224f90761ed794c7d64, type: 2}
+    - target: {fileID: 5866666021909216657, guid: 05ff5de2f6c598143a48059147563877, type: 3}
+      propertyPath: m_ApplyRootMotion
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 05ff5de2f6c598143a48059147563877, type: 3}
@@ -491,6 +499,18 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
+--- !u!114 &1075615246
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1075615241}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 678498c2784d0d84db96f6f5ffd14e7c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1312567756
 GameObject:
   m_ObjectHideFlags: 0
