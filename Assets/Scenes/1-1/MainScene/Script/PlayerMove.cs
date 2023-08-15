@@ -8,8 +8,10 @@ public class PlayerMove : MonoBehaviour
     private Rigidbody _rigid;// プレイヤーのリジットボディ
     private BoxCollider _pMaterial;
     int _hp;
+    private int _RotateTime;
     float _jumpPower = 25.0f;// ジャンプ力
-    bool _isJumpNow;// ジャンプしているかどうか
+    private bool _isJumpNow;// ジャンプしているかどうか
+    private bool _isDirection;// どの向きを向いているか
 
 
     // Start is called before the first frame update
@@ -19,6 +21,9 @@ public class PlayerMove : MonoBehaviour
         _rigid = GetComponent<Rigidbody>();
         _pMaterial = GetComponent<BoxCollider>();
         _hp = 5;
+        _RotateTime = 120;
+
+        _isDirection = false;
     }
     
     // Update is called once per frame
@@ -29,13 +34,28 @@ public class PlayerMove : MonoBehaviour
         float speed = hori * 25.0f;// 速さ
         Vector3 vec = new Vector3(speed, 0, 0);
         // 移動しているかどうかでプレイヤーの摩擦力を変更
-        if ((hori != 0))
+        if (hori != 0)
         {
             _pMaterial.material.dynamicFriction = 0.0f;
         }
         else if(hori == 0)
         {
             _pMaterial.material.dynamicFriction = 1.0f;
+        }
+
+        if(hori < 0)
+        {
+            if (hori == 0) return;
+            if (_isJumpNow) return;
+            _isDirection = true;
+            _RotateTime = 0;
+        }
+        else
+        {
+            if (hori == 0) return;
+            if (_isJumpNow) return;
+            _isDirection = false;
+            _RotateTime = 0;
         }
 
         //Debug.Log(_pMaterial.material.dynamicFriction);
@@ -117,6 +137,23 @@ public class PlayerMove : MonoBehaviour
             this.gameObject.SetActive(false);
         }
         //Debug.Log(_hp);
+
+        // 右を向く
+        if(!_isDirection)
+        {
+            if(transform.localEulerAngles.y > 120.0f)
+            {
+                transform.Rotate(0f, -10f, 0f);
+            }
+        }
+        // 左を向く
+        if(_isDirection)
+        {
+            if (transform.localEulerAngles.y < 240.0f)
+            {
+                transform.Rotate(0f, 10f, 0f);
+            }
+        }
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -151,10 +188,8 @@ public class PlayerMove : MonoBehaviour
     // ジャンプ処理
     void Jump()
     {
-        if(_isJumpNow)
-        {
-            return;
-        }
+        if(_isJumpNow) return;
+        
         _rigid.AddForce(transform.up* _jumpPower, ForceMode.Impulse);
         _isJumpNow = true;
     }
