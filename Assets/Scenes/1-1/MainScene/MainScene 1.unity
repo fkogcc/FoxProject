@@ -532,7 +532,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 576973473}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -24.26, y: -20.023666, z: 28.43}
+  m_LocalPosition: {x: -24.26, y: -20.023666, z: 38.36}
   m_LocalScale: {x: 6, y: 5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1935,6 +1935,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf32d3657b651884993c9c1958389f58, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!95 &1182917533
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1182917525}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: b48701a6886771e42b6f4ce466726b88, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!4 &1209484688 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1518459642268993528, guid: f3701f9dab7c17c4c89d487a59c82fa0, type: 3}
