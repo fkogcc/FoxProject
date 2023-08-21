@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class PlayerMove : MonoBehaviour
 {
-    private GameObject _player;
     private Rigidbody _rigid;// プレイヤーのリジットボディ
     private BoxCollider _pMaterial;
+    private Animator _animator;// プレイヤーのアニメーション
     int _hp;
     private int _RotateTime;
     float _jumpPower = 25.0f;// ジャンプ力
@@ -17,9 +17,9 @@ public class PlayerMove : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        _player = GameObject.Find("Fox0726lam");
         _rigid = GetComponent<Rigidbody>();
         _pMaterial = GetComponent<BoxCollider>();
+        _animator = GetComponent<Animator>();
         _hp = 5;
         _RotateTime = 120;
 
@@ -33,13 +33,26 @@ public class PlayerMove : MonoBehaviour
         float vert = Input.GetAxis("Vertical");
         float speed = hori * 25.0f;// 速さ
         Vector3 vec = new Vector3(speed, 0, 0);
+
+        Debug.Log(_isJumpNow);
+
+        //_animator.SetBool("Jump", _isJumpNow);
+
         // 移動しているかどうかでプレイヤーの摩擦力を変更
         if (hori != 0)
         {
             _pMaterial.material.dynamicFriction = 0.0f;
+
+            _animator.SetBool("Run", true);// Run状態に移行
+            // 速度が10以下ならば力を加える
+            if (_rigid.velocity.x < 10.0f && _rigid.velocity.x > -10.0f)
+            {
+                _rigid.AddForce(vec);
+            }
         }
         else if(hori == 0)
         {
+            _animator.SetBool("Run",false);// Idle状態に移行
             _pMaterial.material.dynamicFriction = 1.0f;
         }
 
@@ -56,18 +69,6 @@ public class PlayerMove : MonoBehaviour
             if (_isJumpNow) return;
             _isDirection = false;
             _RotateTime = 0;
-        }
-
-        //Debug.Log(_pMaterial.material.dynamicFriction);
-
-        if (hori != 0)
-        {
-            // 速度が10以下ならば力を加える
-            if(_rigid.velocity.x < 10.0f && _rigid.velocity.x > -10.0f)
-            {
-                _rigid.AddForce(vec);
-            }
-            
         }
 
         //Debug.Log(speed);
@@ -132,8 +133,6 @@ public class PlayerMove : MonoBehaviour
 
         if(_hp <= 0)
         {
-            //_player.active = false;
-
             this.gameObject.SetActive(false);
         }
         //Debug.Log(_hp);
@@ -159,7 +158,7 @@ public class PlayerMove : MonoBehaviour
     private void OnCollisionEnter(Collision collision)
     {
         // 地面から離れたら
-        if (collision.gameObject.tag == "Untagged")
+        if (collision.gameObject.tag == "Stage")
         {
             if (_isJumpNow)
             {
@@ -176,7 +175,7 @@ public class PlayerMove : MonoBehaviour
     private void OnCollisionExit(Collision collision)
     {
         // 地面についたら
-        if(collision.gameObject.tag == "Untagged")
+        if(collision.gameObject.tag == "Stage")
         {
             if (!_isJumpNow)
             {

@@ -5,12 +5,13 @@ using UnityEngine.SceneManagement;
 
 public class testCol : MonoBehaviour
 {
-
+    // シーン遷移の真偽
     bool _isGateGimmick1;
     bool _isGateGimmick2;
     // Start is called before the first frame update
     void Start()
     {
+        // 初期化
         _isGateGimmick1 = false;
         _isGateGimmick2 = false;
     }
@@ -18,7 +19,7 @@ public class testCol : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log(_isGateGimmick1);
+        // Yボタンを押したらシーン遷移
         if (Input.GetKeyDown("joystick button 3"))
         {
             if (_isGateGimmick1)
@@ -36,6 +37,7 @@ public class testCol : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        // 扉の当たり判定に入ったらture
         if(other.tag == "Gimmick1")
         {
             _isGateGimmick1 = true;
@@ -48,6 +50,7 @@ public class testCol : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
+        // 扉の当たり判定を出たらfalse
         if(other.tag =="Gimmick1")
         {
             _isGateGimmick1 = false;
