@@ -77,50 +77,6 @@ public class PlayerMove : MonoBehaviour
         {
             Jump();
         }
-            
-
-        //if (Input.GetKeyDown("joystick button 0"))
-        //{
-        //    Debug.Log("A");
-        //}
-        //if (Input.GetKeyDown("joystick button 1"))
-        //{
-        //    Debug.Log("B");
-        //}
-        //if (Input.GetKeyDown("joystick button 2"))
-        //{
-        //    Debug.Log("X");
-        //}
-        //if (Input.GetKeyDown("joystick button 3"))
-        //{
-        //    Debug.Log("Y");
-        //}
-        //if (Input.GetKeyDown("joystick button 4"))
-        //{
-        //    Debug.Log("LB");
-        //}
-        //if (Input.GetKeyDown("joystick button 5"))
-        //{
-        //    Debug.Log("RB");
-        //}
-        //if (Input.GetKeyDown("joystick button 6"))
-        //{
-        //    Debug.Log("View");
-        //}
-        //if (Input.GetKeyDown("joystick button 7"))
-        //{
-        //    Debug.Log("Menu");
-        //}
-        //if (Input.GetKeyDown("joystick button 8"))
-        //{
-        //    Debug.Log("LS");
-        //}
-        //if (Input.GetKeyDown("joystick button 9"))
-        //{
-        //    Debug.Log("RS");
-        //}
-
-        
     }
 
     private void FixedUpdate()
