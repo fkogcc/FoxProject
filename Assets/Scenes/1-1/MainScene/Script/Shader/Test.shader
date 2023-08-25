@@ -50,8 +50,8 @@ Shader "Custom/Test"
         // ”g
         float2 p = uv * 2. - 1.;
         float3 col = 0;
-        //col += flower(p, 6.0, rad1, _Time.y * 10.5, 0.1) * float3(0.1, 0.01, 1.0);
-        //col += flower(p, 6.0, rad2, _Time.y * -8.5, 0.05) * float3(0.1, 0.01, 1.0);
+        col += flower(p, 6.0, rad1, _Time.y * 10.5, 0.1) * float3(0.1, 0.01, 1.0);
+        col += flower(p, 6.0, rad2, _Time.y * -8.5, 0.05) * float3(0.1, 0.01, 1.0);
         col += flower(p, 6.0, rad3, _Time.y * 5.5, 0.01) * float3(0.1, 0.01, 1.0);
         return float4(col, 1);
 
