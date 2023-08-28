@@ -34,23 +34,38 @@ public class PlayerMove : MonoBehaviour
         float speed = hori * 25.0f;// 速さ
         Vector3 vec = new Vector3(speed, 0, 0);
 
-        Debug.Log(_isJumpNow);
+        //Debug.Log(_isJumpNow);
 
-        //_animator.SetBool("Jump", _isJumpNow);
+        Debug.Log("通った");
+        if (Input.GetKey("joystick button 0"))
+        {
+            Debug.Log("通った");
+            Jump();
+        }
+
+        _animator.SetBool("Jump", _isJumpNow);
 
         // 移動しているかどうかでプレイヤーの摩擦力を変更
         if (hori != 0)
         {
             _pMaterial.material.dynamicFriction = 0.0f;
 
-            _animator.SetBool("Run", true);// Run状態に移行
+            if(!_isJumpNow)
+            {
+                _animator.SetBool("Run", true);// Run状態に移行
+            }
+            else
+            {
+                _animator.SetBool("Run", false);// Run状態に移行
+            }
+            
             // 速度が10以下ならば力を加える
             if (_rigid.velocity.x < 10.0f && _rigid.velocity.x > -10.0f)
             {
                 _rigid.AddForce(vec);
             }
         }
-        else if(hori == 0)
+        else if(hori == 0 || _isJumpNow)
         {
             _animator.SetBool("Run",false);// Idle状態に移行
             _pMaterial.material.dynamicFriction = 1.0f;
@@ -72,11 +87,8 @@ public class PlayerMove : MonoBehaviour
         }
 
         //Debug.Log(speed);
+
         
-        if (Input.GetKeyDown("joystick button 0"))
-        {
-            Jump();
-        }
     }
 
     private void FixedUpdate()
@@ -144,7 +156,9 @@ public class PlayerMove : MonoBehaviour
     void Jump()
     {
         if(_isJumpNow) return;
-        
+
+        //Debug.Log("通った");
+
         _rigid.AddForce(transform.up* _jumpPower, ForceMode.Impulse);
         _isJumpNow = true;
     }
