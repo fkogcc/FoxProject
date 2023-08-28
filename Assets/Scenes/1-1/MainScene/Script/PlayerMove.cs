@@ -8,11 +8,11 @@ public class PlayerMove : MonoBehaviour
     private BoxCollider _pMaterial;
     private Animator _animator;// プレイヤーのアニメーション
     int _hp;
-    private int _RotateTime;
+    private int _RotateTime;// 回転する時間
+    private int _motionNum;// モーション番号
     float _jumpPower = 25.0f;// ジャンプ力
     private bool _isJumpNow;// ジャンプしているかどうか
     private bool _isDirection;// どの向きを向いているか
-
 
     // Start is called before the first frame update
     void Start()
@@ -22,6 +22,7 @@ public class PlayerMove : MonoBehaviour
         _animator = GetComponent<Animator>();
         _hp = 5;
         _RotateTime = 120;
+        _motionNum = 0;
 
         _isDirection = false;
     }
@@ -34,16 +35,17 @@ public class PlayerMove : MonoBehaviour
         float speed = hori * 25.0f;// 速さ
         Vector3 vec = new Vector3(speed, 0, 0);
 
+        _animator.SetInteger("MotionNum", _motionNum);
+
         //Debug.Log(_isJumpNow);
 
-        Debug.Log("通った");
+        Debug.Log(_motionNum);
         if (Input.GetKey("joystick button 0"))
         {
-            Debug.Log("通った");
+            _motionNum = 2;
             Jump();
-        }
 
-        _animator.SetBool("Jump", _isJumpNow);
+        }
 
         // 移動しているかどうかでプレイヤーの摩擦力を変更
         if (hori != 0)
@@ -53,10 +55,7 @@ public class PlayerMove : MonoBehaviour
             if(!_isJumpNow)
             {
                 _animator.SetBool("Run", true);// Run状態に移行
-            }
-            else
-            {
-                _animator.SetBool("Run", false);// Run状態に移行
+                _motionNum = 1;
             }
             
             // 速度が10以下ならば力を加える
@@ -65,10 +64,11 @@ public class PlayerMove : MonoBehaviour
                 _rigid.AddForce(vec);
             }
         }
-        else if(hori == 0 || _isJumpNow)
+        else if(hori == 0&& !_isJumpNow)
         {
             _animator.SetBool("Run",false);// Idle状態に移行
             _pMaterial.material.dynamicFriction = 1.0f;
+            _motionNum = 0;
         }
 
         if(hori < 0)
@@ -156,8 +156,6 @@ public class PlayerMove : MonoBehaviour
     void Jump()
     {
         if(_isJumpNow) return;
-
-        //Debug.Log("通った");
 
         _rigid.AddForce(transform.up* _jumpPower, ForceMode.Impulse);
         _isJumpNow = true;
