@@ -6,9 +6,7 @@ using UnityEngine.UI;
 
 public class TestFade : MonoBehaviour
 {
-    
-    private Color _color;
-    private byte _a;// color‚ÌA
+    public Color _color;
 
     // Start is called before the first frame update
     void Start()
@@ -29,7 +27,7 @@ public class TestFade : MonoBehaviour
             _color.a -= 0.01f;
             gameObject.GetComponent<Image>().color = _color;
         }
-        
-        //
+
+
     }
 }

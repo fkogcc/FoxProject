@@ -39,7 +39,7 @@ public class PlayerMove : MonoBehaviour
 
         //Debug.Log(_isJumpNow);
 
-        Debug.Log(_motionNum);
+        //Debug.Log(_motionNum);
         if (Input.GetKey("joystick button 0"))
         {
             _motionNum = 2;

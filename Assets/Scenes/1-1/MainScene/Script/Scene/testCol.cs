@@ -5,13 +5,34 @@ using UnityEngine.SceneManagement;
 
 public class testCol : MonoBehaviour
 {
+    public static testCol _instance;// インスタンス
+    // シーン遷移を行ったかどうか
+    public bool _isScene;
     // シーン遷移の真偽
-    bool _isGateGimmick1;
-    bool _isGateGimmick2;
+    public bool _isGateGimmick1;
+    public bool _isGateGimmick2;
+
+    private void Awake()
+    {
+        // シングルトン
+        if(_instance == null)
+        {
+            // 自身をインスタンスとする
+            _instance = this;
+        }
+        else
+        {
+            // インスタンスが複数存在しないように、既に存在していたら自身を消去する
+            Destroy(gameObject);
+        }
+    }
+
+
     // Start is called before the first frame update
     void Start()
     {
         // 初期化
+        _isScene = false;
         _isGateGimmick1 = false;
         _isGateGimmick2 = false;
     }
@@ -22,13 +43,14 @@ public class testCol : MonoBehaviour
         // Yボタンを押したらシーン遷移
         if (Input.GetKeyDown("joystick button 3"))
         {
+            _isScene = true;
             if (_isGateGimmick1)
             {
-                SceneManager.LoadScene("Gimmick1Scene");
+                //SceneManager.LoadScene("Gimmick1Scene");
             }
             if (_isGateGimmick2)
             {
-                SceneManager.LoadScene("Gimmick2Scene");
+                //SceneManager.LoadScene("Gimmick2Scene");
             }
         }
         
