@@ -4,15 +4,18 @@ using UnityEngine;
 
 public class GearRotation : MonoBehaviour
 {
-    Rigidbody rb;
+    Rigidbody _rb;
+    CapsuleCollider _collider;
+
     // 回転度合.
     public Vector3 _rotaDegrees;
     // 回転.
     public Quaternion _rotation;
-    // TODO プレイヤーがボタンを押したかのフラグ
-    public bool _playerRptation;
-    // TODO プレイヤーがボタンを押したかのフラグ
+    // 一回転したかのフラグ
+    public bool _playerRotation;
+    // プレイヤーが範囲内にいるかどうかのフラグ
     public bool _colRange;
+    // 回転率
     float _gearDegree;
     // インスタンスの作成.
     void Start()
@@ -20,17 +23,17 @@ public class GearRotation : MonoBehaviour
         // 初期化.
         _rotaDegrees += new Vector3(0.0f, 1.0f, 0.0f);
         _rotation = Quaternion.AngleAxis(0.0f, _rotaDegrees);
-        _playerRptation = false;
+        _playerRotation = false;
         _colRange = false;
-        rb = GetComponent<Rigidbody>();
+        _rb = GetComponent<Rigidbody>();
         _gearDegree = 0.0f;
-
+        _collider = GetComponent<CapsuleCollider>();
     }
 
     // 60フレームに一回の更新処理.
     void FixedUpdate()
     {
-        if (_playerRptation)
+        if (_playerRotation)
         {
             // 回転度合をかけて足す.
             this.transform.rotation = _rotation * this.transform.rotation;
@@ -41,32 +44,34 @@ public class GearRotation : MonoBehaviour
     // 更新処理.
     void Update()
     {
-        if (!_playerRptation)
+        if (!_playerRotation)
         {
             _gearDegree = this.transform.localEulerAngles.y % 360;
+            //Debug.Log(_gearDegree);
             if (_gearDegree >= 355.0f)
             {
                 Debug.Log("こえた");
             }
 
+
             if (_colRange)
             {
                 Debug.Log("ボタンをおせる");
+                if (Input.GetKeyDown("joystick button 1"))
+                {
+                    Debug.Log("ボタンをおした");
+                    //this._collider.isTrigger = false;
+                }
 
                 if (_gearDegree >= 355.0f)
                 {
                     Debug.Log("一回転した");
-                    _playerRptation = true;
-                    rb.freezeRotation = true;
+                    _playerRotation = true;
+                    _rb.freezeRotation = true;
 
                     _rotation = Quaternion.AngleAxis(1.5f, _rotaDegrees);
                 }
             }
-            else
-            {
-                Debug.Log("ボタンをおせない");
-            }
-
             //Debug.Log(_pushButton);
 
         }
