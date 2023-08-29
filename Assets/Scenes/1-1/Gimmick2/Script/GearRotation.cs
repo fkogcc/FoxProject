@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class GearRotation : MonoBehaviour
 {
-    Rigidbody rb;
-    CapsuleCollider test;
+    Rigidbody _rb;
+    CapsuleCollider _collider;
 
     // 回転度合.
     public Vector3 _rotaDegrees;
@@ -25,9 +25,9 @@ public class GearRotation : MonoBehaviour
         _rotation = Quaternion.AngleAxis(0.0f, _rotaDegrees);
         _playerRotation = false;
         _colRange = false;
-        rb = GetComponent<Rigidbody>();
+        _rb = GetComponent<Rigidbody>();
         _gearDegree = 0.0f;
-        test = GetComponent<CapsuleCollider>();
+        _collider = GetComponent<CapsuleCollider>();
     }
 
     // 60フレームに一回の更新処理.
@@ -57,26 +57,21 @@ public class GearRotation : MonoBehaviour
             if (_colRange)
             {
                 Debug.Log("ボタンをおせる");
-                if (Input.GetKeyDown("joystick button 0"))
+                if (Input.GetKeyDown("joystick button 1"))
                 {
-                    //// ボタンが押されたら回転をする
-                    //test.isTrigger = false;
+                    Debug.Log("ボタンをおした");
+                    //this._collider.isTrigger = false;
                 }
 
-                    if (_gearDegree >= 355.0f)
+                if (_gearDegree >= 355.0f)
                 {
                     Debug.Log("一回転した");
                     _playerRotation = true;
-                    rb.freezeRotation = true;
+                    _rb.freezeRotation = true;
 
                     _rotation = Quaternion.AngleAxis(1.5f, _rotaDegrees);
                 }
             }
-            else
-            {
-                Debug.Log("ボタンをおせない");
-            }
-
             //Debug.Log(_pushButton);
 
         }
