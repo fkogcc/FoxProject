@@ -26,7 +26,11 @@ public class testMotion : MonoBehaviour
         }
         if(Input.GetKey(KeyCode.LeftAlt)) 
         { 
-            test = 3; 
+            test = 2; 
+        }
+        if(Input.GetKey(KeyCode.A))
+        {
+            test = 3;
         }
 
         animator.SetFloat("motionTest", test);

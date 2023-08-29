@@ -4,24 +4,25 @@ using UnityEngine;
 
 public class PlayerMove : MonoBehaviour
 {
-    private GameObject _player;
     private Rigidbody _rigid;// プレイヤーのリジットボディ
     private BoxCollider _pMaterial;
+    private Animator _animator;// プレイヤーのアニメーション
     int _hp;
-    private int _RotateTime;
+    private int _RotateTime;// 回転する時間
+    private int _motionNum;// モーション番号
     float _jumpPower = 25.0f;// ジャンプ力
     private bool _isJumpNow;// ジャンプしているかどうか
     private bool _isDirection;// どの向きを向いているか
 
-
     // Start is called before the first frame update
     void Start()
     {
-        _player = GameObject.Find("Fox0726lam");
         _rigid = GetComponent<Rigidbody>();
         _pMaterial = GetComponent<BoxCollider>();
+        _animator = GetComponent<Animator>();
         _hp = 5;
         _RotateTime = 120;
+        _motionNum = 0;
 
         _isDirection = false;
     }
@@ -33,14 +34,39 @@ public class PlayerMove : MonoBehaviour
         float vert = Input.GetAxis("Vertical");
         float speed = hori * 25.0f;// 速さ
         Vector3 vec = new Vector3(speed, 0, 0);
+
+        _animator.SetInteger("MotionNum", _motionNum);
+
+        //Debug.Log(_isJumpNow);
+
+        //Debug.Log(_motionNum);
+        if (Input.GetKey("joystick button 0"))
+        {
+            _motionNum = 2;
+            Jump();
+
+        }
+
         // 移動しているかどうかでプレイヤーの摩擦力を変更
         if (hori != 0)
         {
             _pMaterial.material.dynamicFriction = 0.0f;
+
+            if(!_isJumpNow)
+            {
+                _motionNum = 1;
+            }
+            
+            // 速度が10以下ならば力を加える
+            if (_rigid.velocity.x < 10.0f && _rigid.velocity.x > -10.0f)
+            {
+                _rigid.AddForce(vec);
+            }
         }
-        else if(hori == 0)
+        else if(hori == 0&& !_isJumpNow)
         {
             _pMaterial.material.dynamicFriction = 1.0f;
+            _motionNum = 0;
         }
 
         if(hori < 0)
@@ -58,66 +84,7 @@ public class PlayerMove : MonoBehaviour
             _RotateTime = 0;
         }
 
-        //Debug.Log(_pMaterial.material.dynamicFriction);
-
-        if (hori != 0)
-        {
-            // 速度が10以下ならば力を加える
-            if(_rigid.velocity.x < 10.0f && _rigid.velocity.x > -10.0f)
-            {
-                _rigid.AddForce(vec);
-            }
-            
-        }
-
         //Debug.Log(speed);
-        
-        if (Input.GetKeyDown("joystick button 0"))
-        {
-            Jump();
-        }
-            
-
-        //if (Input.GetKeyDown("joystick button 0"))
-        //{
-        //    Debug.Log("A");
-        //}
-        //if (Input.GetKeyDown("joystick button 1"))
-        //{
-        //    Debug.Log("B");
-        //}
-        //if (Input.GetKeyDown("joystick button 2"))
-        //{
-        //    Debug.Log("X");
-        //}
-        //if (Input.GetKeyDown("joystick button 3"))
-        //{
-        //    Debug.Log("Y");
-        //}
-        //if (Input.GetKeyDown("joystick button 4"))
-        //{
-        //    Debug.Log("LB");
-        //}
-        //if (Input.GetKeyDown("joystick button 5"))
-        //{
-        //    Debug.Log("RB");
-        //}
-        //if (Input.GetKeyDown("joystick button 6"))
-        //{
-        //    Debug.Log("View");
-        //}
-        //if (Input.GetKeyDown("joystick button 7"))
-        //{
-        //    Debug.Log("Menu");
-        //}
-        //if (Input.GetKeyDown("joystick button 8"))
-        //{
-        //    Debug.Log("LS");
-        //}
-        //if (Input.GetKeyDown("joystick button 9"))
-        //{
-        //    Debug.Log("RS");
-        //}
 
         
     }
@@ -132,8 +99,6 @@ public class PlayerMove : MonoBehaviour
 
         if(_hp <= 0)
         {
-            //_player.active = false;
-
             this.gameObject.SetActive(false);
         }
         //Debug.Log(_hp);
@@ -159,7 +124,7 @@ public class PlayerMove : MonoBehaviour
     private void OnCollisionEnter(Collision collision)
     {
         // 地面から離れたら
-        if (collision.gameObject.tag == "Untagged")
+        if (collision.gameObject.tag == "Stage")
         {
             if (_isJumpNow)
             {
@@ -176,7 +141,7 @@ public class PlayerMove : MonoBehaviour
     private void OnCollisionExit(Collision collision)
     {
         // 地面についたら
-        if(collision.gameObject.tag == "Untagged")
+        if(collision.gameObject.tag == "Stage")
         {
             if (!_isJumpNow)
             {
@@ -189,7 +154,7 @@ public class PlayerMove : MonoBehaviour
     void Jump()
     {
         if(_isJumpNow) return;
-        
+
         _rigid.AddForce(transform.up* _jumpPower, ForceMode.Impulse);
         _isJumpNow = true;
     }
