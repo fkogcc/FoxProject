@@ -5,34 +5,31 @@ using UnityEngine.SceneManagement;
 
 public class testCol : MonoBehaviour
 {
-    public static testCol _instance;// インスタンス
-    // シーン遷移を行ったかどうか
-    public bool _isScene;
-    // シーン遷移の真偽
+    // インスタンス.
+    public static testCol _instance;
+    // シーン遷移出来るかの真偽.
     public bool _isGateGimmick1;
     public bool _isGateGimmick2;
 
     private void Awake()
     {
-        // シングルトン
+        // シングルトン.
         if(_instance == null)
         {
-            // 自身をインスタンスとする
+            // 自身をインスタンスとする.
             _instance = this;
         }
         else
         {
-            // インスタンスが複数存在しないように、既に存在していたら自身を消去する
+            // インスタンスが複数存在しないように、既に存在していたら自身を消去する.
             Destroy(gameObject);
         }
     }
 
-
     // Start is called before the first frame update
     void Start()
     {
-        // 初期化
-        _isScene = false;
+        // 初期化.
         _isGateGimmick1 = false;
         _isGateGimmick2 = false;
     }
@@ -40,26 +37,11 @@ public class testCol : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // Yボタンを押したらシーン遷移
-        if (Input.GetKeyDown("joystick button 3"))
-        {
-            _isScene = true;
-            if (_isGateGimmick1)
-            {
-                //SceneManager.LoadScene("Gimmick1Scene");
-            }
-            if (_isGateGimmick2)
-            {
-                //SceneManager.LoadScene("Gimmick2Scene");
-            }
-        }
-        
     }
-
 
     private void OnTriggerEnter(Collider other)
     {
-        // 扉の当たり判定に入ったらture
+        // 扉の当たり判定に入ったらture.
         if(other.tag == "Gimmick1")
         {
             _isGateGimmick1 = true;
@@ -72,7 +54,7 @@ public class testCol : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        // 扉の当たり判定を出たらfalse
+        // 扉の当たり判定を出たらfalse.
         if(other.tag =="Gimmick1")
         {
             _isGateGimmick1 = false;
