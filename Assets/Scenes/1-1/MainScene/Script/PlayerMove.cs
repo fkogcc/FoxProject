@@ -54,7 +54,6 @@ public class PlayerMove : MonoBehaviour
 
             if(!_isJumpNow)
             {
-                _animator.SetBool("Run", true);// Run状態に移行
                 _motionNum = 1;
             }
             
@@ -66,7 +65,6 @@ public class PlayerMove : MonoBehaviour
         }
         else if(hori == 0&& !_isJumpNow)
         {
-            _animator.SetBool("Run",false);// Idle状態に移行
             _pMaterial.material.dynamicFriction = 1.0f;
             _motionNum = 0;
         }
