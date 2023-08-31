@@ -1,30 +1,17 @@
-ï»¿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerMove : MonoBehaviour
 {
-    private Rigidbody _rigid;// ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®ãƒªã‚¸ãƒƒãƒˆãƒœãƒ‡ã‚£
-    private BoxCollider _pMaterial;
-    private Animator _animator;// ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³
-    int _hp;
-    private int _RotateTime;// å›è»¢ã™ã‚‹æ™‚é–“
-    private int _motionNum;// ãƒ¢ãƒ¼ã‚·ãƒ§ãƒ³ç•ªå·
-    float _jumpPower = 25.0f;// ã‚¸ãƒ£ãƒ³ãƒ—åŠ›
-    private bool _isJumpNow;// ã‚¸ãƒ£ãƒ³ãƒ—ã—ã¦ã„ã‚‹ã‹ã©ã†ã‹
-    private bool _isDirection;// ã©ã®å‘ãã‚’å‘ã„ã¦ã„ã‚‹ã‹
+    bool _isJumpNow;// ƒWƒƒƒ“ƒv‚µ‚Ä‚¢‚é‚©‚Ç‚¤‚©
+    private Rigidbody _rigid;// ƒvƒŒƒCƒ„[‚ÌƒŠƒWƒbƒgƒ{ƒfƒB
+    float _jumpPower = 25.0f;// ƒWƒƒƒ“ƒv—Í
 
     // Start is called before the first frame update
     void Start()
     {
         _rigid = GetComponent<Rigidbody>();
-        _pMaterial = GetComponent<BoxCollider>();
-        _animator = GetComponent<Animator>();
-        _hp = 5;
-        _RotateTime = 120;
-        _motionNum = 0;
-
-        _isDirection = false;
     }
     
     // Update is called once per frame
@@ -32,129 +19,130 @@ public class PlayerMove : MonoBehaviour
     {
         float hori = Input.GetAxis("Horizontal");
         float vert = Input.GetAxis("Vertical");
-        float speed = hori * 25.0f;// é€Ÿã•
+        float speed = hori * 25.0f;// ‘¬‚³
         Vector3 vec = new Vector3(speed, 0, 0);
-
-        _animator.SetInteger("MotionNum", _motionNum);
-
-        //Debug.Log(_isJumpNow);
-
-        //Debug.Log(_motionNum);
-        if (Input.GetKey("joystick button 0"))
+        if ((hori != 0) || (vert != 0))
         {
-            _motionNum = 2;
-            Jump();
-
+            //Debug.Log("stick:" + hori + "," + vert);
         }
 
-        // ç§»å‹•ã—ã¦ã„ã‚‹ã‹ã©ã†ã‹ã§ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®æ‘©æ“¦åŠ›ã‚’å¤‰æ›´
         if (hori != 0)
         {
-            _pMaterial.material.dynamicFriction = 0.0f;
+            //transform.position += new Vector3(hori / 10.0f, 0.0f, 0.0f);
+            // ƒXƒeƒBƒbƒN‚Ì•ûŒü‚¯“x‡‚¢‚Å‘¬“x’²®
+            //rigid.transform.position += new Vector3(speed, 0.0f, 0.0f);
+            //rigid.transform.position += new Vector3(0.1f, 0.0f, 0.0f);
 
-            if(!_isJumpNow)
-            {
-                _motionNum = 1;
-            }
-            
-            // é€Ÿåº¦ãŒ10ä»¥ä¸‹ãªã‚‰ã°åŠ›ã‚’åŠ ãˆã‚‹
-            if (_rigid.velocity.x < 10.0f && _rigid.velocity.x > -10.0f)
+            // ‘¬“x‚ª10ˆÈ‰º‚È‚ç‚Î—Í‚ğ‰Á‚¦‚é
+            if(_rigid.velocity.x < 10.0f && _rigid.velocity.x > -10.0f)
             {
                 _rigid.AddForce(vec);
+
+                //rigid.velocity = new Vector3(speed, 0.0f, 0.0f);
             }
-        }
-        else if(hori == 0&& !_isJumpNow)
-        {
-            _pMaterial.material.dynamicFriction = 1.0f;
-            _motionNum = 0;
+            
         }
 
-        if(hori < 0)
-        {
-            if (hori == 0) return;
-            if (_isJumpNow) return;
-            _isDirection = true;
-            _RotateTime = 0;
-        }
-        else
-        {
-            if (hori == 0) return;
-            if (_isJumpNow) return;
-            _isDirection = false;
-            _RotateTime = 0;
-        }
+        //if(rigid.velocity.x >= 10)
+        //{
+        //    rigid.velocity = new Vector3(10.0f,0.0f,0.0f);
+        //}
+
+        //rigid.AddForce(new Vector3(10.0f,0.0f,0.0f));
+
+        Debug.Log(speed);
 
         //Debug.Log(speed);
+        //if (Input.GetKey(KeyCode.LeftArrow))
+        //{
+        //    transform.position -= new Vector3(0.01f, 0.0f, 0.0f);
+        //}
+        if (Input.GetKeyDown("joystick button 0"))
+        {
+            //transform.position += new Vector3(0.0f, 1.0f, 0.0f);
+            Jump();
+        }
+        //Debug.Log(jumpNow);
+            
+
+        //if (Input.GetKeyDown("joystick button 0"))
+        //{
+        //    Debug.Log("A");
+        //}
+        //if (Input.GetKeyDown("joystick button 1"))
+        //{
+        //    Debug.Log("B");
+        //}
+        //if (Input.GetKeyDown("joystick button 2"))
+        //{
+        //    Debug.Log("X");
+        //}
+        //if (Input.GetKeyDown("joystick button 3"))
+        //{
+        //    Debug.Log("Y");
+        //}
+        //if (Input.GetKeyDown("joystick button 4"))
+        //{
+        //    Debug.Log("LB");
+        //}
+        //if (Input.GetKeyDown("joystick button 5"))
+        //{
+        //    Debug.Log("RB");
+        //}
+        //if (Input.GetKeyDown("joystick button 6"))
+        //{
+        //    Debug.Log("View");
+        //}
+        //if (Input.GetKeyDown("joystick button 7"))
+        //{
+        //    Debug.Log("Menu");
+        //}
+        //if (Input.GetKeyDown("joystick button 8"))
+        //{
+        //    Debug.Log("LS");
+        //}
+        //if (Input.GetKeyDown("joystick button 9"))
+        //{
+        //    Debug.Log("RS");
+        //}
 
         
     }
 
     private void FixedUpdate()
     {
-        // è½ã¡ãŸã‚‰åˆæœŸä½ç½®ã«æˆ»ã™
+        // —‚¿‚½‚ç‰ŠúˆÊ’u‚É–ß‚·
         if(transform.position.y < -10)
         {
             transform.position = new Vector3(-6.0f,1.0f,0.0f);
-        }
-
-        if(_hp <= 0)
-        {
-            this.gameObject.SetActive(false);
-        }
-        //Debug.Log(_hp);
-
-        // å³ã‚’å‘ã
-        if(!_isDirection)
-        {
-            if(transform.localEulerAngles.y > 120.0f)
-            {
-                transform.Rotate(0f, -10f, 0f);
-            }
-        }
-        // å·¦ã‚’å‘ã
-        if(_isDirection)
-        {
-            if (transform.localEulerAngles.y < 240.0f)
-            {
-                transform.Rotate(0f, 10f, 0f);
-            }
         }
     }
 
     private void OnCollisionEnter(Collision collision)
     {
-        // åœ°é¢ã‹ã‚‰é›¢ã‚ŒãŸã‚‰
-        if (collision.gameObject.tag == "Stage")
+        // ’n–Ê‚©‚ç—£‚ê‚½‚ç
+        if (_isJumpNow)
         {
-            if (_isJumpNow)
-            {
-                _isJumpNow = false;
-            }
-        }
-        // æ•µã«å½“ãŸã£ãŸã‚‰ä½“åŠ›ã‚’1æ¸›ã‚‰ã™
-        if (collision.gameObject.name == "Enemy")
-        {
-            _hp -= 1;
+            _isJumpNow = false;
         }
     }
 
     private void OnCollisionExit(Collision collision)
     {
-        // åœ°é¢ã«ã¤ã„ãŸã‚‰
-        if(collision.gameObject.tag == "Stage")
+        // ’n–Ê‚É‚Â‚¢‚½‚ç
+        if (!_isJumpNow)
         {
-            if (!_isJumpNow)
-            {
-                _isJumpNow = true;
-            }
+            _isJumpNow = true;
         }
     }
 
-    // ã‚¸ãƒ£ãƒ³ãƒ—å‡¦ç†
+    // ƒWƒƒƒ“ƒvˆ—
     void Jump()
     {
-        if(_isJumpNow) return;
-
+        if(_isJumpNow)
+        {
+            return;
+        }
         _rigid.AddForce(transform.up* _jumpPower, ForceMode.Impulse);
         _isJumpNow = true;
     }
