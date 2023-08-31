@@ -4,19 +4,13 @@ using UnityEngine;
 
 public class Rota : MonoBehaviour
 {
-    // 回転時間をカウントします
     private int _count;
-    // 任意の時間を刻みで代入します
-    public int _countSecondsMax;
-    // 1秒60フレームとして調整する
-    private int _countMax;
-    // 回転が終わったかどうか
+    public int _countMax = 60 * 10;
     private bool _isRotaEnd;
     // Start is called before the first frame update
     void Start()
     {
         _count = 0;
-        _countMax = 60 * _countSecondsMax;
         _isRotaEnd = false;
     }
     private void FixedUpdate()
