@@ -40,7 +40,7 @@ public class PlayerMove3D : MonoBehaviour
             // スティックの方向け度合いで速度調整
             _Rigid.transform.position += new Vector3(speedX, 0.0f, speedZ);
 
-            if (diff.magnitude > 0.01f)
+            if(diff.magnitude > 0.01f)
             {
                 _Rigid.transform.rotation = Quaternion.LookRotation(diff);// 向きの変更
             }
@@ -62,22 +62,6 @@ public class PlayerMove3D : MonoBehaviour
         {
             //transform.position += new Vector3(0.0f, 1.0f, 0.0f);
             Jump();
-        }
-
-        // 移動
-        if(Input.GetButton("Horizontal") || Input.GetButton("Vertical"))
-        {
-            //transform.Translate(Vector3.forward * Time.deltaTime * speed * 1);// 正面
-        }
-
-        // 向き
-        if(Input.GetButton("Horizontal") || Input.GetButton("Vertical"))
-        {
-            transform.rotation = Quaternion.LookRotation(
-                transform.position +
-                (Vector3.right * Input.GetAxisRaw("Horizontal")) +
-                (Vector3.forward * Input.GetAxisRaw("Vertical")) -
-                transform.position);
         }
 
     }
