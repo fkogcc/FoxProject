@@ -7,11 +7,15 @@ public class Player3DMove : MonoBehaviour
 {
     CharacterController _playerController;
     GameObject _camera;
+    private Animator _animator;
 
     private Rigidbody _Rigid;// プレイヤーのリジットボディ
     public static float _speed = 5.0f;// 移動スピード
-    float _jumpPower = 8.0f;// ジャンプ力
-    float gravity = 10.0f;// 重力
+    [SerializeField] private float _jumpPower = 8.0f;// ジャンプ力
+    [SerializeField] private float _gravity = 10.0f;// 重力
+    private float _Ver;
+    private float _Hor;
+    private int _motionNum;// モーション番号.
 
     Vector3 _moveDirection = Vector3.zero;
     Vector3 startPos;
@@ -26,43 +30,58 @@ public class Player3DMove : MonoBehaviour
 
         _playerController = GetComponent<CharacterController>();
         _camera = GameObject.Find("Camera");
-        //_camera = GameObject.Find("testCamera");
         _Rigid = GetComponent<Rigidbody>();
-
+        _animator = GetComponent<Animator>();
+        _motionNum = 0;
         startPos = transform.position;
-
+        
     }
 
     // Update is called once per frame
     void Update()
     {
+        _animator.SetInteger("MotionNum", _motionNum);
+
+        _Ver = Input.GetAxis("Vertical");
+        _Hor = Input.GetAxis("Horizontal");
 
         // カメラの向きを基準にした正面方向のベクトル
         Vector3 cameraForward = Vector3.Scale(_camera.transform.forward, new Vector3(1.0f, 0.0f, 1.0f)).normalized;
 
         // (カメラ基準)
-        Vector3 moveZ = cameraForward * Input.GetAxis("Vertical") * _speed;// 前後
-        Vector3 moveX = _camera.transform.right * Input.GetAxis("Horizontal") * _speed;// 左右
+        Vector3 moveZ = cameraForward * _Ver * _speed;// 前後
+        Vector3 moveX = _camera.transform.right * _Hor * _speed;// 左右
 
-        //Debug.Log(_playerController.isGrounded);
-        if (_playerController.isGrounded)
+        if(_Ver != 0 || _Hor != 0)
         {
-            // Aボタン押したらジャンプ
-            //if (Input.GetKeyDown("joystick button 0"))
-            //{
-            //    Jump();
-            //}
+            _motionNum = 1;
+        }
+        else
+        {
+            _motionNum = 0;
+        }
+
+        Debug.Log(RaycastCheck._instance._isGround);
+
+        if (RaycastCheck._instance.CheckGrounded())
+        {
+            
             _moveDirection = moveZ + moveX;
             if (Input.GetKeyDown("joystick button 0"))
             {
                 _moveDirection.y = _jumpPower;
             }
-            
         }
         else
         {
+            //_motionNum = 2;
             _moveDirection = moveZ + moveX + new Vector3(0.0f, _moveDirection.y, 0.0f);
-            _moveDirection.y -= gravity * Time.deltaTime;
+            _moveDirection.y -= _gravity * Time.deltaTime;
+        }
+
+        if(!RaycastCheck._instance._isGround)
+        {
+            _motionNum = 2;
         }
 
         // プレイヤーの向きを入力の向きに変更
@@ -78,11 +97,5 @@ public class Player3DMove : MonoBehaviour
         {
             this.transform.position = new Vector3(0.0f, 1.0f, 0.0f);
         }
-    }
-
-    // ジャンプ処理
-    void Jump()
-    {
-        _Rigid.AddForce(transform.up * _jumpPower, ForceMode.Impulse);
     }
 }
