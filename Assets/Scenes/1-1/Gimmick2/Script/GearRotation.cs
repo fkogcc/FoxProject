@@ -6,7 +6,7 @@ public class GearRotation : MonoBehaviour
 {
     Rigidbody rb;
     // 回転度合.
-    public Vector3 _rotaDegrees;
+    private Vector3 _rotaDegrees;
     // 回転.
     public Quaternion _rotation;
     // TODO プレイヤーがボタンを押したかのフラグ
