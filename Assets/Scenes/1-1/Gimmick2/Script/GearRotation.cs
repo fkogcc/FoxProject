@@ -8,7 +8,7 @@ public class GearRotation : MonoBehaviour
     CapsuleCollider _collider;
 
     // ‰ñ“]“x‡.
-    public Vector3 _rotaDegrees;
+    private Vector3 _rotaDegrees;
     // ‰ñ“].
     public Quaternion _rotation;
     // ˆê‰ñ“]‚µ‚½‚©‚Ìƒtƒ‰ƒO
