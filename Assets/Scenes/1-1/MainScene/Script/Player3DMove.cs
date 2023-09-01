@@ -11,7 +11,7 @@ public class Player3DMove : MonoBehaviour
     private Rigidbody _Rigid;// プレイヤーのリジットボディ
     public static float _speed = 5.0f;// 移動スピード
     float _jumpPower = 8.0f;// ジャンプ力
-    float gravity = 10.0f;// 重力
+    float _gravity = 10.0f;// 重力
 
     Vector3 _moveDirection = Vector3.zero;
     Vector3 startPos;
@@ -62,7 +62,7 @@ public class Player3DMove : MonoBehaviour
         else
         {
             _moveDirection = moveZ + moveX + new Vector3(0.0f, _moveDirection.y, 0.0f);
-            _moveDirection.y -= gravity * Time.deltaTime;
+            _moveDirection.y -= _gravity * Time.deltaTime;
         }
 
         // プレイヤーの向きを入力の向きに変更
