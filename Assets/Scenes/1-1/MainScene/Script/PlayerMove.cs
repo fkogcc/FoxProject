@@ -39,10 +39,10 @@ public class PlayerMove : MonoBehaviour
 
     private void FixedUpdate()
     {
-        
+        FallDebug();
 
         // HPが0になったら止める
-        if(_hp <= 0)
+        if (_hp <= 0)
         {
             _motionNum = 3;
         }
@@ -107,7 +107,6 @@ public class PlayerMove : MonoBehaviour
     void Move()
     {
         float hori = Input.GetAxis("Horizontal");
-        float vert = Input.GetAxis("Vertical");
         float speed = hori * 25.0f;// 速さ
         Vector3 vec = new Vector3(speed, 0, 0);
 
@@ -158,7 +157,7 @@ public class PlayerMove : MonoBehaviour
         }
     }
 
-    void FallDebug()
+    private void FallDebug()
     {
         // 落ちたら初期位置に戻す.
         if (transform.position.y < -10)

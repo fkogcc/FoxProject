@@ -5,37 +5,43 @@ using Cinemachine;
 
 public class Player3DMove : MonoBehaviour
 {
-    CharacterController _playerController;
-    GameObject _camera;
+    private CharacterController _playerController;
+    private GameObject _camera;
+    private Animator _animator;
 
-    private Rigidbody _Rigid;// プレイヤーのリジットボディ
+    private int _motionNum;
+
     public static float _speed = 5.0f;// 移動スピード
     float _jumpPower = 8.0f;// ジャンプ力
     float _gravity = 10.0f;// 重力
 
+    // 動く方向
     Vector3 _moveDirection = Vector3.zero;
-    Vector3 startPos;
 
     // Start is called before the first frame update
     void Start()
     {
-
         // マウスカーソルを非表示にし、位置を固定
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
 
         _playerController = GetComponent<CharacterController>();
         _camera = GameObject.Find("Camera");
-        //_camera = GameObject.Find("testCamera");
-        _Rigid = GetComponent<Rigidbody>();
+        _animator = GetComponent<Animator>();
 
-        startPos = transform.position;
+        _motionNum = 0;
 
     }
 
     // Update is called once per frame
     void Update()
     {
+        _animator.SetInteger("MotionNum", _motionNum);
+
+        // 垂直方向.
+        float Ver = Input.GetAxis("Vertical");
+        // 水平方向
+        float Hori = Input.GetAxis("Horizontal");
 
         // カメラの向きを基準にした正面方向のベクトル
         Vector3 cameraForward = Vector3.Scale(_camera.transform.forward, new Vector3(1.0f, 0.0f, 1.0f)).normalized;
@@ -44,14 +50,10 @@ public class Player3DMove : MonoBehaviour
         Vector3 moveZ = cameraForward * Input.GetAxis("Vertical") * _speed;// 前後
         Vector3 moveX = _camera.transform.right * Input.GetAxis("Horizontal") * _speed;// 左右
 
-        //Debug.Log(_playerController.isGrounded);
+        // 着地判定
         if (_playerController.isGrounded)
         {
-            // Aボタン押したらジャンプ
-            //if (Input.GetKeyDown("joystick button 0"))
-            //{
-            //    Jump();
-            //}
+            // Aボタン押したらジャンプ.
             _moveDirection = moveZ + moveX;
             if (Input.GetKeyDown("joystick button 0"))
             {
@@ -74,15 +76,15 @@ public class Player3DMove : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if(this.transform.position.y <= -5.0f)
+        FallDebug();
+    }
+
+
+    private void FallDebug()
+    {
+        if (this.transform.position.y <= -5.0f)
         {
             this.transform.position = new Vector3(0.0f, 1.0f, 0.0f);
         }
-    }
-
-    // ジャンプ処理
-    void Jump()
-    {
-        _Rigid.AddForce(transform.up * _jumpPower, ForceMode.Impulse);
     }
 }
