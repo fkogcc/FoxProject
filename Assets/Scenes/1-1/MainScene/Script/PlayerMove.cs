@@ -30,76 +30,21 @@ public class PlayerMove : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        float hori = Input.GetAxis("Horizontal");
-        float vert = Input.GetAxis("Vertical");
-        float speed = hori * 25.0f;// 速さ
-        Vector3 vec = new Vector3(speed, 0, 0);
-
-        _animator.SetInteger("MotionNum", _motionNum);
-
-        //Debug.Log(_isJumpNow);
-
-        //Debug.Log(_motionNum);
-        if (Input.GetKey("joystick button 0"))
+        if(_hp > 0)
         {
-            _motionNum = 2;
-            Jump();
-
+            // プレイヤーの移動処理.
+            Move();
         }
-
-        // 移動しているかどうかでプレイヤーの摩擦力を変更
-        if (hori != 0)
-        {
-            _pMaterial.material.dynamicFriction = 0.0f;
-
-            if(!_isJumpNow)
-            {
-                _motionNum = 1;
-            }
-            
-            // 速度が10以下ならば力を加える
-            if (_rigid.velocity.x < 10.0f && _rigid.velocity.x > -10.0f)
-            {
-                _rigid.AddForce(vec);
-            }
-        }
-        else if(hori == 0&& !_isJumpNow)
-        {
-            _pMaterial.material.dynamicFriction = 1.0f;
-            _motionNum = 0;
-        }
-
-        if(hori < 0)
-        {
-            if (hori == 0) return;
-            if (_isJumpNow) return;
-            _isDirection = true;
-            _RotateTime = 0;
-        }
-        else
-        {
-            if (hori == 0) return;
-            if (_isJumpNow) return;
-            _isDirection = false;
-            _RotateTime = 0;
-        }
-
-        //Debug.Log(speed);
-
-        
     }
 
     private void FixedUpdate()
     {
-        // 落ちたら初期位置に戻す
-        if(transform.position.y < -10)
-        {
-            transform.position = new Vector3(-6.0f,1.0f,0.0f);
-        }
+        FallDebug();
 
-        if(_hp <= 0)
+        // HPが0になったら止める
+        if (_hp <= 0)
         {
-            this.gameObject.SetActive(false);
+            _motionNum = 3;
         }
         //Debug.Log(_hp);
 
@@ -159,4 +104,65 @@ public class PlayerMove : MonoBehaviour
         _isJumpNow = true;
     }
 
+    void Move()
+    {
+        float hori = Input.GetAxis("Horizontal");
+        float speed = hori * 25.0f;// 速さ
+        Vector3 vec = new Vector3(speed, 0, 0);
+
+        _animator.SetInteger("MotionNum", _motionNum);
+
+        if (Input.GetKey("joystick button 0"))
+        {
+            _motionNum = 2;
+            Jump();
+
+        }
+
+        // 移動しているかどうかでプレイヤーの摩擦力を変更
+        if (hori != 0)
+        {
+            _pMaterial.material.dynamicFriction = 0.0f;
+
+            if (!_isJumpNow)
+            {
+                _motionNum = 1;
+            }
+
+            // 速度が10以下ならば力を加える
+            if (_rigid.velocity.x < 10.0f && _rigid.velocity.x > -10.0f)
+            {
+                _rigid.AddForce(vec);
+            }
+        }
+        else if (hori == 0 && !_isJumpNow)
+        {
+            _pMaterial.material.dynamicFriction = 1.0f;
+            _motionNum = 0;
+        }
+
+        if (hori < 0)
+        {
+            if (hori == 0) return;
+            if (_isJumpNow) return;
+            _isDirection = true;
+            _RotateTime = 0;
+        }
+        else
+        {
+            if (hori == 0) return;
+            if (_isJumpNow) return;
+            _isDirection = false;
+            _RotateTime = 0;
+        }
+    }
+
+    private void FallDebug()
+    {
+        // 落ちたら初期位置に戻す.
+        if (transform.position.y < -10)
+        {
+            transform.position = new Vector3(-6.0f, 1.0f, 0.0f);
+        }
+    }
 }

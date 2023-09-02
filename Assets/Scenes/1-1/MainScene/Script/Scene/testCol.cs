@@ -40,20 +40,6 @@ public class testCol : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // Yボタンを押したらシーン遷移
-        if (Input.GetKeyDown("joystick button 3"))
-        {
-            _isScene = true;
-            if (_isGateGimmick1)
-            {
-                //SceneManager.LoadScene("Gimmick1Scene");
-            }
-            if (_isGateGimmick2)
-            {
-                //SceneManager.LoadScene("Gimmick2Scene");
-            }
-        }
-        
     }
 
 
