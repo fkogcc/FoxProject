@@ -39,16 +39,25 @@ public class Player3DMove : MonoBehaviour
         _animator.SetInteger("MotionNum", _motionNum);
 
         // 垂直方向.
-        float Ver = Input.GetAxis("Vertical");
+        float vertical = Input.GetAxis("Vertical");
         // 水平方向
-        float Hori = Input.GetAxis("Horizontal");
+        float horizontal = Input.GetAxis("Horizontal");
 
         // カメラの向きを基準にした正面方向のベクトル
         Vector3 cameraForward = Vector3.Scale(_camera.transform.forward, new Vector3(1.0f, 0.0f, 1.0f)).normalized;
 
         // (カメラ基準)
-        Vector3 moveZ = cameraForward * Input.GetAxis("Vertical") * _speed;// 前後
-        Vector3 moveX = _camera.transform.right * Input.GetAxis("Horizontal") * _speed;// 左右
+        Vector3 moveZ = cameraForward * vertical * _speed;// 前後
+        Vector3 moveX = _camera.transform.right * horizontal * _speed;// 左右
+
+        if(vertical != 0 || horizontal != 0)
+        {
+            _motionNum = 1;
+        }
+        else
+        {
+            _motionNum = 0;
+        }
 
         // 着地判定
         if (_playerController.isGrounded)
