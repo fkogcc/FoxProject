@@ -431,7 +431,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!65 &462489031
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -801,7 +801,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1631117834}
   m_LocalRotation: {x: -0.013083739, y: -0.6429268, z: 0.16811639, w: 0.7471351}
-  m_LocalPosition: {x: 0.6495187, y: 2.041309, z: -4.133177}
+  m_LocalPosition: {x: -0.09621972, y: 1.9056772, z: -4.182543}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -864,8 +864,8 @@ MonoBehaviour:
   m_YDamping: 1
   m_ZDamping: 1
   m_TargetMovementOnly: 1
-  m_ScreenX: 0.42968753
-  m_ScreenY: 0.55370265
+  m_ScreenX: 0.5104161
+  m_ScreenY: 0.5259251
   m_CameraDistance: 4.5
   m_DeadZoneWidth: 0
   m_DeadZoneHeight: 0
