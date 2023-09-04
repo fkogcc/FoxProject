@@ -117,7 +117,7 @@ public class Player3DMove : MonoBehaviour
         FallDebug();
     }
 
-
+    // 地面から落ちたら初期位置のスポーン
     private void FallDebug()
     {
         if (this.transform.position.y <= -5.0f)
