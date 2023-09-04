@@ -40,7 +40,6 @@ public class Camera : MonoBehaviour
             transform.RotateAround(_player.transform.position, transform.right, y);
         }
 
-        Debug.Log(transform.position);
 
         //// ƒJƒƒ‰‚ÌˆÚ“®
         //Vector3 cameraForward = Vector3.Scale(transform.position, new Vector3(1.0f,0.0f,1.0f)).normalized;
