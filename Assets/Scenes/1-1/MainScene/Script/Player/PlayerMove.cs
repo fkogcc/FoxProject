@@ -46,7 +46,6 @@ public class PlayerMove : MonoBehaviour
         {
             _motionNum = 3;
         }
-        //Debug.Log(_hp);
 
         // 右を向く
         if(!_isDirection)

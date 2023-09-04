@@ -15,6 +15,17 @@ public class IsGroundedCheck : MonoBehaviour
     // Rayの判定に用いるLayer
     [SerializeField] private LayerMask _layerMask = default;
 
+    // 球形が通貨を開始する地点の中心
+    [SerializeField] private Vector3 _origin;
+    // 球の半径
+    [SerializeField] private float _radius;
+    // 球を通過させる方向
+    [SerializeField] private Vector3 _direction;
+    // RayCastによる情報を得るための構造体
+    RaycastHit _hitInfo;
+    // キャストの長さの最大値
+    [SerializeField] private float _maxDistance;
+
     // 地面に接地しているかどうか
     public bool _isGround;
 
@@ -50,10 +61,18 @@ public class IsGroundedCheck : MonoBehaviour
     private bool CheckGrounded()
     {
         // Rayの初期位置と姿勢
-        Ray ray = new Ray(origin: transform.position + Vector3.up * _rayOffset, direction: Vector3.down);
+        Ray ray = new(origin: transform.position + Vector3.up * _rayOffset, direction: Vector3.down);
 
         // Rayが接地するかどうか
         return Physics.Raycast(ray, _rayLength, _layerMask);
+
+        //return Physics.SphereCast(transform.position + groundCheckOffsetY * Vector3.up,
+        //groundCheckRadius,
+        //Vector3.down,
+        //out hit,
+        //groundCheckDistance,
+        //groundLayers,
+        //QueryTriggerInteraction.Ignore);
     }
 
     private void OnDrawGizmos()

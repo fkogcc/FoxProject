@@ -21,9 +21,6 @@ public class Player3DMove : MonoBehaviour
     // 3.GameOver.
     private int _motionNum;
 
-    // 対空時間
-    private int _airborneTime;
-
     // float
     // 移動スピード.
     public static float _speed = 5.0f;
@@ -67,7 +64,6 @@ public class Player3DMove : MonoBehaviour
         // モーション番号初期化
         _motionNum = (int)MotionNum.Idle;
         _isGround = false;
-        _airborneTime = 0;
     }
 
     // Update is called once per frame
@@ -108,22 +104,10 @@ public class Player3DMove : MonoBehaviour
             if (Input.GetKeyDown("joystick button 0"))
             {
                 _moveDirection.y = _jumpPower;
-                IsGroundedCheck._instance._rayLength = 0.0f;
             }
-            _airborneTime = 0;
         }
-        else
-        {
-            _airborneTime++;
-            if(_airborneTime >= 10)
-            {
-                IsGroundedCheck._instance._rayLength = 0.01f;
-            }
-            
-
-            _moveDirection = moveZ + moveX + new Vector3(0.0f, _moveDirection.y, 0.0f);
-            _moveDirection.y -= _gravity * Time.deltaTime;
-        }
+        _moveDirection = moveZ + moveX + new Vector3(0.0f, _moveDirection.y, 0.0f);
+        _moveDirection.y -= _gravity * Time.deltaTime;
 
         // プレイヤーの向きを入力の向きに変更
         transform.LookAt(transform.position + moveZ + moveX);
