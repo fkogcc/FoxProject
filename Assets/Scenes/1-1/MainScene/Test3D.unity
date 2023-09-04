@@ -152,7 +152,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: e4c8ee45b5d63c44cb7ab0625f3cef36, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 0.274
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: e4c8ee45b5d63c44cb7ab0625f3cef36, type: 3}
       propertyPath: m_LocalPosition.z
@@ -279,7 +279,25 @@ CharacterController:
   m_StepOffset: 0.3
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
-  m_Center: {x: 0, y: 2, z: 0.05}
+  m_Center: {x: 0, y: 2.15, z: 0.05}
+--- !u!114 &220110353
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 220110348}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 39c14d79f60162342b94d30b97b4c473, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _rayLength: 0.01
+  _rayOffset: 0
+  _layerMask:
+    serializedVersion: 2
+    m_Bits: 1
+  _isGround: 0
 --- !u!1 &236830063
 GameObject:
   m_ObjectHideFlags: 0
@@ -801,7 +819,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1631117834}
   m_LocalRotation: {x: -0.013083739, y: -0.6429268, z: 0.16811639, w: 0.7471351}
-  m_LocalPosition: {x: -0.09621972, y: 1.9056772, z: -4.182543}
+  m_LocalPosition: {x: -0.09621972, y: 2.1796772, z: -4.1825433}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -921,7 +939,7 @@ MonoBehaviour:
     m_InputAxisName: Vertical2
     m_InputAxisValue: 0
     m_InvertInput: 1
-    m_MinValue: -10
+    m_MinValue: 10
     m_MaxValue: 45
     m_Wrap: 0
     m_Recentering:

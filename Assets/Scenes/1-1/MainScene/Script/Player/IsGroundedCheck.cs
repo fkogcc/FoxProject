@@ -4,19 +4,31 @@ using UnityEngine;
 
 public class IsGroundedCheck : MonoBehaviour
 {
-    IsGroundedCheck _instance;
+    public static IsGroundedCheck _instance;
 
     // 足から地面までのRayの長さ
-    [SerializeField] private float _rayLength = 1f;
+    [SerializeField] public float _rayLength = 1f;
 
     // 身体にめり込ませるRayの長さ
-    [SerializeField] private float _rayOffset;
+    [SerializeField] public float _rayOffset;
 
     // Rayの判定に用いるLayer
     [SerializeField] private LayerMask _layerMask = default;
 
     // 地面に接地しているかどうか
-    private bool _isGround;
+    public bool _isGround;
+
+    private void Awake()
+    {
+        if(_instance == null)
+        {
+            _instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -37,7 +49,10 @@ public class IsGroundedCheck : MonoBehaviour
 
     private bool CheckGrounded()
     {
+        // Rayの初期位置と姿勢
         Ray ray = new Ray(origin: transform.position + Vector3.up * _rayOffset, direction: Vector3.down);
+
+        // Rayが接地するかどうか
         return Physics.Raycast(ray, _rayLength, _layerMask);
     }
 
