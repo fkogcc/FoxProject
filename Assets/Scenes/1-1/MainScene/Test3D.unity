@@ -262,6 +262,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3bb6f96489a3efd4dbcd7d74ab8ee603, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _jumpPower: 8
+  _gravity: 10
 --- !u!143 &220110352
 CharacterController:
   m_ObjectHideFlags: 0
@@ -297,11 +299,7 @@ MonoBehaviour:
   _layerMask:
     serializedVersion: 2
     m_Bits: 1
-  _origin: {x: 0, y: 0, z: 0}
-  _radius: 8.28
-  _direction: {x: 0, y: 0, z: 0}
-  _maxDistance: 0
-  _isGround: 0
+  _isGround: 1
 --- !u!1 &236830063
 GameObject:
   m_ObjectHideFlags: 0
@@ -1000,6 +998,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3bb6f96489a3efd4dbcd7d74ab8ee603, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _jumpPower: 8
+  _gravity: 10
 --- !u!143 &2070270114
 CharacterController:
   m_ObjectHideFlags: 0

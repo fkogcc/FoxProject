@@ -23,11 +23,11 @@ public class Player3DMove : MonoBehaviour
 
     // float
     // 移動スピード.
-    public static float _speed = 5.0f;
+    [SerializeField] public static float _speed = 5.0f;
     // ジャンプ力.
-    private float _jumpPower = 8.0f;
+    [SerializeField] private float _jumpPower = 8.0f;
     // 重力.
-    private float _gravity = 10.0f;
+    [SerializeField] private float _gravity = 10.0f;
 
     // bool
     private bool _isGround;
@@ -87,14 +87,7 @@ public class Player3DMove : MonoBehaviour
         Vector3 moveZ = cameraForward * vertical * _speed;// 前後
         Vector3 moveX = _camera.transform.right * horizontal * _speed;// 左右
 
-        if(vertical != 0 || horizontal != 0)
-        {
-            _motionNum = (int)MotionNum.Run;
-        }
-        else
-        {
-            _motionNum = (int)MotionNum.Idle;
-        }
+        
 
         // 着地判定
         if (_isGround)
@@ -105,6 +98,20 @@ public class Player3DMove : MonoBehaviour
             {
                 _moveDirection.y = _jumpPower;
             }
+
+            // 移動状態
+            if (vertical != 0 || horizontal != 0)
+            {
+                _motionNum = (int)MotionNum.Run;
+            }
+            else
+            {
+                _motionNum = (int)MotionNum.Idle;
+            }
+        }
+        else
+        {
+            _motionNum = (int)MotionNum.Jump;
         }
         _moveDirection = moveZ + moveX + new Vector3(0.0f, _moveDirection.y, 0.0f);
         _moveDirection.y -= _gravity * Time.deltaTime;
