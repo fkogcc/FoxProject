@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PlayerMove : MonoBehaviour
 {
+    public static PlayerMove _instance;
+
     private Rigidbody _rigid;// プレイヤーのリジットボディ
     private BoxCollider _pMaterial;
     private Animator _animator;// プレイヤーのアニメーション
@@ -12,7 +14,19 @@ public class PlayerMove : MonoBehaviour
     private int _motionNum;// モーション番号
     float _jumpPower = 25.0f;// ジャンプ力
     private bool _isJumpNow;// ジャンプしているかどうか
-    private bool _isDirection;// どの向きを向いているか
+    public bool _isDirection;// どの向きを向いているか
+
+    private void Awake()
+    {
+        if( _instance == null )
+        {
+            _instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
 
     // Start is called before the first frame update
     void Start()
