@@ -55,6 +55,8 @@ public class CameraUpdate : MonoBehaviour
         {
             
         }
+
+        transform.position = new Vector3(playerPosX + 7, (playerPosY / 5.0f) + 6.0f, -20.0f);
         
     }
 }
