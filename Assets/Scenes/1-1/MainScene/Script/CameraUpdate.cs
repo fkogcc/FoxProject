@@ -53,7 +53,7 @@ public class CameraUpdate : MonoBehaviour
 
         if(transform.position.x > _camearMaxPosition.x)
         {
-            transform.position.x -= 0.5;
+            
         }
         
     }
