@@ -12,8 +12,10 @@ public class PauseController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        // それぞれのボタンのコンポーネント取得
         _close = GameObject.Find("/PauseCanvs/BackGround/Close").GetComponent<Button>();
         _test = GameObject.Find("/PauseCanvs/BackGround/Test").GetComponent<Button>();
+
 
         _close.Select();
     }
