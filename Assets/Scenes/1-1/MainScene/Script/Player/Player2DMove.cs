@@ -1,10 +1,11 @@
-﻿using System.Collections;
+﻿// 2Dプレイヤーの処理
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerMove : MonoBehaviour
+public class Player2DMove : MonoBehaviour
 {
-    public static PlayerMove _instance;
+    public static Player2DMove _instance;
 
     private Rigidbody _rigid;// プレイヤーのリジットボディ
     private BoxCollider _pMaterial;
