@@ -27,9 +27,6 @@ public class RotateWindmill : MonoBehaviour
         {
             _rotateSpeed = _rotateMaxSpeed;
         }
-
         transform.Rotate(_rotateSpeed, 0.0f, 0.0f);
-
-        Debug.Log(_rotateSpeed);
     }
 }

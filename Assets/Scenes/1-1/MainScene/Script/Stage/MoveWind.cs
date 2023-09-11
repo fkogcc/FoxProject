@@ -24,19 +24,21 @@ public class MoveWind : MonoBehaviour
     }
 
     /// <summary>
-    /// ƒgƒŠƒK[‚Ì”ÍˆÍ‚É“ü‚Á‚Ä‚¢‚éŠÔ•—‚Ì‰e‹¿‚ğó‚¯‚é
+    /// ãƒˆãƒªã‚¬ãƒ¼ã®ç¯„å›²ã«å…¥ã£ã¦ã„ã‚‹é–“é¢¨ã®å½±éŸ¿ã‚’å—ã‘ã‚‹
     /// </summary>
-    /// <param name="other">“–‚½‚Á‚Ä‚¢‚é‘Šè</param>
+    /// <param name="other">å½“ãŸã£ã¦ã„ã‚‹ç›¸æ‰‹</param>
     private void OnTriggerStay(Collider other)
     {
-        // “–‚½‚Á‚½ƒIƒuƒWƒFƒNƒg‚ÌRigidBodyæ“¾
+        // å½“ãŸã£ãŸã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®RigidBodyå–å¾—
         Rigidbody rigidbody = other.GetComponent<Rigidbody>();
 
-        // rigidbody‚ªnull‚Å‚Í‚È‚¢
+        // rigidbodyãŒnullã§ã¯ãªã„æ™‚
         if(rigidbody != null)
         {
-            // ‘Šè‚Ìrigidbody‚É—Í‚ğ‰Á‚¦‚é
+            // ç›¸æ‰‹ã®rigidbodyã«åŠ›ã‚’åŠ ãˆã‚‹
             rigidbody.AddForce(_windX, _windY, _windZ, ForceMode.Force);
         }
+
+        Debug.Log(other.name);
     }
 }
