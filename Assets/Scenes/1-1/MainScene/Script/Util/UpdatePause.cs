@@ -1,6 +1,4 @@
 // ポーズ画面の処理
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class UpdatePause : MonoBehaviour
@@ -19,25 +17,24 @@ public class UpdatePause : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //if(!_isPause)
-        //{
-        //    _pauseCanvas.gameObject.SetActive(false);
-        //}
-        //else
-        //{
-        //    _pauseCanvas.gameObject.SetActive(true);
-        //}
-
+        // ポーズ画面を開いているかどうか.
         _pauseCanvas.gameObject.SetActive(_isPause);
 
+        // 時間を動かす
         if (!_isPause)
         {
             Time.timeScale = 1;
+        }
+
+        if (Input.GetKeyDown("joystick button 7"))
+        {
+            _isPause = !_isPause;
         }
     }
 
     private void FixedUpdate()
     {
+        // 時間を止める
         if (_isPause)
         {
             Time.timeScale = 0;
