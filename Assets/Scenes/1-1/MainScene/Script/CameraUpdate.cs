@@ -44,7 +44,7 @@ public class CameraUpdate : MonoBehaviour
         _cameraPosY = _targetPlayer.transform.position.y;
 
         // Œü‚¢‚Ä‚¢‚é•ûŒü‚É‚æ‚Á‚ÄƒJƒƒ‰‚ÌˆÊ’u‚ğ•ÏX
-        if (!PlayerMove._instance._isDirection)
+        if (!Player2DMove._instance._isDirection)
         {
             _targetPosition = new Vector3(_cameraPosX + 7, (_cameraPosY / 5.0f) + 6.0f, -20.0f);
         }
