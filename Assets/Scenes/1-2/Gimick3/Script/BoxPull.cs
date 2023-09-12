@@ -29,16 +29,17 @@ public class BoxPull : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown("joystick button 1") && _isPullRange)
+        if ((Input.GetKeyDown("joystick button 1") || Input.GetKeyDown(KeyCode.F)) && _isPullRange)
         {
             Debug.Log("引っ張り始めた");
-            // 引っ張り始めた時の位置を保存
+
+            // 引っ張り始めたの位置を保存
             _startPos = this._player.position;
 
             _isPull = true;
         }
 
-        if (Input.GetKeyUp("joystick button 1"))
+        if ((Input.GetKeyDown("joystick button 1") || Input.GetKeyUp(KeyCode.F)))
         {
             Debug.Log("引っ張り終わり");
 
@@ -46,7 +47,7 @@ public class BoxPull : MonoBehaviour
 
             // ここで離した時色が同じならできた処理をする
             // 現在は元の位置に戻るだけとする
-            this.transform.position = _startPos;
+            this.transform.localScale = Vector3.one;
         }
     }
 
@@ -54,10 +55,20 @@ public class BoxPull : MonoBehaviour
     {
         if (_isPull)
         {
-            _delPos = this._player.position;
-            _delPos.x -= 10f;
+            _delPos = _startPos - this._player.position;
 
-            this.transform.position = _delPos;
+            // 縦、奥行きの大きさを固定
+            _delPos.y = 1f;
+            _delPos.z = 1f;
+
+            // 右に行かないと長くならないようにする
+            if (-1f < _delPos.x)
+            {
+                _delPos.x = 1;
+            }
+
+            this.transform.localScale = _delPos;
+            Debug.Log("[PullBox]" + this.transform.localScale);
         }
     }
 
