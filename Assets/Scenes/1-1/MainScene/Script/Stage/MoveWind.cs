@@ -38,7 +38,5 @@ public class MoveWind : MonoBehaviour
             // 相手のrigidbodyに力を加える
             rigidbody.AddForce(_windX, _windY, _windZ, ForceMode.Force);
         }
-
-        Debug.Log(other.name);
     }
 }

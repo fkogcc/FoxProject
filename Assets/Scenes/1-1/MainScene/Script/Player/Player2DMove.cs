@@ -11,7 +11,6 @@ public class Player2DMove : MonoBehaviour
     private BoxCollider _pMaterial;
     private Animator _animator;// プレイヤーのアニメーション
     int _hp;
-    private int _RotateTime;// 回転する時間
     private int _motionNum;// モーション番号
     float _jumpPower = 25.0f;// ジャンプ力
     private bool _isJumpNow;// ジャンプしているかどうか
@@ -36,7 +35,6 @@ public class Player2DMove : MonoBehaviour
         _pMaterial = GetComponent<BoxCollider>();
         _animator = GetComponent<Animator>();
         _hp = 5;
-        _RotateTime = 120;
         _motionNum = 0;
 
         _isDirection = false;
@@ -160,14 +158,12 @@ public class Player2DMove : MonoBehaviour
             if (hori == 0) return;
             if (_isJumpNow) return;
             _isDirection = true;
-            _RotateTime = 0;
         }
         else
         {
             if (hori == 0) return;
             if (_isJumpNow) return;
             _isDirection = false;
-            _RotateTime = 0;
         }
     }
 
