@@ -4,8 +4,13 @@ using UnityEngine;
 
 public class RotateWindmill : MonoBehaviour
 {
+    // インスタンス
+    RotateWindmill _instance;
+
+    // 風の力を発生させる判定
+    [SerializeField] private GameObject _windSpace;
     // 最高回転速度.
-    [SerializeField] private float _rotateMaxSpeed = 5.0f;
+    [SerializeField] private float _rotateMaxSpeed = 30.0f;
     // 最低回転速度.
     [SerializeField] private float _rotateMinSpeed = 0.5f;
     // 回転速度.
@@ -16,10 +21,32 @@ public class RotateWindmill : MonoBehaviour
     [SerializeField] private bool _solveGimmick = false;
     // 回転速度が下がるかどうか.
     private bool _countDownRotateSpeed = false;
+    
+    private void Awake()
+    {
+        if( _instance == null )
+        {
+            _instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
+
     private void FixedUpdate()
     {
         // 回転.
         transform.Rotate(_rotateSpeed, 0.0f, 0.0f);
+
+        if(_rotateSpeed > 25.0f)
+        {
+            _windSpace.SetActive(true);
+        }
+        else if(_rotateSpeed < 20.0f)
+        {
+            _windSpace.SetActive(false);
+        }
 
         // ギミックを解いていなかったら処理を通さない.
         if (!_solveGimmick) return;
@@ -43,6 +70,7 @@ public class RotateWindmill : MonoBehaviour
         }
         
         // 最高回転速度に到達したら回転速度を落とす
+        // 回転速度低速開始
         if (_rotateSpeed >= _rotateMaxSpeed)
         {
             _rotateSpeed = _rotateMaxSpeed;
@@ -50,9 +78,12 @@ public class RotateWindmill : MonoBehaviour
         }
 
         // 最低回転速度に固定
+        // 回転速度低速終了
         if(_rotateSpeed <= _rotateMinSpeed)
         {
             _rotateSpeed = _rotateMinSpeed;
+            _solveGimmick = false;
+            _countDownRotateSpeed = false;
         }
 
     }

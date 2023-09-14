@@ -49,11 +49,11 @@ public class CameraUpdate : MonoBehaviour
         // 向いている方向によってカメラの位置を変更
         if (!Player2DMove._instance._isDirection)
         {
-            _targetPosition = new Vector3(_cameraPosX + 7, (_cameraPosY / 5.0f) + 6.0f, -20.0f);
+            _targetPosition = new Vector3(_cameraPosX + 7, (_cameraPosY / 5.0f) + 6.0f, _cameraPosZ);
         }
         else
         {
-            _targetPosition = new Vector3(_cameraPosX - 7, (_cameraPosY / 5.0f) + 6.0f, -20.0f);
+            _targetPosition = new Vector3(_cameraPosX - 7, (_cameraPosY / 5.0f) + 6.0f, _cameraPosZ);
         }
 
         if(transform.position.x < 0)
@@ -72,7 +72,7 @@ public class CameraUpdate : MonoBehaviour
     {
         float playerPosX = _targetPlayer.transform.position.x;
         float playerPosY = _targetPlayer.transform.position.y;
-        transform.position = new Vector3(playerPosX + 7, (playerPosY / 5.0f) + 6.0f, -20.0f);
+        transform.position = new Vector3(playerPosX + 7, (playerPosY / 5.0f) + 6.0f, _cameraPosZ);
     }
 
     // カメラの移動
