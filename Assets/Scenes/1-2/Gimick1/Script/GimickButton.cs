@@ -2,19 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CollisionDetection : MonoBehaviour
+public class GimickButton : MonoBehaviour
 {
-    //[SerializeField] private TriggerEvent onTriggerStay = new TriggerEvent();
     // Start is called before the first frame update
     void Start()
     {
         
     }
 
-    void FixedUpdate()
-    {
-
-    }
     // Update is called once per frame
     void Update()
     {
@@ -25,10 +20,9 @@ public class CollisionDetection : MonoBehaviour
     {
         if (other.tag == "Player")
         {
-            // プレイヤーがEmptyのコライダーに入ったとき
-            //Debug.Log("範囲内");
-            // InspectorタブのonTriggerStayで指定された処理を実行する
-            //onTriggerStay.Invoke(other);
+            // ボタンがコライダーに入ったとき.
+            Debug.Log("触れている");
+            //_isPlayerCollider = true;
         }
     }
 
@@ -36,8 +30,9 @@ public class CollisionDetection : MonoBehaviour
     {
         if (other.tag == "Player")
         {
-            // プレイヤーがEmptyのコライダーから出たとき
-            //Debug.Log("範囲外");
+            // ボタンがコライダーから出たとき.
+            Debug.Log("はなした");
+            //_isPlayerCollider = false;
         }
     }
 }

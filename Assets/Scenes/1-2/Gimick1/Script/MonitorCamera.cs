@@ -6,7 +6,7 @@ public class MonitorCamera : MonoBehaviour
 {
     // ボタンを押したかの状態.
     public bool _isPushFlag;
-    public GameObject _playerCameraObject;
+    public GameObject _monitorCameraObject;
     public GameObject _playerObject;
     public GameObject _HandObject;
 
@@ -22,17 +22,15 @@ public class MonitorCamera : MonoBehaviour
         // ボタンの状態によって分岐させる.
         if (_isPushFlag)
         {
-            Debug.Log("Camera On");
             // モニター前のカメラをオンにする
-            _playerCameraObject.gameObject.SetActive(false);
+            _monitorCameraObject.gameObject.SetActive(true);
             _playerObject.gameObject.SetActive(false);
             _HandObject.gameObject.SetActive(true);
         }
         else
         {
             // モニター前のカメラをオフにする
-            Debug.Log("Camera Off");
-            _playerCameraObject.gameObject.SetActive(true);
+            _monitorCameraObject.gameObject.SetActive(false);
             _playerObject.gameObject.SetActive(true);
             _HandObject.gameObject.SetActive(false);
         }
