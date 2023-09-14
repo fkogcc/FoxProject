@@ -62,7 +62,6 @@ public class MonitorCollider : MonoBehaviour
         if (other.tag == "Player")
         {
             // プレイヤーがコライダーに入ったとき.
-            Debug.Log("範囲内");
             _isPlayerCollider = true;
         }
     }
@@ -72,7 +71,6 @@ public class MonitorCollider : MonoBehaviour
         if (other.tag == "Player")
         {
             // プレイヤーがコライダーから出たとき.
-            Debug.Log("範囲外");
             _isPlayerCollider = false;
         }
     }

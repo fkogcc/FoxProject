@@ -50,7 +50,7 @@ public class GearRotation : MonoBehaviour
             //Debug.Log(_gearDegree);
             if (_gearDegree >= 355.0f)
             {
-                Debug.Log("こえた");
+                //Debug.Log("こえた");
             }
 
 
@@ -59,13 +59,13 @@ public class GearRotation : MonoBehaviour
                 Debug.Log("ボタンをおせる");
                 if (Input.GetKeyDown("joystick button 1"))
                 {
-                    Debug.Log("ボタンをおした");
+                    //Debug.Log("ボタンをおした");
                     //this._collider.isTrigger = false;
                 }
 
                 if (_gearDegree >= 355.0f)
                 {
-                    Debug.Log("一回転した");
+                    //Debug.Log("一回転した");
                     _playerRotation = true;
                     _rb.freezeRotation = true;
 
@@ -81,7 +81,7 @@ public class GearRotation : MonoBehaviour
         if (other.tag == "Player")
         {
             // プレイヤーがコライダーに入ったとき.
-            Debug.Log("範囲内");
+            //Debug.Log("範囲内");
             _colRange = true;
             // InspectorタブのonTriggerStayで指定された処理を実行する
             //onTriggerStay.Invoke(other);
@@ -93,7 +93,7 @@ public class GearRotation : MonoBehaviour
         if (other.tag == "Player")
         {
             // プレイヤーがコライダーから出たとき.
-            Debug.Log("範囲外");
+            //Debug.Log("範囲外");
             _colRange = false;
         }
     }
