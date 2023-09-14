@@ -28,9 +28,11 @@ public class Spider : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerStay(Collider other)
     {
         if (other.name != "WindSpace") return;
+
+        
         // 風に当たるとアニメーションを終了
         _animator.enabled = false;
     }

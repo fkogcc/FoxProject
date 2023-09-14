@@ -28,9 +28,11 @@ public class Owl : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerStay(Collider other)
     {
+        Debug.Log("通ってる");
         if (other.name != "WindSpace") return;
+
         // 風に当たるとアニメーションを終了
         _animator.enabled = false;
     }
