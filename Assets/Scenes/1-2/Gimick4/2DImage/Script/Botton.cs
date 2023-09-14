@@ -7,7 +7,7 @@ public class Botton : MonoBehaviour
     // 押してるかどうかを渡す
     // トリガー判定用
     public bool isTrigger { get; set; }
- 
+
     // 現在ボタンを押しているかどうか
     private bool isTriggerActive = false;
     // Start is called before the first frame update
@@ -15,22 +15,32 @@ public class Botton : MonoBehaviour
     {
         isTrigger = false;
     }
-
+ 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKey(KeyCode.JoystickButton1) && !isTriggerActive)
+        isTrigger = false;
+        if (Input.GetKey(KeyCode.JoystickButton1))
         {
-            isTriggerActive = true;
+            if (!isTriggerActive)
+            {
+                isTriggerActive = true;
+                isTrigger = true;
+            }
         }
         else
         {
             isTriggerActive = false;
         }
 
-        if (isTriggerActive)
+        if (isTrigger)
         {
-            Debug.Log("ositeru");
+            Debug.Log("押せてる");
+
         }
+    }
+    public bool GetButtonB()
+    {
+        return isTrigger;
     }
 }
