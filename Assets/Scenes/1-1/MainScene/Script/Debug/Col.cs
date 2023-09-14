@@ -19,11 +19,11 @@ public class Col : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("’Ê‚Á‚½");
+        //Debug.Log("’Ê‚Á‚½");
     }
 
     private void OnTriggerStay(Collider other)
     {
-        Debug.Log("’Ê‚Á‚½");
+        //Debug.Log("’Ê‚Á‚½");
     }
 }

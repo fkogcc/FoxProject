@@ -22,7 +22,7 @@ public class Spider : MonoBehaviour
     private void FixedUpdate()
     {
         // 落下したらオブジェクトを消す
-        if(transform.position.y < -20)
+        if(transform.position.y < -20 || transform.position.z < -50)
         {
             Destroy(gameObject);
         }
