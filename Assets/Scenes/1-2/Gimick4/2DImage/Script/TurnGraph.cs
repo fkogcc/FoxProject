@@ -3,20 +3,48 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-GameObject bottonObj;
-Botton botton;
 public class TurnGraph : MonoBehaviour
 {
+    GameObject _botton;
+
+    // ‰ñ“]–½—ß
+    private bool _connected = false;
+
+    // ‰ñ“]—Ê
+    private float _rota = 0.0f;
+    // ‰ñ“]—Ê•Û‘¶
+    private float _tempRota = 0.0f;
+
     // Start is called before the first frame update
     void Start()
     {
-        bottonObj = GameObject.Find("Botton"); //Unity‚¿‚á‚ñ‚ğƒIƒuƒWƒFƒNƒg‚Ì–¼‘O‚©‚çæ“¾‚µ‚Ä•Ï”‚ÉŠi”[‚·‚é
-        botton = bottonObj.GetComponent<Botton>(); //unitychan‚Ì’†‚É‚ ‚éUnityChanScript‚ğæ“¾‚µ‚Ä•Ï”‚ÉŠi”[‚·‚é
     }
 
     // Update is called once per frame
     void Update()
     {
+        
+        if (_connected)
+        {
+            if (_rota >= _tempRota + 90.0f)
+            {
+                _connected = false;
+                _tempRota = _rota;
+            }
+            else
+            {
+                _rota += 1.0f;
+                this.transform.Rotate(0.0f, 0.0f, 1.0f);
+            }
+        }
 
+        Debug.Log(_tempRota);
+        Debug.Log(_rota);
+
+    }
+
+    public void Rota()
+    {
+        _connected = true;
     }
 }

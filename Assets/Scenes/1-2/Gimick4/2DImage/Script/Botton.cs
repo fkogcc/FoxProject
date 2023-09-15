@@ -6,41 +6,36 @@ public class Botton : MonoBehaviour
 {
     // 押してるかどうかを渡す
     // トリガー判定用
-    public bool isTrigger { get; set; }
-
+    private bool _isTrigger { get; set; }
     // 現在ボタンを押しているかどうか
-    private bool isTriggerActive = false;
+    private bool _isTriggerActive = false;
+    
     // Start is called before the first frame update
     void Start()
     {
-        isTrigger = false;
+        _isTrigger = false;
     }
  
     // Update is called once per frame
     void Update()
     {
-        isTrigger = false;
-        if (Input.GetKey(KeyCode.JoystickButton1))
+        _isTrigger = false;
+        // Bを押す
+        if (Input.GetKey(KeyCode.JoystickButton1)) // B
         {
-            if (!isTriggerActive)
+            if (!_isTriggerActive)
             {
-                isTriggerActive = true;
-                isTrigger = true;
+                _isTriggerActive = true;
+                _isTrigger = true;
             }
         }
         else
         {
-            isTriggerActive = false;
-        }
-
-        if (isTrigger)
-        {
-            Debug.Log("押せてる");
-
+            _isTriggerActive = false;
         }
     }
     public bool GetButtonB()
     {
-        return isTrigger;
+        return _isTrigger;
     }
 }
