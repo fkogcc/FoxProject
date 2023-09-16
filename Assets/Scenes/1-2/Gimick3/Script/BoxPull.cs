@@ -34,7 +34,7 @@ public class BoxPull : MonoBehaviour
 
         _gimmick = transform.GetChild(0).gameObject;
 
-        _startPos = transform.position;
+        _startPos = _gimmick.transform.position;
 
         _angle = 0f;
         _arrow = new Vector3(0.0f, 1.0f, 0.0f);
@@ -74,9 +74,9 @@ public class BoxPull : MonoBehaviour
     {
         if (_isPull)
         {
-            ChangeCenter();
+            //ChangeCenter();
 
-            ChangeSize();
+            //ChangeSize();
 
             _tempPos = _player.position;
             _tempPos.z = _pullPos.z;
