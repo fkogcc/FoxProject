@@ -78,15 +78,7 @@ public class BoxPull : MonoBehaviour
 
             //ChangeSize();
 
-            _tempPos = _player.position;
-            _tempPos.z = _pullPos.z;
-
-            _angle = Vector3.Angle(_tempPos, _player.position);
-
-            if (0 < _player.position.z - _tempPos.z)
-            {
-                _angle *= -1;
-            }
+            ObjTurn();
 
             //Debug.Log("[PullBox] pull" + _pullPos);
             //Debug.Log("[PullBox] player" + _player.position);
@@ -140,5 +132,18 @@ public class BoxPull : MonoBehaviour
 
         // サイズの変更
         _gimmick.transform.localScale = _delPos;
+    }
+
+    void ObjTurn()
+    {
+        _tempPos = _player.position;
+        _tempPos.z = _pullPos.z;
+
+        _angle = Vector3.Angle(_tempPos, _player.position);
+
+        if (0 < _player.position.z - _tempPos.z)
+        {
+            _angle *= -1;
+        }
     }
 }
