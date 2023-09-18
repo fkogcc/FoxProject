@@ -13,27 +13,33 @@ public class Botton : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        // ‰Ÿ‚µ‚Ä‚¢‚È‚¢
         _isTrigger = false;
     }
  
     // Update is called once per frame
     void Update()
     {
+        // ‰Ÿ‚µ‚Ä‚¢‚È‚¢
         _isTrigger = false;
         // B‚ğ‰Ÿ‚·
         if (Input.GetKey(KeyCode.JoystickButton1)) // B
         {
+            // ‰Ÿ‚µ‚Ä‚¢‚È‚¢ê‡‚Í
             if (!_isTriggerActive)
             {
+                // ‰Ÿ‚µ‚½”»’è
                 _isTriggerActive = true;
                 _isTrigger = true;
             }
         }
         else
         {
+            // ƒ{ƒ^ƒ“‚ğ‰Ÿ‚µ‚Ä‚¢‚È‚©‚Á‚½‚ç
             _isTriggerActive = false;
         }
     }
+    // ‰Ÿ‚µ‚½uŠÔ‚Ì”»’è‚ğ“n‚·
     public bool GetButtonB()
     {
         return _isTrigger;

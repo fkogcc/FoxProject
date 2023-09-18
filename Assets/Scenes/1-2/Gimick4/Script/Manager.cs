@@ -22,18 +22,15 @@ public class Manager : MonoBehaviour
         // プレイヤーが当たっていたら
         if (_coll.GetComponent<MyCollsion3D>().IsGetHit())
         {
-            Debug.Log("判定あり");
             // ボタンを押したら
             if (_botton.GetComponent<Botton>().GetButtonB())
             {
                 // 回転
                 _rota.GetComponent<TurnGraph>().Rota();
+                _coll.GetComponent<MyCollsion3D>().SetHit(false);
             }
         }
-        else
-        {
-            Debug.Log("判定なし");
-        }
+        // ボタンを押していない
         _coll.GetComponent<MyCollsion3D>().SetHit(false);
     }
 }
