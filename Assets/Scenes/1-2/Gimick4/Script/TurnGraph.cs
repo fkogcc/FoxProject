@@ -5,8 +5,6 @@ using UnityEngine;
 
 public class TurnGraph : MonoBehaviour
 {
-    GameObject _botton;
-
     // ‰ñ“]–½—ß
     private bool _connected = false;
     // ‰ñ“]—Ê

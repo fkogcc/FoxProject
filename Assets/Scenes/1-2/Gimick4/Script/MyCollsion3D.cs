@@ -9,32 +9,36 @@ public class MyCollsion3D : MonoBehaviour
     // 当たっているかどうか
     private bool _isColliding;
 
-
-    private void Update()
-    {
-        _isColliding = false;
-    }
-
-    private void OnTriggerStay(Collider other)
-    {
-        // 指定したオブジェクトに当たったら
-        if (other.name == _objectName)
-        {
-            _isColliding = true;    
-        }
-    }
-
     // 判定処理をどうするかを決める
     public void SetHit(bool isHit)
     {
         _isColliding = isHit;
     }
-
     // 当たっているかどうか
     public bool IsGetHit()
     {
         return _isColliding;
     }
+
+    // 指定したオブジェクトに当たったら
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.name == _objectName)
+        {
+            _isColliding = true;    
+        }
+    }
+    // 指定したオブジェクトに当たっていなかったら
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.name == _objectName)
+        {
+            _isColliding = false;
+        }
+    }
+
+
+
 
 
 }
