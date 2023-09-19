@@ -16,7 +16,7 @@ public class Owl : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        Debug.Log($"{name}");
     }
 
     private void FixedUpdate()
@@ -30,8 +30,9 @@ public class Owl : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
-        Debug.Log("通ってる");
-        if (other.name != "WindSpace") return;
+        //if (other.name != "WindSpace") return;
+
+
 
         // 風に当たるとアニメーションを終了
         _animator.enabled = false;
