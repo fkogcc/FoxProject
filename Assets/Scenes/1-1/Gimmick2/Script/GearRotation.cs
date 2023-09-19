@@ -8,15 +8,18 @@ public class GearRotation : MonoBehaviour
     CapsuleCollider _collider;
 
     // 回転度合.
-    public Vector3 _rotaDegrees;
+    private Vector3 _rotaDegrees;
     // 回転.
-    public Quaternion _rotation;
+    private Quaternion _rotation;
     // 一回転したかのフラグ
-    public bool _playerRotation;
-    // プレイヤーが範囲内にいるかどうかのフラグ
-    public bool _colRange;
-    // 回転率
-    float _gearDegree;
+    private bool _playerRotation;
+    // プレイヤーが範囲内にいるかどうかのフラグ.
+    private bool _colRange;
+    // 回転率.
+    private float _gearDegree;
+    // テスト ボタンを押すまで回転させないようにするフラグ.
+    private bool _isTestPushFlag;
+
     // インスタンスの作成.
     void Start()
     {
@@ -24,8 +27,9 @@ public class GearRotation : MonoBehaviour
         _rotaDegrees += new Vector3(0.0f, 1.0f, 0.0f);
         _rotation = Quaternion.AngleAxis(0.0f, _rotaDegrees);
         _playerRotation = false;
-        _colRange = false;
-        _rb = GetComponent<Rigidbody>();
+        _colRange = false; 
+        _isTestPushFlag = false;
+         _rb = GetComponent<Rigidbody>();
         _gearDegree = 0.0f;
         _collider = GetComponent<CapsuleCollider>();
     }
@@ -46,7 +50,10 @@ public class GearRotation : MonoBehaviour
     {
         if (!_playerRotation)
         {
-            _gearDegree = this.transform.localEulerAngles.y % 360;
+            //if (_isTestPushFlag)
+            {
+                _gearDegree = this.transform.localEulerAngles.y % 360;
+            }
             //Debug.Log(_gearDegree);
             if (_gearDegree >= 355.0f)
             {
@@ -59,6 +66,10 @@ public class GearRotation : MonoBehaviour
                 Debug.Log("ボタンをおせる");
                 if (Input.GetKeyDown("joystick button 1"))
                 {
+                    _isTestPushFlag = true;
+                    _rb.constraints = RigidbodyConstraints.FreezePosition
+                     | RigidbodyConstraints.FreezeRotationX
+                     | RigidbodyConstraints.FreezeRotationZ;
                     //Debug.Log("ボタンをおした");
                     //this._collider.isTrigger = false;
                 }
@@ -68,6 +79,11 @@ public class GearRotation : MonoBehaviour
                     //Debug.Log("一回転した");
                     _playerRotation = true;
                     _rb.freezeRotation = true;
+
+
+
+
+                    //_rb.constraints = RigidbodyConstraints;
 
                     _rotation = Quaternion.AngleAxis(1.5f, _rotaDegrees);
                 }
@@ -95,6 +111,8 @@ public class GearRotation : MonoBehaviour
             // プレイヤーがコライダーから出たとき.
             //Debug.Log("範囲外");
             _colRange = false;
+            _isTestPushFlag = false;
+            _rb.freezeRotation = true;
         }
     }
 }
