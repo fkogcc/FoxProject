@@ -22,7 +22,7 @@ public class BeltConveyorGimmick : MonoBehaviour
     private List<Rigidbody> _rigidbodies = new List<Rigidbody>();
 
     // ベルトコンベアの稼働状況
-    [SerializeField] private bool _isOn = false;
+    //[SerializeField] private bool _isOn = false;
 
 
     private void Awake()
