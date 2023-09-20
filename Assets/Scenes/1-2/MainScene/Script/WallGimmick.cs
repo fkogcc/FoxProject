@@ -25,9 +25,8 @@ public class WallGimmick : MonoBehaviour
     }
 
     /// <summary>
-    /// 壁のギミック
+    /// 壁のギミック更新処理
     /// </summary>
-    /// <param name="gameObject">壁のゲームオブジェクト</param>
     /// <param name="solveGimmick">ギミックを解いたかどうか</param>
     public void UpdateWall(bool solveGimmick)
     {
