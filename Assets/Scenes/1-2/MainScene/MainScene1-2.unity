@@ -123,6 +123,51 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &179448222
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 179448224}
+  - component: {fileID: 179448223}
+  m_Layer: 0
+  m_Name: GimmickManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &179448223
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 179448222}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 127036fed2dc47e45b8f57112092d396, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _solveGimmick: 00000000
+--- !u!4 &179448224
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 179448222}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 73.291794, y: 7.200659, z: -3.65662}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &238175335
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -200,6 +245,7 @@ GameObject:
   - component: {fileID: 311625790}
   - component: {fileID: 311625789}
   - component: {fileID: 311625788}
+  - component: {fileID: 311625792}
   m_Layer: 0
   m_Name: Gimmick1
   m_TagString: Untagged
@@ -278,13 +324,26 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 311625787}
   m_LocalRotation: {x: -0, y: 0.39255926, z: -0, w: 0.9197267}
-  m_LocalPosition: {x: 84.39, y: 19.44, z: 1.05}
-  m_LocalScale: {x: 10.612499, y: 10.612499, z: 6.3675}
+  m_LocalPosition: {x: 84, y: 5, z: 1}
+  m_LocalScale: {x: 10, y: 10, z: 6}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 978498667}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 46.228, z: 0}
+--- !u!114 &311625792
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 311625787}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5895897ade0c26a449bcdc80bbe44c3c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _time: 0.5
 --- !u!1001 &578449517
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -453,6 +512,7 @@ GameObject:
   - component: {fileID: 818038171}
   - component: {fileID: 818038170}
   - component: {fileID: 818038169}
+  - component: {fileID: 818038173}
   m_Layer: 0
   m_Name: Gimmick2
   m_TagString: Untagged
@@ -467,7 +527,7 @@ BoxCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 818038168}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 69d4321162842bf489cce2d2ee49e82c, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
@@ -531,13 +591,29 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 818038168}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 167.7, y: 2.5, z: 6}
-  m_LocalScale: {x: 5, y: 5, z: 3}
+  m_LocalPosition: {x: 168.39, y: 0.5, z: 1}
+  m_LocalScale: {x: 15, y: 1, z: 12}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 978498667}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &818038173
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 818038168}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4921cf4a58a984a48a322fb4e0cdeb02, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _moveDirection: {x: 0, y: 0, z: -1}
+  _ConveyorSpeed: 5
+  _forcePower: 100
+  _isOn: 1
 --- !u!4 &852456856 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6487269949968605801, guid: 48321353464bcd84482454e4cf735915, type: 3}
