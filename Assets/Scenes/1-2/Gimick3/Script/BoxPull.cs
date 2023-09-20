@@ -4,7 +4,12 @@ using UnityEngine;
 
 public class BoxPull : MonoBehaviour
 {
-    const int kNum = 16;
+    const int kNum = 20;
+
+    // ディレクター
+    BoxDirector _director;
+    // ギミックの色
+    public string _color;
 
     // プレイヤーの位置情報
     Transform _player;
@@ -13,12 +18,17 @@ public class BoxPull : MonoBehaviour
     GameObject _gimmick;
     GameObject[] _gimmicks = new GameObject[kNum];
 
+    // クリアオブジェ
+    GameObject _clearObj;
 
     // 引っ張れる範囲にいるかの
     bool _isPullRange;
 
     // 引っ張っているか
     bool _isPull;
+
+    // ギミッククリアしているか
+    bool _isClear;
 
 
     // 引っ張り始めた位置
@@ -29,8 +39,11 @@ public class BoxPull : MonoBehaviour
 
     void Start()
     {
+        _director = GameObject.Find("GimmickDirector").GetComponent<BoxDirector>();
+
         _player = GameObject.Find("3DPlayer").GetComponent<Transform>();
 
+        // クリア前までのオブジェ
         _gimmick = (GameObject)Resources.Load("Cube");
 
         for (int i = 0; i < kNum; i++)
@@ -38,8 +51,13 @@ public class BoxPull : MonoBehaviour
             _gimmicks[i] = Instantiate(_gimmick, this.transform.position, Quaternion.identity);
         }
 
+        // クリア後のオブジェ
+        _clearObj = (GameObject)Resources.Load(_color + "Cylinder");
+
+        // bool関係をすべてfalseに
         _isPullRange = false;
         _isPull = false;
+        _isClear = false;
 
         _startPos = new Vector3();
         _moveVec = new Vector3();
@@ -48,24 +66,54 @@ public class BoxPull : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // ギミックをクリアしていたら処理をしない
+        if (_isClear) return;
+
         if ((Input.GetKeyDown("joystick button 1") || Input.GetKeyDown(KeyCode.F)) && _isPullRange)
         {
-            Debug.Log("引っ張り始めた");
-
             // 引っ張り始めた位置の保存
             _startPos = _player.position;
 
+            _director.SetGimmickOut(_color);
+
             _isPull = true;
+
+            Debug.Log("引っ張り始めた:color, " + _color);
         }
 
-        if ((Input.GetKeyDown("joystick button 1") || Input.GetKeyUp(KeyCode.F)))
+        if ((Input.GetKeyDown("joystick button 1") || Input.GetKeyUp(KeyCode.F)) && _isPull)
         {
             Debug.Log("引っ張り終わり");
 
-            // 元の位置に戻す
-            for (int i = 0; i < kNum; i++)
+            // 離した色が引っ張り始めた色と同じか
+            // ギミッククリア範囲内にいるか
+            if (_director.IsSameColor())
             {
-                _gimmicks[i].transform.position = this.transform.position;
+                // ギミックをクリアしたことにする
+                _isClear = true;
+
+                // クリア後オブジェを生成
+                Instantiate(_clearObj);
+
+                // クリア前オブジェの削除
+                for (int i = 0; i < kNum; i++)
+                {
+                    Destroy(_gimmicks[i]);
+                }
+
+                // 下はクリア後にオブジェクトを変えないでやる方法
+                //// 位置をきれいになるように整形
+                //_moveVec = _director.GetGimmickPos() - this.transform.position;
+
+                //ObjPlacement();
+            }
+            else
+            {
+                // 元の位置に戻す
+                for (int i = 0; i < kNum; i++)
+                {
+                    _gimmicks[i].transform.position = this.transform.position;
+                }
             }
 
             _isPull = false;
@@ -74,33 +122,42 @@ public class BoxPull : MonoBehaviour
 
     void FixedUpdate()
     {
+        // ギミックをクリアしていたら処理をしない
+        if (_isClear) return;
+
         if (_isPull)
         {
             // 現在までのベクトルを計算
             _moveVec = _player.position - _startPos;
 
-            // 出すオブジェクトの量で割る
-            _moveVec /= kNum;
-
-            // 少しずつずらして位置を置く
-            for (int i = 0; i < kNum; i++)
-            {
-                _gimmicks[i].transform.position = this.transform.position + _moveVec * i;
-            }
+            ObjPlacement();
         }
     }
 
+    // 範囲内に入った場合引っ張れるようにする
     void OnTriggerEnter(Collider other)
     {
-        // 範囲内に入った場合引っ張れるようにする
         Debug.Log("引っ張れる");
         _isPullRange = true;
     }
 
+    // 範囲外に出たら引っ張れないようにする
     void OnTriggerExit(Collider other)
     {
-        // 範囲外に出たら引っ張れないようにする
         Debug.Log("引っ張れない");
         _isPullRange = false;
+    }
+
+    // 移動量分ずらしてオブジェクトの設置
+    void ObjPlacement()
+    {
+        // 出すオブジェクトの量で割る
+        _moveVec /= kNum;
+
+        // 少しずつずらして位置を置く
+        for (int i = 0; i < kNum; i++)
+        {
+            _gimmicks[i].transform.position = this.transform.position + _moveVec * (i + 1);
+        }
     }
 }
