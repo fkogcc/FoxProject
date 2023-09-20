@@ -2,25 +2,42 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MovePlane : MonoBehaviour
+public class MovePlane2 : MonoBehaviour
 {
     GameObject player;
     float _planeAngle;
-    int _moveAngle;
-    bool _isMoving;
+    int _moveAngle = 5;
+    public static bool _isMoving;//別のスクリプトから干渉できるようにパブリックにしておく
     void Start()
     {
         player = GameObject.Find("3DPlayer");
         _planeAngle = this.transform.localEulerAngles.y;
         _isMoving = false;
+        if (_planeAngle == 0)
+        {
+            _moveAngle = 0;
+        }
+        else if (_planeAngle == 90)
+        {
+            _moveAngle = 1;
+        }
+        else if (_planeAngle == 180)
+        {
+            _moveAngle = 2;
+        }
+        else if (_planeAngle == 270)
+        {
+            _moveAngle = 3;
+        }
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
-//        Debug.Log(_isMoving);
+        Debug.Log(transform.localEulerAngles.y);
         if (_isMoving)
         {
+            //Debug.Log(_moveAngle);
             if (_moveAngle == 0)
             {
                 player.transform.position += new Vector3(-0.1f, 0.0f, 0.0f);
@@ -41,29 +58,15 @@ public class MovePlane : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("あたった");
+        //Debug.Log("あたった");
+        //Debug.Log(_planeAngle);
 
-        if (_planeAngle == 0)
-        {
-            _moveAngle = 0;
-        }
-        else if (_planeAngle == 90)
-        {
-            _moveAngle = 1;
-        }
-        else if (_planeAngle == 180)
-        {
-            _moveAngle = 2;
-        }
-        else if (_planeAngle == 270)
-        {
-            _moveAngle = 3;
-        }
-        MovePlane2._isMoving = false;//動き続ける処理を止める
+        //if (other.name == "3DPlayer")
+        //{
+        //    Debug.Log("あ");
+        //    _moveAngle = 0;
+        //}
+
         _isMoving = true;
-    }
-    private void OnTriggerExit(Collider other)
-    {
-        _isMoving = false;
     }
 }
