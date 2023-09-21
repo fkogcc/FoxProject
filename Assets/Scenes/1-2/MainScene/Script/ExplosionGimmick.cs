@@ -4,27 +4,31 @@ using UnityEngine;
 
 public class ExplosionGimmick : MonoBehaviour
 {
-    ExplosionGimmick _instance;
-
-    [Header("爆風に当たった時に吹っ飛ぶ力の強さ")]
-    [SerializeField] private float _blastPower;
-
-    [Header("爆風の判定が発生するディレイ")]
-    [SerializeField] private float _startBlast;
-
-    [Header("爆風の持続フレーム")]
-    [SerializeField] private int _durationFrame;
-
-    [Header("エフェクト含めたすべての再生が終了するまでの時間")]
-    [SerializeField] private float _endEffectTime;
+    public static ExplosionGimmick _instance;
 
     // パーティクルオブジェクト
-    [Header("爆発するパーティクルオブジェクト代入")]
-    [SerializeField] private ParticleSystem _effect;
+    [SerializeField] ParticleSystem _particleSystem;
 
-    // 丸の当たり判定
-    [Header("球の当たり判定")]
-    [SerializeField] private SphereCollider _collider;
+    // 爆弾オブジェクト
+    [SerializeField] GameObject _bombObject;
+
+    // 爆発の与える力
+    [SerializeField] private float _force;
+
+    // 爆発範囲の半径
+    [SerializeField] private float _radius;
+
+    // 上に飛ばされる力
+    [SerializeField] private float _upwardsPower;
+
+    // パーティクルの最大再生時間
+    [SerializeField] private float _particleMaxCount;
+
+    // パーティクル再生時間
+    private float _particleCount;
+
+    // 爆発する座標
+    Vector3 _ExplosionPosition;
 
     private void Awake()
     {
@@ -38,13 +42,51 @@ public class ExplosionGimmick : MonoBehaviour
             Destroy(gameObject);
         }
 
-        _effect.Stop();
-        _collider.enabled = false;
+        _particleSystem.Stop();
     }
 
-    // 爆発する
-    public void Explode()
+    /// <summary>
+    /// 爆発処理
+    /// </summary>
+    /// <param name="solve">ギミックを解いたかどうか</param>
+    public void UpdateExplosion(bool solve)
     {
-        // 当たり判定管理のコルーチン
+        if(!solve) return;
+
+        // パーティクル再生
+        _particleSystem.Play();
+        // パーティクル座標を代入
+        _ExplosionPosition = _particleSystem.transform.position;
+
+        // 範囲内のRigidbodyにAddExplosionForce
+        // 後でコメント変更
+        Collider[] hitColliders = Physics.OverlapSphere(_ExplosionPosition, _radius);
+        for(int i = 0; i < hitColliders.Length; i++)
+        {
+            Rigidbody rigidbody = hitColliders[i].GetComponent<Rigidbody>();
+
+            // 範囲内にいるRigidbodyを持つオブジェクトを吹き飛ばす
+            if(rigidbody)
+            {
+                rigidbody.AddExplosionForce(_force, _ExplosionPosition, _radius, _upwardsPower, ForceMode.Impulse);
+            }
+        }
+
+        // 再生している時間
+        if(_particleCount < _particleMaxCount)
+        {
+            _particleCount++;
+        }
+        // 時間がたつとパーティクル再生終了
+        if(_particleCount == _particleMaxCount )
+        {
+            // パーティクル再生終了
+            _particleSystem.Stop();
+        }
+
+
+        
+
+        _bombObject.SetActive(false);
     }
 }

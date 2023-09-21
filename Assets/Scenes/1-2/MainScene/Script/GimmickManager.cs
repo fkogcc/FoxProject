@@ -27,7 +27,10 @@ public class GimmickManager : MonoBehaviour
         WallGimmick._instance.UpdateWall(_solveGimmick[0]);
         WallGimmick._instance.DebugReset(_solveGimmick[0]);
 
-        // ベルトコンベア
+        // ベルトコンベア処理
         BeltConveyorGimmick._instance.UpdateBeltConveyor(_solveGimmick[1]);
+
+        // 爆発処理
+        ExplosionGimmick._instance.UpdateExplosion(_solveGimmick[2]);
     }
 }
