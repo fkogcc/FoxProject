@@ -2,34 +2,35 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Manager : MonoBehaviour
+public class Gimick1_2_4_Manager : MonoBehaviour
 {
-    // ボタン処理
+    // Start is called before the first frame update
+    // ?{?^??????
     GameObject _botton;
-    // オブジェクト回転処理
+    // ?I?u?W?F?N?g??]????
     GameObject _rota;
-    // 当たり判定処理
+    // ??????????
     GameObject _coll;
     // Start is called before the first frame update
     void Start()
     {
-        // ボタン処理
+        // ?{?^??????
         _botton = GameObject.Find("GameManager");
-        // オブジェクト回転処理
-        _rota   = GameObject.Find("cordRota0");
-        // 当たり判定処理
+        // ?I?u?W?F?N?g??]????
+        _rota = GameObject.Find("cordRota0");
+        // ??????????
         _coll = GameObject.Find("cordRota0");
     }
 
     void Update()
     {
-        // プレイヤーが当たっていたら
+        // ?v???C???[???????????????
         if (_coll.GetComponent<MyCollsion3D>().IsGetHit())
         {
-            // ボタンを押したら
+            // ?{?^????????????
             if (_botton.GetComponent<Botton>().GetButtonB())
             {
-                // 回転
+                // ??]
                 _rota.GetComponent<TurnGraph>().Rota();
             }
         }

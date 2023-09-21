@@ -10,6 +10,7 @@ public class handleWall : MonoBehaviour
     // ハンドルオブジェクトの状態を取得
     public Coll _coll;
 
+    // 多分初期化
     void Start()
     {
         _isHandleSet = false;
@@ -18,11 +19,15 @@ public class handleWall : MonoBehaviour
     // Update is called once per frame
     public void Update()
     {
+        // 多分bool型
         if (_isHandleSet)
         {
+            // なにこれ
             Debug.Log("セットできます");
+            // あってるとおもう
             if (Input.GetKey("s"))
             {
+                // うごけ
                 Debug.Log("S押しました");
 
             }
