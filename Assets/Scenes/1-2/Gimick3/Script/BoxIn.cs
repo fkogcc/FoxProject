@@ -7,7 +7,7 @@ public class BoxIn : MonoBehaviour
     // ディレクター
     BoxDirector _director;
     // ギミックの色
-    public string _color;
+    public string Color;
 
     void Start()
     {
@@ -16,8 +16,8 @@ public class BoxIn : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        Debug.Log("ギミック内:color, " + _color);
-        _director.SetGimmickIn(_color, this.transform.position);
+        Debug.Log("ギミック内:color, " + Color);
+        _director.SetGimmickIn(Color, this.transform.position);
     }
 
     private void OnTriggerExit(Collider other)

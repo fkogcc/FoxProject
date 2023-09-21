@@ -9,7 +9,7 @@ public class BoxPull : MonoBehaviour
     // ディレクター
     BoxDirector _director;
     // ギミックの色
-    public string _color;
+    public string Color;
 
     // プレイヤーの位置情報
     Transform _player;
@@ -52,7 +52,7 @@ public class BoxPull : MonoBehaviour
         }
 
         // クリア後のオブジェ
-        _clearObj = (GameObject)Resources.Load(_color + "Cylinder");
+        _clearObj = (GameObject)Resources.Load(Color + "Cylinder");
 
         // bool関係をすべてfalseに
         _isPullRange = false;
@@ -74,11 +74,11 @@ public class BoxPull : MonoBehaviour
             // 引っ張り始めた位置の保存
             _startPos = _player.position;
 
-            _director.SetGimmickOut(_color);
+            _director.SetGimmickOut(Color);
 
             _isPull = true;
 
-            Debug.Log("引っ張り始めた:color, " + _color);
+            Debug.Log("引っ張り始めた:color, " + Color);
         }
 
         if ((Input.GetKeyDown("joystick button 1") || Input.GetKeyUp(KeyCode.F)) && _isPull)

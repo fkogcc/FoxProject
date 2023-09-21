@@ -68,6 +68,11 @@ public class BoxDirector : MonoBehaviour
         {
             _clearCount++;
 
+            if (4 <= _clearCount)
+            {
+                Debug.Log("[BoxGimmick]ƒNƒŠƒA‚µ‚Ü‚µ‚½");
+            }
+
             return true;
         }
 
