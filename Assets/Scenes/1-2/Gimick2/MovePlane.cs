@@ -41,6 +41,7 @@ public class MovePlane : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
+        PlaneManager._moveAngle = 4;
         Debug.Log("‚ ‚½‚Á‚½");
 
         if (_planeAngle == 0)
@@ -59,7 +60,6 @@ public class MovePlane : MonoBehaviour
         {
             _moveAngle = 3;
         }
-        MovePlane2._isMoving = false;//“®‚«‘±‚¯‚éˆ—‚ğ~‚ß‚é
         _isMoving = true;
     }
     private void OnTriggerExit(Collider other)
