@@ -32,5 +32,8 @@ public class GimmickManager : MonoBehaviour
 
         // ”š”­ˆ—
         ExplosionGimmick._instance.UpdateExplosion(_solveGimmick[2]);
+
+        // ‰Šˆ—
+        FireGimmick._instance.UpdateFire(_solveGimmick[3]);
     }
 }
