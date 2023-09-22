@@ -1,4 +1,6 @@
-// ポーズ画面の処理
+// ポーズ画面の処理.
+// FIXME:まだ追加したい機能があるので途中よ
+
 using UnityEngine;
 
 public class UpdatePause : MonoBehaviour
