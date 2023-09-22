@@ -1,12 +1,12 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class MonitorCamera : MonoBehaviour
 {
-    // ƒ{ƒ^ƒ“‚ğ‰Ÿ‚µ‚½‚©‚Ìó‘Ô.
+    // ãƒœã‚¿ãƒ³ã‚’æŠ¼ã—ãŸã‹ã®çŠ¶æ…‹.
     public bool _isPushFlag;
-    // ƒQ[ƒ€ƒIƒuƒWƒFƒNƒg‚ğæ“¾‚·‚é
+    // ã‚²ãƒ¼ãƒ ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’å–å¾—ã™ã‚‹
     public GameObject _monitorCameraObject;
     public GameObject _playerObject;
     public GameObject _handObject;
@@ -20,19 +20,19 @@ public class MonitorCamera : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // ƒ{ƒ^ƒ“‚Ìó‘Ô‚É‚æ‚Á‚Ä•ªŠò‚³‚¹‚é.
+        // ãƒœã‚¿ãƒ³ã®çŠ¶æ…‹ã«ã‚ˆã£ã¦åˆ†å²ã•ã›ã‚‹.
         if (_isPushFlag)
         {
-            // ƒ‚ƒjƒ^[‘O‚ÌƒJƒƒ‰‚ğƒIƒ“‚É‚·‚é
+            // ãƒ¢ãƒ‹ã‚¿ãƒ¼å‰ã®ã‚«ãƒ¡ãƒ©ã‚’ã‚ªãƒ³ã«ã™ã‚‹
             _monitorCameraObject.gameObject.SetActive(true);
-            // ƒvƒŒƒCƒ„[‚ğ”ñ•\¦‚É‚·‚é
+            // ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã‚’éè¡¨ç¤ºã«ã™ã‚‹
             _playerObject.gameObject.SetActive(false);
-            // ƒvƒŒƒCƒ„[‚Ìè‚ğ•\¦‚·‚é
+            // ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®æ‰‹ã‚’è¡¨ç¤ºã™ã‚‹
             _handObject.gameObject.SetActive(true);
         }
         else
         {
-            // ƒ‚ƒjƒ^[‘O‚ÌƒJƒƒ‰‚ğƒIƒt‚É‚·‚é
+            // ãƒ¢ãƒ‹ã‚¿ãƒ¼å‰ã®ã‚«ãƒ¡ãƒ©ã‚’ã‚ªãƒ•ã«ã™ã‚‹
             _monitorCameraObject.gameObject.SetActive(false);
             _playerObject.gameObject.SetActive(true);
             _handObject.gameObject.SetActive(false);

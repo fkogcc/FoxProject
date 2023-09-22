@@ -1,51 +1,51 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class GimickButton : MonoBehaviour
 {
-    // “–‚½‚è”»’è“à‚É‚¢‚é‚©‚Ç‚¤‚©•Û‘¶‚·‚éƒtƒ‰ƒO.
+    // å½“ãŸã‚Šåˆ¤å®šå†…ã«ã„ã‚‹ã‹ã©ã†ã‹ä¿å­˜ã™ã‚‹ãƒ•ãƒ©ã‚°.
     public bool _isCollision;
-    // ƒ{ƒ^ƒ“‚Ì‰Ÿ‚µ‚½ó‘Ô‚ğ•Û‘¶‚·‚éƒtƒ‰ƒO.
+    // ãƒœã‚¿ãƒ³ã®æŠ¼ã—ãŸçŠ¶æ…‹ã‚’ä¿å­˜ã™ã‚‹ãƒ•ãƒ©ã‚°.
     public bool _isButtonState;
-    // ƒ{ƒ^ƒ“‚Ìó‘Ô‚ğ“n‚·‚½‚ß‚ÉƒIƒuƒWƒFƒNƒg‚ğæ“¾.
+    // ãƒœã‚¿ãƒ³ã®çŠ¶æ…‹ã‚’æ¸¡ã™ãŸã‚ã«ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’å–å¾—.
     private GameObject _gameObject;
-    // script‚ğæ“¾.
+    // scriptã‚’å–å¾—.
     PlayerHand _player;
-    // ƒvƒŒƒCƒ„[‚ªG‚ê‚¢‚Ä‚¢‚éƒ{ƒ^ƒ“‚Ì–¼‘O‚ğ‚¢‚ê‚é‚½‚ß‚Ì•Ï”.
+    // ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ãŒè§¦ã‚Œã„ã¦ã„ã‚‹ãƒœã‚¿ãƒ³ã®åå‰ã‚’ã„ã‚Œã‚‹ãŸã‚ã®å¤‰æ•°.
     private string _name;
 
     // Start is called before the first frame update
     void Start()
     {
-        // ƒtƒ‰ƒO‚Ì‰Šú‰».
+        // ãƒ•ãƒ©ã‚°ã®åˆæœŸåŒ–.
         _isCollision = false;
 
-        // ƒIƒuƒWƒFƒNƒg‚ğæ“¾.
+        // ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’å–å¾—.
         _gameObject = GameObject.Find("FoxHand");
-        // ƒIƒuƒWƒFƒNƒg‚Ì’†‚É‚ ‚éscript‚ğæ“¾.
+        // ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®ä¸­ã«ã‚ã‚‹scriptã‚’å–å¾—.
         _player = _gameObject.GetComponent<PlayerHand>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        // ©g‚Ì–¼‘O‚ÆƒvƒŒƒCƒ„[‚ªG‚ê‚Ä‚¢‚éƒ{ƒ^ƒ“‚Ì–¼‘O‚ªˆê‚¾‚Á‚½‚ç.
+        // è‡ªèº«ã®åå‰ã¨ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ãŒè§¦ã‚Œã¦ã„ã‚‹ãƒœã‚¿ãƒ³ã®åå‰ãŒä¸€ç·’ã ã£ãŸã‚‰.
         if (_name == this.gameObject.name)
         {
-            // ‚İ‚Ç‚è‚ÉF‚ğ•Ï‚¦‚é.
+            // ã¿ã©ã‚Šã«è‰²ã‚’å¤‰ãˆã‚‹.
             GetComponent<Renderer>().material.color = Color.green;
         }
-        // ƒvƒŒƒCƒ„[‚ªƒ{ƒ^ƒ“‚ğ‰Ÿ‚µ‚½ó‘Ô‚Å‚ ‚Á‚½‚ç.
+        // ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ãŒãƒœã‚¿ãƒ³ã‚’æŠ¼ã—ãŸçŠ¶æ…‹ã§ã‚ã£ãŸã‚‰.
         if (_player._isButtonState)
         {
-            // ¡G‚ê‚Ä‚¢‚éƒ{ƒ^ƒ“‚Ì–¼‘O‚ğæ“¾‚·‚é.
+            // ä»Šè§¦ã‚Œã¦ã„ã‚‹ãƒœã‚¿ãƒ³ã®åå‰ã‚’å–å¾—ã™ã‚‹.
             _name = _player._buttonName;
         }
-        // ‰Ÿ‚µ‚½ó‘Ô‚Å‚È‚¯‚ê‚Î.
+        // æŠ¼ã—ãŸçŠ¶æ…‹ã§ãªã‘ã‚Œã°.
         else
         {
-            // –¼‘O‚É‚Í‰½‚à“ü‚ê‚È‚¢
+            // åå‰ã«ã¯ä½•ã‚‚å…¥ã‚Œãªã„
             _name = "";
         }
 

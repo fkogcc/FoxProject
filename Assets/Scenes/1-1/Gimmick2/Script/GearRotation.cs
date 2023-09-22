@@ -1,116 +1,94 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class GearRotation : MonoBehaviour
 {
+    // ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®Rigidbodyã‚’å–å¾—.
     Rigidbody _rb;
-    CapsuleCollider _collider;
-
-    // ‰ñ“]“x‡.
+    // å›è»¢åº¦åˆ.
     private Vector3 _rotaDegrees;
-    // ‰ñ“].
+    // å›è»¢.
     private Quaternion _rotation;
-    // ˆê‰ñ“]‚µ‚½‚©‚Ìƒtƒ‰ƒO
+    // ä¸€å›è»¢ã—ãŸã‹ã®ãƒ•ãƒ©ã‚°
     private bool _playerRotation;
-    // ƒvƒŒƒCƒ„[‚ª”ÍˆÍ“à‚É‚¢‚é‚©‚Ç‚¤‚©‚Ìƒtƒ‰ƒO.
+    // ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ãŒç¯„å›²å†…ã«ã„ã‚‹ã‹ã©ã†ã‹ã®ãƒ•ãƒ©ã‚°.
     private bool _colRange;
-    // ‰ñ“]—¦.
+    // å›è»¢ç‡.
     private float _gearDegree;
-    // ƒeƒXƒg ƒ{ƒ^ƒ“‚ğ‰Ÿ‚·‚Ü‚Å‰ñ“]‚³‚¹‚È‚¢‚æ‚¤‚É‚·‚éƒtƒ‰ƒO.
-    //private bool _isTestPushFlag = false;
 
-    // ƒCƒ“ƒXƒ^ƒ“ƒX‚Ìì¬.
+    // ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã®ä½œæˆ.
     void Start()
     {
-        // ‰Šú‰».
+        // åˆæœŸåŒ–.
         _rotaDegrees += new Vector3(0.0f, 1.0f, 0.0f);
         _rotation = Quaternion.AngleAxis(0.0f, _rotaDegrees);
         _playerRotation = false;
         _colRange = false; 
          _rb = GetComponent<Rigidbody>();
         _gearDegree = 0.0f;
-        _collider = GetComponent<CapsuleCollider>();
     }
 
-    // 60ƒtƒŒ[ƒ€‚Éˆê‰ñ‚ÌXVˆ—.
+    // 60ãƒ•ãƒ¬ãƒ¼ãƒ ã«ä¸€å›ã®æ›´æ–°å‡¦ç†.
     void FixedUpdate()
     {
+        // ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ãŒæŒã¡æ‰‹ã‚’æŒã£ã¦ä¸€å›è»¢ã—ãŸã‚‰
         if (_playerRotation)
         {
-            // ‰ñ“]“x‡‚ğ‚©‚¯‚Ä‘«‚·.
+            // å›è»¢åº¦åˆã‚’ã‹ã‘ã¦è¶³ã™(ãšã£ã¨å›è»¢ã•ã›ã‚‹).
             this.transform.rotation = _rotation * this.transform.rotation;
         }
     }
 
-
-    // XVˆ—.
+    // æ›´æ–°å‡¦ç†.
     void Update()
     {
+        // ä¸€å›è»¢ã—ã¦ã„ãªã‹ã£ãŸã‚‰.
         if (!_playerRotation)
         {
-            //if (_isTestPushFlag)
-            {
-                _gearDegree = this.transform.localEulerAngles.y % 360;
-            }
-            //Debug.Log(_gearDegree);
+            // å›è»¢ã•ã›ã‚‹è¨ˆç®—.
+            _gearDegree = this.transform.localEulerAngles.y % 360;
             if (_gearDegree >= 355.0f)
             {
-                //Debug.Log("‚±‚¦‚½");
+                //Debug.Log("ã“ãˆãŸ");
             }
-
-
+            // åˆ¤å®šå†…ã«ã„ãŸã‚‰.
             if (_colRange)
             {
-                Debug.Log("ƒ{ƒ^ƒ“‚ğ‚¨‚¹‚é");
+                // ãƒœã‚¿ãƒ³ã‚’æŠ¼ã—ãŸã‚‰å›è»¢ã§ãã‚‹ã‚ˆã†ã«ã™ã‚‹.
                 if (Input.GetKeyDown("joystick button 1"))
                 {
-                    //_isTestPushFlag = true;
                     _rb.constraints = RigidbodyConstraints.FreezePosition
                      | RigidbodyConstraints.FreezeRotationX
                      | RigidbodyConstraints.FreezeRotationZ;
-                    //Debug.Log("ƒ{ƒ^ƒ“‚ğ‚¨‚µ‚½");
-                    //this._collider.isTrigger = false;
                 }
-
+                // ä¸€å›è»¢ã—ãŸã‚‰.
                 if (_gearDegree >= 355.0f)
                 {
-                    //Debug.Log("ˆê‰ñ“]‚µ‚½");
                     _playerRotation = true;
+                    // Rigidbodyã®Rotationã‚’å›ºå®šã•ã›ã‚‹.
                     _rb.freezeRotation = true;
-
-
-
-
-                    //_rb.constraints = RigidbodyConstraints;
-
+                    // å›è»¢é€Ÿåº¦ã‚’å›ºå®šã•ã›ã‚‹.
                     _rotation = Quaternion.AngleAxis(1.5f, _rotaDegrees);
                 }
             }
-            //Debug.Log(_pushButton);
 
         }
     }
+    // ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ãŒã‚³ãƒ©ã‚¤ãƒ€ãƒ¼å†…ã«ã„ã‚‹ã¨ã.
     void OnTriggerEnter(Collider other)
     {
         if (other.tag == "Player")
         {
-            // ƒvƒŒƒCƒ„[‚ªƒRƒ‰ƒCƒ_[‚É“ü‚Á‚½‚Æ‚«.
-            //Debug.Log("”ÍˆÍ“à");
             _colRange = true;
-            // Inspectorƒ^ƒu‚ÌonTriggerStay‚Åw’è‚³‚ê‚½ˆ—‚ğÀs‚·‚é
-            //onTriggerStay.Invoke(other);
         }
     }
-
+    // ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ãŒã‚³ãƒ©ã‚¤ãƒ€ãƒ¼å¤–ã«å‡ºãŸã¨ã.
     void OnTriggerExit(Collider other)
     {
         if (other.tag == "Player")
         {
-            // ƒvƒŒƒCƒ„[‚ªƒRƒ‰ƒCƒ_[‚©‚ço‚½‚Æ‚«.
-            //Debug.Log("”ÍˆÍŠO");
             _colRange = false;
-            //_isTestPushFlag = false;
             _rb.freezeRotation = true;
         }
     }

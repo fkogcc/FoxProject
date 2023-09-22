@@ -1,79 +1,79 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class ButtonState : MonoBehaviour
 {
-    // ƒ{ƒ^ƒ“‚Ì‰Ÿ‚µ‚½ó‘Ô‚ğ•Û‘¶‚·‚é‚½‚ß‚ÉSerializeField‚ÅŠÇ—‚·‚é.
+    // ãƒœã‚¿ãƒ³ã®æŠ¼ã—ãŸçŠ¶æ…‹ã‚’ä¿å­˜ã™ã‚‹ãŸã‚ã«SerializeFieldã§ç®¡ç†ã™ã‚‹.
     [SerializeField] private GameObject[] _objGet;
-    // ‰Ÿ‚µ‚½ƒ{ƒ^ƒ“‚Ì–¼‘O‚ğæ“¾‚·‚é.
+    // æŠ¼ã—ãŸãƒœã‚¿ãƒ³ã®åå‰ã‚’å–å¾—ã™ã‚‹.
     private string _buttonName;
-    // ƒ{ƒ^ƒ“‚Ìó‘Ô(ƒ{ƒ^ƒ“‚ª‰Ÿ‚³‚ê‚½‚©‚Ç‚¤‚©)‚ğæ“¾‚·‚é.
+    // ãƒœã‚¿ãƒ³ã®çŠ¶æ…‹(ãƒœã‚¿ãƒ³ãŒæŠ¼ã•ã‚ŒãŸã‹ã©ã†ã‹)ã‚’å–å¾—ã™ã‚‹.
     private bool _isButtonState = false;
-    // ”z—ñ‚ğŠÇ—‚·‚é‚½‚ß‚É—pˆÓ.
+    // é…åˆ—ã‚’ç®¡ç†ã™ã‚‹ãŸã‚ã«ç”¨æ„.
     private int _num = 0;
-    // –¼‘O‚ğƒ`ƒFƒbƒN‚·‚é‚½‚ß‚É—pˆÓ.
+    // åå‰ã‚’ãƒã‚§ãƒƒã‚¯ã™ã‚‹ãŸã‚ã«ç”¨æ„.
     private bool _isTestNameCheck = false;
-    // ƒ{ƒ^ƒ“‚Ìó‘Ô‚ğ“n‚·‚½‚ß‚ÉƒIƒuƒWƒFƒNƒg‚ğæ“¾.
+    // ãƒœã‚¿ãƒ³ã®çŠ¶æ…‹ã‚’æ¸¡ã™ãŸã‚ã«ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’å–å¾—.
     private GameObject _playerObject;
-    // script‚ğæ“¾.
+    // scriptã‚’å–å¾—.
     PlayerHand _player;
 
     // Start is called before the first frame update
     void Start()
     {
-        // ‰Šú‰»ˆ—.
+        // åˆæœŸåŒ–å‡¦ç†.
         _buttonName = "";
         _isButtonState = false;
         _num = 0;
         _isTestNameCheck = false;
-        // ƒIƒuƒWƒFƒNƒg‚ğæ“¾.
+        // ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’å–å¾—.
         _playerObject = GameObject.Find("FoxHand");
-        // ƒIƒuƒWƒFƒNƒg‚Ì’†‚É‚ ‚éscript‚ğæ“¾.
+        // ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®ä¸­ã«ã‚ã‚‹scriptã‚’å–å¾—.
         _player = _playerObject.GetComponent<PlayerHand>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        // ƒ{ƒ^ƒ“‚ª‰Ÿ‚³‚ê‚½‚©‚Ç‚¤‚©‚ğæ“¾‚·‚é.
+        // ãƒœã‚¿ãƒ³ãŒæŠ¼ã•ã‚ŒãŸã‹ã©ã†ã‹ã‚’å–å¾—ã™ã‚‹.
         _isButtonState = _player._isButtonState;
-        // ƒ{ƒ^ƒ“‚ª‰Ÿ‚³‚ê‚Ä‚¢‚½‚ç.
+        // ãƒœã‚¿ãƒ³ãŒæŠ¼ã•ã‚Œã¦ã„ãŸã‚‰.
         if (_isButtonState)
         {
-            // ƒ{ƒ^ƒ“‚Ì–¼‘O‚ğæ“¾‚·‚é.
+            // ãƒœã‚¿ãƒ³ã®åå‰ã‚’å–å¾—ã™ã‚‹.
             _buttonName = _player._buttonName;
-            // _num‚ª0‚¾‚Á‚½‚ç.
-            // (for•¶‚¾‚Æ0‚Ì‚Ü‚Ü‚¾‚Æ‰ñ‚ç‚È‚¢‚½‚ß‚É0”Ô–Ú‚Ì‚İˆ—).
+            // _numãŒ0ã ã£ãŸã‚‰.
+            // (foræ–‡ã ã¨0ã®ã¾ã¾ã ã¨å›ã‚‰ãªã„ãŸã‚ã«0ç•ªç›®ã®ã¿å‡¦ç†).
             if (_num == 0)
             {
-                // 0”Ô–Ú‚É•Û‘¶.
+                // 0ç•ªç›®ã«ä¿å­˜.
                 _objGet[_num] = GameObject.Find(_buttonName);
-                // —v‘f‚ğ’Ç‰Á.
+                // è¦ç´ ã‚’è¿½åŠ .
                 _num++;
             }
-            // for•¶‚Åˆ—‚ğ‰ñ‚·.
+            // foræ–‡ã§å‡¦ç†ã‚’å›ã™.
             for (int obj = 0; obj < _num; obj++)
             {
-                // æ“¾‚µ‚½ƒ{ƒ^ƒ“‚Ì–¼‘O‚Æ¡•Û‘¶‚µ‚Ä‚¢‚éƒ{ƒ^ƒ“‚Ì–¼‘O‚ªˆê‚¾‚Á‚½‚ç.
+                // å–å¾—ã—ãŸãƒœã‚¿ãƒ³ã®åå‰ã¨ä»Šä¿å­˜ã—ã¦ã„ã‚‹ãƒœã‚¿ãƒ³ã®åå‰ãŒä¸€ç·’ã ã£ãŸã‚‰.
                 if (_objGet[obj].gameObject.name == _buttonName)
                 {
-                    // ‚à‚¤æ“¾‚µ‚½ƒ{ƒ^ƒ“‚È‚Ì‚Å•Û‘¶‚µ‚È‚¢ƒtƒ‰ƒO‚ğ—§‚Ä‚é.
+                    // ã‚‚ã†å–å¾—ã—ãŸãƒœã‚¿ãƒ³ãªã®ã§ä¿å­˜ã—ãªã„ãƒ•ãƒ©ã‚°ã‚’ç«‹ã¦ã‚‹.
                     _isTestNameCheck = false;
-                    // for•¶‚à~‚ß‚é.
+                    // foræ–‡ã‚‚æ­¢ã‚ã‚‹.
                     break;
                 }
-                // ‚à‚µˆê‚¶‚á‚È‚©‚Á‚½‚ç.
+                // ã‚‚ã—ä¸€ç·’ã˜ã‚ƒãªã‹ã£ãŸã‚‰.
                 else
                 {
-                    // •Û‘¶‚·‚éƒtƒ‰ƒO‚ğ—§‚Ä‚é.
+                    // ä¿å­˜ã™ã‚‹ãƒ•ãƒ©ã‚°ã‚’ç«‹ã¦ã‚‹.
                     _isTestNameCheck = true;
                 }
             }
-            //@•Û‘¶‚·‚éƒtƒ‰ƒO‚ª‚½‚Á‚Ä‚¢‚½‚ç.
+            //ã€€ä¿å­˜ã™ã‚‹ãƒ•ãƒ©ã‚°ãŒãŸã£ã¦ã„ãŸã‚‰.
             if (_isTestNameCheck)
             {
-                // _num”Ô–Ú‚É—v‘f‚ğ•Û‘¶.
+                // _numç•ªç›®ã«è¦ç´ ã‚’ä¿å­˜.
                 _objGet[_num] = GameObject.Find(_buttonName);
                 _num++;
             }
