@@ -4,21 +4,20 @@ using UnityEngine;
 
 public class HandlePos : MonoBehaviour
 {
-    // プレイヤー
+    // プレイヤー.
     GameObject _player;
-    // ハンドルの差し込み口
+    // ハンドルの差し込み口.
     [SerializeField] GameObject[] _handleWall;
-    // ハンドルの回転フレームを測る
-    private int _rotaFrameHandle = 0;
-    // Start is called before the first frame update
+    // ハンドルの回転フレームを測る.
+    private int _rotaFrameHandle;
+    // Start is called before the first frame update.
     void Start()
     {
-        // プレイヤー
-        _player     = GameObject.Find("3DPlayer");
+        _rotaFrameHandle = 0;
+        // プレイヤーを取得する.
+        _player = GameObject.Find("3DPlayer");
     }
-    // ハンドルの位置をプレイヤーの位置にします
-
-    // ハンドルをプレイヤーの位置に移動
+    // ハンドルをプレイヤーの位置に移動.
     public void HandlePosIsPlayer()
     {
         Vector3 pos;
@@ -28,7 +27,7 @@ public class HandlePos : MonoBehaviour
         this.transform.position = pos;
     }
 
-    // ハンドルを差し込み位置に移動
+    // ハンドルを差し込み位置に移動.
     public void HandlePosIsHandleWall(int no)
     {
         Vector3 pos;
@@ -38,13 +37,13 @@ public class HandlePos : MonoBehaviour
         this.transform.position = pos;
     }
 
-    // ハンドルの回転
+    // ハンドルの回転.
     public void Rota(float speed)
     {
         this.transform.Rotate(0, 0, speed);
         _rotaFrameHandle++;
     }
-
+    // ハンドルの回転が終了したか.
     public bool IsGetRotaTimeOver(int frame)
     {
         if(_rotaFrameHandle > frame)

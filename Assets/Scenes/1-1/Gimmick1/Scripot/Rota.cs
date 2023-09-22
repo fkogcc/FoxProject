@@ -15,6 +15,7 @@ public class Rota : MonoBehaviour
     }
     private void FixedUpdate()
     {
+        Debug.Log($"{name}");
         // 回転、カウント
         this.transform.Rotate(0.0f, 0.0f, 1.0f);
         _count++;
