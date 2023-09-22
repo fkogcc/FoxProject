@@ -4,29 +4,54 @@ using UnityEngine;
 
 public class HandlePos : MonoBehaviour
 {
+    // プレイヤー
     GameObject _player;
-    GameObject _handleWall;
-    public string _name;
+    // ハンドルの差し込み口
+    [SerializeField] GameObject[] _handleWall;
+    // ハンドルの回転フレームを測る
+    private int _rotaFrameHandle = 0;
     // Start is called before the first frame update
     void Start()
     {
-        _player = GameObject.Find("fox");
-        _handleWall = GameObject.Find(_name);
+        // プレイヤー
+        _player     = GameObject.Find("3DPlayer");
     }
     // ハンドルの位置をプレイヤーの位置にします
+
+    // ハンドルをプレイヤーの位置に移動
     public void HandlePosIsPlayer()
     {
-        this.transform.position = _player.transform.position;
-    }
-    public void HandlePosIsHandleWall()
-    {
-        this.transform.position = _handleWall.transform.position;
-        // 角度変更
-        Quaternion rot = transform.rotation;
-        rot.y = 180.0f;
-        this.transform.rotation = rot;
-        // 位置修正
-        Vector3 pos = new Vector3(_handleWall.transform.position.x, _handleWall.transform.position.y, _handleWall.transform.position.z - 0.35f);
+        Vector3 pos;
+        pos.x = _player.transform.position.x;
+        pos.y = _player.transform.position.y + 3.3f;
+        pos.z = _player.transform.position.z;
         this.transform.position = pos;
+    }
+
+    // ハンドルを差し込み位置に移動
+    public void HandlePosIsHandleWall(int no)
+    {
+        Vector3 pos;
+        pos.x = _handleWall[no].transform.position.x;
+        pos.y = _handleWall[no].transform.position.y;
+        pos.z = _handleWall[no].transform.position.z - 0.4f;
+        this.transform.position = pos;
+    }
+
+    // ハンドルの回転
+    public void Rota(float speed)
+    {
+        this.transform.Rotate(0, 0, speed);
+        _rotaFrameHandle++;
+    }
+
+    public bool IsGetRotaTimeOver(int frame)
+    {
+        if(_rotaFrameHandle > frame)
+        {
+            return true;
+        }
+
+        return false;
     }
 }
