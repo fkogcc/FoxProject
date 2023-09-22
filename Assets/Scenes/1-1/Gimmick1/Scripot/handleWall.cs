@@ -19,6 +19,7 @@ public class handleWall : MonoBehaviour
     // Update is called once per frame
     public void Update()
     {
+        Debug.Log($"{name}");
         // ‘½•ªboolŒ^
         if (_isHandleSet)
         {

@@ -4,17 +4,17 @@ using UnityEngine;
 
 public class CollsionHandle : MonoBehaviour
 {
-    // 判定を取りたいオブジェクトの名前
+    // 判定を取りたいオブジェクトの名前.
     private string _objectName;
-    // 当たっているかどうか
+    // 当たっているかどうか.
     private bool _isColliding;
 
-    // 判定処理をどうするかを決める
+    // 判定処理をどうするかを決める.
     public void SetHit(bool isHit)
     {
         _isColliding = isHit;
     }
-    // 当たっているかどうか
+    // 当たっているかどうか.
     public bool IsGetHit()
     {
         return _isColliding;
@@ -25,7 +25,7 @@ public class CollsionHandle : MonoBehaviour
         _objectName = name;
     }
 
-    // 指定したオブジェクトに当たったら
+    // 指定したオブジェクトに当たったら.
     private void OnTriggerStay(Collider other)
     {
         if (other.name == _objectName)
@@ -33,7 +33,7 @@ public class CollsionHandle : MonoBehaviour
             _isColliding = true;
         }
     }
-    // 指定したオブジェクトに当たっていなかったら
+    // 指定したオブジェクトに当たっていなかったら.
     private void OnTriggerExit(Collider other)
     {
         if (other.name == _objectName)
@@ -41,9 +41,4 @@ public class CollsionHandle : MonoBehaviour
             _isColliding = false;
         }
     }
-
-
-
-
-
 }

@@ -16,7 +16,7 @@ public class Coll : MonoBehaviour
 
     private void Update()
     {
-    
+        Debug.Log($"{name}");
     }
 
     void OnTriggerEnter(Collider collision)
