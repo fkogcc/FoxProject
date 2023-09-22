@@ -5,9 +5,9 @@ using UnityEngine;
 public class Gimick1_1_1Manager : MonoBehaviour
 {
     // ハンドルの位置を変更.
-    [SerializeField] private GameObject[] _testHandle;
+    [SerializeField] private GameObject[] _handlePos;
     // ハンドルの判定.
-    [SerializeField] private GameObject[] _testCollHandle;
+    [SerializeField] private GameObject[] _handleColl;
 
     // ハンドルの近くでボタンをおしたかどうか.
     private bool[] _isButtonHandle = {false,false};
@@ -27,8 +27,8 @@ public class Gimick1_1_1Manager : MonoBehaviour
     void Start()
     {
         string objName = "3DPlayer";
-        _testCollHandle[0].GetComponent<CollsionHandle>().SetNameColl(objName);
-        _testCollHandle[1].GetComponent<CollsionHandle>().SetNameColl(objName);
+        _handleColl[0].GetComponent<CollsionHandle>().SetNameColl(objName);
+        _handleColl[1].GetComponent<CollsionHandle>().SetNameColl(objName);
         _maxNum = 2;
     }
 
@@ -40,22 +40,22 @@ public class Gimick1_1_1Manager : MonoBehaviour
             if (!_isButtonHandle[i])
             {
                 // ハンドルに当たっていたら.
-                if (_testCollHandle[i].GetComponent<CollsionHandle>().IsGetHit())
+                if (_handleColl[i].GetComponent<CollsionHandle>().IsGetHit())
                 {
                     // ボタンを押したら.
                     if (Input.GetKeyDown(KeyCode.JoystickButton1))
                     {
                         _isButtonHandle[i] = true;
-                        _testCollHandle[i].GetComponent<CollsionHandle>().SetNameColl(_handleWallName[i]);
-                        _testCollHandle[i].GetComponent<CollsionHandle>().SetHit(false);
+                        _handleColl[i].GetComponent<CollsionHandle>().SetNameColl(_handleWallName[i]);
+                        _handleColl[i].GetComponent<CollsionHandle>().SetHit(false);
                     }
                 }
             }
             // ハンドルを入手した場合.
             if (_isButtonHandle[i] && !_isEndRota[i])
             {
-                _testHandle[i].GetComponent<HandlePos>().HandlePosIsPlayer();
-                if (_testCollHandle[i].GetComponent<CollsionHandle>().IsGetHit())
+                _handlePos[i].GetComponent<HandlePos>().HandlePosIsPlayer();
+                if (_handleColl[i].GetComponent<CollsionHandle>().IsGetHit())
                 {
                     // ボタンを押したら.
                     if (Input.GetKeyDown(KeyCode.JoystickButton1))
@@ -67,7 +67,7 @@ public class Gimick1_1_1Manager : MonoBehaviour
             // ハンドルを差し込んだ場合.
             if (_isButtonWall[i] && !_isEndRota[i])
             {
-                _testHandle[i].GetComponent<HandlePos>().HandlePosIsHandleWall(i);
+                _handlePos[i].GetComponent<HandlePos>().HandlePosIsHandleWall(i);
                 // 回転を始める.
                 if (Input.GetKeyDown(KeyCode.JoystickButton1) && _isOneFrameStop[i])
                 {
@@ -78,9 +78,9 @@ public class Gimick1_1_1Manager : MonoBehaviour
                 if (_isRota[i])
                 {
                     // 回転速度.
-                    _testHandle[i].GetComponent<HandlePos>().Rota(0.3f);
+                    _handlePos[i].GetComponent<HandlePos>().Rota(0.3f);
                     // 回転時間.
-                    if (_testHandle[i].GetComponent<HandlePos>().IsGetRotaTimeOver(2000))
+                    if (_handlePos[i].GetComponent<HandlePos>().IsGetRotaTimeOver(2000))
                     {
                         // 回転終了.
                         _isEndRota[i] = true;
@@ -93,7 +93,7 @@ public class Gimick1_1_1Manager : MonoBehaviour
         // 謎解きが終わったかどうか.
         if (_isEndRota[0] && _isEndRota[1])
         {
-            //Debug.Log("シーンを切り替えてもいいよ？？？");
+
         }
     }
 }
