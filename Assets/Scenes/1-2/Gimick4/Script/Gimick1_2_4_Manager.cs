@@ -4,35 +4,54 @@ using UnityEngine;
 
 public class Gimick1_2_4_Manager : MonoBehaviour
 {
-    // Start is called before the first frame update
-    // ?{?^??????
+
+    // ボタン操作.
     GameObject _botton;
-    // ?I?u?W?F?N?g??]????
-    GameObject _rota;
-    // ??????????
-    GameObject _coll;
-    // Start is called before the first frame update
+    // 回転用.
+    [SerializeField] GameObject[] _rota;
+    // 判定用.
+    [SerializeField] GameObject[] _coll;
+    // 回転するオブジェクトの最大数.
+    public int _objRotaMaxNum;
+    // 謎解きがとけたかどうか.
+    private bool _isClear = false;
+
     void Start()
     {
-        // ?{?^??????
+        // ボタン用.
         _botton = GameObject.Find("GameManager");
-        // ?I?u?W?F?N?g??]????
-        _rota = GameObject.Find("cordRota0");
-        // ??????????
-        _coll = GameObject.Find("cordRota0");
     }
 
     void Update()
     {
-        // ?v???C???[???????????????
-        if (_coll.GetComponent<MyCollsion3D>().IsGetHit())
+        for(int i = 0; i < _objRotaMaxNum; i++)
         {
-            // ?{?^????????????
-            if (_botton.GetComponent<Botton>().GetButtonB())
+            // オブジェクトにあたっていたら.
+            if (_coll[i].GetComponent<MyCollsion3D>().IsGetHit())
             {
-                // ??]
-                _rota.GetComponent<TurnGraph>().Rota();
+                // ボタンをおしたら.
+                if (_botton.GetComponent<Botton>().GetButtonB())
+                {
+                    // 回転したら.
+                    _rota[i].GetComponent<TurnGraph>().Rota();
+                }
             }
         }
+
+        // すべての謎がとけたら.
+        if (_rota[0].GetComponent<TurnGraph>().IsGetAns() &&
+            _rota[1].GetComponent<TurnGraph>().IsGetAns() &&
+            _rota[2].GetComponent<TurnGraph>().IsGetAns() &&
+            _rota[3].GetComponent<TurnGraph>().IsGetAns() &&
+            _rota[4].GetComponent<TurnGraph>().IsGetAns() &&
+            _rota[5].GetComponent<TurnGraph>().IsGetAns() &&
+            _rota[6].GetComponent<TurnGraph>().IsGetAns() &&
+            _rota[7].GetComponent<TurnGraph>().IsGetAns() &&
+            _rota[8].GetComponent<TurnGraph>().IsGetAns() &&
+            _rota[9].GetComponent<TurnGraph>().IsGetAns())
+        {
+            // ここでシーンを切り替え.
+        }
+
     }
 }
