@@ -1,29 +1,29 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class MonitorCollider : MonoBehaviour
 {
-    // ƒvƒŒƒCƒ„[‚ª”ÍˆÍ“à‚É‚¢‚é‚©‚Ç‚¤‚©.
+    // ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ãŒç¯„å›²å†…ã«ã„ã‚‹ã‹ã©ã†ã‹.
     private bool _isPlayerCollider;
-    // ƒ{ƒ^ƒ“‚ğ‰Ÿ‚³‚ê‚½‚©‚Ç‚¤‚©.
+    // ãƒœã‚¿ãƒ³ã‚’æŠ¼ã•ã‚ŒãŸã‹ã©ã†ã‹.
     public bool _isPushButton;
 
-    // ƒ{ƒ^ƒ“‚Ìó‘Ô‚ğ“n‚·‚½‚ß‚ÉƒIƒuƒWƒFƒNƒg‚ğæ“¾.
+    // ãƒœã‚¿ãƒ³ã®çŠ¶æ…‹ã‚’æ¸¡ã™ãŸã‚ã«ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’å–å¾—.
     private GameObject _gameObject;
-    // script‚ğæ“¾.
+    // scriptã‚’å–å¾—.
     MonitorCamera _monitor;
 
     // Start is called before the first frame update
     void Start()
     {
-        // ‰Šú‰»ˆ—.
+        // åˆæœŸåŒ–å‡¦ç†.
         _isPlayerCollider = false;
         _isPushButton = false;
 
-        // ƒIƒuƒWƒFƒNƒg‚ğæ“¾.
+        // ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’å–å¾—.
         _gameObject = GameObject.Find("GameManager");
-        // ƒIƒuƒWƒFƒNƒg‚Ì’†‚É‚ ‚éscript‚ğæ“¾.
+        // ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®ä¸­ã«ã‚ã‚‹scriptã‚’å–å¾—.
         _monitor = _gameObject.GetComponent<MonitorCamera>();
 
     }
@@ -31,23 +31,23 @@ public class MonitorCollider : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // ƒvƒŒƒCƒ„[‚ª”»’è“à‚É‚¢‚é‚Æ‚«.
+        // ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ãŒåˆ¤å®šå†…ã«ã„ã‚‹ã¨ã.
         if (_isPlayerCollider)
         {
-            // Aƒ{ƒ^ƒ“‚ğ‰Ÿ‚µ‚½‚ç
+            // Aãƒœã‚¿ãƒ³ã‚’æŠ¼ã—ãŸã‚‰
             if (Input.GetKeyDown("joystick button 1"))
             {
-                // ƒ{ƒ^ƒ“‚Ìƒtƒ‰ƒO‚ğƒIƒ“‚É‚·‚é(ƒJƒƒ‰ON).
+                // ãƒœã‚¿ãƒ³ã®ãƒ•ãƒ©ã‚°ã‚’ã‚ªãƒ³ã«ã™ã‚‹(ã‚«ãƒ¡ãƒ©ON).
                 _isPushButton = true;
             }
-            // Xƒ{ƒ^ƒ“‚ğ‰Ÿ‚µ‚½‚ç
+            // Xãƒœã‚¿ãƒ³ã‚’æŠ¼ã—ãŸã‚‰
             else if (Input.GetKeyDown("joystick button 3"))
             {
-                // ƒ{ƒ^ƒ“‚Ìƒtƒ‰ƒO‚ğƒIƒt‚É‚·‚é(ƒJƒƒ‰OFF).
+                // ãƒœã‚¿ãƒ³ã®ãƒ•ãƒ©ã‚°ã‚’ã‚ªãƒ•ã«ã™ã‚‹(ã‚«ãƒ¡ãƒ©OFF).
                 _isPushButton = false;
             }
         }
-        // ƒ{ƒ^ƒ“‚ğ‰Ÿ‚µ‚½‚©‚Ìƒtƒ‰ƒO‚ğ“n‚·.
+        // ãƒœã‚¿ãƒ³ã‚’æŠ¼ã—ãŸã‹ã®ãƒ•ãƒ©ã‚°ã‚’æ¸¡ã™.
         _monitor._isPushFlag = _isPushButton;
     }
 
@@ -56,12 +56,12 @@ public class MonitorCollider : MonoBehaviour
 
     }
 
-    // “–‚½‚è”»’è‚Ìˆ—
+    // å½“ãŸã‚Šåˆ¤å®šã®å‡¦ç†
     void OnTriggerEnter(Collider other)
     {
         if (other.tag == "Player")
         {
-            // ƒvƒŒƒCƒ„[‚ªƒRƒ‰ƒCƒ_[‚É“ü‚Á‚½‚Æ‚«.
+            // ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ãŒã‚³ãƒ©ã‚¤ãƒ€ãƒ¼ã«å…¥ã£ãŸã¨ã.
             _isPlayerCollider = true;
 
         }
@@ -71,7 +71,7 @@ public class MonitorCollider : MonoBehaviour
     {
         if (other.tag == "Player")
         {
-            // ƒvƒŒƒCƒ„[‚ªƒRƒ‰ƒCƒ_[‚©‚ço‚½‚Æ‚«.
+            // ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ãŒã‚³ãƒ©ã‚¤ãƒ€ãƒ¼ã‹ã‚‰å‡ºãŸã¨ã.
             _isPlayerCollider = false;
         }
     }

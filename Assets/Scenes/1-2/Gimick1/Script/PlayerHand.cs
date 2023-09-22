@@ -1,22 +1,22 @@
-using System.Collections;
+Ôªøusing System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerHand : MonoBehaviour
 {
-    // éËÇÃà⁄ìÆë¨ìx.
+    // Êâã„ÅÆÁßªÂãïÈÄüÂ∫¶.
     private float speed;
-    // É{É^ÉìÇÃñºëOÇì¸ÇÍÇÈópÇÃïœêî.
+    // „Éú„Çø„É≥„ÅÆÂêçÂâç„ÇíÂÖ•„Çå„ÇãÁî®„ÅÆÂ§âÊï∞.
     public string _buttonName;
-    // É{É^ÉìÇÃèÛë‘Çì¸ÇÍÇÈÉtÉâÉO.
+    // „Éú„Çø„É≥„ÅÆÁä∂ÊÖã„ÇíÂÖ•„Çå„Çã„Éï„É©„Ç∞.
     public bool _isButtonState;
-    // ÉvÉåÉCÉÑÅ[ÇÃéËÇ™îªíËì‡Ç…Ç¢ÇÈÇ©Ç«Ç§Ç©Çï‘Ç∑ÉtÉâÉO.
+    // „Éó„É¨„Ç§„É§„Éº„ÅÆÊâã„ÅåÂà§ÂÆöÂÜÖ„Å´„ÅÑ„Çã„Åã„Å©„ÅÜ„Åã„ÇíËøî„Åô„Éï„É©„Ç∞.
     private bool _isCollision;
 
     // Start is called before the first frame update
     void Start()
     {
-        // èâä˙âªèàóù.
+        // ÂàùÊúüÂåñÂá¶ÁêÜ.
         speed = 5.0f;
         _isButtonState = false;
         _isCollision = false;
@@ -25,52 +25,52 @@ public class PlayerHand : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // ÉvÉåÉCÉÑÅ[ÇÃéËÇ™îªíËì‡Ç…Ç¢ÇƒÅAÉ{É^ÉìÇâüÇ≥ÇÍÇΩÇÁ.
+        // „Éó„É¨„Ç§„É§„Éº„ÅÆÊâã„ÅåÂà§ÂÆöÂÜÖ„Å´„ÅÑ„Å¶„ÄÅ„Éú„Çø„É≥„ÇíÊäº„Åï„Çå„Åü„Çâ.
         if (_isCollision && Input.GetKeyDown("joystick button 1"))
         {
-            // É{É^ÉìÇ™âüÇ≥ÇÍÇΩÉtÉâÉOÇï‘Ç∑.
+            // „Éú„Çø„É≥„ÅåÊäº„Åï„Çå„Åü„Éï„É©„Ç∞„ÇíËøî„Åô.
             _isButtonState = true;
         }
-        // èåèÇ…ìñÇƒÇÕÇ‹ÇÁÇ»Ç©Ç¡ÇΩÇÁ.
+        // Êù°‰ª∂„Å´ÂΩì„Å¶„ÅØ„Åæ„Çâ„Å™„Åã„Å£„Åü„Çâ.
         else
         {
-            // É{É^ÉìÇÃÉtÉâÉOÇfalseÇ≈ï‘Ç∑.
+            // „Éú„Çø„É≥„ÅÆ„Éï„É©„Ç∞„Çífalse„ÅßËøî„Åô.
             _isButtonState = false ;
         }
     }
     void FixedUpdate()
     {
-        // HACK Ç∆ÇËÇ†Ç¶Ç∏éËÇìÆÇ©Ç∑ópÇÃèàóù(å„Ç≈Ç‡Ç¡Ç∆Ç¢Ç¢ï˚ñ@Ç…èëÇ´íºÇµÇΩÇ¢Ç»).
+        // HACK „Å®„Çä„ÅÇ„Åà„ÅöÊâã„ÇíÂãï„Åã„ÅôÁî®„ÅÆÂá¶ÁêÜ(Âæå„Åß„ÇÇ„Å£„Å®„ÅÑ„ÅÑÊñπÊ≥ï„Å´Êõ∏„ÅçÁõ¥„Åó„Åü„ÅÑ„Å™).
         if (Input.GetAxis("Vertical") > 0)
         {
-            // è„.
+            // ‰∏ä.
             transform.position += transform.up * speed * Time.deltaTime;
         }
         if (Input.GetAxis("Vertical") < 0)
         {
-            // â∫.
+            // ‰∏ã.
             transform.position -= transform.up * speed * Time.deltaTime;
         }
         if (Input.GetAxis("Horizontal") > 0)
         {
-            // âE.
+            // Âè≥.
             transform.position += transform.right * speed * Time.deltaTime;
         }
         if (Input.GetAxis("Horizontal") < 0)
         {
-            // ç∂.
+            // Â∑¶.
             transform.position -= transform.right * speed * Time.deltaTime;
         }
     }
 
     void OnTriggerEnter(Collider other)
     {
-        // ÉvÉåÉCÉÑÅ[Ç™ÉRÉâÉCÉ_Å[Ç…ì¸Ç¡ÇΩÇ∆Ç´.
+        // „Éó„É¨„Ç§„É§„Éº„Åå„Ç≥„É©„Ç§„ÉÄ„Éº„Å´ÂÖ•„Å£„Åü„Å®„Åç.
         if (other.tag == "Button")
         {
-            // îªíËì‡Ç…Ç¢ÇÈÇ∆Ç¢Ç§ÉtÉâÉOÇï‘Ç∑.
+            // Âà§ÂÆöÂÜÖ„Å´„ÅÑ„Çã„Å®„ÅÑ„ÅÜ„Éï„É©„Ç∞„ÇíËøî„Åô.
             _isCollision = true;
-            // ç°êGÇÍÇƒÇ¢ÇÈÉ{É^ÉìÇéÊìæÇ∑ÇÈ
+            // ‰ªäËß¶„Çå„Å¶„ÅÑ„Çã„Éú„Çø„É≥„ÇíÂèñÂæó„Åô„Çã
             _buttonName = other.gameObject.name;
 
         }
@@ -78,10 +78,10 @@ public class PlayerHand : MonoBehaviour
 
     void OnTriggerExit(Collider other)
     {
-        // ÉvÉåÉCÉÑÅ[Ç™ÉRÉâÉCÉ_Å[Ç©ÇÁèoÇΩÇ∆Ç´.
+        // „Éó„É¨„Ç§„É§„Éº„Åå„Ç≥„É©„Ç§„ÉÄ„Éº„Åã„ÇâÂá∫„Åü„Å®„Åç.
         if (other.tag == "Button")
         {
-            // îªíËäOÇ…Ç¢ÇÈÇ∆Ç¢Ç§ÉtÉâÉOÇï‘Ç∑.
+            // Âà§ÂÆöÂ§ñ„Å´„ÅÑ„Çã„Å®„ÅÑ„ÅÜ„Éï„É©„Ç∞„ÇíËøî„Åô.
             _isCollision = false;
         }
     }
