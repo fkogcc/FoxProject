@@ -17,6 +17,7 @@ public class MonitorCollider : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        // 初期化処理.
         _isPlayerCollider = false;
         _isPushButton = false;
 
@@ -30,24 +31,22 @@ public class MonitorCollider : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // プレイヤーが判定内にいるとき.
         if (_isPlayerCollider)
         {
+            // Aボタンを押したら
             if (Input.GetKeyDown("joystick button 1"))
             {
-                Debug.Log("ボタンをおした");
+                // ボタンのフラグをオンにする(カメラON).
                 _isPushButton = true;
             }
+            // Xボタンを押したら
             else if (Input.GetKeyDown("joystick button 3"))
             {
+                // ボタンのフラグをオフにする(カメラOFF).
                 _isPushButton = false;
             }
         }
-        else
-        {
-            _isPushButton = false;
-
-        }
-
         // ボタンを押したかのフラグを渡す.
         _monitor._isPushFlag = _isPushButton;
     }
@@ -57,12 +56,14 @@ public class MonitorCollider : MonoBehaviour
 
     }
 
+    // 当たり判定の処理
     void OnTriggerEnter(Collider other)
     {
         if (other.tag == "Player")
         {
             // プレイヤーがコライダーに入ったとき.
             _isPlayerCollider = true;
+
         }
     }
 
