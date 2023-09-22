@@ -1,5 +1,6 @@
 // 2Dカメラ処理
 // マジックナンバー残ってるぅ
+// ので後で直します
 
 using System.Collections;
 using System.Collections.Generic;
