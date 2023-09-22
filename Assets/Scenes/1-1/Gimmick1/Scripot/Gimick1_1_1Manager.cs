@@ -14,60 +14,41 @@ public class Gimick1_1_1Manager : MonoBehaviour
     [SerializeField] private GameObject[] _testCollHandle;
 
     // ハンドルの近くでボタンをおしたかどうか
-    private bool[] _isButtonHandle;
+    private bool[] _isButtonHandle = {false,false};
     // 壁の近くでボタンをおしたかどうか
-    private bool[] _isButtonWall;
+    private bool[] _isButtonWall = { false, false };
     // 回転を始める
-    private bool[] _isRota;
+    private bool[] _isRota = { false, false };
     // 最後まで回転を行った
-    private bool[] _isEndRota;
+    private bool[] _isEndRota = { false, false };
     // 1フレーム隙を与える
-    private bool[] _isOneFrameStop;
+    private bool[] _isOneFrameStop = { false, false };
+
+    private string[] _handleWallName = {"HandleWall0","HandleWall1"};
     // Start is called before the first frame update
     void Start()
     {
-        //  _testCollHandle 　　 = GameObject.Find("Handle0");
-        //  _posChangeHandle = GameObject.Find("Handle0");
-
-        _isButtonHandle[0] = false;
-        _isButtonHandle[1] = false;
-
-        _isButtonWall[0] = false;
-        _isButtonWall[1] = false;
-
-        _isRota[0] = false;
-        _isRota[1] = false;
-
-        _isEndRota[0] = false;
-        _isEndRota[1] = false;
-
-        _isOneFrameStop[0] = false;
-        _isOneFrameStop[1] = false;
-
         _testCollHandle[0].GetComponent<CollsionHandle>().SetNameColl("3DPlayer");
         _testCollHandle[1].GetComponent<CollsionHandle>().SetNameColl("3DPlayer");
-
-        
     }
 
 
 
     private void Update()
     {
-        for(int i = 0; i > 2; i++)
+        for (int i = 0; i < 2; i++)
         {
-
             // ハンドルを入手していない場合
             if (!_isButtonHandle[i])
             {
                 // ハンドルに当たっていたら
-                if (_testCollHandle[0].GetComponent<CollsionHandle>().IsGetHit())
+                if (_testCollHandle[i].GetComponent<CollsionHandle>().IsGetHit())
                 {
                     // ボタンを押したら
                     if (Input.GetKeyDown(KeyCode.JoystickButton1))
                     {
                         _isButtonHandle[i] = true;
-                        _testCollHandle[i].GetComponent<CollsionHandle>().SetNameColl("HandleWall0");
+                        _testCollHandle[i].GetComponent<CollsionHandle>().SetNameColl(_handleWallName[i]);
                         _testCollHandle[i].GetComponent<CollsionHandle>().SetHit(false);
                     }
                 }
@@ -76,7 +57,7 @@ public class Gimick1_1_1Manager : MonoBehaviour
             // ハンドルを入手した場合
             if (_isButtonHandle[i] && !_isEndRota[i])
             {
-                _testHandle[0].GetComponent<HandlePos>().HandlePosIsPlayer();
+                _testHandle[i].GetComponent<HandlePos>().HandlePosIsPlayer();
                 if (_testCollHandle[i].GetComponent<CollsionHandle>().IsGetHit())
                 {
                     // ボタンを押したら
@@ -90,34 +71,35 @@ public class Gimick1_1_1Manager : MonoBehaviour
             // ハンドルを差し込んだ場合
             if (_isButtonWall[i] && !_isEndRota[i])
             {
-                _testHandle[0].GetComponent<HandlePos>().HandlePosIsHandleWall();
+                _testHandle[i].GetComponent<HandlePos>().HandlePosIsHandleWall(i);
                 // 回転を始める
                 if (Input.GetKeyDown(KeyCode.JoystickButton1) && _isOneFrameStop[i])
                 {
+                    // 回転指示
                     _isRota[i] = true;
                 }
+                // 回転開始
                 if (_isRota[i])
                 {
+                    // 回転速度
                     _testHandle[i].GetComponent<HandlePos>().Rota(0.3f);
-                    if (_testHandle[i].GetComponent<HandlePos>().IsGetRotaTimeOver(6000))
+                    // 回転時間
+                    if (_testHandle[i].GetComponent<HandlePos>().IsGetRotaTimeOver(2000))
                     {
+                        // 回転終了
                         _isEndRota[i] = true;
                     }
                 }
+                // ボタンを一度とめる
                 _isOneFrameStop[i] = true;
             }
+
+
+        }
+        // 謎解きが終わったかどうか
+        if(_isEndRota[0] && _isEndRota[1])
+        {
+            Debug.Log("シーンを切り替えてもいいよ？？？");
         }
     }
-
-    // Update is called once per frame
-    void FixedUpdate()
-    {
-
-    }
-
-    // 謎解きが終わったかどうか
-    //public bool isEnd()
-    //{
-    //    return _isEndRota[;
-    //}
 }

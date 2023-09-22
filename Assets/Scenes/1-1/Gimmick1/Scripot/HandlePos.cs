@@ -7,7 +7,7 @@ public class HandlePos : MonoBehaviour
     // プレイヤー
     GameObject _player;
     // ハンドルの差し込み口
-    GameObject _handleWall;
+    [SerializeField] GameObject[] _handleWall;
     // ハンドルの回転フレームを測る
     private int _rotaFrameHandle = 0;
     // Start is called before the first frame update
@@ -15,9 +15,6 @@ public class HandlePos : MonoBehaviour
     {
         // プレイヤー
         _player     = GameObject.Find("3DPlayer");
-        // ハンドルの差し込み口
-        _handleWall = GameObject.Find("HandleWall0");
-
     }
     // ハンドルの位置をプレイヤーの位置にします
 
@@ -32,12 +29,12 @@ public class HandlePos : MonoBehaviour
     }
 
     // ハンドルを差し込み位置に移動
-    public void HandlePosIsHandleWall()
+    public void HandlePosIsHandleWall(int no)
     {
         Vector3 pos;
-        pos.x = _handleWall.transform.position.x;
-        pos.y = _handleWall.transform.position.y;
-        pos.z = _handleWall.transform.position.z - 0.4f;
+        pos.x = _handleWall[no].transform.position.x;
+        pos.y = _handleWall[no].transform.position.y;
+        pos.z = _handleWall[no].transform.position.z - 0.4f;
         this.transform.position = pos;
     }
 
