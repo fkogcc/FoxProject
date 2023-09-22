@@ -18,7 +18,7 @@ public class GearRotation : MonoBehaviour
     // 回転率.
     private float _gearDegree;
     // テスト ボタンを押すまで回転させないようにするフラグ.
-    private bool _isTestPushFlag;
+    //private bool _isTestPushFlag = false;
 
     // インスタンスの作成.
     void Start()
@@ -28,7 +28,6 @@ public class GearRotation : MonoBehaviour
         _rotation = Quaternion.AngleAxis(0.0f, _rotaDegrees);
         _playerRotation = false;
         _colRange = false; 
-        _isTestPushFlag = false;
          _rb = GetComponent<Rigidbody>();
         _gearDegree = 0.0f;
         _collider = GetComponent<CapsuleCollider>();
@@ -66,7 +65,7 @@ public class GearRotation : MonoBehaviour
                 Debug.Log("ボタンをおせる");
                 if (Input.GetKeyDown("joystick button 1"))
                 {
-                    _isTestPushFlag = true;
+                    //_isTestPushFlag = true;
                     _rb.constraints = RigidbodyConstraints.FreezePosition
                      | RigidbodyConstraints.FreezeRotationX
                      | RigidbodyConstraints.FreezeRotationZ;
@@ -111,7 +110,7 @@ public class GearRotation : MonoBehaviour
             // プレイヤーがコライダーから出たとき.
             //Debug.Log("範囲外");
             _colRange = false;
-            _isTestPushFlag = false;
+            //_isTestPushFlag = false;
             _rb.freezeRotation = true;
         }
     }
