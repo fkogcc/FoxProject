@@ -1,13 +1,16 @@
+// 風車ギミックの処理.
+// HACK:マジックナンバー過多.
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class RotateWindmill : MonoBehaviour
 {
-    // インスタンス
+    // インスタンス.
     RotateWindmill _instance;
 
-    // 風の力を発生させる判定
+    // 風の力を発生させる判定.
     [SerializeField] private GameObject _windSpace;
     // 最高回転速度.
     [SerializeField] private float _rotateMaxSpeed = 30.0f;
@@ -36,9 +39,9 @@ public class RotateWindmill : MonoBehaviour
 
     private void FixedUpdate()
     {
-        // 回転.
         transform.Rotate(_rotateSpeed, 0.0f, 0.0f);
 
+        // 風を発生させるタイミング.
         if(_rotateSpeed > 25.0f)
         {
             _windSpace.SetActive(true);
@@ -53,12 +56,10 @@ public class RotateWindmill : MonoBehaviour
         SolveGimmickAfter();
     }
 
-    /// <summary>
-    /// ギミックを解いた後の処理
-    /// </summary>
+    // ギミックを解いた後の処理.
     private void SolveGimmickAfter()
     {
-        // スピードが下がっていないかどうか
+        // スピードが下がっていないかどうか.
         if(!_countDownRotateSpeed)
         {
             _rotateSpeed += _rotateAcceleration;
@@ -69,16 +70,16 @@ public class RotateWindmill : MonoBehaviour
             
         }
         
-        // 最高回転速度に到達したら回転速度を落とす
-        // 回転速度低速開始
+        // 最高回転速度に到達したら回転速度を落とす.
+        // 回転速度低速開始.
         if (_rotateSpeed >= _rotateMaxSpeed)
         {
             _rotateSpeed = _rotateMaxSpeed;
             _countDownRotateSpeed = true;
         }
 
-        // 最低回転速度に固定
-        // 回転速度低速終了
+        // 最低回転速度に固定.
+        // 回転速度低速終了.
         if(_rotateSpeed <= _rotateMinSpeed)
         {
             _rotateSpeed = _rotateMinSpeed;
