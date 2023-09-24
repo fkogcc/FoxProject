@@ -1,7 +1,6 @@
 // ポーズ画面を開く閉じる操作.
 // HACK:ポーズ画面を雑に作ったのでコーディング規約だけ見てほしい.
 
-using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 

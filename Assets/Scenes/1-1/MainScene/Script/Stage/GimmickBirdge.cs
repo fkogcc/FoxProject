@@ -1,38 +1,41 @@
+// 橋の処理.
+// HACK:橋の回転処理をもっとスマートにできそう.
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class GimmickBirdge : MonoBehaviour
 {
-    // 橋の通路
-    // 左
+    // 橋の通路.
+    // 左.
     [SerializeField] private GameObject _birdgeLeft;
-    // 右
+    // 右.
     [SerializeField] private GameObject _birdgeRight;
-    // ギミックを解いたかどうかのデバッグ用処理
+    // ギミックを解いたかどうかのデバッグ用処理.
     [SerializeField] private bool _isSuccessGimmick;
 
-    // Start is called before the first frame update
     void Start()
     {
         _isSuccessGimmick = false;
     }
 
-    // Update is called once per frame
     void Update()
     {
-        // 橋が架かると以降処理しない
+        // 橋が架かると以降処理しない.
         if (_birdgeLeft.transform.localEulerAngles == new Vector3(0.0f, 0.0f, 0.0f) ||
            _birdgeRight.transform.localEulerAngles == new Vector3(0.0f, 0.0f, 0.0f))
             return;
 
-        // ギミックを解いていないと処理しない
+        // ギミックを解いていないと処理しない.
         if(!_isSuccessGimmick) return;
 
         RotateBirdgeAisleLeft();
         RotateBirdgeAisleRight();
     }
 
+    // 橋の回転
+    // 左
     private void RotateBirdgeAisleLeft()
     {
         _birdgeLeft.transform.Rotate(0,0,-1);
@@ -43,6 +46,7 @@ public class GimmickBirdge : MonoBehaviour
         }
     }
 
+    // 右
     private void RotateBirdgeAisleRight()
     {
         _birdgeRight.transform.Rotate(0, 0, 1);
