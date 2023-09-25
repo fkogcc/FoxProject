@@ -10,11 +10,20 @@ public class GimmickHand : MonoBehaviour
 
     Vector3 _vec;
 
+    SlideGimmickDirector _gimmickDirector;
+
+    // 
+    bool _isHitKey;
+
     void Start()
     {
         HitName = "";
 
         _vec = new Vector3();
+
+        _gimmickDirector = GameObject.Find("GimmickDirector").GetComponent<SlideGimmickDirector>();
+
+        _isHitKey = false;
     }
 
     // Update is called once per frame
@@ -41,10 +50,23 @@ public class GimmickHand : MonoBehaviour
         }
 
         this.transform.position += _vec;
+
+        if (Input.GetKey(KeyCode.F) && !_isHitKey)
+        {
+            _gimmickDirector.EleCheck(int.Parse(HitName));
+
+            _isHitKey = true;
+        }
+        else if (!Input.GetKey(KeyCode.F))
+        {
+            _isHitKey = false;
+        }
     }
 
     void OnTriggerEnter(Collider other)
     {
         HitName = other.name;
+
+        Debug.Log("[SlideGmmick] nowNum:" + HitName);
     }
 }
