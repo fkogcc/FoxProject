@@ -8,11 +8,11 @@ public class MoveWind : MonoBehaviour
 {
     // 風の力を加える変数.
     [SerializeField]
-    private float _windX = 0f;
+    private float _windX = 0.0f;
     [SerializeField]
-    private float _windY = 0f;
+    private float _windY = 0.0f;
     [SerializeField]
-    private float _windZ = 0f;
+    private float _windZ = 0.0f;
 
     /// <summary>
     /// トリガーの範囲に入っている間風の影響を受ける.

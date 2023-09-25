@@ -8,7 +8,7 @@ using UnityEngine;
 public class RotateWindmill : MonoBehaviour
 {
     // インスタンス.
-    RotateWindmill _instance;
+    private RotateWindmill _instance;
 
     // 風の力を発生させる判定.
     [SerializeField] private GameObject _windSpace;
@@ -21,9 +21,9 @@ public class RotateWindmill : MonoBehaviour
     // 回転加速度.
     [SerializeField] private float _rotateAcceleration = 0.1f;
     // ギミックを解いたかどうか.
-    [SerializeField] private bool _solveGimmick = false;
+    [SerializeField] private bool _isSolveGimmick = false;
     // 回転速度が下がるかどうか.
-    private bool _countDownRotateSpeed = false;
+    private bool _isCountDownRotateSpeed = false;
     
     private void Awake()
     {
@@ -52,7 +52,7 @@ public class RotateWindmill : MonoBehaviour
         }
 
         // ギミックを解いていなかったら処理を通さない.
-        if (!_solveGimmick) return;
+        if (!_isSolveGimmick) return;
         SolveGimmickAfter();
     }
 
@@ -60,11 +60,11 @@ public class RotateWindmill : MonoBehaviour
     private void SolveGimmickAfter()
     {
         // スピードが下がっていないかどうか.
-        if(!_countDownRotateSpeed)
+        if(!_isCountDownRotateSpeed)
         {
             _rotateSpeed += _rotateAcceleration;
         }
-        else if(_countDownRotateSpeed)
+        else if(_isCountDownRotateSpeed)
         {
             _rotateSpeed -= _rotateAcceleration;
             
@@ -75,7 +75,7 @@ public class RotateWindmill : MonoBehaviour
         if (_rotateSpeed >= _rotateMaxSpeed)
         {
             _rotateSpeed = _rotateMaxSpeed;
-            _countDownRotateSpeed = true;
+            _isCountDownRotateSpeed = true;
         }
 
         // 最低回転速度に固定.
@@ -83,9 +83,8 @@ public class RotateWindmill : MonoBehaviour
         if(_rotateSpeed <= _rotateMinSpeed)
         {
             _rotateSpeed = _rotateMinSpeed;
-            _solveGimmick = false;
-            _countDownRotateSpeed = false;
+            _isSolveGimmick = false;
+            _isCountDownRotateSpeed = false;
         }
-
     }
 }

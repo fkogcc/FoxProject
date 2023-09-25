@@ -19,10 +19,9 @@ public class ScaffoldMove : MonoBehaviour
 
     void Start()
     {
-        // ‰Šú‰»
+        // ‰Šú‰».
         _top = gameObject.transform.position.y + 3.0f;
         _bottom = gameObject.transform.position.y - 3.0f;
-
     }
 
     private void FixedUpdate()
@@ -43,6 +42,4 @@ public class ScaffoldMove : MonoBehaviour
 
         gameObject.transform.Translate(0, _exchange, 0);
     }
-
-    
 }

@@ -29,13 +29,13 @@ public class GimmickBirdge : MonoBehaviour
 
         // ƒMƒ~ƒbƒN‚ğ‰ğ‚¢‚Ä‚¢‚È‚¢‚Æˆ—‚µ‚È‚¢.
         if(!_isSuccessGimmick) return;
-
+        // ‹´‚Ì‰ñ“].
         RotateBirdgeAisleLeft();
         RotateBirdgeAisleRight();
     }
 
-    // ‹´‚Ì‰ñ“]
-    // ¶
+    // ‹´‚Ì‰ñ“].
+    // ¶.
     private void RotateBirdgeAisleLeft()
     {
         _birdgeLeft.transform.Rotate(0,0,-1);
@@ -46,7 +46,7 @@ public class GimmickBirdge : MonoBehaviour
         }
     }
 
-    // ‰E
+    // ‰E.
     private void RotateBirdgeAisleRight()
     {
         _birdgeRight.transform.Rotate(0, 0, 1);

@@ -16,10 +16,9 @@ public class Controller : MonoBehaviour
         var horizontal = Input.GetAxis("Horizontal");
         var vertical = Input.GetAxis("Vertical");
         var velocity= new Vector3(horizontal, 0, vertical).normalized;
-        //var speed = 1;
 
-        // ˆÚ“®•ûŒü‚ðŒü‚­
-        if(velocity.magnitude > 0.5f)
+        // ˆÚ“®•ûŒü‚ðŒü‚­.
+        if (velocity.magnitude > 0.5f)
         {
             transform.rotation = Quaternion.LookRotation(velocity, Vector3.up);
         }

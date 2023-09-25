@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Owl : MonoBehaviour
 {
-    // アニメーション
+    // アニメーション.
     Animator _animator;
 
     // Start is called before the first frame update
@@ -16,13 +16,13 @@ public class Owl : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log($"{name}");
+        //Debug.Log($"{name}");
     }
 
     private void FixedUpdate()
     {
-        // 落下したらオブジェクトを消す
-        if (transform.position.y < -20 || transform.position.z < -50)
+        // 落下したらオブジェクトを消す.
+        if (transform.position.y < -20.0f || transform.position.z < -50.0f)
         {
             Destroy(gameObject);
         }
@@ -32,9 +32,7 @@ public class Owl : MonoBehaviour
     {
         //if (other.name != "WindSpace") return;
 
-
-
-        // 風に当たるとアニメーションを終了
+        // 風に当たるとアニメーションを終了.
         _animator.enabled = false;
     }
 }

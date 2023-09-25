@@ -5,33 +5,33 @@ using UnityEngine.SceneManagement;
 
 public class testCol : MonoBehaviour
 {
-    public static testCol _instance;// インスタンス
-    // シーン遷移を行ったかどうか
+    // インスタンス.
+    public static testCol _instance;
+    // シーン遷移を行ったかどうか.
     public bool _isScene;
-    // シーン遷移の真偽
+    // シーン遷移の真偽.
     public bool _isGateGimmick1;
     public bool _isGateGimmick2;
 
     private void Awake()
     {
-        // シングルトン
-        if(_instance == null)
+        // シングルトン.
+        if (_instance == null)
         {
-            // 自身をインスタンスとする
+            // 自身をインスタンスとする.
             _instance = this;
         }
         else
         {
-            // インスタンスが複数存在しないように、既に存在していたら自身を消去する
+            // インスタンスが複数存在しないように、既に存在していたら自身を消去する.
             Destroy(gameObject);
         }
     }
 
-
     // Start is called before the first frame update
     void Start()
     {
-        // 初期化
+        // 初期化.
         _isScene = false;
         _isGateGimmick1 = false;
         _isGateGimmick2 = false;
@@ -45,8 +45,8 @@ public class testCol : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        // 扉の当たり判定に入ったらture
-        if(other.tag == "Gimmick1")
+        // 扉の当たり判定に入ったらture.
+        if (other.tag == "Gimmick1")
         {
             _isGateGimmick1 = true;
         }
@@ -58,8 +58,8 @@ public class testCol : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        // 扉の当たり判定を出たらfalse
-        if(other.tag =="Gimmick1")
+        // 扉の当たり判定を出たらfalse.
+        if (other.tag =="Gimmick1")
         {
             _isGateGimmick1 = false;
         }

@@ -20,8 +20,6 @@ public class PauseController : MonoBehaviour
         _close.Select();
     }
 
-
-
     // Update is called once per frame
     void Update()
     {
