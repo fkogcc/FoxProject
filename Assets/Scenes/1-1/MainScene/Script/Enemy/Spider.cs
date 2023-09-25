@@ -4,12 +4,13 @@ using UnityEngine;
 
 public class Spider : MonoBehaviour
 {
-    // アニメーション
+    // アニメーション.
     Animator _animator;
 
     // Start is called before the first frame update
     void Start()
     {
+        // アニメーションの取得.
         _animator = GetComponent<Animator>();
     }
 
@@ -21,8 +22,8 @@ public class Spider : MonoBehaviour
 
     private void FixedUpdate()
     {
-        // 落下したらオブジェクトを消す
-        if(transform.position.y < -20 || transform.position.z < -50)
+        // 落下したらオブジェクトを消す.
+        if (transform.position.y < -20.0f || transform.position.z < -50.0f)
         {
             Destroy(gameObject);
         }
@@ -32,8 +33,7 @@ public class Spider : MonoBehaviour
     {
         if (other.name != "WindSpace") return;
 
-        
-        // 風に当たるとアニメーションを終了
+        // 風に当たるとアニメーションを終了.
         _animator.enabled = false;
     }
 }

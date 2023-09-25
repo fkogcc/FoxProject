@@ -22,7 +22,7 @@ public class UpdatePause : MonoBehaviour
         // ポーズ画面を開いているかどうか.
         _pauseCanvas.gameObject.SetActive(_isPause);
 
-        // 時間を動かす
+        // 時間を動かす.
         if (!_isPause)
         {
             Time.timeScale = 1;
@@ -36,7 +36,7 @@ public class UpdatePause : MonoBehaviour
 
     private void FixedUpdate()
     {
-        // 時間を止める
+        // 時間を止める.
         if (_isPause)
         {
             Time.timeScale = 0;
