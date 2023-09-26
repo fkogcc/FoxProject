@@ -123,6 +123,23 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &148527481 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6838992012973794978, guid: 96cfc936a4967a24c95eab514d0de74a, type: 3}
+  m_PrefabInstance: {fileID: 567596823933695028}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &148527486
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 148527481}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 70f847a68e0873a40afe79d4ccdf9c21, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &301204748
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -168,7 +185,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2547387253882364434, guid: 546fe8400816cf942bbf47e67a845ed9, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.1158287
+      value: -0.15477449
       objectReference: {fileID: 0}
     - target: {fileID: 2547387253882364434, guid: 546fe8400816cf942bbf47e67a845ed9, type: 3}
       propertyPath: m_LocalPosition.y
@@ -667,6 +684,23 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1900033626 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8691484369649728757, guid: 96cfc936a4967a24c95eab514d0de74a, type: 3}
+  m_PrefabInstance: {fileID: 567596823933695028}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1900033628
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1900033626}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 70f847a68e0873a40afe79d4ccdf9c21, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &567596823933695028
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -674,17 +708,45 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 978908247406020122, guid: 96cfc936a4967a24c95eab514d0de74a, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -44.77
+      objectReference: {fileID: 0}
+    - target: {fileID: 978908247406020122, guid: 96cfc936a4967a24c95eab514d0de74a, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 32.57
+      objectReference: {fileID: 0}
+    - target: {fileID: 978908247406020122, guid: 96cfc936a4967a24c95eab514d0de74a, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.68
+      objectReference: {fileID: 0}
+    - target: {fileID: 7955649871313677646, guid: 96cfc936a4967a24c95eab514d0de74a, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 243.67499
+      objectReference: {fileID: 0}
+    - target: {fileID: 7955649871313677646, guid: 96cfc936a4967a24c95eab514d0de74a, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 243.67499
+      objectReference: {fileID: 0}
+    - target: {fileID: 7955649871313677646, guid: 96cfc936a4967a24c95eab514d0de74a, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 48.735
+      objectReference: {fileID: 0}
     - target: {fileID: 7955649871313677646, guid: 96cfc936a4967a24c95eab514d0de74a, type: 3}
       propertyPath: m_LocalPosition.x
       value: -23.86
       objectReference: {fileID: 0}
     - target: {fileID: 7955649871313677646, guid: 96cfc936a4967a24c95eab514d0de74a, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 9
+      value: 9.75
       objectReference: {fileID: 0}
     - target: {fileID: 7955649871313677646, guid: 96cfc936a4967a24c95eab514d0de74a, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 27.8
+      value: 27.46
+      objectReference: {fileID: 0}
+    - target: {fileID: 8295069421485858649, guid: 96cfc936a4967a24c95eab514d0de74a, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8346729562975282767, guid: 96cfc936a4967a24c95eab514d0de74a, type: 3}
       propertyPath: m_RootOrder
