@@ -5,13 +5,13 @@ using UnityEngine;
 public class MovePlane : MonoBehaviour
 {
     GameObject player;
-    Quaternion _planeAngle;
+    float _planeAngle;
     int _moveAngle;
     bool _isMoving;
     void Start()
     {
         player = GameObject.Find("3DPlayer");
-        _planeAngle = this.transform.rotation;
+        _planeAngle = this.transform.localEulerAngles.y;
         _isMoving = false;
     }
 
@@ -23,48 +23,47 @@ public class MovePlane : MonoBehaviour
         {
             if (_moveAngle == 0)
             {
-                player.transform.position += new Vector3(-1f, 0.0f, 0.0f);
+                player.transform.position += new Vector3(-0.1f, 0.0f, 0.0f);
             }
             else if (_moveAngle == 1)
             {
-                player.transform.position += new Vector3(0.0f, 0.0f, 1f);
+                player.transform.position += new Vector3(0.0f, 0.0f, 0.1f);
             }
             else if (_moveAngle == 2)
             {
-                player.transform.position += new Vector3(1f, 0.0f, 0.0f);
+                player.transform.position += new Vector3(0.1f, 0.0f, 0.0f);
             }
             else if (_moveAngle == 3)
             {
-                player.transform.position += new Vector3(0.0f, 0.0f, -1f);
+                player.transform.position += new Vector3(0.0f, 0.0f, -0.1f);
             }
         }
     }
     private void OnTriggerEnter(Collider other)
     {
+        PlaneManager._moveAngle = 4;
         Debug.Log("‚ ‚½‚Á‚½");
 
-        if (_planeAngle.y > 90)
+        if (_planeAngle == 0)
         {
             _moveAngle = 0;
         }
-        else if (_planeAngle.y > 180)
+        else if (_planeAngle == 90)
         {
             _moveAngle = 1;
         }
-        else if (_planeAngle.y > 270)
+        else if (_planeAngle == 180)
         {
             _moveAngle = 2;
         }
-        else if (_planeAngle.y > 360)
+        else if (_planeAngle == 270)
         {
             _moveAngle = 3;
         }
-
         _isMoving = true;
     }
     private void OnTriggerExit(Collider other)
     {
-        Debug.Log("ŠO‚ê‚½");
         _isMoving = false;
     }
 }
