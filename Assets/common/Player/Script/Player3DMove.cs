@@ -9,6 +9,8 @@ public class Player3DMove : MonoBehaviour
     private CharacterController _playerController;
     // カメラ.
     private GameObject _camera;
+    // アニメーター
+    private Animator _animator;
 
     // float.
     // 移動スピード.
@@ -20,6 +22,9 @@ public class Player3DMove : MonoBehaviour
 
     // 地面に当たっているか.
     private bool _isGround = false;
+
+    // 着地した瞬間.
+    private bool _isMomentLanded = false;
 
     // 動く方向.
     Vector3 _moveDirection = Vector3.zero;
@@ -40,13 +45,10 @@ public class Player3DMove : MonoBehaviour
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
 
-        //---------------------------------------
-        // 以下オブジェクト取得.
-        //---------------------------------------
-        // キャラクターコントローラー.
         _playerController = GetComponent<CharacterController>();
-        // Cameraオブジェクト.
         _camera = GameObject.Find("Camera");
+        _animator = GetComponent<Animator>();
+
     }
 
     // Update is called once per frame
@@ -67,17 +69,20 @@ public class Player3DMove : MonoBehaviour
         Vector3 moveZ = cameraForward * vertical * _speed;// 前後
         Vector3 moveX = _camera.transform.right * horizontal * _speed;// 左右
 
-        // 着地判定.
-        if (_isGround)
-        {
-            // Aボタン押したらジャンプ.
-            if (Input.GetKeyDown("joystick button 0"))
-            {
-                _moveDirection.y = _jumpPower;
-            }
-        }
         _moveDirection = moveZ + moveX + new Vector3(0.0f, _moveDirection.y, 0.0f);
-        _moveDirection.y -= _gravity * Time.deltaTime;
+        if (!_isGround)
+        {
+            _moveDirection.y -= _gravity * Time.deltaTime;
+        }
+        else
+        {
+        }
+
+        Jump();
+
+        
+
+        Debug.Log(_moveDirection.y);
 
         // プレイヤーの進む方向に回転.
         transform.LookAt(transform.position + moveZ + moveX);
@@ -98,5 +103,28 @@ public class Player3DMove : MonoBehaviour
         {
             this.transform.position = new Vector3(0.0f, 1.0f, 0.0f);
         }
+    }
+
+    // ジャンプ.
+    private void Jump()
+    {
+        // 着地しているときの処理
+        if (_isGround)
+        {
+            // Aボタン押したらジャンプ.
+            if (Input.GetKeyDown("joystick button 0"))
+            {
+                _isMomentLanded = false;
+                _moveDirection.y = _jumpPower;
+            }
+        }
+    }
+
+    // 落下速度初期化
+    private void InitFall()
+    {
+        if (!_isMomentLanded) return;
+        _moveDirection.y = 0.0f;
+        _isMomentLanded=true;
     }
 }
