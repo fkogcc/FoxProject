@@ -55,11 +55,20 @@ public class IsGroundedCheck : MonoBehaviour
         // Ray‚Ì‰ŠúˆÊ’u‚Æp¨.
         Ray ray = new(origin: transform.position + Vector3.up * _rayOffset, direction: Vector3.down);
 
+        Physics.SphereCast(transform.position, 0.1f, -transform.up, out hit);
+
+        if (hit.distance <= 0.1f)
+        {
+            return true;
+        }
+
         // Ray‚ªÚ’n‚·‚é‚©‚Ç‚¤‚©.
         // ‰~
-        return Physics.SphereCast(transform.position, 5, transform.forward * 10, out hit);
+        return false;
         // ü
         //return Physics.Raycast(ray, _rayLength, _layerMask);
+
+        //return Physics.SphereCast(transform.position, 0.1f, -transform.up, out hit);
     }
 
     private void OnDrawGizmos()
@@ -70,6 +79,7 @@ public class IsGroundedCheck : MonoBehaviour
         // false Ô.
         Gizmos.color = _isGround ? Color.green : Color.red;
         //Gizmos.DrawRay(transform.position + Vector3.up * _rayOffset, Vector3.down * _rayLength);
-        Gizmos.DrawWireSphere(transform.position + Vector3.up * _rayOffset, _rayLength);
+        //Gizmos.DrawWireSphere(transform.position, 0.1f);
+        Gizmos.DrawWireSphere(transform.position + -transform.up * (hit.distance), 0.1f);
     }
 }

@@ -23,20 +23,8 @@ public class Player3DMove : MonoBehaviour
     // 地面に当たっているか.
     private bool _isGround = false;
 
-    // 着地した瞬間.
-    private bool _isMomentLanded = false;
-
     // 動く方向.
     Vector3 _moveDirection = Vector3.zero;
-
-    enum MotionNum
-    {
-        Idle,
-        Run,
-        Jump,
-        GameOver
-    }
-
 
     // Start is called before the first frame update
     void Start()
@@ -106,7 +94,6 @@ public class Player3DMove : MonoBehaviour
             // Aボタン押したらジャンプ.
             if (Input.GetKeyDown("joystick button 0"))
             {
-                _isMomentLanded = false;
                 _moveDirection.y = _jumpPower;
             }
         }
