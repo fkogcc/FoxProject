@@ -5,21 +5,10 @@ using Cinemachine;
 
 public class Player3DMove : MonoBehaviour
 {
-    // Component.
     // キャラクターコントローラー.
     private CharacterController _playerController;
     // カメラ.
     private GameObject _camera;
-    // アニメーター.
-    private Animator _animator;
-
-    // int.
-    // モーション番号.
-    // 0.Idle.
-    // 1.Run.
-    // 2.Jump.
-    // 3.GameOver.
-    private int _motionNum;
 
     // float.
     // 移動スピード.
@@ -29,11 +18,9 @@ public class Player3DMove : MonoBehaviour
     // 重力.
     [SerializeField] private float _gravity = 10.0f;
 
-    // bool
     // 地面に当たっているか.
-    private bool _isGround;
+    private bool _isGround = false;
 
-    // Vector3
     // 動く方向.
     Vector3 _moveDirection = Vector3.zero;
 
@@ -60,11 +47,6 @@ public class Player3DMove : MonoBehaviour
         _playerController = GetComponent<CharacterController>();
         // Cameraオブジェクト.
         _camera = GameObject.Find("Camera");
-        // アニメーター.
-        _animator = GetComponent<Animator>();
-        // モーション番号初期化.
-        _motionNum = (int)MotionNum.Idle;
-        _isGround = false;
     }
 
     // Update is called once per frame
@@ -72,9 +54,6 @@ public class Player3DMove : MonoBehaviour
     {
         // 接地しているかを代入.
         _isGround = IsGroundedCheck._instance._isGround;
-
-        // アニメーション番号.
-        _animator.SetInteger("MotionNum", _motionNum);
 
         // 垂直方向.
         float vertical = Input.GetAxis("Vertical");
@@ -92,30 +71,15 @@ public class Player3DMove : MonoBehaviour
         if (_isGround)
         {
             // Aボタン押したらジャンプ.
-            _moveDirection = moveZ + moveX;
             if (Input.GetKeyDown("joystick button 0"))
             {
                 _moveDirection.y = _jumpPower;
             }
-
-            // 移動状態.
-            if (vertical != 0 || horizontal != 0)
-            {
-                _motionNum = (int)MotionNum.Run;
-            }
-            else
-            {
-                _motionNum = (int)MotionNum.Idle;
-            }
-        }
-        else
-        {
-            _motionNum = (int)MotionNum.Jump;
         }
         _moveDirection = moveZ + moveX + new Vector3(0.0f, _moveDirection.y, 0.0f);
         _moveDirection.y -= _gravity * Time.deltaTime;
 
-        // プレイヤーの向きを入力の向きに変更.
+        // プレイヤーの進む方向に回転.
         transform.LookAt(transform.position + moveZ + moveX);
 
         // Moveは指定したベクトルだけ移動させる命令.
