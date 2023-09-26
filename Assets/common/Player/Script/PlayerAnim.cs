@@ -19,7 +19,13 @@ public class PlayerAnim : MonoBehaviour
         }
     }
 
-    // 移動アニメーション
+    //-------------------------------------------
+    // アニメーション再生.
+    // true: 再生.
+    // false:再生しない.
+    //-------------------------------------------
+
+    // 移動.
     public bool Run()
     {
         // 垂直方向.
@@ -37,4 +43,25 @@ public class PlayerAnim : MonoBehaviour
         }
         return false;
     }
+
+    // ジャンプアニメーション.
+    public bool Jump()
+    {
+        if(!IsGroundedCheck._instance._isGround)
+        {
+            return true;
+        }
+        return false;
+    }
+
+    // ゲームオーバーアニメーション.
+    public bool GameOver()
+    {
+        //if(Player2DMove._instance._hp <= 0)
+        //{
+        //    return true;
+        //}
+        return false;
+    }
+
 }

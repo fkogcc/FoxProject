@@ -54,6 +54,8 @@ public class Player3DMove : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        Anim();
+
         // 接地しているかを代入.
         _isGround = IsGroundedCheck._instance._isGround;
 
@@ -70,19 +72,9 @@ public class Player3DMove : MonoBehaviour
         Vector3 moveX = _camera.transform.right * horizontal * _speed;// 左右
 
         _moveDirection = moveZ + moveX + new Vector3(0.0f, _moveDirection.y, 0.0f);
-        if (!_isGround)
-        {
-            _moveDirection.y -= _gravity * Time.deltaTime;
-        }
-        else
-        {
-        }
-
-        Jump();
-
         
 
-        Debug.Log(_moveDirection.y);
+        Jump();
 
         // プレイヤーの進む方向に回転.
         transform.LookAt(transform.position + moveZ + moveX);
@@ -118,13 +110,33 @@ public class Player3DMove : MonoBehaviour
                 _moveDirection.y = _jumpPower;
             }
         }
+
+        // プレイヤーにかかる重力処理
+        if (!_isGround)
+        {
+            _moveDirection.y -= _gravity * Time.deltaTime;
+        }
+        else
+        {
+            if (!Input.GetKey("joystick button 0"))
+            {
+                _moveDirection.y = 0.0f;
+            }
+        }
     }
 
-    // 落下速度初期化
-    private void InitFall()
+    // 移動
+    private void Move()
     {
-        if (!_isMomentLanded) return;
-        _moveDirection.y = 0.0f;
-        _isMomentLanded=true;
+        
     }
+
+    // アニメーション
+    private void Anim()
+    {
+        _animator.SetBool("Run", PlayerAnim._instance.Run());
+        _animator.SetBool("Jump", PlayerAnim._instance.Jump());
+        _animator.SetBool("isDead", PlayerAnim._instance.GameOver());
+    }
+
 }

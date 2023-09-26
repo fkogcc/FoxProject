@@ -18,6 +18,9 @@ public class IsGroundedCheck : MonoBehaviour
     // 地面に接地しているかどうか.
     public bool _isGround;
 
+    // レイ
+    RaycastHit hit;
+
     private void Awake()
     {
         if(_instance == null)
@@ -53,7 +56,10 @@ public class IsGroundedCheck : MonoBehaviour
         Ray ray = new(origin: transform.position + Vector3.up * _rayOffset, direction: Vector3.down);
 
         // Rayが接地するかどうか.
-        return Physics.Raycast(ray, _rayLength, _layerMask);
+        // 円
+        return Physics.SphereCast(transform.position, 5, transform.forward * 10, out hit);
+        // 線
+        //return Physics.Raycast(ray, _rayLength, _layerMask);
     }
 
     private void OnDrawGizmos()
@@ -63,6 +69,7 @@ public class IsGroundedCheck : MonoBehaviour
         // true 緑.
         // false 赤.
         Gizmos.color = _isGround ? Color.green : Color.red;
-        Gizmos.DrawRay(transform.position + Vector3.up * _rayOffset, Vector3.down * _rayLength);
+        //Gizmos.DrawRay(transform.position + Vector3.up * _rayOffset, Vector3.down * _rayLength);
+        Gizmos.DrawWireSphere(transform.position + Vector3.up * _rayOffset, _rayLength);
     }
 }
