@@ -6,110 +6,116 @@ public class SlideGimmickDirector : MonoBehaviour
 {
     const int kNum = 16;
 
+    GameObject _parentObj;
     GameObject[] _gimmickObj;
 
     bool[] _isPut;
+    int[] _eles;
 
     Vector3 _tempPos1;
     Vector3 _tempPos2;
+    int _tempEle;
 
     void Start()
     {
+        _parentObj = new GameObject();
         _gimmickObj = new GameObject[kNum];
 
         _isPut = new bool[kNum];
+        _eles = new int[kNum];
 
         _tempPos1 = new Vector3();
         _tempPos2 = new Vector3();
 
-        for (int i = 0; i < kNum - 1; i++)
+        _parentObj = GameObject.Find("Box");
+
+        for (int i = 0; i < kNum; i++)
         {
-            _gimmickObj[i] = GameObject.Find((i).ToString());
+            _gimmickObj[i] = _parentObj.transform.GetChild(i).gameObject;
             _isPut[i] = true;
+            _eles[i] = i;
         }
 
-        _gimmickObj[kNum - 1] = GameObject.Find((kNum - 1).ToString());
         _isPut[kNum - 1] = false;
     }
 
     public void EleCheck(int ele)
     {
-        // 配列要素ないかの判定
-
-        Debug.Log("[SlideGmmick] checkNum : " + ele);
+        if (!_isPut[ele]) return;
 
         // 上のチェック
         if (0 <= ele - 4 && ele - 4 < kNum)
         {
-            Debug.Log("[SlideGmmick] 上チェック");
-
             if(!_isPut[ele - 4])
             {
                 // 位置入れ替え
                 ChangeTrs(ele, ele - 4);
 
-                Debug.Log("[SlideGmmick] 入れ替えました");
                 return;
             }
+            Debug.Log("上違う");
         }
         // 下のチェック
         if (0 <= ele + 4 && ele + 4 < kNum)
         {
-            Debug.Log("[SlideGmmick] 下チェック");
             if (!_isPut[ele + 4])
             {
                 ChangeTrs(ele, ele + 4);
 
-                Debug.Log("[SlideGmmick] 入れ替えました");
                 return;
             }
+            Debug.Log("下違う");
         }
         // 左のチェック
-        if (0 <= ele - 1 && ele - 1 < kNum)
+        if (0 <= ele - 1 && ele - 1 < kNum && ele % 4 != 0)
         {
-            Debug.Log("[SlideGmmick] 左チェック");
             if (!_isPut[ele - 1])
             {
                 ChangeTrs(ele, ele - 1);
 
-                Debug.Log("[SlideGmmick] 入れ替えました");
                 return;
             }
+            Debug.Log("左違う");
         }
         // 右のチェック
-        if (0 <= ele + 1 && ele + 1 < kNum)
+        if (0 <= ele + 1 && ele + 1 < kNum && ele % 4 != 3)
         {
-            Debug.Log("[SlideGmmick] 右チェック");
             if (!_isPut[ele + 1])
             {
                 ChangeTrs(ele, ele + 1);
 
-                Debug.Log("[SlideGmmick] 入れ替えました");
                 return;
             }
+            Debug.Log("右違う");
         }
-
-        Debug.Log("[SlideGmmick] 入れ替えれませんでした");
     }
 
     /// 位置の変更
     void ChangeTrs(int ele1, int ele2)
     {
-        Debug.Log("変更前");
-        Debug.Log(_gimmickObj[ele1].transform.position);
-        Debug.Log(_gimmickObj[ele2].transform.position);
+        _tempPos1 = _gimmickObj[_eles[ele1]].transform.position;
+        _tempPos2 = _gimmickObj[kNum - 1].transform.position;
 
-        _tempPos1 = _gimmickObj[ele1].transform.position;
-        _tempPos2 = _gimmickObj[ele2].transform.position;
-
-        _gimmickObj[ele1].transform.position = _tempPos2;
-        _gimmickObj[ele2].transform.position = _tempPos1;
-
-        Debug.Log("変更後");
-        Debug.Log(_gimmickObj[ele1].transform.position);
-        Debug.Log(_gimmickObj[ele2].transform.position);
+        _gimmickObj[_eles[ele1]].transform.position = _tempPos2;
+        _gimmickObj[kNum - 1].transform.position = _tempPos1;
 
         _isPut[ele1] = false;
         _isPut[ele2] = true;
+
+        _tempEle = _eles[ele1];
+        _eles[ele1] = _eles[ele2];
+        _eles[ele2] = _tempEle;
+
+        // デバッグ表記用
+        Debug.Log("現在の情報");
+        for (int i = 0; i < 4; i++)
+        {
+            Debug.Log(_isPut[i * 4] + ", " + _isPut[i * 4 + 1] + ", " + _isPut[i * 4 + 2] + ", " + _isPut[i * 4 + 3] + ", ");
+        }
+        for (int i = 0; i < 4; i++)
+        {
+            Debug.Log(_eles[i * 4] + ", " + _eles[i * 4 + 1] + ", " + _eles[i * 4 + 2] + ", " + _eles[i * 4 + 3] + ", ");
+        }
+
     }
 }
