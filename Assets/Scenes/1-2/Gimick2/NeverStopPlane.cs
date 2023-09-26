@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class NeverStopPlane : MonoBehaviour
 {
-    GameObject player;
-    float _planeAngle;
+    private GameObject _player;
+    private float _planeAngle;
     void Start()
     {
-        player = GameObject.Find("3DPlayer");
+        _player = GameObject.Find("3DPlayer");
         _planeAngle = this.transform.localEulerAngles.y;
     }
     private void OnTriggerEnter(Collider other)

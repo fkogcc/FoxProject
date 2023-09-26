@@ -4,13 +4,23 @@ using UnityEngine;
 
 public class MovePlane : MonoBehaviour
 {
-    GameObject player;
-    float _planeAngle;
-    int _moveAngle;
-    bool _isMoving;
+    private enum moveNum
+    {
+        up,
+        down,
+        left,
+        right,
+        empty,
+    }
+    private GameObject _player;
+    private float _planeAngle;
+    private moveNum _moveAngle;
+    private bool _isMoving;
+    
+
     void Start()
     {
-        player = GameObject.Find("3DPlayer");
+        _player = GameObject.Find("3DPlayer");
         _planeAngle = this.transform.localEulerAngles.y;
         _isMoving = false;
     }
@@ -21,21 +31,21 @@ public class MovePlane : MonoBehaviour
 //        Debug.Log(_isMoving);
         if (_isMoving)
         {
-            if (_moveAngle == 0)
+            if (_moveAngle == moveNum.up)
             {
-                player.transform.position += new Vector3(-0.1f, 0.0f, 0.0f);
+                _player.transform.position += new Vector3(-0.1f, 0.0f, 0.0f);
             }
-            else if (_moveAngle == 1)
+            else if (_moveAngle == moveNum.down)
             {
-                player.transform.position += new Vector3(0.0f, 0.0f, 0.1f);
+                _player.transform.position += new Vector3(0.0f, 0.0f, 0.1f);
             }
-            else if (_moveAngle == 2)
+            else if (_moveAngle == moveNum.left)
             {
-                player.transform.position += new Vector3(0.1f, 0.0f, 0.0f);
+                _player.transform.position += new Vector3(0.1f, 0.0f, 0.0f);
             }
-            else if (_moveAngle == 3)
+            else if (_moveAngle == moveNum.right)
             {
-                player.transform.position += new Vector3(0.0f, 0.0f, -0.1f);
+                _player.transform.position += new Vector3(0.0f, 0.0f, -0.1f);
             }
         }
     }
@@ -46,19 +56,19 @@ public class MovePlane : MonoBehaviour
 
         if (_planeAngle == 0)
         {
-            _moveAngle = 0;
+            _moveAngle = moveNum.up;
         }
         else if (_planeAngle == 90)
         {
-            _moveAngle = 1;
+            _moveAngle = moveNum.down;
         }
         else if (_planeAngle == 180)
         {
-            _moveAngle = 2;
+            _moveAngle = moveNum.left;
         }
         else if (_planeAngle == 270)
         {
-            _moveAngle = 3;
+            _moveAngle = moveNum.right;
         }
         _isMoving = true;
     }
