@@ -6,9 +6,7 @@ public class Wall : MonoBehaviour
 {
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("Player"))
-        {
-            PlaneManager._moveAngle = 4;
-        }
+        PlaneManager._moveAngle = 4;
     }
+
 }
