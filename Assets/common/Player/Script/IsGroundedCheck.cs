@@ -7,16 +7,22 @@ public class IsGroundedCheck : MonoBehaviour
     public static IsGroundedCheck _instance;
 
     // 足から地面までのRayの長さ.
-    [SerializeField] public float _rayLength = 1.0f;
+    [SerializeField] private float _rayLength = 1.0f;
 
     // 身体にめり込ませるRayの長さ.
-    [SerializeField] public float _rayOffset;
+    [SerializeField] private float _rayOffset;
 
     // 円のRayの長さ
-    [SerializeField] public float _raySphereLength = 0;
+    [SerializeField] private float _raySphereLength = 0.1f;
+
+    // 円のy座標調整
+    [SerializeField] private float _SphereCastRegulationY = 0;
 
     // Rayの判定に用いるLayer.
     [SerializeField] private LayerMask _layerMask = default;
+
+    // SphereCastの中心座標
+    private Vector3 _SphereCastCenterPosition = Vector3.zero;
 
     // 地面に接地しているかどうか.
     public bool _isGround;
@@ -50,6 +56,8 @@ public class IsGroundedCheck : MonoBehaviour
 
     private void FixedUpdate()
     {
+        _SphereCastCenterPosition = new Vector3(transform.position.x, transform.position.y + _SphereCastRegulationY, transform.position.z);
+
         _isGround = CheckGrounded();
     }
 
@@ -59,7 +67,7 @@ public class IsGroundedCheck : MonoBehaviour
         Ray ray = new(origin: transform.position + Vector3.up * _rayOffset, direction: Vector3.down);
 
         // 円キャスト.
-        Physics.SphereCast(transform.position, 0.1f, -transform.up, out hit);
+        Physics.SphereCast(_SphereCastCenterPosition, _raySphereLength, -transform.up, out hit);
 
         // 接地距離によってtrue.
         if (hit.distance <= 0.1f)
@@ -85,6 +93,6 @@ public class IsGroundedCheck : MonoBehaviour
         Gizmos.color = _isGround ? Color.green : Color.red;
         //Gizmos.DrawRay(transform.position + Vector3.up * _rayOffset, Vector3.down * _rayLength);
         //Gizmos.DrawWireSphere(transform.position, 0.1f);
-        Gizmos.DrawWireSphere(transform.position + -transform.up * (hit.distance), 0.1f);
+        Gizmos.DrawWireSphere(_SphereCastCenterPosition + -transform.up * (hit.distance), _raySphereLength);
     }
 }
