@@ -48,7 +48,6 @@ public class Player3DMove : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
         if (!_isController) return;
         Anim();
         Move();
