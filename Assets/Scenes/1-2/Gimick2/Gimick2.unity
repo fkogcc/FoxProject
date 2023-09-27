@@ -1041,7 +1041,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: MovePlane2 (2)
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 751528515299421243, guid: 514dcc629822bce4fad9d47b6f4dc9bf, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 514dcc629822bce4fad9d47b6f4dc9bf, type: 3}
 --- !u!1001 &238489005
 PrefabInstance:
@@ -3000,8 +3001,8 @@ GameObject:
   m_Component:
   - component: {fileID: 814483045}
   - component: {fileID: 814483044}
-  - component: {fileID: 814483043}
   - component: {fileID: 814483042}
+  - component: {fileID: 814483046}
   m_Layer: 0
   m_Name: CancelWall (1)
   m_TagString: Untagged
@@ -3025,18 +3026,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &814483043
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 814483041}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6b1eb00435b338a4d839b7fa8f07fbc3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!65 &814483044
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -3065,6 +3054,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 24
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &814483046
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 814483041}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c676a6a057a0834b87f75cf603bfd17, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _isExit: 1
+  _isWall: 1
 --- !u!4 &823908989 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2512063428017816703, guid: 4cb39dc8f0f8a2d48830cf96566b8448, type: 3}
@@ -3450,8 +3453,8 @@ GameObject:
   m_Component:
   - component: {fileID: 902352469}
   - component: {fileID: 902352468}
-  - component: {fileID: 902352467}
   - component: {fileID: 902352466}
+  - component: {fileID: 902352470}
   m_Layer: 0
   m_Name: CancelWall (2)
   m_TagString: Untagged
@@ -3475,18 +3478,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &902352467
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 902352465}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6b1eb00435b338a4d839b7fa8f07fbc3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!65 &902352468
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -3515,6 +3506,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 25
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &902352470
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 902352465}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c676a6a057a0834b87f75cf603bfd17, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _isExit: 1
+  _isWall: 1
 --- !u!1001 &907539889
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7995,7 +8000,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2547387253882364434, guid: 546fe8400816cf942bbf47e67a845ed9, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 6.7953157
+      value: 6.7952104
       objectReference: {fileID: 0}
     - target: {fileID: 2547387253882364434, guid: 546fe8400816cf942bbf47e67a845ed9, type: 3}
       propertyPath: m_LocalPosition.y
@@ -8195,8 +8200,8 @@ GameObject:
   m_Component:
   - component: {fileID: 2038527966}
   - component: {fileID: 2038527965}
-  - component: {fileID: 2038527964}
   - component: {fileID: 2038527967}
+  - component: {fileID: 2038527968}
   m_Layer: 0
   m_Name: CancelWall
   m_TagString: Untagged
@@ -8204,18 +8209,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &2038527964
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2038527963}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6b1eb00435b338a4d839b7fa8f07fbc3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!65 &2038527965
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -8260,6 +8253,20 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &2038527968
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2038527963}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c676a6a057a0834b87f75cf603bfd17, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _isExit: 1
+  _isWall: 1
 --- !u!4 &2043037624 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2512063428017816703, guid: 4cb39dc8f0f8a2d48830cf96566b8448, type: 3}

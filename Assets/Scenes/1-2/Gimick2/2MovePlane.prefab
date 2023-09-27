@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 8396515187990587270}
   - component: {fileID: 7132588499231320827}
   - component: {fileID: 43383600687636583}
-  - component: {fileID: 751528515299421243}
+  - component: {fileID: -5449450209596646763}
   m_Layer: 0
   m_Name: 2MovePlane
   m_TagString: Untagged
@@ -130,7 +130,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &751528515299421243
+--- !u!114 &-5449450209596646763
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -139,6 +139,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 8439110843644639110}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 38f775d45f66a9840aac74b35bd92699, type: 3}
+  m_Script: {fileID: 11500000, guid: 5c676a6a057a0834b87f75cf603bfd17, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _isExit: 0
