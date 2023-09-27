@@ -1,3 +1,4 @@
+using Microsoft.Cci;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,15 +8,31 @@ public class SlideGimmickDirector : MonoBehaviour
     // 動かすブロックの数.
     const int kNum = 16;
 
-    // 親オブジェ.
+    // 現在の手の位置からの上下左右
+    const int kUp = -4;
+    const int kDown = 4;
+    const int kLeft = -1;
+    const int kRight = 1;
+
+    // 横に並んでいるブロックの数
+    const int kRaw = 4;
+
+    // プレイヤー
+    GameObject _player;
+
+    // ギミック親オブジェ.
     GameObject _parentObj;
-    // 子オブジェ.
+    // ギミック子オブジェ.
     GameObject[] _gimmickObj;
 
-    // 入れられているか.
-    bool[] _isPut;
     // 要素の番号.
     int[] _eles;
+
+    // 押したかのフラグ
+    bool _isHitKey;
+
+    // 現在の要素
+    int _nowEle;
 
     // 入れ替え用.
     Vector3 _tempPos1;
@@ -24,14 +41,24 @@ public class SlideGimmickDirector : MonoBehaviour
 
     void Start()
     {
+        // 初期化
+        _player = new GameObject();
+
         _parentObj = new GameObject();
         _gimmickObj = new GameObject[kNum];
 
-        _isPut = new bool[kNum];
         _eles = new int[kNum];
+
+        _isHitKey = false;
+
+        _nowEle = 0;
 
         _tempPos1 = new Vector3();
         _tempPos2 = new Vector3();
+        _tempEle = 0;
+
+        // プレイヤーを探す
+        _player = GameObject.Find("Hand");
 
         // 親オブジェを探す.
         _parentObj = GameObject.Find("Box");
@@ -40,110 +67,96 @@ public class SlideGimmickDirector : MonoBehaviour
         {
             // 子オブジェを探す.
             _gimmickObj[i] = _parentObj.transform.GetChild(i).gameObject;
-            // 入れられていることにする.
-            _isPut[i] = true;
-            // 初期番号の代入.
+            // 要素番号の代入.
             _eles[i] = i;
         }
-
-        // 最後のは空白地のため入れられていないにする.
-        _isPut[kNum - 1] = false;
-
 
         // シャッフル
         for(int i = 0; i < 32; i++)
         {
-            ChangeTrs(Random.Range(0, kNum), Random.Range(0, kNum));
+            // todo: したのを復活
+            //ChangeTrs(Random.Range(0, kNum), Random.Range(0, kNum));
         }
     }
 
-    public void EleCheck(int ele)
+    void Update()
+    {
+        if (Input.GetKey(KeyCode.F) && !_isHitKey)
+        {
+            _nowEle = _player.GetComponent<GimmickHand>().GetEleNum();
+
+            EleCheck();
+
+            _isHitKey = true;
+        }
+        else if (!Input.GetKey(KeyCode.F))
+        {
+            _isHitKey = false;
+        }
+    }
+
+    public void EleCheck()
     {
         // 要素番号の位置が空白地なら何もしない
-        if (!_isPut[ele]) return;
+        if (_eles[_nowEle] == kNum - 1) return;
 
         // 上のチェック
-        if (0 <= ele - 4 && ele - 4 < kNum)
-        {
-            if(!_isPut[ele - 4])
-            {
-                // 位置入れ替え
-                ChangeTrs(ele, ele - 4);
-
-                return;
-            }
-            Debug.Log("上違う");
-        }
+        if (DirCheck(kUp)) return;
+        Debug.Log("上違う");
         // 下のチェック
-        if (0 <= ele + 4 && ele + 4 < kNum)
-        {
-            if (!_isPut[ele + 4])
-            {
-                ChangeTrs(ele, ele + 4);
-
-                return;
-            }
-            Debug.Log("下違う");
-        }
+        if (DirCheck(kDown)) return;
+        Debug.Log("下違う");
         // 左のチェック
-        if (0 <= ele - 1 && ele - 1 < kNum && ele % 4 != 0)
-        {
-            if (!_isPut[ele - 1])
-            {
-                ChangeTrs(ele, ele - 1);
-
-                return;
-            }
-            Debug.Log("左違う");
-        }
+        if (DirCheck(kLeft)) return;
+        Debug.Log("左違う");
         // 右のチェック
-        if (0 <= ele + 1 && ele + 1 < kNum && ele % 4 != 3)
-        {
-            if (!_isPut[ele + 1])
-            {
-                ChangeTrs(ele, ele + 1);
+        if (DirCheck(kRight)) return;
+    }
 
-                return;
-            }
-            Debug.Log("右違う");
+    bool DirCheck(int dir)
+    {
+        // 左右の場合端にあれば確認しない
+        if (dir == kLeft &&
+            (_nowEle % kRaw) == 0)
+        {
+            return false;
         }
+        if (dir == kLeft &&
+            (_nowEle & kRaw) == (kRaw - 1))
+        {
+            return false;
+        }
+
+        // dirの方向のものが空白の場合動かす
+        if (_eles[_nowEle + dir] == kNum - 1)
+        {
+            ChangeTrs(_nowEle + dir);
+
+            return true;
+        }
+
+        return false;
     }
 
     /// 位置の変更
     // 要素一つ目、要素二つ目
-    void ChangeTrs(int ele1, int ele2)
+    void ChangeTrs(int ele)
     {
         // それぞれの位置を保存.
-        _tempPos1 = _gimmickObj[_eles[ele1]].transform.position;
-        _tempPos2 = _gimmickObj[_eles[ele2]].transform.position;
+        _tempPos1 = _gimmickObj[_eles[_nowEle]].transform.position;
+        _tempPos2 = _gimmickObj[_eles[ele]].transform.position;
 
         // 保存した位置を使い、位置の入れ替え.
-        _gimmickObj[_eles[ele1]].transform.position = _tempPos2;
-        _gimmickObj[_eles[ele2]].transform.position = _tempPos1;
+        _gimmickObj[_eles[_nowEle]].transform.position = _tempPos2;
+        _gimmickObj[_eles[ele]].transform.position = _tempPos1;
 
         // 要素の番号を変更.
-        _tempEle = _eles[ele1];
-        _eles[ele1] = _eles[ele2];
-        _eles[ele2] = _tempEle;
-
-        // boolの変更.
-        if (!_isPut[ele2])
-        {
-            _isPut[ele1] = false;
-            _isPut[ele2] = true;
-        }
-        else if (!_isPut[ele1])
-        {
-            _isPut[ele1] = true;
-            _isPut[ele2] = false;
-        }
+        _tempEle = _eles[_nowEle];
+        _eles[_nowEle] = _eles[ele];
+        _eles[ele] = _tempEle;
         
         // デバッグ表記用
         Debug.Log("現在の情報");
-        for (int i = 0; i < 4; i++)
-        {
-            Debug.Log(_isPut[i * 4] + ", " + _isPut[i * 4 + 1] + ", " + _isPut[i * 4 + 2] + ", " + _isPut[i * 4 + 3] + ", ");
-        }
         for (int i = 0; i < 4; i++)
         {
             Debug.Log(_eles[i * 4] + ", " + _eles[i * 4 + 1] + ", " + _eles[i * 4 + 2] + ", " + _eles[i * 4 + 3] + ", ");

@@ -51,16 +51,7 @@ public class GimmickHand : MonoBehaviour
 
         this.transform.position += _vec;
 
-        if (Input.GetKey(KeyCode.F) && !_isHitKey)
-        {
-            _gimmickDirector.EleCheck(int.Parse(HitName));
-
-            _isHitKey = true;
-        }
-        else if (!Input.GetKey(KeyCode.F))
-        {
-            _isHitKey = false;
-        }
+        
     }
 
     void OnTriggerEnter(Collider other)
@@ -68,5 +59,10 @@ public class GimmickHand : MonoBehaviour
         HitName = other.name;
 
         Debug.Log("[SlideGmmick] nowNum:" + HitName);
+    }
+
+    public int GetEleNum()
+    {
+        return int.Parse(HitName);
     }
 }
