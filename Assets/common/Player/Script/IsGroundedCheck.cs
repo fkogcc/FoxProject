@@ -12,6 +12,9 @@ public class IsGroundedCheck : MonoBehaviour
     // 身体にめり込ませるRayの長さ.
     [SerializeField] public float _rayOffset;
 
+    // 円のRayの長さ
+    [SerializeField] public float _raySphereLength = 0;
+
     // Rayの判定に用いるLayer.
     [SerializeField] private LayerMask _layerMask = default;
 
@@ -55,8 +58,10 @@ public class IsGroundedCheck : MonoBehaviour
         // Rayの初期位置と姿勢.
         Ray ray = new(origin: transform.position + Vector3.up * _rayOffset, direction: Vector3.down);
 
+        // 円キャスト.
         Physics.SphereCast(transform.position, 0.1f, -transform.up, out hit);
 
+        // 接地距離によってtrue.
         if (hit.distance <= 0.1f)
         {
             return true;
