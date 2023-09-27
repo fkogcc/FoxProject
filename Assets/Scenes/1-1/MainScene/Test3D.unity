@@ -810,18 +810,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 1915272582234858339, guid: bd037697781acda40b5e323c73a69281, type: 3}
   m_PrefabInstance: {fileID: 1609196384386596921}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &919132149239751520
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 919132149239751514}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 36573807c60bf7e46916e7115509a775, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &1609196384386596921
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -883,7 +871,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1609196384570465833, guid: bd037697781acda40b5e323c73a69281, type: 3}
       propertyPath: m_Radius
-      value: 1.5
+      value: 1.25
       objectReference: {fileID: 0}
     - target: {fileID: 1609196384570465846, guid: bd037697781acda40b5e323c73a69281, type: 3}
       propertyPath: _gravity

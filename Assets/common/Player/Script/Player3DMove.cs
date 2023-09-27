@@ -12,7 +12,7 @@ public class Player3DMove : MonoBehaviour
     // アニメーター
     private Animator _animator;
 
-    // float.
+
     // 移動スピード.
     [SerializeField] public static float _speed = 5.0f;
     // ジャンプ力.
@@ -21,10 +21,13 @@ public class Player3DMove : MonoBehaviour
     [SerializeField] private float _gravity = 10.0f;
 
     // 着地中にかけられ続ける重力
-    private float _GroundGravity = -10.0f;
+    private float _groundGravity = -10.0f;
 
     // 地面に当たっているか.
     private bool _isGround = false;
+
+    // 操作可能かどうか.
+    public bool _isController = true;
 
     // 動く方向.
     Vector3 _moveDirection = Vector3.zero;
@@ -45,10 +48,10 @@ public class Player3DMove : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+        if (!_isController) return;
         Anim();
-
         Move();
-
         Jump();
     }
 
@@ -88,7 +91,7 @@ public class Player3DMove : MonoBehaviour
         {
             if (!Input.GetKey("joystick button 0"))
             {
-                _moveDirection.y = _GroundGravity;
+                _moveDirection.y = _groundGravity;
             }
         }
     }
