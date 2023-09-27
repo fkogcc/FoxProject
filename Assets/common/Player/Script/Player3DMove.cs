@@ -20,6 +20,9 @@ public class Player3DMove : MonoBehaviour
     // 重力.
     [SerializeField] private float _gravity = 10.0f;
 
+    // 着地中にかけられ続ける重力
+    private float _GroundGravity = -10.0f;
+
     // 地面に当たっているか.
     private bool _isGround = false;
 
@@ -44,31 +47,9 @@ public class Player3DMove : MonoBehaviour
     {
         Anim();
 
-        // 接地しているかを代入.
-        _isGround = IsGroundedCheck._instance._isGround;
-
-        // 垂直方向.
-        float vertical = Input.GetAxis("Vertical");
-        // 水平方向.
-        float horizontal = Input.GetAxis("Horizontal");
-
-        // カメラの向きを基準にした正面方向のベクトル.
-        Vector3 cameraForward = Vector3.Scale(_camera.transform.forward, new Vector3(1.0f, 0.0f, 1.0f)).normalized;
-
-        // カメラ基準.
-        Vector3 moveZ = cameraForward * vertical * _speed;// 前後
-        Vector3 moveX = _camera.transform.right * horizontal * _speed;// 左右
-
-        _moveDirection = moveZ + moveX + new Vector3(0.0f, _moveDirection.y, 0.0f);
-        
+        Move();
 
         Jump();
-
-        // プレイヤーの進む方向に回転.
-        transform.LookAt(transform.position + moveZ + moveX);
-
-        // Moveは指定したベクトルだけ移動させる命令.
-        _playerController.Move(_moveDirection * Time.deltaTime);
     }
 
     private void FixedUpdate()
@@ -107,7 +88,7 @@ public class Player3DMove : MonoBehaviour
         {
             if (!Input.GetKey("joystick button 0"))
             {
-                _moveDirection.y = -10.0f;
+                _moveDirection.y = _GroundGravity;
             }
         }
     }
@@ -115,7 +96,30 @@ public class Player3DMove : MonoBehaviour
     // 移動
     private void Move()
     {
-        
+        // 接地しているかを代入.
+        _isGround = IsGroundedCheck._instance._isGround;
+
+        // 垂直方向.
+        float vertical = Input.GetAxis("Vertical");
+        // 水平方向.
+        float horizontal = Input.GetAxis("Horizontal");
+
+        // カメラの向きを基準にした正面方向のベクトル.
+        Vector3 cameraForward = Vector3.Scale(_camera.transform.forward, new Vector3(1.0f, 0.0f, 1.0f)).normalized;
+
+        // カメラ基準.
+        Vector3 moveZ = cameraForward * vertical * _speed;// 前後
+        Vector3 moveX = _camera.transform.right * horizontal * _speed;// 左右
+
+        _moveDirection = moveZ + moveX + new Vector3(0.0f, _moveDirection.y, 0.0f);
+
+
+
+        // プレイヤーの進む方向に回転.
+        transform.LookAt(transform.position + moveZ + moveX);
+
+        // Moveは指定したベクトルだけ移動させる命令.
+        _playerController.Move(_moveDirection * Time.deltaTime);
     }
 
     // アニメーション

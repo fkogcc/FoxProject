@@ -70,7 +70,7 @@ public class IsGroundedCheck : MonoBehaviour
         Physics.SphereCast(_SphereCastCenterPosition, _raySphereLength, -transform.up, out hit);
 
         // Ú’n‹——£‚É‚æ‚Á‚Ätrue.
-        if (hit.distance <= 0.1f)
+        if (hit.distance <= 0.1f && hit.distance != 0.0f)
         {
             return true;
         }
