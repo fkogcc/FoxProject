@@ -107,7 +107,7 @@ public class Player3DMove : MonoBehaviour
         {
             if (!Input.GetKey("joystick button 0"))
             {
-                _moveDirection.y = -20.0f;
+                _moveDirection.y = -10.0f;
             }
         }
     }
