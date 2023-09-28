@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerHand : MonoBehaviour
 {
     // 手の移動速度.
-    private float speed;
+    private float _speed;
     // ボタンの名前を入れる用の変数.
     public string _buttonName;
     // ボタンの状態を入れるフラグ.
@@ -17,7 +17,7 @@ public class PlayerHand : MonoBehaviour
     void Start()
     {
         // 初期化処理.
-        speed = 5.0f;
+        _speed = 2.5f;
         _isButtonState = false;
         _isCollision = false;
     }
@@ -44,22 +44,22 @@ public class PlayerHand : MonoBehaviour
         if (Input.GetAxis("Vertical") > 0)
         {
             // 上.
-            transform.position += transform.up * speed * Time.deltaTime;
+            transform.position += transform.up * _speed * Time.deltaTime;
         }
         if (Input.GetAxis("Vertical") < 0)
         {
             // 下.
-            transform.position -= transform.up * speed * Time.deltaTime;
+            transform.position -= transform.up * _speed * Time.deltaTime;
         }
         if (Input.GetAxis("Horizontal") > 0)
         {
             // 右.
-            transform.position += transform.right * speed * Time.deltaTime;
+            transform.position += transform.right * _speed * Time.deltaTime;
         }
         if (Input.GetAxis("Horizontal") < 0)
         {
             // 左.
-            transform.position -= transform.right * speed * Time.deltaTime;
+            transform.position -= transform.right * _speed * Time.deltaTime;
         }
     }
 
@@ -72,7 +72,6 @@ public class PlayerHand : MonoBehaviour
             _isCollision = true;
             // 今触れているボタンを取得する
             _buttonName = other.gameObject.name;
-
         }
     }
 
