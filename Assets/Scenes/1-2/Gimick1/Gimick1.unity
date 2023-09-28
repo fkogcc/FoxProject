@@ -144,7 +144,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &469222657
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -645,7 +645,7 @@ MonoBehaviour:
   _monitorCameraObject: {fileID: 1460559962}
   _playerObject: {fileID: 585116651}
   _handObject: {fileID: 1762768763}
-  vcamera: {fileID: 1460559963}
+  vcamera: {fileID: 469222657}
 --- !u!4 &1240893232
 Transform:
   m_ObjectHideFlags: 0
@@ -5652,7 +5652,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2547387253882364436, guid: 546fe8400816cf942bbf47e67a845ed9, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2547387253882364437, guid: 546fe8400816cf942bbf47e67a845ed9, type: 3}
       propertyPath: m_Follow
@@ -5677,17 +5677,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 2547387253882364436, guid: 546fe8400816cf942bbf47e67a845ed9, type: 3}
   m_PrefabInstance: {fileID: 1435878602}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1460559963 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2547387253882364437, guid: 546fe8400816cf942bbf47e67a845ed9, type: 3}
-  m_PrefabInstance: {fileID: 1435878602}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1460559962}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 45e653bab7fb20e499bda25e1b646fea, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1762768763 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 6a59bf90a64987a4ba29ba14aad0f0f4, type: 3}
@@ -5892,8 +5881,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1833059304}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: 0.1736482, y: -0, z: -0, w: 0.9848078}
+  m_LocalPosition: {x: -0.8947382, y: 1.2846773, z: -2.1819997}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -5920,7 +5909,7 @@ MonoBehaviour:
   m_BlendUpdateMethod: 1
   m_DefaultBlend:
     m_Style: 1
-    m_Time: 2
+    m_Time: 1
     m_CustomCurve:
       serializedVersion: 2
       m_Curve: []
@@ -5967,9 +5956,9 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
-  field of view: 20
+  field of view: 60
   orthographic: 0
-  orthographic size: 10
+  orthographic size: 5
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
