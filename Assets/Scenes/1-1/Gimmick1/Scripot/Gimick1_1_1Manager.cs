@@ -23,7 +23,7 @@ public class Gimick1_1_1Manager : MonoBehaviour
     private string[] _handleWallName = {"HandleWall0","HandleWall1"};
     // fot•¶‚Ég—p‚·‚éÅ‘å”.
     private int _maxNum;
-    // Start is called before the first frame update.
+
     void Start()
     {
         string objName = "3DPlayer";

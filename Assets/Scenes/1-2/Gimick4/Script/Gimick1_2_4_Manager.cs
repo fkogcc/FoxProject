@@ -37,6 +37,21 @@ public class Gimick1_2_4_Manager : MonoBehaviour
                 }
             }
         }
+        foreach(var temp in _rota)
+        {
+            if(temp.GetComponent<TurnGraph>().IsGetAns() == false)
+            {
+                _isClear = false;
+                break;
+            }
+
+            _isClear = true;
+        }
+        
+        if(_isClear)
+        {
+            // ‚±‚±‚ÅƒV[ƒ“‚ğØ‚è‘Ö‚¦.
+        }
 
         // ‚·‚×‚Ä‚Ì“ä‚ª‚Æ‚¯‚½‚ç.
         if (_rota[0].GetComponent<TurnGraph>().IsGetAns() &&
