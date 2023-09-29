@@ -16,12 +16,14 @@ public class GearRotation : MonoBehaviour
     private bool _colRange;
     // 回転率.
     private float _gearDegree;
+    // 回転した回数
+    private int _count;
 
     // インスタンスの作成.
     void Start()
     {
         // 初期化.
-        _rotaDegrees += new Vector3(0.0f, 1.0f, 0.0f);
+        _rotaDegrees += new Vector3(0.0f, -1.0f, 0.0f);
         _rotation = Quaternion.AngleAxis(0.0f, _rotaDegrees);
         _playerRotation = false;
         _colRange = false; 
@@ -43,18 +45,14 @@ public class GearRotation : MonoBehaviour
     // 更新処理.
     void Update()
     {
-        // 一回転していなかったら.
-        if (!_playerRotation)
-        {
-            // 回転させる計算.
-            _gearDegree = this.transform.localEulerAngles.y % 360;
-            if (_gearDegree >= 355.0f)
+        // 判定内にいたら.
+        if (_colRange)
+        { // 一回転していなかったら.
+            if (!_playerRotation)
             {
-                //Debug.Log("こえた");
-            }
-            // 判定内にいたら.
-            if (_colRange)
-            {
+                // 回転させる計算.
+                _gearDegree = this.transform.localEulerAngles.y % 360;
+                _gearDegree = _gearDegree - 359.0f;
                 // ボタンを押したら回転できるようにする.
                 if (Input.GetKeyDown("joystick button 1"))
                 {
@@ -63,7 +61,7 @@ public class GearRotation : MonoBehaviour
                      | RigidbodyConstraints.FreezeRotationZ;
                 }
                 // 一回転したら.
-                if (_gearDegree >= 355.0f)
+                if (_gearDegree >= 0.0f)
                 {
                     _playerRotation = true;
                     // RigidbodyのRotationを固定させる.
