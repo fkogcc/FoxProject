@@ -6,24 +6,26 @@ using UnityEngine;
 public class SlideGimmickDirector : MonoBehaviour
 {
     // プレイヤーの動く量
-    private const float kSpeed = 0.25f;
+    private const float kSpeed = 0.125f;
 
     // 動かすブロックの数.
     private const int kBlockNum = 16;
+    // 最後のブロックを空白とする
+    private const int kNoneBlockNo = kBlockNum - 1;
+
+    // 横に並んでいるブロックの数
+    private const int kRaw = 4;
 
     // 現在の手の位置からの上下左右
-    private const int kDirUp = -4;
-    private const int kDirDown = 4;
+    private const int kDirUp = -kRaw;
+    private const int kDirDown = kRaw;
     private const int kDirLeft = -1;
     private const int kDirRight = 1;
     // 上下左右の方向の数
     private const int kDirNum = 4;
 
-    // 横に並んでいるブロックの数
-    private const int kRaw = 4;
-
     // 入れ替えにかけるフレーム数
-    private const int kMoveFrame = 25;
+    private const int kMoveFrame = 10;
 
     // プレイヤー
     private GameObject _player;
@@ -63,7 +65,7 @@ public class SlideGimmickDirector : MonoBehaviour
 
         _eles = new int[kBlockNum];
 
-        _nowEle = kBlockNum - 1;
+        _nowEle = kNoneBlockNo;
 
         _tempPos1 = new Vector3();
         _tempPos2 = new Vector3();
@@ -89,36 +91,22 @@ public class SlideGimmickDirector : MonoBehaviour
             _eles[i] = i;
         }
 
+        int[] _dirNum = { kDirDown, kDirUp, kDirLeft, kDirRight };
+        int _changeDir;
+
         // シャッフル
-        for(int i = 0; i < 32; i++)
+        for (int i = 0; i < 48; i++)
         {
-            _nowEle = Random.Range(0, kBlockNum);
-            
-            switch(Random.Range(0, kDirNum))
-            {
-                case 0:// 上
-                    // 動かせたら位置を変える
-                    if (MoveCheck(kDirUp))  ChangeTrs(_nowEle + kDirUp);
-                    // 動かせなかったらもう一度
-                    // もう一度しないと奇数回シャッフルの時があり、クリア不可になる
-                    else                    i--;
-                    break;
-                case 1:// 下
-                    if (MoveCheck(kDirDown))    ChangeTrs(_nowEle + kDirDown);
-                    else                        i--;
-                    break;
-                case 2:// 右
-                    if (MoveCheck(kDirRight))   ChangeTrs(_nowEle + kDirRight);
-                    else                        i--;
-                    break;
-                case 3:// 左
-                    if (MoveCheck(kDirLeft))    ChangeTrs(_nowEle + kDirLeft);
-                    else                        i--;
-                    break;
-                default:
-                    // ここには来ない
-                    break;
-            }
+            // 0~空白地前までのブロックで動かすようにする
+            _nowEle = Random.Range(0, kNoneBlockNo);
+
+            // 動かす位置が空白でない場合のみ動かす
+            // 動かせないor空白地である場合は
+            // もう一度繰り返し処理を行うようにする
+            // 繰り返すのは奇数回しか動かしていない場合積み配置が出来てしまうため
+            _changeDir = _dirNum[Random.Range(0, kDirNum)];
+            if (MoveCheck(_changeDir, true)) ChangeTrs(_nowEle + _changeDir);
+            else i--;
         }
     }
 
@@ -145,10 +133,11 @@ public class SlideGimmickDirector : MonoBehaviour
         // クリアしていたら移動以外処理しない
         if (_isCreal) return;
 
+        // 入れ替えしていたら処理しない
+        if (_isChange) return;
 
         // 特定のボタンを押したらギミックの処理
-        // その時入れ替え処理をしていない
-        if (Input.GetKeyDown(KeyCode.F) && !_isChange)
+        if (Input.GetKeyDown(KeyCode.F))
         {
             // 現在プレイヤーの手がある位置を保存
             _nowEle = _player.GetComponent<GimmickHand>().GetEleNum();
@@ -192,7 +181,7 @@ public class SlideGimmickDirector : MonoBehaviour
     private void EleCheck()
     {
         // 要素番号の位置が空白地なら何もしない
-        if (_eles[_nowEle] == kBlockNum - 1) return;
+        if (_eles[_nowEle] == kNoneBlockNo) return;
 
         // 上のチェック
         if (DirCheck(kDirUp)) return;
@@ -207,20 +196,14 @@ public class SlideGimmickDirector : MonoBehaviour
     private bool DirCheck(int dir)
     {
         // その方向に動かせるかの確認
-        if (!MoveCheck(dir)) return false;
+        if (!MoveCheck(dir, false)) return false;
+        
+        ChangeTrs(_nowEle + dir, false);
 
-        // dirの方向のものが空白の場合動かす
-        if (_eles[_nowEle + dir] == kBlockNum - 1)
-        {
-            ChangeTrs(_nowEle + dir, false);
-
-            return true;
-        }
-
-        return false;
+        return true;
     }
 
-    bool MoveCheck(int dir)
+    bool MoveCheck(int dir, bool isShuffle)
     {
         // 要素数ないにいなければ確認しない
         if ((_nowEle + dir) < 0 ||
@@ -240,8 +223,27 @@ public class SlideGimmickDirector : MonoBehaviour
             return false;
         }
 
-        // ここまで来たら動かせる位置にいる
-        return true;
+        // シャッフルの場合
+        if (isShuffle)
+        {
+            // dirの方向のものが空白以外の場合動かす
+            if (_eles[_nowEle + dir] != kNoneBlockNo)
+            {
+                return true;
+            }
+        }
+        else
+        // シャッフルでない場合
+        {
+            // dirの方向のものが空白の場合動かす
+            if (_eles[_nowEle + dir] == kNoneBlockNo)
+            {
+                return true;
+            }
+        }
+
+        return false;
+
     }
 
     // 位置の変更
