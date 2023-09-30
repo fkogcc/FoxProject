@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 7118363217757652936}
   - component: {fileID: 8409312050278763189}
   - component: {fileID: 1645443983527067689}
-  - component: {fileID: -1396807848399005510}
+  - component: {fileID: 5731398297954839637}
   m_Layer: 0
   m_Name: MovePlane
   m_TagString: Untagged
@@ -130,7 +130,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &-1396807848399005510
+--- !u!114 &5731398297954839637
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -139,6 +139,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 7156876405251954632}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9ac13198dcce7054f830334053c2acc2, type: 3}
+  m_Script: {fileID: 11500000, guid: 409bfd7440cd6054b8e070f442d1b2df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _isExit: 1
+  _isWall: 0

@@ -1,34 +1,90 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
-public class PlaneManager: MonoBehaviour
+public class PlaneManager : MonoBehaviour
 {
+    private enum moveNum
+    {
+        up,
+        right,
+        down,
+        left,
+        empty,
+    }
     private GameObject _player;
-    public static int _moveAngle;
+    private GameObject _planeManager;
+    private int _moveAngle;
+    private float _planeAngle;
+    public bool _isExit;
+    public bool _isWall;
 
     private void Start()
     {
         _player = GameObject.Find("3DPlayer");
-        _moveAngle = 4;
+        _planeManager = GameObject.Find("PlaneManager");
+        _planeAngle = this.transform.localEulerAngles.y;
     }
     private void FixedUpdate()
     {
-        if (_moveAngle == 0)
+        if (_planeManager.GetComponent<PlaneBool>().GetMoving())
         {
-            _player.transform.position += new Vector3(-0.1f, 0.0f, 0.0f);
+            if (_planeManager.GetComponent<PlaneBool>().GetAngle() == (int)moveNum.up)
+            {
+                _player.transform.position += new Vector3(-0.001f, 0.0f, 0.0f);
+            }
+            else if (_planeManager.GetComponent<PlaneBool>().GetAngle() == (int)moveNum.right)
+            {
+                _player.transform.position += new Vector3(0.0f, 0.0f, 0.001f);
+            }
+            else if (_planeManager.GetComponent<PlaneBool>().GetAngle() == (int)moveNum.down)
+            {
+                _player.transform.position += new Vector3(0.001f, 0.0f, 0.0f);
+            }
+            else if (_planeManager.GetComponent<PlaneBool>().GetAngle() == (int)moveNum.left)
+            {
+                _player.transform.position += new Vector3(0.0f, 0.0f, -0.001f);
+            }
+
         }
-        else if (_moveAngle == 1)
+    }
+    private void OnTriggerEnter(Collider other)
+    {
+        if (!_isWall)
         {
-            _player.transform.position += new Vector3(0.0f, 0.0f, 0.1f);
+            _planeManager.GetComponent<PlaneBool>().SetMoving(true);
+            if (_planeAngle == 0)
+            {
+                _planeManager.GetComponent<PlaneBool>().SetAngle((int)moveNum.up);
+            }
+            else if (_planeAngle == 90)
+            {
+                _planeManager.GetComponent<PlaneBool>().SetAngle((int)moveNum.right);
+            }
+            else if (_planeAngle == 180)
+            {
+                _planeManager.GetComponent<PlaneBool>().SetAngle((int)moveNum.down);
+            }
+            else if (_planeAngle == 270)
+            {
+                _planeManager.GetComponent<PlaneBool>().SetAngle((int)moveNum.left);
+            }
         }
-        else if (_moveAngle == 2)
+        else
         {
-            _player.transform.position += new Vector3(0.1f, 0.0f, 0.0f);
+            _planeManager.GetComponent<PlaneBool>().SetMoving(false);
+            _moveAngle = 4;
         }
-        else if (_moveAngle == 3)
+    }
+    private void OnTriggerExit(Collider other)
+    {
+        if (_isExit)
         {
-            _player.transform.position += new Vector3(0.0f, 0.0f, -0.1f);
+            _planeManager.GetComponent<PlaneBool>().SetMoving(false);
+            _moveAngle = 4;
         }
     }
 }
+
+
