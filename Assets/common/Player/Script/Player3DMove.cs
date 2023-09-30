@@ -14,7 +14,7 @@ public class Player3DMove : MonoBehaviour
 
 
     // 移動スピード.
-    [SerializeField] public static float _speed = 5.0f;
+    [SerializeField] private float _speed = 5.0f;
     // ジャンプ力.
     [SerializeField] private float _jumpPower = 8.0f;
     // 重力.
