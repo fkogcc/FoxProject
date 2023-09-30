@@ -4,20 +4,17 @@ using UnityEngine;
 
 public class GimmickHand : MonoBehaviour
 {
-    private string _hitName;
+    private string _hitNo;
+
+    public int HitNo { get { return int.Parse(_hitNo); } }
 
     void Start()
     {
-        _hitName = "15";
+        _hitNo = "15";
     }
 
     void OnTriggerEnter(Collider other)
     {
-        _hitName = other.name;
-    }
-
-    public int GetEleNum()
-    {
-        return int.Parse(_hitName);
+        _hitNo = other.name;
     }
 }
