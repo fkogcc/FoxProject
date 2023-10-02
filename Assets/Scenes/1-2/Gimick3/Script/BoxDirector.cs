@@ -1,9 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class BoxDirector : MonoBehaviour
 {
+    // 次のシーンの名前.
+    public string NextStageName;
+
     // クリア数カウント.
     private int _clearCount;
     // 置けるかのフラグ.
@@ -51,9 +55,9 @@ public class BoxDirector : MonoBehaviour
     }
 
     // フラグを返す.
-    public void IsSetFlag()
+    public void IsSetFlag(bool flag)
     {
-        _isSetFlag = false;
+        _isSetFlag = flag;
     }
 
     // 引き始めた色と同じならばtrue返す.
@@ -69,6 +73,8 @@ public class BoxDirector : MonoBehaviour
             if (_gimmickNum <= _clearCount)
             {
                 Debug.Log("[BoxGimmick]クリアしました");
+
+                SceneManager.LoadScene(NextStageName);
             }
             return true;
         }

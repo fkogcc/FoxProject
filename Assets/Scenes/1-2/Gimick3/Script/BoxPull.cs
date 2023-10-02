@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class BoxPull : MonoBehaviour
 {
+    // ギミックのコードをつなぐ途中のキューブの数
     private const int kNum = 20;
 
     // ディレクター.
@@ -60,7 +61,7 @@ public class BoxPull : MonoBehaviour
         // ギミックをクリアしていたら処理をしない.
         if (_isClear) return;
 
-        if ((Input.GetKeyDown("joystick button 1") || Input.GetKeyDown(KeyCode.F)) && _isPullRange)
+        if ((Input.GetKeyDown("joystick button 1") || Input.GetKeyUp(KeyCode.F)) && _isPullRange)
         {
             // 引っ張り始めた位置の保存.
             _startPos = _player.position;
@@ -68,14 +69,10 @@ public class BoxPull : MonoBehaviour
             _director.SetGimmickOut(Color);
 
             _isPull = true;
-
-            Debug.Log("引っ張り始めた:color, " + Color);
         }
 
-        if ((Input.GetKeyDown("joystick button 1") || Input.GetKeyUp(KeyCode.F)) && _isPull)
+        if ((Input.GetKeyUp("joystick button 1") || Input.GetKeyUp(KeyCode.F)) && _isPull)
         {
-            Debug.Log("引っ張り終わり");
-
             // 離した色が引っ張り始めた色と同じか.
             // ギミッククリア範囲内にいるか.
             if (_director.IsSameColor())
@@ -129,14 +126,12 @@ public class BoxPull : MonoBehaviour
     // 範囲内に入った場合引っ張れるようにする.
     void OnTriggerEnter(Collider other)
     {
-        Debug.Log("引っ張れる");
         _isPullRange = true;
     }
 
     // 範囲外に出たら引っ張れないようにする.
     void OnTriggerExit(Collider other)
     {
-        Debug.Log("引っ張れない");
         _isPullRange = false;
     }
 
