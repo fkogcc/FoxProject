@@ -31,7 +31,7 @@ public class asibaMove : MonoBehaviour
         //5•bŒo‚Á‚½‚ç.
         if (_count < _time)
         {
-            // zÀ•W‚Ö0.1Œ¸ŽZ.
+            // zÀ•W‚Ö0.08Œ¸ŽZ.
             _pos.z -= _moveZ;
             // À•W‚ðÝ’è.
             _myTransform.position = _pos;  
@@ -39,7 +39,7 @@ public class asibaMove : MonoBehaviour
         //10•bŒo‚Á‚½‚ç.
         else if (_count < _time * 2)
         {
-            // zÀ•W‚Ö0.1‰ÁŽZ.
+            // zÀ•W‚Ö0.08‰ÁŽZ.
             _pos.z += _moveZ;
             // À•W‚ðÝ’è.
             _myTransform.position = _pos;  

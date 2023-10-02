@@ -4,9 +4,11 @@ using UnityEngine;
 
 public class deleteasiba : MonoBehaviour
 {
+
+    //‘«ê‚ªƒvƒŒƒCƒ„[‚ÉÚG‚µ‚½‚Æ‚«.
     private void OnTriggerEnter(Collider other)
-    {        
-            Debug.Log("‚ ‘½");
-            Destroy(this.gameObject);   
+    {
+        //‘«ê‚ğíœ‚·‚é.
+        Destroy(this.gameObject);   
     }
 }
