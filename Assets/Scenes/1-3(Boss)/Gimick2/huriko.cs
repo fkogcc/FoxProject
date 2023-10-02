@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class asibaMove : MonoBehaviour
+public class huriko : MonoBehaviour
 {
     // 秒数を数えるカウント.
     private int _count;
@@ -13,16 +13,16 @@ public class asibaMove : MonoBehaviour
     // 5秒の時間.
     private int _time;
     // ギミックの移動量
-    private float _moveZ;
+    private float _moveX;
     void Start()
     {
         _count = 0;
         _myTransform = this.transform;
         _pos = _myTransform.position;
-        _time = 250;
-        _moveZ = 0.08f;
+        _time  = 60;
+        _moveX = 0.05f;
     }
-    
+
     // Update is called once per frame
     void FixedUpdate()
     {
@@ -31,18 +31,18 @@ public class asibaMove : MonoBehaviour
         //5秒経ったら.
         if (_count < _time)
         {
-            // z座標へ0.08減算.
-            _pos.z -= _moveZ;
+            // z座標へ0.01減算.
+            _pos.x -= _moveX;
             // 座標を設定.
-            _myTransform.position = _pos;  
+            _myTransform.position = _pos;
         }
         //10秒経ったら.
         else if (_count < _time * 2)
         {
-            // z座標へ0.08加算.
-            _pos.z += _moveZ;
+            // z座標へ0.01加算.
+            _pos.x += _moveX;
             // 座標を設定.
-            _myTransform.position = _pos;  
+            _myTransform.position = _pos;
         }
         //それ以上になったら.
         else
