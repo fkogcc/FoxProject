@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class asibaMove : MonoBehaviour
+public class asibaUP : MonoBehaviour
 {
     // 秒数を数えるカウント.
     private int _count;
@@ -13,14 +13,14 @@ public class asibaMove : MonoBehaviour
     // 5秒の時間.
     private int _time;
     // ギミックの移動量
-    private float _moveZ;
+    private float _moveY;
     void Start()
     {
         _count = 0;
         _myTransform = this.transform;
         _pos = _myTransform.position;
-        _time = 300;
-        _moveZ = 0.08f;
+        _time = 150;
+        _moveY = 0.05f;
     }
     
     // Update is called once per frame
@@ -31,8 +31,8 @@ public class asibaMove : MonoBehaviour
         //5秒経ったら.
         if (_count < _time)
         {
-            // z座標へ0.08減算.
-            _pos.z -= _moveZ;
+            // y座標へ0.08減算.
+            _pos.y += _moveY;
             // 座標を設定.
             _myTransform.position = _pos;  
         }
@@ -40,7 +40,7 @@ public class asibaMove : MonoBehaviour
         else if (_count < _time * 2)
         {
             // z座標へ0.08加算.
-            _pos.z += _moveZ;
+            _pos.y -= _moveY;
             // 座標を設定.
             _myTransform.position = _pos;  
         }
