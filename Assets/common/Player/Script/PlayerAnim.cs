@@ -1,4 +1,4 @@
-// プレイヤーアニメーション
+// プレイヤーアニメーション.
 
 using System.Collections;
 using System.Collections.Generic;
@@ -57,7 +57,7 @@ public class PlayerAnim : MonoBehaviour
     // ゲームオーバーアニメーション.
     public bool GameOver()
     {
-        //if(Player2DMove._instance._hp <= 0)
+        //if (Player2DMove._instance._hp <= 0)
         //{
         //    return true;
         //}

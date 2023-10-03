@@ -29,6 +29,7 @@ public class Player2DMove : MonoBehaviour
         if( _instance == null )
         {
             _instance = this;
+            DontDestroyOnLoad(gameObject);
         }
         else
         {
@@ -56,6 +57,8 @@ public class Player2DMove : MonoBehaviour
             // プレイヤーの移動処理.
             Move();
         }
+
+        //TestSceneSwitcher._instance.SwitchToNextScene(3);
     }
 
     private void FixedUpdate()
@@ -175,6 +178,16 @@ public class Player2DMove : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// シーンを
+    /// </summary>
+    /// <param name="hp"></param>
+    private void SetHp(int hp)
+    {
+        hp = _hp;
+    }
+
+    // 落下デバッグ用
     private void FallDebug()
     {
         // 落ちたら初期位置に戻す.

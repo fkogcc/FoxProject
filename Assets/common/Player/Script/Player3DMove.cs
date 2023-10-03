@@ -9,7 +9,7 @@ public class Player3DMove : MonoBehaviour
     private CharacterController _playerController;
     // カメラ.
     private GameObject _camera;
-    // アニメーター
+    // アニメーター.
     private Animator _animator;
 
 
@@ -20,7 +20,7 @@ public class Player3DMove : MonoBehaviour
     // 重力.
     [SerializeField] private float _gravity = 10.0f;
 
-    // 着地中にかけられ続ける重力
+    // 着地中にかけられ続ける重力/
     private float _groundGravity = -10.0f;
 
     // 地面に当たっているか.
@@ -71,7 +71,7 @@ public class Player3DMove : MonoBehaviour
     // ジャンプ.
     private void Jump()
     {
-        // 着地しているときの処理
+        // 着地しているときの処理.
         if (_isGround)
         {
             // Aボタン押したらジャンプ.
@@ -81,7 +81,7 @@ public class Player3DMove : MonoBehaviour
             }
         }
 
-        // プレイヤーにかかる重力処理
+        // プレイヤーにかかる重力処理.
         if (!_isGround)
         {
             _moveDirection.y -= _gravity * Time.deltaTime;
@@ -95,7 +95,7 @@ public class Player3DMove : MonoBehaviour
         }
     }
 
-    // 移動
+    // 移動.
     private void Move()
     {
         // 接地しているかを代入.
@@ -110,8 +110,8 @@ public class Player3DMove : MonoBehaviour
         Vector3 cameraForward = Vector3.Scale(_camera.transform.forward, new Vector3(1.0f, 0.0f, 1.0f)).normalized;
 
         // カメラ基準.
-        Vector3 moveZ = cameraForward * vertical * _speed;// 前後
-        Vector3 moveX = _camera.transform.right * horizontal * _speed;// 左右
+        Vector3 moveZ = cameraForward * vertical * _speed;// 前後.
+        Vector3 moveX = _camera.transform.right * horizontal * _speed;// 左右.
 
         _moveDirection = moveZ + moveX + new Vector3(0.0f, _moveDirection.y, 0.0f);
 
@@ -124,7 +124,13 @@ public class Player3DMove : MonoBehaviour
         _playerController.Move(_moveDirection * Time.deltaTime);
     }
 
-    // アニメーション
+    // 落下ダメージ.
+    //private void FallDamage()
+    //{
+
+    //}
+
+    // アニメーション.
     private void Anim()
     {
         _animator.SetBool("Run", PlayerAnim._instance.Run());
