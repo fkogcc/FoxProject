@@ -51,7 +51,7 @@ public class WidthMove : MonoBehaviour
     private void MoveObject()
     {
         _rigidBody.MovePosition(transform.position + Time.fixedDeltaTime * _speed);
-        if(_DirectionChangeFrame >= 60)
+        if(_DirectionChangeFrame >= 300)
         {
             _speed = new Vector3(_speed.x * -1, _speed.y * -1, _speed.z * -1);
             _DirectionChangeFrame = 0;
