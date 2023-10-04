@@ -5,6 +5,11 @@ using UnityEngine;
 
 public class SlideGimmickDirector : MonoBehaviour
 {
+    // スティック情報
+    // 垂直方向.
+    private float _vertical;
+    // 水平方向.
+    private float _horizontal;
     // プレイヤーの動く量.
     private const float kSpeed = 0.125f;
 
@@ -16,6 +21,10 @@ public class SlideGimmickDirector : MonoBehaviour
     private const int kBlockNum = kRaw * kCol;
     // 最後のブロックを空白とする.
     private const int kNoneBlockNo = kBlockNum - 1;
+    // -1をひとつ前に戻るボタンとしておく
+    private const int kBackOneStepNo = -1;
+    // -2をリセットボタンとしておく
+    private const int kResetNo = -2;
 
     // 現在の手の位置からの上下左右.
     private const int kDirUp = -kRaw;
@@ -42,6 +51,13 @@ public class SlideGimmickDirector : MonoBehaviour
     // 現在の要素.
     private int _nowEle;
 
+    // はじめの要素情報を入れるよう.
+    private int[] _startEles;
+    // ひとつ前に動かした場所情報1
+    Stack<int> _endEle1;
+    // ひとつ前に動かした場所情報2
+    Stack<int> _endEle2;
+
     // 入れ替え用.
     private Vector3 _tempPos1;
     private Vector3 _tempPos2;
@@ -59,6 +75,8 @@ public class SlideGimmickDirector : MonoBehaviour
     private void Start()
     {
         // 初期化
+        _vertical = 0.0f;
+        _horizontal = 0.0f;
         _player = new GameObject();
 
         _parentObj = new GameObject();
@@ -67,6 +85,10 @@ public class SlideGimmickDirector : MonoBehaviour
         _eles = new int[kBlockNum];
 
         _nowEle = kNoneBlockNo;
+
+        _startEles = new int[kBlockNum];
+        _endEle1 = new Stack<int>();
+        _endEle2 = new Stack<int>();
 
         _tempPos1 = new Vector3();
         _tempPos2 = new Vector3();
@@ -106,27 +128,38 @@ public class SlideGimmickDirector : MonoBehaviour
             // もう一度繰り返し処理を行うようにする.
             // 繰り返すのは奇数回しか動かしていない場合積み配置が出来てしまうため.
             _changeDir = _dirNum[Random.Range(0, kDirNum)];
-            if (MoveCheck(_changeDir, true)) ChangeTrs(_nowEle + _changeDir);
+            if (MoveCheck(_changeDir, true)) ChangeTrs(_nowEle + _changeDir, false);
             else i--;
+        }
+
+        // 初めの状態を保存
+        for (int i = 0; i < kBlockNum; i++)
+        {
+            _startEles[i] = _eles[i];
         }
     }
 
     private void Update()
     {
+        // 垂直方向.
+        _vertical = Input.GetAxis("Horizontal");
+        // 水平方向.
+        _horizontal = Input.GetAxis("Vertical");
+
         // プレイヤーの移動処理.
-        if (Input.GetKey(KeyCode.UpArrow))
+        if (0.0f < _horizontal)
         {
             _player.transform.position += Vector3.up * kSpeed;
         }
-        if (Input.GetKey(KeyCode.DownArrow))
+        if (_horizontal < 0.0f)
         {
             _player.transform.position += Vector3.down * kSpeed;
         }
-        if (Input.GetKey(KeyCode.RightArrow))
+        if (0.0f < _vertical)
         {
             _player.transform.position += Vector3.right * kSpeed;
         }
-        if (Input.GetKey(KeyCode.LeftArrow))
+        if (_vertical < 0.0f)
         {
             _player.transform.position += Vector3.left * kSpeed;
         }
@@ -138,13 +171,25 @@ public class SlideGimmickDirector : MonoBehaviour
         if (_isChange) return;
 
         // 特定のボタンを押したらギミックの処理.
-        if (Input.GetKeyDown(KeyCode.F))
+        if (Input.GetKeyDown(KeyCode.F) || Input.GetKeyDown("joystick button 1"))
         {
             // 現在プレイヤーの手がある位置を保存.
             _nowEle = _player.GetComponent<GimmickHand>().HitNo;
 
-            // 動かせるかどうかの判定をしていく.
-            EleCheck();
+            if (_nowEle == kBackOneStepNo)
+            {
+                Debug.Log("ひとつ前に戻る");
+                BackOneStep();
+            }
+            else if (_nowEle == kResetNo)
+            {
+                ResetBlock();
+            }
+            else
+            {
+                // 動かせるかどうかの判定をしていく.
+                EleCheck();
+            }
         }
     }
 
@@ -179,6 +224,46 @@ public class SlideGimmickDirector : MonoBehaviour
         Debug.Log("クリア");
     }
 
+    // 1つ前の情報に戻す
+    private void BackOneStep()
+    {
+        // データが入ってない場合はやらない
+        if (_endEle1.Count <= 0) return;
+
+        Debug.Log("変えるよ");
+        _nowEle = _endEle1.Pop();
+        ChangeTrs(_endEle2.Pop(), false);
+    }
+
+    // はじめの状態に戻す
+    private void ResetBlock()
+    {
+        for (int i = 0; i < kBlockNum; i++)
+        {
+            _nowEle = i;
+
+            // 現在の位置の物がはじめと一緒の場合次のに移る
+            if (_eles[i] == _startEles[_nowEle]) continue;
+
+            // それ以外は探しだす
+            for (int j = i + 1; j < kBlockNum; j++)
+            {
+                // 初めの場所を見つけたらそこと場所替え
+                if (_eles[j] == _startEles[_nowEle])
+                {
+                    ChangeTrs(j, false);
+
+                    // 探し作業終了
+                    break;
+                }
+            }
+        }
+
+        // 1つ前に戻したという情報を全て消去
+        _endEle1.Clear();
+        _endEle2.Clear();
+    }
+
     private void EleCheck()
     {
         // 要素番号の位置が空白地なら何もしない.
@@ -200,7 +285,7 @@ public class SlideGimmickDirector : MonoBehaviour
         // その方向に動かせるかの確認.
         if (!MoveCheck(dir, false)) return false;
         
-        ChangeTrs(_nowEle + dir, false);
+        ChangeTrs(_nowEle + dir, true);
 
         return true;
     }
@@ -252,7 +337,7 @@ public class SlideGimmickDirector : MonoBehaviour
 
     // 位置の変更.
     // 動かす位置、シャッフルかどうか.
-    private void ChangeTrs(int ele, bool isShuffle = true)
+    private void ChangeTrs(int ele, bool isNormal)
     {
         // それぞれの位置を保存.
         _tempPos1 = _gimmickObj[_eles[_nowEle]].transform.position;
@@ -261,11 +346,17 @@ public class SlideGimmickDirector : MonoBehaviour
         // 保存した位置を使い、位置の入れ替え.
         // 空白地はすぐに移動.
         _gimmickObj[_eles[ele]].transform.position = _tempPos1;
-        // シャッフルの場合はすぐに変更.
-        if (isShuffle) _gimmickObj[_eles[_nowEle]].transform.position = _tempPos2;
+        // 通常の動き以外すぐに動かす.
+        if (!isNormal) _gimmickObj[_eles[_nowEle]].transform.position = _tempPos2;
         // 通常の場合は動きを実装.
         else MoveEfeStart(ele);
 
+        // 通常の動きの場合は動かした情報位置を保存する.
+        if (isNormal)
+        {
+            _endEle1.Push(_nowEle);
+            _endEle2.Push(ele);
+        }
         // 要素の番号を変更.
         _tempEle = _eles[_nowEle];
         _eles[_nowEle] = _eles[ele];
