@@ -28,6 +28,7 @@ public class BoxPull : MonoBehaviour
     private Vector3 _startPos;
     // 移動ベクトル.
     private Vector3 _moveVec;
+    private float _angle = 0.0f;
 
     void Start()
     {
@@ -116,9 +117,6 @@ public class BoxPull : MonoBehaviour
 
         if (_isPull)
         {
-            // 現在までのベクトルを計算.
-            _moveVec = _player.position - _startPos;
-
             ObjPlacement();
         }
     }
@@ -138,6 +136,17 @@ public class BoxPull : MonoBehaviour
     // 移動量分ずらしてオブジェクトの設置.
     void ObjPlacement()
     {
+        // 現在までのベクトルを計算.
+        _moveVec = _player.position - _startPos;
+
+        //_tempPos2.z = 0.0f;
+        //Debug.Log(_tempPos1 + "," + _tempPos2);
+        //float dot = (_tempPos1.x * _tempPos2.x + _tempPos1.y * _tempPos2.y + _tempPos1.z * _tempPos2.z) / (_tempPos1.magnitude * _tempPos2.magnitude);
+        //Debug.Log(dot);
+        //_angle = Mathf.Acos(dot) * Mathf.Rad2Deg;
+        _angle = Mathf.Atan2(_moveVec.z, _moveVec.x) * Mathf.Rad2Deg * -1;
+        Debug.Log(_angle);
+
         // 出すオブジェクトの量で割る.
         _moveVec /= kNum;
 
@@ -145,6 +154,7 @@ public class BoxPull : MonoBehaviour
         for (int i = 0; i < kNum; i++)
         {
             _gimmicks[i].transform.position = this.transform.position + _moveVec * (i + 1);
+            _gimmicks[i].transform.rotation = Quaternion.AngleAxis(_angle, new Vector3(0.0f, 1.0f, 0.0f));
         }
     }
 }
