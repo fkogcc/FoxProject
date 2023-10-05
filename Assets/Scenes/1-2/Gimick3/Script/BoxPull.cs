@@ -62,7 +62,7 @@ public class BoxPull : MonoBehaviour
         // ギミックをクリアしていたら処理をしない.
         if (_isClear) return;
 
-        if ((Input.GetKeyDown("joystick button 1") || Input.GetKeyUp(KeyCode.F)) && _isPullRange)
+        if ((Input.GetKeyDown("joystick button 1") || Input.GetKeyDown(KeyCode.F)) && _isPullRange)
         {
             // 引っ張り始めた位置の保存.
             _startPos = _player.position;
