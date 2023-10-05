@@ -314,7 +314,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fdead86db66335e4a885272002a5d6a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _director: {fileID: 0}
   Color: Bule
 --- !u!135 &202297365
 SphereCollider:
@@ -356,7 +355,7 @@ GameObject:
   - component: {fileID: 360291470}
   - component: {fileID: 360291472}
   m_Layer: 0
-  m_Name: InOrange
+  m_Name: InRed
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -402,8 +401,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fdead86db66335e4a885272002a5d6a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _director: {fileID: 0}
-  Color: Orange
+  Color: Red
 --- !u!1 &420711768 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -6528080078683105015, guid: 10e789aaa49f38945adcdbc1dad0b766, type: 3}
@@ -586,7 +584,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fdead86db66335e4a885272002a5d6a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _director: {fileID: 0}
   Color: Pink
 --- !u!135 &703238513
 SphereCollider:
@@ -1696,7 +1693,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2547387253882364434, guid: 546fe8400816cf942bbf47e67a845ed9, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -8.107996
+      value: -8.109512
       objectReference: {fileID: 0}
     - target: {fileID: 2547387253882364434, guid: 546fe8400816cf942bbf47e67a845ed9, type: 3}
       propertyPath: m_LocalPosition.y
@@ -1854,7 +1851,7 @@ GameObject:
   - component: {fileID: 1683658843}
   - component: {fileID: 1683658845}
   m_Layer: 0
-  m_Name: OutOrange
+  m_Name: OutRed
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1900,7 +1897,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b23952c7882b6a47bed49bf000d0545, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Color: Orange
+  Color: Red
 --- !u!1 &1686345215 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1915272582234858339, guid: bd037697781acda40b5e323c73a69281, type: 3}
@@ -2238,7 +2235,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fdead86db66335e4a885272002a5d6a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _director: {fileID: 0}
   Color: Green
 --- !u!1 &1964999907 stripped
 GameObject:

@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class BoxPull : MonoBehaviour
 {
-    // ギミックのコードをつなぐ途中のキューブの数
-    private const int kNum = 20;
+    // ギミックブロックの長さ
+    private const float kGimmickLength = 0.75f;
 
     // ディレクター.
     private BoxDirector _director;
@@ -15,7 +15,11 @@ public class BoxPull : MonoBehaviour
     private Transform _player;
     // ギミックオブジェ.
     private GameObject _gimmick;
-    private GameObject[] _gimmicks = new GameObject[kNum];
+    private List<GameObject> _gimmicks;
+    // ブロックを追加する距離
+    private float _longDis;
+    // ブロックを減らす距離
+    private float _shortDis;
     // クリアオブジェ.
     private GameObject _clearObj;
     // 引っ張れる範囲にいるかの.
@@ -28,6 +32,7 @@ public class BoxPull : MonoBehaviour
     private Vector3 _startPos;
     // 移動ベクトル.
     private Vector3 _moveVec;
+    // 角度を入れるよう
     private float _angle = 0.0f;
 
     void Start()
@@ -37,12 +42,12 @@ public class BoxPull : MonoBehaviour
         _player = GameObject.Find("3DPlayer").GetComponent<Transform>();
 
         // クリア前までのオブジェ.
-        _gimmick = (GameObject)Resources.Load("Cube");
+        _gimmick = (GameObject)Resources.Load(Color + "Cube");
 
-        for (int i = 0; i < kNum; i++)
-        {
-            _gimmicks[i] = Instantiate(_gimmick, this.transform.position, Quaternion.identity);
-        }
+        _gimmicks = new List<GameObject>();
+
+        _longDis = 0.0f;
+        _shortDis = 0.0f;
 
         // クリア後のオブジェ.
         _clearObj = (GameObject)Resources.Load(Color + "Cylinder");
@@ -67,6 +72,10 @@ public class BoxPull : MonoBehaviour
             // 引っ張り始めた位置の保存.
             _startPos = _player.position;
 
+            _gimmicks.Add(Instantiate(_gimmick, this.transform.position, Quaternion.identity));
+            _shortDis = 0;
+            _longDis = kGimmickLength;
+
             _director.SetGimmickOut(Color);
 
             _isPull = true;
@@ -74,6 +83,12 @@ public class BoxPull : MonoBehaviour
 
         if ((Input.GetKeyUp("joystick button 1") || Input.GetKeyUp(KeyCode.F)) && _isPull)
         {
+            foreach (var temp in _gimmicks)
+            {
+                Destroy(temp.gameObject);
+            }
+            _gimmicks.Clear();
+
             // 離した色が引っ張り始めた色と同じか.
             // ギミッククリア範囲内にいるか.
             if (_director.IsSameColor())
@@ -84,26 +99,12 @@ public class BoxPull : MonoBehaviour
                 // クリア後オブジェを生成.
                 Instantiate(_clearObj);
 
-                // クリア前オブジェの削除.
-                for (int i = 0; i < kNum; i++)
-                {
-                    Destroy(_gimmicks[i]);
-                }
-
                 // 下はクリア後にオブジェクトを変えないでやる方法.
                 //// 位置をきれいになるように整形.
                 //_moveVec = _director.GetGimmickPos() - this.transform.position;
 
 
                 //ObjPlacement();
-            }
-            else
-            {
-                // 元の位置に戻す.
-                for (int i = 0; i < kNum; i++)
-                {
-                    _gimmicks[i].transform.position = this.transform.position;
-                }
             }
 
             _isPull = false;
@@ -139,19 +140,36 @@ public class BoxPull : MonoBehaviour
         // 現在までのベクトルを計算.
         _moveVec = _player.position - _startPos;
 
-        //_tempPos2.z = 0.0f;
-        //Debug.Log(_tempPos1 + "," + _tempPos2);
-        //float dot = (_tempPos1.x * _tempPos2.x + _tempPos1.y * _tempPos2.y + _tempPos1.z * _tempPos2.z) / (_tempPos1.magnitude * _tempPos2.magnitude);
-        //Debug.Log(dot);
-        //_angle = Mathf.Acos(dot) * Mathf.Rad2Deg;
+        float _nowLength = _moveVec.magnitude;
+        // 距離が伸びたら追加する.
+        if (_longDis <= _nowLength)
+        {
+            // 判定距離の更新.
+            _longDis += kGimmickLength;
+            _shortDis += kGimmickLength;
+
+            // ブロックの追加.
+            _gimmicks.Add(Instantiate(_gimmick, this.transform.position, Quaternion.identity));
+        }
+        // 距離が減ったら削除する.
+        else if (_nowLength < _shortDis)
+        {
+            // 判定距離の更新.
+            _longDis -= kGimmickLength;
+            _shortDis -= kGimmickLength;
+
+            // GameObjectを削除ののち、リストから削除.
+            Destroy(_gimmicks[_gimmicks.Count - 1]);
+            _gimmicks.RemoveAt(_gimmicks.Count - 1);
+        }
+
+        // 角度を求める.
         _angle = Mathf.Atan2(_moveVec.z, _moveVec.x) * Mathf.Rad2Deg * -1;
-        Debug.Log(_angle);
 
         // 出すオブジェクトの量で割る.
-        _moveVec /= kNum;
+        _moveVec /= _gimmicks.Count;
 
-        // 少しずつずらして位置を置く.
-        for (int i = 0; i < kNum; i++)
+        for (int i = 0; i < _gimmicks.Count; i++)
         {
             _gimmicks[i].transform.position = this.transform.position + _moveVec * (i + 1);
             _gimmicks[i].transform.rotation = Quaternion.AngleAxis(_angle, new Vector3(0.0f, 1.0f, 0.0f));

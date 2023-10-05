@@ -5,7 +5,7 @@ using UnityEngine;
 public class BoxIn : MonoBehaviour
 {
     // ディレクター.
-    public BoxDirector _director;
+    private BoxDirector _director;
     // ギミックの色.
     public string Color;
 
