@@ -9,7 +9,7 @@ public class GimickButton : MonoBehaviour
     // ボタンの押した状態を保存するフラグ.
     public bool _isButtonState;
     // ボタンの状態を渡すためにオブジェクトを取得.
-    private GameObject _gameObject;
+    private GameObject _playerObject;
     // scriptを取得.
     PlayerHand _player;
     // プレイヤーが触れいているボタンの名前をいれるための変数.
@@ -22,9 +22,9 @@ public class GimickButton : MonoBehaviour
         _isCollision = false;
 
         // オブジェクトを取得.
-        _gameObject = GameObject.Find("FoxHand");
+        _playerObject = GameObject.Find("FoxHand");
         // オブジェクトの中にあるscriptを取得.
-        _player = _gameObject.GetComponent<PlayerHand>();
+        _player = _playerObject.GetComponent<PlayerHand>();
     }
 
     // Update is called once per frame
@@ -34,8 +34,13 @@ public class GimickButton : MonoBehaviour
         if (_name == this.gameObject.name)
         {
             // みどりに色を変える.
-            GetComponent<Renderer>().material.color = Color.green;
+            this.GetComponent<Renderer>().material.color = Color.green;
         }
+        //if (_button.IsAnswer())
+        //{
+        //    // もとのに色を変える.
+        //    this.GetComponent<Renderer>().material.color = Color.white;
+        //}
         // プレイヤーがボタンを押した状態であったら.
         if (_player._isButtonState)
         {
@@ -53,5 +58,10 @@ public class GimickButton : MonoBehaviour
     void FixedUpdate()
     {
         
+    }
+    public Color IsColor()
+    {
+        Color color = this.GetComponent<Renderer>().material.color;
+        return color;
     }
 }
