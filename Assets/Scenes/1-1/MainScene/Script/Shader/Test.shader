@@ -34,6 +34,7 @@ Shader "Custom/Test"
         // UV座標
         //return float4(uv, 0, 1);
 
+
         // 座標の原点を中心点に持っていく
         //float2 p = uv * 2. - 1.;
         //// 円の半径

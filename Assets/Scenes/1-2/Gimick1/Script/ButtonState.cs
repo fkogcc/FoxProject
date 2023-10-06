@@ -11,13 +11,20 @@ public class ButtonState : MonoBehaviour
     // ボタンの状態(ボタンが押されたかどうか)を取得する.
     private bool _isButtonState = false;
     // 配列を管理するために用意.
-    private int _num = 0;
+    private int _num;
+    // 配列の最大値.
+    private int _max;
     // 名前をチェックするために用意.
     private bool _isTestNameCheck = false;
     // ボタンの状態を渡すためにオブジェクトを取得.
     private GameObject _playerObject;
     // scriptを取得.
-    PlayerHand _player;
+    private PlayerHand _player;
+    private GimickButton _button;
+    private bool _isAnswer;
+    // HACK ほんとにこれはテスト、あとでぜったい変えます、ほんとにまずい
+    private string[] _objNameTest;
+    private const string _buttonNameTest = "Button";
 
     // Start is called before the first frame update
     void Start()
@@ -26,11 +33,23 @@ public class ButtonState : MonoBehaviour
         _buttonName = "";
         _isButtonState = false;
         _num = 0;
+        _max = 5;
         _isTestNameCheck = false;
         // オブジェクトを取得.
         _playerObject = GameObject.Find("FoxHand");
         // オブジェクトの中にあるscriptを取得.
         _player = _playerObject.GetComponent<PlayerHand>();
+        _isAnswer = false;
+        // ObjGetも初期化.
+        ObjGetInit();
+        _objNameTest = new string[_max];
+        // テスト
+        _objNameTest[0] = _buttonNameTest + "5";
+        _objNameTest[1] = _buttonNameTest + "2";
+        _objNameTest[2] = _buttonNameTest + "4";
+        _objNameTest[3] = _buttonNameTest + "1";
+        _objNameTest[4] = _buttonNameTest + "3";
+
     }
 
     // Update is called once per frame
@@ -82,9 +101,42 @@ public class ButtonState : MonoBehaviour
         {
             _isButtonState = false;
         }
+
+        // 答えと違ったら違うという表示を出す.
+        // for文で処理を回す.
+        if (_num == _max)
+        {
+            for (int obj = 0; obj < _max; obj++)
+            {
+                if (_objGet[obj].name != _objNameTest[obj])
+                {
+                    _isAnswer = true;
+                    Debug.Log("ちがうよ");
+                    ObjGetInit();
+                    _num = 0;
+                    break;
+                }
+            }
+        }
+
+        /////
+        // for (int obj = 0; obj < _max; obj++)
+        //{
+        //    GimickButton test;
+        //    test = _objGet[obj].GetComponent<GimickButton>();
+        //}
     }
     void FixedUpdate()
     {
-
+        _isAnswer = false;
+    }
+    private void ObjGetInit()
+    {
+        for (int obj = 0; obj < _max; obj++)
+        {
+            GimickButton test;
+            //test = _objGet[obj].GetComponent<GimickButton>();
+            //_objGet[obj] = GameObject.Find("");
+        }
     }
 }
