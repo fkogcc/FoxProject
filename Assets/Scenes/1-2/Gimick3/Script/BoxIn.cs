@@ -5,7 +5,7 @@ using UnityEngine;
 public class BoxIn : MonoBehaviour
 {
     // ディレクター.
-    public BoxDirector _director;
+    private BoxDirector _director;
     // ギミックの色.
     public string Color;
 
@@ -18,13 +18,12 @@ public class BoxIn : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        Debug.Log("ギミック内:color, " + Color);
         _director.SetGimmickIn(Color, this.transform.position);
     }
 
     private void OnTriggerExit(Collider other)
     {
         Debug.Log("ギミック外");
-        _director.IsSetFlag();
+        _director.IsSetFlag(false);
     }
 }
