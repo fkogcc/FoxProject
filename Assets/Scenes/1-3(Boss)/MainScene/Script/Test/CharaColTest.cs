@@ -15,9 +15,4 @@ public class CharaColTest : MonoBehaviour
     {
         
     }
-
-    private void OnControllerColliderHit(ControllerColliderHit hit)
-    {
-        Debug.Log("“–‚½‚Á‚Ä‚¢‚é");
-    }
 }
