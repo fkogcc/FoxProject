@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WidthMove : MonoBehaviour
+public class MoveScaffold : MonoBehaviour
 {
     
     private Rigidbody _rigidBody;
