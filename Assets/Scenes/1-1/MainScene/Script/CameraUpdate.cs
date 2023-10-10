@@ -16,10 +16,13 @@ public class CameraUpdate : MonoBehaviour
 
     // プレイヤーのゲームオブジェクト.
     private GameObject _targetPlayer;
-    // カメラのポジション.
+    // カメラの座標.
     private float _cameraPosX;
     private float _cameraPosY;
     private float _cameraPosZ;
+    // ステージ端のカメラの固定座標.
+    private float _cameraFixedPositionLeft = 0;
+    private float _cameraFixedPositionRight = 160;
 
     // Start is called before the first frame update
     void Start()
@@ -51,9 +54,13 @@ public class CameraUpdate : MonoBehaviour
         }
 
         // ステージ端に来たらカメラの固定.
-        if(transform.position.x <= 0.0f || transform.position.x >= 160.0f)
+        if(transform.position.x <= _cameraFixedPositionLeft )
         {
-            transform.position = new Vector3(0, (_cameraPosY / 5.0f) + 6.0f, -20.0f);
+            transform.position = new Vector3(_cameraFixedPositionLeft, (_cameraPosY / 5.0f) + 6.0f, -20.0f);
+        }
+        else if(transform.position.x >= _cameraFixedPositionRight)
+        {
+            transform.position = new Vector3(_cameraFixedPositionRight, (_cameraPosY / 5.0f) + 6.0f, -20.0f);
         }
         
 
