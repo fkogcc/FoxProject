@@ -62,9 +62,19 @@ public class PullRope : MonoBehaviour
             {
                 Destroy(temp.gameObject);
             }
+            _gimmicks.Clear();
             _isPull = false;
         }
     }
+
+    private void FixedUpdate()
+    {
+        if (_isPull)
+        {
+            ObjPlacement();
+        }
+    }
+
     void ObjPlacement()
     {
         // 現在までのベクトルを計算.
@@ -77,7 +87,6 @@ public class PullRope : MonoBehaviour
             // 判定距離の更新.
             _longDis += kGimmickLength;
             _shortDis += kGimmickLength;
-
             // ブロックの追加.
             _gimmicks.Add(Instantiate(_gimmick, this.transform.position, Quaternion.identity));
         }
