@@ -20,7 +20,7 @@ public class huriko : MonoBehaviour
         _myTransform = this.transform;
         _pos = _myTransform.position;
         _time  = 60;
-        _moveX = 0.05f;
+        _moveX = 0.02f;
     }
 
     // Update is called once per frame
