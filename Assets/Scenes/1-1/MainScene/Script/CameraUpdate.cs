@@ -12,14 +12,17 @@ public class CameraUpdate : MonoBehaviour
     // カメラの速度
     private Vector3 _velocity = Vector3.zero;
     // カメラが追う座標に向かう時間.
-    [SerializeField] private float _time = 1.0f;
+    [SerializeField] private float _time = 0.2f;
 
     // プレイヤーのゲームオブジェクト.
     private GameObject _targetPlayer;
-    // カメラのポジション.
+    // カメラの座標.
     private float _cameraPosX;
     private float _cameraPosY;
     private float _cameraPosZ;
+    // ステージ端のカメラの固定座標.
+    private float _cameraFixedPositionLeft = 0;
+    private float _cameraFixedPositionRight = 160;
 
     // Start is called before the first frame update
     void Start()
@@ -50,14 +53,19 @@ public class CameraUpdate : MonoBehaviour
             _targetPosition = new Vector3(_cameraPosX - 7, (_cameraPosY / 5.0f) + 6.0f, _cameraPosZ);
         }
 
-        if(transform.position.x < 0)
+        // ステージ端に来たらカメラの固定.
+        if(transform.position.x <= _cameraFixedPositionLeft )
         {
-            transform.position = new Vector3(0, (_cameraPosY / 5.0f) + 6.0f, -20.0f);
+            transform.position = new Vector3(_cameraFixedPositionLeft, (_cameraPosY / 5.0f) + 6.0f, -20.0f);
         }
+        else if(transform.position.x >= _cameraFixedPositionRight)
+        {
+            transform.position = new Vector3(_cameraFixedPositionRight, (_cameraPosY / 5.0f) + 6.0f, -20.0f);
+        }
+        
 
         MoveCamera();
 
-        //DebugCameraPos();
 
     }
 
@@ -72,7 +80,7 @@ public class CameraUpdate : MonoBehaviour
     // カメラの移動.
     private void MoveCamera()
     {
-        // 最初と最後はゆっくり途中は早くなる移動処理.
+        // 移動.
         transform.position = Vector3.SmoothDamp(transform.position, _targetPosition, ref _velocity, _time);
     }
 }

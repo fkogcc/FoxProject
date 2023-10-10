@@ -8,7 +8,7 @@ using UnityEngine;
 public class RotateWindmill : MonoBehaviour
 {
     // インスタンス.
-    private RotateWindmill _instance;
+    public static RotateWindmill _instance;
 
     // 風の力を発生させる判定.
     [SerializeField] private GameObject _windSpace;
@@ -21,7 +21,7 @@ public class RotateWindmill : MonoBehaviour
     // 回転加速度.
     [SerializeField] private float _rotateAcceleration = 0.1f;
     // ギミックを解いたかどうか.
-    [SerializeField] private bool _isSolveGimmick = false;
+    //[SerializeField] private bool _isSolveGimmick = false;
     // 回転速度が下がるかどうか.
     private bool _isCountDownRotateSpeed = false;
     
@@ -39,25 +39,44 @@ public class RotateWindmill : MonoBehaviour
 
     private void FixedUpdate()
     {
+        //transform.Rotate(_rotateSpeed, 0.0f, 0.0f);
+
+        //// 風を発生させるタイミング.
+        //if(_rotateSpeed > 25.0f)
+        //{
+        //    _windSpace.SetActive(true);
+        //}
+        //else if(_rotateSpeed < 20.0f)
+        //{
+        //    _windSpace.SetActive(false);
+        //}
+
+        //// ギミックを解いていなかったら処理を通さない.
+        //if (!_isSolveGimmick) return;
+        //SolveGimmickAfter();
+    }
+
+    public void UpdateRotateWindmill(bool solveGimmick)
+    {
         transform.Rotate(_rotateSpeed, 0.0f, 0.0f);
 
         // 風を発生させるタイミング.
-        if(_rotateSpeed > 25.0f)
+        if (_rotateSpeed > 25.0f)
         {
             _windSpace.SetActive(true);
         }
-        else if(_rotateSpeed < 20.0f)
+        else if (_rotateSpeed < 20.0f)
         {
             _windSpace.SetActive(false);
         }
 
         // ギミックを解いていなかったら処理を通さない.
-        if (!_isSolveGimmick) return;
-        SolveGimmickAfter();
+        if (!solveGimmick) return;
+        SolveGimmickAfter(solveGimmick);
     }
 
     // ギミックを解いた後の処理.
-    private void SolveGimmickAfter()
+    private void SolveGimmickAfter(bool solveGimmick)
     {
         // スピードが下がっていないかどうか.
         if(!_isCountDownRotateSpeed)
@@ -83,7 +102,7 @@ public class RotateWindmill : MonoBehaviour
         if(_rotateSpeed <= _rotateMinSpeed)
         {
             _rotateSpeed = _rotateMinSpeed;
-            _isSolveGimmick = false;
+            solveGimmick = false;
             _isCountDownRotateSpeed = false;
         }
     }

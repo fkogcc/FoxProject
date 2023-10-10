@@ -130,7 +130,7 @@ public class Player2DMove : MonoBehaviour
     void Move()
     {
         float hori = Input.GetAxis("Horizontal");
-        float speed = hori * 25.0f;// 速さ
+        float speed = hori * 25.0f;// 速さ.
         Vector3 vec = new Vector3(speed, 0, 0);
 
         _animator.SetInteger("MotionNum", _motionNum);

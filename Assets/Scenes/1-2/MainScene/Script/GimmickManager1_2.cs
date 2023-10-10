@@ -1,10 +1,10 @@
-// ギミックマネージャー
+// 1-2ギミックマネージャー
 
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GimmickManager : MonoBehaviour
+public class GimmickManager1_2 : MonoBehaviour
 {
     // ギミックを解いたかどうか
     [SerializeField] private bool[] _solveGimmick;
