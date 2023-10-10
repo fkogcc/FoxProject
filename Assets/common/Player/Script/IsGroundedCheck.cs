@@ -7,7 +7,7 @@ public class IsGroundedCheck : MonoBehaviour
     public static IsGroundedCheck _instance;
 
     // 足から地面までのRayの長さ.
-    [SerializeField] private float _rayLength = 1.0f;
+    //[SerializeField] private float _rayLength = 1.0f;
 
     // 身体にめり込ませるRayの長さ.
     [SerializeField] private float _rayOffset;
@@ -19,7 +19,7 @@ public class IsGroundedCheck : MonoBehaviour
     [SerializeField] private float _SphereCastRegulationY = 0;
 
     // Rayの判定に用いるLayer.
-    [SerializeField] private LayerMask _layerMask = default;
+    //[SerializeField] private LayerMask _layerMask = default;
 
     // SphereCastの中心座標
     private Vector3 _SphereCastCenterPosition = Vector3.zero;
