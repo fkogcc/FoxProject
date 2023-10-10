@@ -7,53 +7,64 @@ using UnityEngine;
 
 public class GimmickBirdge : MonoBehaviour
 {
+    public static GimmickBirdge _instance;
+
     // 橋の通路.
     // 左.
     [SerializeField] private GameObject _birdgeLeft;
     // 右.
     [SerializeField] private GameObject _birdgeRight;
-    // ギミックを解いたかどうかのデバッグ用処理.
-    [SerializeField] private bool _isSuccessGimmick;
 
-    void Start()
+    private void Awake()
     {
-        _isSuccessGimmick = false;
+        if( _instance == null )
+        {
+            _instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
 
-    void Update()
+    /// <summary>
+    /// 橋がかかる処理
+    /// </summary>
+    /// <param name="solveGimmick">ギミックを解いたかどうか</param>
+    public void UpdateBirdgeAisle(bool solveGimmick)
     {
         // 橋が架かると以降処理しない.
         if (_birdgeLeft.transform.localEulerAngles == new Vector3(0.0f, 0.0f, 0.0f) ||
            _birdgeRight.transform.localEulerAngles == new Vector3(0.0f, 0.0f, 0.0f))
             return;
 
-        // ギミックを解いていないと処理しない.
-        if(!_isSuccessGimmick) return;
+        if (!solveGimmick) return;
         // 橋の回転.
-        RotateBirdgeAisleLeft();
-        RotateBirdgeAisleRight();
+        RotateBirdgeAisleLeft(solveGimmick);
+        RotateBirdgeAisleRight(solveGimmick);
     }
 
-    // 橋の回転.
+    // 橋わたる部分のの回転.
+    // 一度回転を終えると処理を行わない.
     // 左.
-    private void RotateBirdgeAisleLeft()
+    private void RotateBirdgeAisleLeft(bool solveGimmick)
     {
         _birdgeLeft.transform.Rotate(0,0,-1);
 
         if(_birdgeLeft.transform.localEulerAngles  == new Vector3(0.0f,0.0f,0.0f))
         {
-            _isSuccessGimmick = false;
+            solveGimmick = false;
         }
     }
 
     // 右.
-    private void RotateBirdgeAisleRight()
+    private void RotateBirdgeAisleRight(bool solveGimmick)
     {
         _birdgeRight.transform.Rotate(0, 0, 1);
 
         if (_birdgeRight.transform.localEulerAngles == new Vector3(0.0f, 0.0f, 0.0f))
         {
-            _isSuccessGimmick = false;
+            solveGimmick = false;
         }
     }
 }
