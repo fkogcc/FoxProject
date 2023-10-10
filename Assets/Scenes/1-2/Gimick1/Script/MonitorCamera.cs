@@ -6,7 +6,7 @@ using Cinemachine;
 public class MonitorCamera : MonoBehaviour
 {
     // ボタンを押したかの状態.
-    public bool _isPushFlag;
+    private bool _isPushFlag;
     // ゲームオブジェクトを取得する
     public GameObject _monitorCameraObject;
     public GameObject _playerObject;
@@ -41,6 +41,11 @@ public class MonitorCamera : MonoBehaviour
             _playerObject.gameObject.SetActive(true);
             _handObject.gameObject.SetActive(false);
         }
+    }
+
+    public void SetPushFlag(bool ispush)
+    {
+        _isPushFlag = ispush;  
     }
     void FixedUpdate()
     {
