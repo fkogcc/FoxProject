@@ -18,11 +18,9 @@ public class ButtonState : MonoBehaviour
     private bool _isTestNameCheck = false;
     // ボタンの状態を渡すためにオブジェクトを取得.
     private GameObject _playerObject;
-    // scriptを取得.
-    private PlayerHand _player;
-    private GimickButton _button;
-    private bool _isAnswer;
-    // HACK ほんとにこれはテスト、あとでぜったい変えます、ほんとにまずい
+    // .
+    private GimickButton[] _button;
+    // HACK ほんとにこれはテスト、あとでぜったい変えます、ほんとにまずい.
     private string[] _objNameTest;
     private const string _buttonNameTest = "Button";
 
@@ -37,13 +35,10 @@ public class ButtonState : MonoBehaviour
         _isTestNameCheck = false;
         // オブジェクトを取得.
         _playerObject = GameObject.Find("FoxHand");
-        // オブジェクトの中にあるscriptを取得.
-        _player = _playerObject.GetComponent<PlayerHand>();
-        _isAnswer = false;
-        // ObjGetも初期化.
-        ObjGetInit();
+        // 配列の最大数を定義.
         _objNameTest = new string[_max];
-        // テスト
+        _button = new GimickButton[_max];
+        // テスト.
         _objNameTest[0] = _buttonNameTest + "5";
         _objNameTest[1] = _buttonNameTest + "2";
         _objNameTest[2] = _buttonNameTest + "4";
@@ -56,12 +51,12 @@ public class ButtonState : MonoBehaviour
     void Update()
     {
         // ボタンが押されたかどうかを取得する.
-        _isButtonState = _player._isButtonState;
+        _isButtonState = _playerObject.GetComponent<PlayerHand>().IsGetButtonState();
         // ボタンが押されていたら.
         if (_isButtonState)
         {
             // ボタンの名前を取得する.
-            _buttonName = _player._buttonName;
+            _buttonName = _playerObject.GetComponent<PlayerHand>().IsGetButtonName();
             // _numが0だったら.
             // (for文だと0のままだと回らないために0番目のみ処理).
             if (_num == 0)
@@ -104,14 +99,13 @@ public class ButtonState : MonoBehaviour
 
         // 答えと違ったら違うという表示を出す.
         // for文で処理を回す.
-        if (_num == _max)
+        if (_num == _max　&& isCheckColor())
         {
             for (int obj = 0; obj < _max; obj++)
             {
                 if (_objGet[obj].name != _objNameTest[obj])
                 {
-                    _isAnswer = true;
-                    Debug.Log("ちがうよ");
+                    // 取得したボタンを初期化する.
                     ObjGetInit();
                     _num = 0;
                     break;
@@ -119,24 +113,37 @@ public class ButtonState : MonoBehaviour
             }
         }
 
-        /////
-        // for (int obj = 0; obj < _max; obj++)
-        //{
-        //    GimickButton test;
-        //    test = _objGet[obj].GetComponent<GimickButton>();
-        //}
     }
     void FixedUpdate()
     {
-        _isAnswer = false;
+
     }
+    // 取得したオブジェクト(ボタン)の情報を初期化する.
     private void ObjGetInit()
     {
         for (int obj = 0; obj < _max; obj++)
         {
-            GimickButton test;
-            //test = _objGet[obj].GetComponent<GimickButton>();
-            //_objGet[obj] = GameObject.Find("");
+            // 初期化する際に色も元に戻す.
+            _button[obj].ChengeColor(true);
+            // None(何も入っていない状態)にする.
+            _objGet[obj] = GameObject.Find("");
+            // ここのフラグをfalseにしておかないとずっと白色のままになってしまう.
+            _button[obj].ChengeColor(false);
         }
+    }
+    // ボタンの色チェック
+    private bool isCheckColor()
+    {
+        for (int obj = 0; obj < _max; obj++)
+        {
+            // ボタンの情報をここで取得する.
+            _button[obj] = _objGet[obj].GetComponent<GimickButton>();
+            // ひとつでもボタンの色が緑ではなかったら押し終わってないことになるのでチェックする.
+            if(_button[obj].IsCheckColor() != Color.green)
+            {
+                return false;
+            }
+        }
+        return true;
     }
 }

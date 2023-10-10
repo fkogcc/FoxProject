@@ -4,27 +4,16 @@ using UnityEngine;
 
 public class GimickButton : MonoBehaviour
 {
-    // 当たり判定内にいるかどうか保存するフラグ.
-    public bool _isCollision;
-    // ボタンの押した状態を保存するフラグ.
-    public bool _isButtonState;
     // ボタンの状態を渡すためにオブジェクトを取得.
     private GameObject _playerObject;
-    // scriptを取得.
-    PlayerHand _player;
     // プレイヤーが触れいているボタンの名前をいれるための変数.
     private string _name;
 
     // Start is called before the first frame update
     void Start()
     {
-        // フラグの初期化.
-        _isCollision = false;
-
         // オブジェクトを取得.
         _playerObject = GameObject.Find("FoxHand");
-        // オブジェクトの中にあるscriptを取得.
-        _player = _playerObject.GetComponent<PlayerHand>();
     }
 
     // Update is called once per frame
@@ -36,16 +25,12 @@ public class GimickButton : MonoBehaviour
             // みどりに色を変える.
             this.GetComponent<Renderer>().material.color = Color.green;
         }
-        //if (_button.IsAnswer())
-        //{
-        //    // もとのに色を変える.
-        //    this.GetComponent<Renderer>().material.color = Color.white;
-        //}
+
         // プレイヤーがボタンを押した状態であったら.
-        if (_player._isButtonState)
+        if (_playerObject.GetComponent<PlayerHand>().IsGetButtonState())
         {
             // 今触れているボタンの名前を取得する.
-            _name = _player._buttonName;
+            _name = _playerObject.GetComponent<PlayerHand>().IsGetButtonName();
         }
         // 押した状態でなければ.
         else
@@ -59,9 +44,19 @@ public class GimickButton : MonoBehaviour
     {
         
     }
-    public Color IsColor()
+  
+    public Color IsCheckColor()
     {
         Color color = this.GetComponent<Renderer>().material.color;
         return color;
+    }
+
+    public void ChengeColor(bool ischange)
+    {
+        if(ischange)
+        {
+            // しろ色を変える.
+            this.GetComponent<Renderer>().material.color = Color.white;
+        }
     }
 }

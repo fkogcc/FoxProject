@@ -7,9 +7,9 @@ public class PlayerHand : MonoBehaviour
     // 手の移動速度.
     private float _speed;
     // ボタンの名前を入れる用の変数.
-    public string _buttonName;
+    private string _buttonName;
     // ボタンの状態を入れるフラグ.
-    public bool _isButtonState;
+    private bool _isButtonState;
     // プレイヤーの手が判定内にいるかどうかを返すフラグ.
     private bool _isCollision;
 
@@ -61,6 +61,14 @@ public class PlayerHand : MonoBehaviour
             // 左.
             transform.position -= transform.right * _speed * Time.deltaTime;
         }
+    }
+    public bool IsGetButtonState()
+    {
+        return _isButtonState;
+    }
+    public string IsGetButtonName()
+    {
+        return _buttonName;
     }
 
     void OnTriggerEnter(Collider other)

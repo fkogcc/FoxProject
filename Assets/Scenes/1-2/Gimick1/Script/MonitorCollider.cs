@@ -7,12 +7,9 @@ public class MonitorCollider : MonoBehaviour
     // プレイヤーが範囲内にいるかどうか.
     private bool _isPlayerCollider;
     // ボタンを押されたかどうか.
-    public bool _isPushButton;
-
+    private bool _isPushButton;
     // ボタンの状態を渡すためにオブジェクトを取得.
     private GameObject _gameObject;
-    // scriptを取得.
-    MonitorCamera _monitor;
 
     // Start is called before the first frame update
     void Start()
@@ -23,9 +20,6 @@ public class MonitorCollider : MonoBehaviour
 
         // オブジェクトを取得.
         _gameObject = GameObject.Find("GameManager");
-        // オブジェクトの中にあるscriptを取得.
-        _monitor = _gameObject.GetComponent<MonitorCamera>();
-
     }
 
     // Update is called once per frame
@@ -48,7 +42,7 @@ public class MonitorCollider : MonoBehaviour
             }
         }
         // ボタンを押したかのフラグを渡す.
-        _monitor._isPushFlag = _isPushButton;
+        _gameObject.GetComponent<MonitorCamera>().SetPushFlag(_isPushButton);
     }
 
     void FixedUpdate()
