@@ -72,6 +72,9 @@ public class SlideGimmickDirector : MonoBehaviour
     // クリアしているかしていないか.
     private bool _isCreal;
 
+    private GameObject _lightGimmick;
+    private MeshRenderer[] _render;
+
     private void Start()
     {
         // 初期化
@@ -99,6 +102,14 @@ public class SlideGimmickDirector : MonoBehaviour
         _isChange = false;
 
         _isCreal = false;
+
+        _lightGimmick = GameObject.Find("LightBox");
+        _render = new MeshRenderer[kBlockNum];
+        for (int i = 0; i < kBlockNum; i++)
+        {
+            _render[i] = _lightGimmick.transform.GetChild(i).GetComponent<MeshRenderer>();
+        }
+        
 
         // プレイヤーを探す
         _player = GameObject.Find("Hand");
@@ -195,8 +206,16 @@ public class SlideGimmickDirector : MonoBehaviour
 
     private void FixedUpdate()
     {
-        // クリアしていたら処理しない.
-        if (_isCreal) return;
+        // クリアしていたら光らせる処理のみする.
+        if (_isCreal)
+        {
+            for (int i = 0; i < kBlockNum; i++)
+            {
+                _render[i].material.EnableKeyword("_EMISSION");
+                _render[i].material.SetColor("_EmissionColor", Color.yellow);
+            }
+            return;
+        }
 
         if (_isChange)
         {
