@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class SlideGimmickDirector : MonoBehaviour
 {
-    // スティック情報
+    /* スティック情報 */
     // 垂直方向.
     private float _vertical;
     // 水平方向.
@@ -72,6 +72,11 @@ public class SlideGimmickDirector : MonoBehaviour
     // クリアしているかしていないか.
     private bool _isCreal;
 
+    private GameObject _lightGimmick;
+    private MeshRenderer[] _render;
+    float _alpha;
+    Color _color;
+
     private void Start()
     {
         // 初期化
@@ -100,6 +105,14 @@ public class SlideGimmickDirector : MonoBehaviour
 
         _isCreal = false;
 
+        _lightGimmick = GameObject.Find("LightBox");
+        _render = new MeshRenderer[kBlockNum];
+        for (int i = 0; i < kBlockNum; i++)
+        {
+            _render[i] = _lightGimmick.transform.GetChild(i).GetComponent<MeshRenderer>();
+        }
+        
+
         // プレイヤーを探す
         _player = GameObject.Find("Hand");
 
@@ -118,25 +131,27 @@ public class SlideGimmickDirector : MonoBehaviour
         int _changeDir;
 
         // シャッフル.
-        for (int i = 0; i < 48; i++)
-        {
-            // 0~空白地前までのブロックで動かすようにする.
-            _nowEle = Random.Range(0, kNoneBlockNo);
+        //for (int i = 0; i < 48; i++)
+        //{
+        //    // 0~空白地前までのブロックで動かすようにする.
+        //    _nowEle = Random.Range(0, kNoneBlockNo);
 
-            // 動かす位置が空白でない場合のみ動かす.
-            // 動かせないor空白地である場合は
-            // もう一度繰り返し処理を行うようにする.
-            // 繰り返すのは奇数回しか動かしていない場合積み配置が出来てしまうため.
-            _changeDir = _dirNum[Random.Range(0, kDirNum)];
-            if (MoveCheck(_changeDir, true)) ChangeTrs(_nowEle + _changeDir, false);
-            else i--;
-        }
+        //    // 動かす位置が空白でない場合のみ動かす.
+        //    // 動かせないor空白地である場合は
+        //    // もう一度繰り返し処理を行うようにする.
+        //    // 繰り返すのは奇数回しか動かしていない場合積み配置が出来てしまうため.
+        //    _changeDir = _dirNum[Random.Range(0, kDirNum)];
+        //    if (MoveCheck(_changeDir, true)) ChangeTrs(_nowEle + _changeDir, false);
+        //    else i--;
+        //}
 
         // 初めの状態を保存
         for (int i = 0; i < kBlockNum; i++)
         {
             _startEles[i] = _eles[i];
         }
+        _alpha = 0.02f;
+        _color = Color.yellow;
     }
 
     private void Update()
@@ -195,8 +210,26 @@ public class SlideGimmickDirector : MonoBehaviour
 
     private void FixedUpdate()
     {
-        // クリアしていたら処理しない.
-        if (_isCreal) return;
+        // クリアしていたら光らせる処理のみする.
+        if (_isCreal)
+        {
+            if (1.0f <= _color.r) _alpha *= -1;
+            if (_color.r <= 0.0f) _alpha *= -1;
+
+            _color.r += _alpha;
+            _color.g += _alpha;
+
+            Debug.Log("*********");
+            Debug.Log(_color.r);
+            Debug.Log(_color.g);
+
+            for (int i = 0; i < kBlockNum; i++)
+            {
+                _render[i].material.EnableKeyword("_EMISSION");
+                _render[i].material.SetColor("_EmissionColor", _color);
+            }
+            return;
+        }
 
         if (_isChange)
         {
