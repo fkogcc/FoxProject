@@ -1,29 +1,31 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class PullRope : MonoBehaviour
 {
-    // ƒMƒ~ƒbƒNƒuƒƒbƒN‚Ì’·‚³
+    // ã‚®ãƒŸãƒƒã‚¯ãƒ–ãƒ­ãƒƒã‚¯ã®é•·ã•
     private const float kGimmickLength = 0.75f;
-    // ƒvƒŒƒCƒ„[‚ÌˆÊ’uî•ñ.
+    // ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®ä½ç½®æƒ…å ±.
     private Transform _player;
-    // ƒMƒ~ƒbƒNƒIƒuƒWƒF.
+    // ã‚®ãƒŸãƒƒã‚¯ã‚ªãƒ–ã‚¸ã‚§.
     public GameObject _gimmick;
     private List<GameObject> _gimmicks;
-    // ƒuƒƒbƒN‚ğ’Ç‰Á‚·‚é‹——£
+    // ãƒ–ãƒ­ãƒƒã‚¯ã‚’è¿½åŠ ã™ã‚‹è·é›¢
     private float _longDis;
-    // ƒuƒƒbƒN‚ğŒ¸‚ç‚·‹——£
+    // ãƒ–ãƒ­ãƒƒã‚¯ã‚’æ¸›ã‚‰ã™è·é›¢
     private float _shortDis;
-    // ˆø‚Á’£‚Á‚Ä‚¢‚é‚©.
+    // å¼•ã£å¼µã£ã¦ã„ã‚‹ã‹.
     private bool _isPull;
-    // ˆø‚Á’£‚èn‚ß‚½ˆÊ’u.
+    // å¼•ã£å¼µã‚Šå§‹ã‚ãŸä½ç½®.
     private Vector3 _startPos;
-    // ˆÚ“®ƒxƒNƒgƒ‹.
+    // ç§»å‹•ãƒ™ã‚¯ãƒˆãƒ«.
     private Vector3 _moveVec;
-    // Šp“x‚ğ“ü‚ê‚é‚æ‚¤
+    // ç§»å‹•ãƒ™ã‚¯ãƒˆãƒ«ã‚’è·é›¢ã«å¤‰æ›
+    private float _nowLength;
+    // è§’åº¦ã‚’å…¥ã‚Œã‚‹ã‚ˆã†
     private float _angle = 0.0f;
-    // ˆø‚Á’£‚ê‚é”ÍˆÍ‚É‚¢‚é‚©
+    // å¼•ã£å¼µã‚Œã‚‹ç¯„å›²ã«ã„ã‚‹ã‹
     private bool _isFlag;
 
     // Start is called before the first frame update
@@ -47,7 +49,7 @@ public class PullRope : MonoBehaviour
     {
         if ((Input.GetKeyDown("joystick button 1") || Input.GetKeyDown(KeyCode.F)) && _isFlag)
         {
-            // ˆø‚Á’£‚èn‚ß‚½ˆÊ’u‚Ì•Û‘¶.
+            // å¼•ã£å¼µã‚Šå§‹ã‚ãŸä½ç½®ã®ä¿å­˜.
             _startPos = _player.position;
 
             _gimmicks.Add(Instantiate(_gimmick, this.transform.position, Quaternion.identity));
@@ -74,38 +76,39 @@ public class PullRope : MonoBehaviour
             ObjPlacement();
         }
     }
+    public float GetNowLength() { return _nowLength; }
 
     void ObjPlacement()
     {
-        // Œ»İ‚Ü‚Å‚ÌƒxƒNƒgƒ‹‚ğŒvZ.
+        // ç¾åœ¨ã¾ã§ã®ãƒ™ã‚¯ãƒˆãƒ«ã‚’è¨ˆç®—.
         _moveVec = _player.position - _startPos;
 
-        float _nowLength = _moveVec.magnitude;
-        // ‹——£‚ªL‚Ñ‚½‚ç’Ç‰Á‚·‚é.
+        _nowLength = _moveVec.magnitude;
+        // è·é›¢ãŒä¼¸ã³ãŸã‚‰è¿½åŠ ã™ã‚‹.
         if (_longDis <= _nowLength)
         {
-            // ”»’è‹——£‚ÌXV.
+            // åˆ¤å®šè·é›¢ã®æ›´æ–°.
             _longDis += kGimmickLength;
             _shortDis += kGimmickLength;
-            // ƒuƒƒbƒN‚Ì’Ç‰Á.
+            // ãƒ–ãƒ­ãƒƒã‚¯ã®è¿½åŠ .
             _gimmicks.Add(Instantiate(_gimmick, this.transform.position, Quaternion.identity));
         }
-        // ‹——£‚ªŒ¸‚Á‚½‚çíœ‚·‚é.
+        // è·é›¢ãŒæ¸›ã£ãŸã‚‰å‰Šé™¤ã™ã‚‹.
         else if (_nowLength < _shortDis)
         {
-            // ”»’è‹——£‚ÌXV.
+            // åˆ¤å®šè·é›¢ã®æ›´æ–°.
             _longDis -= kGimmickLength;
             _shortDis -= kGimmickLength;
 
-            // GameObject‚ğíœ‚Ì‚Ì‚¿AƒŠƒXƒg‚©‚çíœ.
+            // GameObjectã‚’å‰Šé™¤ã®ã®ã¡ã€ãƒªã‚¹ãƒˆã‹ã‚‰å‰Šé™¤.
             Destroy(_gimmicks[_gimmicks.Count - 1]);
             _gimmicks.RemoveAt(_gimmicks.Count - 1);
         }
 
-        // Šp“x‚ğ‹‚ß‚é.
+        // è§’åº¦ã‚’æ±‚ã‚ã‚‹.
         _angle = Mathf.Atan2(_moveVec.z, _moveVec.x) * Mathf.Rad2Deg * -1;
 
-        // o‚·ƒIƒuƒWƒFƒNƒg‚Ì—Ê‚ÅŠ„‚é.
+        // å‡ºã™ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®é‡ã§å‰²ã‚‹.
         _moveVec /= _gimmicks.Count;
 
         for (int i = 0; i < _gimmicks.Count; i++)
@@ -118,4 +121,5 @@ public class PullRope : MonoBehaviour
     {
         _isFlag = true;
     }
+
 }
