@@ -68,9 +68,14 @@ public class CameraUpdate : MonoBehaviour
             transform.position = new Vector3(_cameraFixedPositionRight, (_cameraPosY / 5.0f) + 6.0f, -20.0f);
         }
 
+        // ギミックが作動していたらカメラを動かさない
         if(!_manager.GetSolveGimmick(0) && !_manager.GetSolveGimmick(1))
         {
             MoveCamera();
+        }
+        else if(_manager.GetSolveGimmick(0))
+        {
+
         }
     }
 
@@ -87,5 +92,11 @@ public class CameraUpdate : MonoBehaviour
     {
         // 移動.
         transform.position = Vector3.SmoothDamp(transform.position, _targetPosition, ref _velocity, _time);
+    }
+
+    // 橋が架かるときのカメラの挙動
+    private void MoveBridCamera()
+    {
+
     }
 }
