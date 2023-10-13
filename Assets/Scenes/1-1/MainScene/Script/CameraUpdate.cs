@@ -14,6 +14,9 @@ public class CameraUpdate : MonoBehaviour
     // カメラが追う座標に向かう時間.
     [SerializeField] private float _time = 0.2f;
 
+    // ギミックの処理
+    private GimmickManager1_1 _manager;
+
     // プレイヤーのゲームオブジェクト.
     private GameObject _targetPlayer;
     // カメラの座標.
@@ -27,11 +30,15 @@ public class CameraUpdate : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        _manager = GameObject.Find("GimmickManager").GetComponent<GimmickManager1_1>();
+
         _targetPlayer = GameObject.Find("Foxidle");
 
         // X,Y座標にプレイヤーの座標を代入
         _cameraPosX = _targetPlayer.transform.position.x;
         _cameraPosY = _targetPlayer.transform.position.y;
+
+        
 
         _cameraPosZ = -20.0f;
     }
@@ -62,11 +69,11 @@ public class CameraUpdate : MonoBehaviour
         {
             transform.position = new Vector3(_cameraFixedPositionRight, (_cameraPosY / 5.0f) + 6.0f, -20.0f);
         }
-        
 
-        MoveCamera();
-
-
+        if(!_manager.GetSolveGimmick(0) && !_manager.GetSolveGimmick(1))
+        {
+            MoveCamera();
+        }
     }
 
     // デバッグ用カメラポジション.

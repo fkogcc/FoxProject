@@ -6,27 +6,21 @@ using UnityEngine;
 
 public class GimmickManager1_1 : MonoBehaviour
 {
-    // ギミックを解いたかどうか
-    [SerializeField] private bool[] _solveGimmick;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    // ギミックが作動しているかどうか
+    [SerializeField] private bool[] _operationGimmick;
 
     private void FixedUpdate()
     {
         // 橋の処理.
-        GimmickBirdge._instance.UpdateBirdgeAisle(_solveGimmick[0]);
+        GimmickBirdge._instance.UpdateBirdgeAisle(_operationGimmick[0]);
 
         // 風車の処理
-        RotateWindmill._instance.UpdateRotateWindmill(_solveGimmick[1]);
+        RotateWindmill._instance.UpdateRotateWindmill(_operationGimmick[1]);
+    }
+
+    // ギミックを解いたかを受け取る
+    public bool GetSolveGimmick(int operationGimmick)
+    {
+        return _operationGimmick[operationGimmick];
     }
 }

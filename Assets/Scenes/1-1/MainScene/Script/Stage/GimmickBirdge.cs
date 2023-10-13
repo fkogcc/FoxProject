@@ -15,6 +15,9 @@ public class GimmickBirdge : MonoBehaviour
     // 右.
     [SerializeField] private GameObject _birdgeRight;
 
+    // カメラ
+    private Camera _camera;
+
     private void Awake()
     {
         if( _instance == null )
@@ -27,8 +30,18 @@ public class GimmickBirdge : MonoBehaviour
         }
     }
 
+    private void Start()
+    {
+        _camera = GameObject.Find("Camera").GetComponent<Camera>();
+    }
+
+    private void CameraWork()
+    {
+
+    }
+
     /// <summary>
-    /// 橋がかかる処理
+    /// 橋がかかる処理.
     /// </summary>
     /// <param name="solveGimmick">ギミックを解いたかどうか</param>
     public void UpdateBirdgeAisle(bool solveGimmick)
