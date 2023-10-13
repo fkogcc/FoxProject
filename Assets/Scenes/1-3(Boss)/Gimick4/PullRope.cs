@@ -121,5 +121,9 @@ public class PullRope : MonoBehaviour
     {
         _isFlag = true;
     }
+    private void OnTriggerExit(Collider other)
+    {
+        _isFlag = false;
+    }
 
 }

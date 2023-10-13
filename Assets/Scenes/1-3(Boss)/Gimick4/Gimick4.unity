@@ -155,8 +155,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 3.1774545, y: 1.9969648, z: 4.7640095}
-  m_Center: {x: 1.0887272, y: -0.24357754, z: 0.28041744}
+  m_Size: {x: 2.573738, y: 1.6202625, z: 4.7640095}
+  m_Center: {x: 1.3905854, y: -0.055226386, z: 0.28041744}
 --- !u!23 &225239199
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -303,7 +303,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 6c920ac7d7ddab44fb117814ed2cb3f3, type: 2}
+  - {fileID: 2100000, guid: 1b6dc667ee86f73479de7d2412df212c, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -995,7 +995,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1688894502}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.06, y: 1.5, z: -14.68}
+  m_LocalPosition: {x: 0.09, y: 1.5, z: -14.68}
   m_LocalScale: {x: 1, y: 3, z: 11.5}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1054,7 +1054,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 6c920ac7d7ddab44fb117814ed2cb3f3, type: 2}
+  - {fileID: 2100000, guid: 1b6dc667ee86f73479de7d2412df212c, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1091,14 +1091,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1945208412}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -10.4, y: 1.01, z: -14.7}
-  m_LocalScale: {x: 20.308437, y: 1, z: 11.859391}
+  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: -9.92, y: 0.76, z: -14.7}
+  m_LocalScale: {x: 11.877998, y: 1, z: 20.961796}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 13
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!1 &2002497967
 GameObject:
   m_ObjectHideFlags: 0
@@ -1217,7 +1217,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -2476418324828192990, guid: e617f3ffd49b3d04ab80df2004dee78d, type: 3}
       propertyPath: m_IsKinematic
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2604540595675466774, guid: e617f3ffd49b3d04ab80df2004dee78d, type: 3}
       propertyPath: m_Name

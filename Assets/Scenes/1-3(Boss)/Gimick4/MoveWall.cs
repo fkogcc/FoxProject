@@ -27,7 +27,7 @@ public class MoveWall : MonoBehaviour
         if (_ropeLength > 0)
         {
             _wall.transform.position = new Vector3(0, _wallHeight - _ropeLength, -14.66f);
-            if (_ropeLength > 6.6f)
+            if (_ropeLength > 3.6f)
             {
                 _isFlag = true;
             }
@@ -36,7 +36,7 @@ public class MoveWall : MonoBehaviour
         {
             if (_lava.transform.position.x < 8)
             {
-                _lava.transform.Translate(new Vector3(0.01f, 0, 0));
+                _lava.transform.Translate(new Vector3(0, 0, 0.01f));
             }
         }
     }
