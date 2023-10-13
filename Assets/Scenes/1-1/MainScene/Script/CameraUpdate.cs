@@ -1,8 +1,6 @@
 // 2Dカメラ処理.
 // HACK:マジックナンバーが残っているので何とかする.
 
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class CameraUpdate : MonoBehaviour

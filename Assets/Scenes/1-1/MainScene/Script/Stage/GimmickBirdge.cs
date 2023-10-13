@@ -15,6 +15,8 @@ public class GimmickBirdge : MonoBehaviour
     // 右.
     [SerializeField] private GameObject _birdgeRight;
 
+
+
     // カメラ
     private Camera _camera;
 
@@ -43,41 +45,39 @@ public class GimmickBirdge : MonoBehaviour
     /// <summary>
     /// 橋がかかる処理.
     /// </summary>
-    /// <param name="solveGimmick">ギミックを解いたかどうか</param>
-    public void UpdateBirdgeAisle(bool solveGimmick)
+    /// <param name="isOperationGimmick">ギミックを動かすのかどうか</param>
+    public void UpdateBirdgeAisle(bool isOperationGimmick)
     {
         // 橋が架かると以降処理しない.
         if (_birdgeLeft.transform.localEulerAngles == new Vector3(0.0f, 0.0f, 0.0f) ||
            _birdgeRight.transform.localEulerAngles == new Vector3(0.0f, 0.0f, 0.0f))
             return;
 
-        if (!solveGimmick) return;
+        Debug.Log(isOperationGimmick);
+
+        if (!isOperationGimmick) return;
         // 橋の回転.
-        RotateBirdgeAisleLeft(solveGimmick);
-        RotateBirdgeAisleRight(solveGimmick);
+        //RotateBirdgeAisleLeft(solveGimmick);
+        //RotateBirdgeAisleRight(solveGimmick);
+
+        RotateBirdgeAisle(_birdgeLeft, isOperationGimmick, new Vector3(0.0f, 0.0f, -1.0f));
+        RotateBirdgeAisle(_birdgeRight, isOperationGimmick, new Vector3(0.0f, 0.0f, 1.0f));
     }
 
-    // 橋わたる部分のの回転.
-    // 一度回転を終えると処理を行わない.
-    // 左.
-    private void RotateBirdgeAisleLeft(bool solveGimmick)
+    // 一度回転し終わると処理を通さない.
+    /// <summary>
+    /// 橋のわたる部分の回転.
+    /// </summary>
+    /// <param name="birdge">回転させる橋のオブジェクト</param>
+    /// <param name="isOperationGimmick">動作しているかどうか</param>
+    /// <param name="rotate"></param>
+    private void RotateBirdgeAisle(GameObject birdge, bool isOperationGimmick, Vector3 rotate)
     {
-        _birdgeLeft.transform.Rotate(0,0,-1);
+        birdge.transform.Rotate(rotate);
 
-        if(_birdgeLeft.transform.localEulerAngles  == new Vector3(0.0f,0.0f,0.0f))
+        if(birdge.transform.localEulerAngles == new Vector3(0.0f, 0.0f, 0.0f))
         {
-            solveGimmick = false;
-        }
-    }
-
-    // 右.
-    private void RotateBirdgeAisleRight(bool solveGimmick)
-    {
-        _birdgeRight.transform.Rotate(0, 0, 1);
-
-        if (_birdgeRight.transform.localEulerAngles == new Vector3(0.0f, 0.0f, 0.0f))
-        {
-            solveGimmick = false;
+            isOperationGimmick = false;
         }
     }
 }
