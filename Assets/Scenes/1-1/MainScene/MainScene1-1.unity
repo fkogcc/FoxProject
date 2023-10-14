@@ -26508,6 +26508,26 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d225e2a6db331604e847d4b94f3b3cb0, type: 3}
+--- !u!1 &1611804759 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3004775973324384907, guid: efd49aba95bbbb648975da0474da9c3a, type: 3}
+  m_PrefabInstance: {fileID: 2698344481242408160}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1611804765
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1611804759}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cf32d3657b651884993c9c1958389f58, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _isScene: 0
+  _isGateGimmick1: 0
+  _isGateGimmick2: 0
 --- !u!1 &1656179246
 GameObject:
   m_ObjectHideFlags: 0
@@ -26963,9 +26983,13 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2059741150}
     m_Modifications:
+    - target: {fileID: -8810912779248581385, guid: f7f3d1bc8e2b3584897a161ed21360e9, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 838707887f47b574db349630ebc6d8bb, type: 2}
     - target: {fileID: -8679921383154817045, guid: f7f3d1bc8e2b3584897a161ed21360e9, type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: f7f3d1bc8e2b3584897a161ed21360e9, type: 3}
       propertyPath: m_LocalPosition.x
@@ -27011,6 +27035,14 @@ PrefabInstance:
       propertyPath: m_TagString
       value: Stage
       objectReference: {fileID: 0}
+    - target: {fileID: -5814777325264862184, guid: f7f3d1bc8e2b3584897a161ed21360e9, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 838707887f47b574db349630ebc6d8bb, type: 2}
+    - target: {fileID: -5083035521784309736, guid: f7f3d1bc8e2b3584897a161ed21360e9, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 838707887f47b574db349630ebc6d8bb, type: 2}
     - target: {fileID: -2193832079588396606, guid: f7f3d1bc8e2b3584897a161ed21360e9, type: 3}
       propertyPath: m_TagString
       value: Stage
@@ -27031,6 +27063,10 @@ PrefabInstance:
       propertyPath: m_TagString
       value: Stage
       objectReference: {fileID: 0}
+    - target: {fileID: 6000015505350401538, guid: f7f3d1bc8e2b3584897a161ed21360e9, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 838707887f47b574db349630ebc6d8bb, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f7f3d1bc8e2b3584897a161ed21360e9, type: 3}
 --- !u!1 &1809406628 stripped
