@@ -1,29 +1,28 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class testCol : MonoBehaviour
 {
-    // ƒCƒ“ƒXƒ^ƒ“ƒX.
+    // ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹.
     public static testCol _instance;
-    // ƒV[ƒ“‘JˆÚ‚ğs‚Á‚½‚©‚Ç‚¤‚©.
+    // ã‚·ãƒ¼ãƒ³é·ç§»ã‚’è¡Œã£ãŸã‹ã©ã†ã‹.
     public bool _isScene;
-    // ƒV[ƒ“‘JˆÚ‚Ì^‹U.
+    // ã‚·ãƒ¼ãƒ³é·ç§»ã®çœŸå½.
     public bool _isGateGimmick1;
     public bool _isGateGimmick2;
 
     private void Awake()
     {
-        // ƒVƒ“ƒOƒ‹ƒgƒ“.
+        // ã‚·ãƒ³ã‚°ãƒ«ãƒˆãƒ³.
         if (_instance == null)
         {
-            // ©g‚ğƒCƒ“ƒXƒ^ƒ“ƒX‚Æ‚·‚é.
+            // è‡ªèº«ã‚’ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã¨ã™ã‚‹.
             _instance = this;
         }
         else
         {
-            // ƒCƒ“ƒXƒ^ƒ“ƒX‚ª•¡”‘¶İ‚µ‚È‚¢‚æ‚¤‚ÉAŠù‚É‘¶İ‚µ‚Ä‚¢‚½‚ç©g‚ğÁ‹‚·‚é.
+            // ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ãŒè¤‡æ•°å­˜åœ¨ã—ãªã„ã‚ˆã†ã«ã€æ—¢ã«å­˜åœ¨ã—ã¦ã„ãŸã‚‰è‡ªèº«ã‚’æ¶ˆå»ã™ã‚‹.
             Destroy(gameObject);
         }
     }
@@ -31,7 +30,7 @@ public class testCol : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        // ‰Šú‰».
+        // åˆæœŸåŒ–.
         _isScene = false;
         _isGateGimmick1 = false;
         _isGateGimmick2 = false;
@@ -45,7 +44,7 @@ public class testCol : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        // ”à‚Ì“–‚½‚è”»’è‚É“ü‚Á‚½‚çture.
+        // æ‰‰ã®å½“ãŸã‚Šåˆ¤å®šã«å…¥ã£ãŸã‚‰ture.
         if (other.tag == "Gimmick1")
         {
             _isGateGimmick1 = true;
@@ -58,7 +57,7 @@ public class testCol : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        // ”à‚Ì“–‚½‚è”»’è‚ğo‚½‚çfalse.
+        // æ‰‰ã®å½“ãŸã‚Šåˆ¤å®šã‚’å‡ºãŸã‚‰false.
         if (other.tag =="Gimmick1")
         {
             _isGateGimmick1 = false;
