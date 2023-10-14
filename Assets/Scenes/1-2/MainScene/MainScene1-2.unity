@@ -348,6 +348,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Fade
       objectReference: {fileID: 0}
+    - target: {fileID: 5084730003539476859, guid: 41316c13ae15329419fc57a282178b42, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 41316c13ae15329419fc57a282178b42, type: 3}
 --- !u!1 &179448222
@@ -10731,7 +10735,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 428e51556e40a1a4ab8372afba0cc9e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _color: {r: 0, g: 0, b: 0, a: 0}
 --- !u!1 &818038168
 GameObject:
   m_ObjectHideFlags: 0
@@ -11013,6 +11016,28 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5b597c767225a7e4e902cfe3d8e9618b, type: 3}
+--- !u!1 &1027392603 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3004775973324384907, guid: efd49aba95bbbb648975da0474da9c3a, type: 3}
+  m_PrefabInstance: {fileID: 578449517}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1027392610
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1027392603}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d166a0151b5aadd458acc1b3ddf5bfee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _isScene: 0
+  _isGateGimmick1: 0
+  _isGateGimmick2: 0
+  _isGateGimmick3: 0
+  _isGateGimmick4: 0
 --- !u!4 &1053778523 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6487269949968605801, guid: 48321353464bcd84482454e4cf735915, type: 3}

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GimmickSceneTransition1_2 : MonoBehaviour
 {
@@ -36,12 +37,14 @@ public class GimmickSceneTransition1_2 : MonoBehaviour
         _isScene = false;
         _isGateGimmick1 = false;
         _isGateGimmick2 = false;
+        _isGateGimmick3 = false;
+        _isGateGimmick4 = false;
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        Debug.Log(_isGateGimmick1);
     }
 
     private void OnTriggerEnter(Collider other)
@@ -84,5 +87,25 @@ public class GimmickSceneTransition1_2 : MonoBehaviour
         {
             _isGateGimmick4 = false;
         }
+    }
+
+    public bool GetGateGimmick1()
+    {
+        return _isGateGimmick1;
+    }
+
+    public bool GetGateGimmick2()
+    {
+        return _isGateGimmick2;
+    }
+
+    public bool GetGateGimmick3()
+    {
+        return _isGateGimmick3;
+    }
+
+    public bool GetGateGimmick4()
+    {
+        return _isGateGimmick4;
     }
 }

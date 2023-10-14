@@ -36,10 +36,10 @@ public class Fade1_2 : MonoBehaviour
     // ゲートの前にいるかの状態.
     private bool SetGateFlag()
     {
-        return GimmickSceneTransition1_2._instance._isGateGimmick1 || 
-            GimmickSceneTransition1_2._instance._isGateGimmick2 ||
-            GimmickSceneTransition1_2._instance._isGateGimmick3 ||
-            GimmickSceneTransition1_2._instance._isGateGimmick4;
+        return GimmickSceneTransition1_2._instance.GetGateGimmick1() || 
+            GimmickSceneTransition1_2._instance.GetGateGimmick2() ||
+            GimmickSceneTransition1_2._instance.GetGateGimmick3() ||
+            GimmickSceneTransition1_2._instance.GetGateGimmick4();
     }
 
     // フェード処理.
@@ -82,19 +82,19 @@ public class Fade1_2 : MonoBehaviour
         }
 
         // シーン遷移.
-        if (GimmickSceneTransition1_2._instance._isGateGimmick1 && _color.a >= 0.9f)
+        if (GimmickSceneTransition1_2._instance.GetGateGimmick1() && _color.a >= 0.9f)
         {
             SceneManager.LoadScene("Gimmick1_2_1");
         }
-        else if (GimmickSceneTransition1_2._instance._isGateGimmick2 && _color.a >= 0.9f)
+        else if (GimmickSceneTransition1_2._instance.GetGateGimmick2() && _color.a >= 0.9f)
         {
             SceneManager.LoadScene("Gimmick1_2_2");
         }
-        else if (GimmickSceneTransition1_2._instance._isGateGimmick3 && _color.a >= 0.9f)
+        else if (GimmickSceneTransition1_2._instance.GetGateGimmick3() && _color.a >= 0.9f)
         {
             SceneManager.LoadScene("Gimmick1_2_3");
         }
-        else if (GimmickSceneTransition1_2._instance._isGateGimmick4 && _color.a >= 0.9f)
+        else if (GimmickSceneTransition1_2._instance.GetGateGimmick4() && _color.a >= 0.9f)
         {
             SceneManager.LoadScene("Gimmick1_2_4");
         }
