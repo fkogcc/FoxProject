@@ -10,6 +10,8 @@ public class RotateWindmill : MonoBehaviour
     // インスタンス.
     public static RotateWindmill _instance;
 
+    private GimmickManager1_1 _manager;
+
     // 風の力を発生させる判定.
     [SerializeField] private GameObject _windSpace;
     // 最高回転速度.
@@ -24,7 +26,10 @@ public class RotateWindmill : MonoBehaviour
     //[SerializeField] private bool _isSolveGimmick = false;
     // 回転速度が下がるかどうか.
     private bool _isCountDownRotateSpeed = false;
-    
+
+    // ギミックが作動中かどうか
+    private bool _isOperationGimmick;
+
     private void Awake()
     {
         if( _instance == null )
@@ -37,26 +42,17 @@ public class RotateWindmill : MonoBehaviour
         }
     }
 
-    private void FixedUpdate()
+    private void Start()
     {
-        //transform.Rotate(_rotateSpeed, 0.0f, 0.0f);
-
-        //// 風を発生させるタイミング.
-        //if(_rotateSpeed > 25.0f)
-        //{
-        //    _windSpace.SetActive(true);
-        //}
-        //else if(_rotateSpeed < 20.0f)
-        //{
-        //    _windSpace.SetActive(false);
-        //}
-
-        //// ギミックを解いていなかったら処理を通さない.
-        //if (!_isSolveGimmick) return;
-        //SolveGimmickAfter();
+        _manager = GameObject.Find("GimmickManager").GetComponent<GimmickManager1_1>();
     }
 
-    public void UpdateRotateWindmill(bool solveGimmick)
+    private void FixedUpdate()
+    {
+        _isOperationGimmick = _manager.GetSolveGimmick(1);
+    }
+
+    public void UpdateRotateWindmill()
     {
         transform.Rotate(_rotateSpeed, 0.0f, 0.0f);
 
@@ -71,8 +67,8 @@ public class RotateWindmill : MonoBehaviour
         }
 
         // ギミックを解いていなかったら処理を通さない.
-        if (!solveGimmick) return;
-        SolveGimmickAfter(solveGimmick);
+        if (!_isOperationGimmick) return;
+        SolveGimmickAfter(_isOperationGimmick);
     }
 
     // ギミックを解いた後の処理.
@@ -102,7 +98,7 @@ public class RotateWindmill : MonoBehaviour
         if(_rotateSpeed <= _rotateMinSpeed)
         {
             _rotateSpeed = _rotateMinSpeed;
-            solveGimmick = false;
+            _manager._operationGimmick[1] = false;
             _isCountDownRotateSpeed = false;
         }
     }
