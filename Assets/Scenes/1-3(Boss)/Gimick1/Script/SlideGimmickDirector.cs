@@ -159,7 +159,8 @@ public class SlideGimmickDirector : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown("joystick button 1")) _isMove ^= true;
+        if (Input.GetKeyDown("joystick button 1")) _isMove = true;
+        if (Input.GetKeyDown("joystick button 3")) _isMove = false;
 
         if (!_isMove) return;
 
