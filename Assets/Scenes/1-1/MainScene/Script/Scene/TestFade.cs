@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -6,15 +6,15 @@ using UnityEngine.SceneManagement;
 
 public class TestFade : MonoBehaviour
 {
-    // F.
+    // è‰².
     public Color _color;
-    // ƒQ[ƒg‚Ìƒ{ƒ^ƒ“‚ğ‰Ÿ‚µ‚½‚©‚Ç‚¤‚©.
+    // ã‚²ãƒ¼ãƒˆã®ãƒœã‚¿ãƒ³ã‚’æŠ¼ã—ãŸã‹ã©ã†ã‹.
     private bool _isPush;
 
     // Start is called before the first frame update
     void Start()
     {
-        // ‰Šú‰».
+        // åˆæœŸåŒ–.
         _isPush = false;
         _color = gameObject.GetComponent<Image>().color;
         _color.r = 0.0f;
@@ -27,65 +27,65 @@ public class TestFade : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // ƒtƒF[ƒhˆ—.
+        // ãƒ•ã‚§ãƒ¼ãƒ‰å‡¦ç†.
         FadeUpdate();
-        // ƒV[ƒ“‘JˆÚŠÖ”.
+        // ã‚·ãƒ¼ãƒ³é·ç§»é–¢æ•°.
         SceneTransition();
     }
 
-    // ƒQ[ƒg‚Ì‘O‚É‚¢‚é‚©‚Ìó‘Ô.
+    // ã‚²ãƒ¼ãƒˆã®å‰ã«ã„ã‚‹ã‹ã®çŠ¶æ…‹.
     bool SetGateFlag()
     {
         return testCol._instance._isGateGimmick1 || testCol._instance._isGateGimmick2;
     }
 
-    // ƒtƒF[ƒhˆ—.
+    // ãƒ•ã‚§ãƒ¼ãƒ‰å‡¦ç†.
     void FadeUpdate()
     {
-        // ƒtƒF[ƒhƒCƒ“ƒtƒ‰ƒO.
+        // ãƒ•ã‚§ãƒ¼ãƒ‰ã‚¤ãƒ³ãƒ•ãƒ©ã‚°.
         if (_color.a >= 1.0f)
         {
             _isPush = false;
         }
 
-        // “§–¾“x‚ğŒÅ’è‰».
+        // é€æ˜åº¦ã‚’å›ºå®šåŒ–.
         if (_color.a <= 0.0f)
         {
             _color.a = 0.0f;
         }
 
-        // ƒtƒF[ƒhƒCƒ“.
+        // ãƒ•ã‚§ãƒ¼ãƒ‰ã‚¤ãƒ³.
         if (!_isPush)
         {
             _color.a -= 0.01f;
             gameObject.GetComponent<Image>().color = _color;
         }
-        else// ƒtƒF[ƒhƒAƒEƒg.
+        else// ãƒ•ã‚§ãƒ¼ãƒ‰ã‚¢ã‚¦ãƒˆ.
         {
             _color.a += 0.01f;
             gameObject.GetComponent<Image>().color = _color;
         }
     }
 
-    // ƒV[ƒ“‘JˆÚ
+    // ã‚·ãƒ¼ãƒ³é·ç§»
     void SceneTransition()
     {
-        // ƒ{ƒ^ƒ“‰Ÿ‚µ‚½‚ç(ƒ{ƒ^ƒ“”z’u‚Í‰¼).
+        // ãƒœã‚¿ãƒ³æŠ¼ã—ãŸã‚‰(ãƒœã‚¿ãƒ³é…ç½®ã¯ä»®).
         if (Input.GetKeyDown("joystick button 3"))
         {
-            // ƒQ[ƒg‚Ì‘O‚É‚¢‚È‚¢‚Æ‚«‚ÍƒXƒLƒbƒv.
+            // ã‚²ãƒ¼ãƒˆã®å‰ã«ã„ãªã„ã¨ãã¯ã‚¹ã‚­ãƒƒãƒ—.
             if (!SetGateFlag()) return;
             _isPush = true;
         }
 
-        // ƒV[ƒ“‘JˆÚ.
+        // ã‚·ãƒ¼ãƒ³é·ç§».
         if (testCol._instance._isGateGimmick1 && _color.a >= 0.9f)
         {
-            SceneManager.LoadScene("Gimmick1Scene");
+            SceneManager.LoadScene("Gimmick1_1_1Scene");
         }
         else if (testCol._instance._isGateGimmick2 && _color.a >= 0.9f)
         {
-            SceneManager.LoadScene("Gimmick2Scene");
+            SceneManager.LoadScene("Gimmick1_1_2Scene");
         }
 
     }

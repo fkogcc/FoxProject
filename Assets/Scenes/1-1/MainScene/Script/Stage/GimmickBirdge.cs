@@ -1,5 +1,5 @@
-// ‹´‚Ìˆ—.
-// HACK:‹´‚Ì‰ñ“]ˆ—‚ğ‚à‚Á‚ÆƒXƒ}[ƒg‚É‚Å‚«‚»‚¤.
+ï»¿// æ©‹ã®å‡¦ç†.
+// HACK:æ©‹ã®å›è»¢å‡¦ç†ã‚’ã‚‚ã£ã¨ã‚¹ãƒãƒ¼ãƒˆã«ã§ããã†.
 
 using System.Collections;
 using System.Collections.Generic;
@@ -12,21 +12,21 @@ public class GimmickBirdge : MonoBehaviour
 
     private GimmickManager1_1 _manager;
 
-    // ‹´‚Ì’Ê˜H.
-    // ¶.
+    // æ©‹ã®é€šè·¯.
+    // å·¦.
     [SerializeField] private GameObject _birdgeLeft;
-    // ‰E.
+    // å³.
     [SerializeField] private GameObject _birdgeRight;
 
-    // ‹´‚É‚¢‚é“G
+    // æ©‹ã«ã„ã‚‹æ•µ
     [SerializeField] private GameObject _birdgeEnemy;
 
-    // ƒJƒƒ‰
+    // ã‚«ãƒ¡ãƒ©
     private Camera _camera;
 
-    // ƒMƒ~ƒbƒN‚ªì“®’†‚©‚Ç‚¤‚©
+    // ã‚®ãƒŸãƒƒã‚¯ãŒä½œå‹•ä¸­ã‹ã©ã†ã‹
     private bool _isOperationGimmick;
-    // ƒMƒ~ƒbƒN‚ª“®‚¢‚½Œã‚É“G‚ª“®‚­‚©‚Ç‚¤‚©
+    // ã‚®ãƒŸãƒƒã‚¯ãŒå‹•ã„ãŸå¾Œã«æ•µãŒå‹•ãã‹ã©ã†ã‹
     private bool _isMoveEnemy = false;
 
     private void Awake()
@@ -52,13 +52,13 @@ public class GimmickBirdge : MonoBehaviour
         _isOperationGimmick = _manager.GetSolveGimmick(0);
     }
 
-    // ‹´‚ª‚©‚©‚éˆ—.
+    // æ©‹ãŒã‹ã‹ã‚‹å‡¦ç†.
     public void UpdateBirdgeAisle()
     {
-        // “G‚Ì“®‚«
+        // æ•µã®å‹•ã
         MoveEnemy();
 
-        // ‹´‚ª‰Ë‚©‚é‚ÆˆÈ~ˆ—‚µ‚È‚¢.
+        // æ©‹ãŒæ¶ã‹ã‚‹ã¨ä»¥é™å‡¦ç†ã—ãªã„.
         if (_birdgeLeft.transform.localEulerAngles == new Vector3(0.0f, 0.0f, 0.0f) ||
            _birdgeRight.transform.localEulerAngles == new Vector3(0.0f, 0.0f, 0.0f))
             return;
@@ -67,18 +67,18 @@ public class GimmickBirdge : MonoBehaviour
 
         if (!_isOperationGimmick) return;
         
-        // ‹´‚Ì‰ñ“].
+        // æ©‹ã®å›è»¢.
         RotateBirdgeAisle(_birdgeLeft, new Vector3(0.0f, 0.0f, -1.0f));
         RotateBirdgeAisle(_birdgeRight, new Vector3(0.0f, 0.0f, 1.0f));
         
     }
 
-    // ˆê“x‰ñ“]‚µI‚í‚é‚Æˆ—‚ğ’Ê‚³‚È‚¢.
+    // ä¸€åº¦å›è»¢ã—çµ‚ã‚ã‚‹ã¨å‡¦ç†ã‚’é€šã•ãªã„.
     /// <summary>
-    /// ‹´‚Ì‚í‚½‚é•”•ª‚Ì‰ñ“].
+    /// æ©‹ã®ã‚ãŸã‚‹éƒ¨åˆ†ã®å›è»¢.
     /// </summary>
-    /// <param name="birdge">‰ñ“]‚³‚¹‚é‹´‚ÌƒIƒuƒWƒFƒNƒg</param>
-    /// <param name="rotate">‰ñ“]</param>
+    /// <param name="birdge">å›è»¢ã•ã›ã‚‹æ©‹ã®ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ</param>
+    /// <param name="rotate">å›è»¢</param>
     private void RotateBirdgeAisle(GameObject birdge, Vector3 rotate)
     {
         birdge.transform.Rotate(rotate);
@@ -90,7 +90,7 @@ public class GimmickBirdge : MonoBehaviour
         }
     }
 
-    // ‹´‚ª‰Ë‚©‚Á‚½‚Ì“G‚ÌˆÚ“®
+    // æ©‹ãŒæ¶ã‹ã£ãŸæ™‚ã®æ•µã®ç§»å‹•
     private void MoveEnemy()
     {
         if(!_isMoveEnemy) return;

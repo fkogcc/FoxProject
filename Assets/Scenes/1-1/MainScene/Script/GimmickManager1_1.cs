@@ -1,4 +1,4 @@
-// 1-1ƒMƒ~ƒbƒNƒ}ƒl[ƒWƒƒ[
+ï»¿// 1-1ã‚®ãƒŸãƒƒã‚¯ãƒãƒãƒ¼ã‚¸ãƒ£ãƒ¼
 
 using System.Collections;
 using System.Collections.Generic;
@@ -6,19 +6,19 @@ using UnityEngine;
 
 public class GimmickManager1_1 : MonoBehaviour
 {
-    // ƒMƒ~ƒbƒN‚ªì“®‚µ‚Ä‚¢‚é‚©‚Ç‚¤‚©
+    // ã‚®ãƒŸãƒƒã‚¯ãŒä½œå‹•ã—ã¦ã„ã‚‹ã‹ã©ã†ã‹
     [SerializeField] public bool[] _operationGimmick;
 
     private void FixedUpdate()
     {
-        // ‹´‚Ìˆ—.
+        // æ©‹ã®å‡¦ç†.
         GimmickBirdge._instance.UpdateBirdgeAisle();
 
-        // •—Ô‚Ìˆ—
+        // é¢¨è»Šã®å‡¦ç†
         RotateWindmill._instance.UpdateRotateWindmill();
     }
 
-    // ƒMƒ~ƒbƒN‚ğ‰ğ‚¢‚½‚©‚ğó‚¯æ‚é
+    // ã‚®ãƒŸãƒƒã‚¯ã‚’è§£ã„ãŸã‹ã‚’å—ã‘å–ã‚‹
     public bool GetSolveGimmick(int operationGimmick)
     {
         return _operationGimmick[operationGimmick];

@@ -1,30 +1,30 @@
-// 2DƒJƒƒ‰ˆ—.
-// HACK:ƒ}ƒWƒbƒNƒiƒ“ƒo[‚ªc‚Á‚Ä‚¢‚é‚Ì‚Å‰½‚Æ‚©‚·‚é.
+ï»¿// 2Dã‚«ãƒ¡ãƒ©å‡¦ç†.
+// HACK:ãƒã‚¸ãƒƒã‚¯ãƒŠãƒ³ãƒãƒ¼ãŒæ®‹ã£ã¦ã„ã‚‹ã®ã§ä½•ã¨ã‹ã™ã‚‹.
 
 using UnityEngine;
 
 public class CameraUpdate : MonoBehaviour
 {
-    // ƒJƒƒ‰‚ª’Ç‚¤À•W.
+    // ã‚«ãƒ¡ãƒ©ãŒè¿½ã†åº§æ¨™.
     private Vector3 _targetPosition;
-    // ƒJƒƒ‰‚Ì‘¬“x
+    // ã‚«ãƒ¡ãƒ©ã®é€Ÿåº¦
     private Vector3 _velocity = Vector3.zero;
-    // ƒJƒƒ‰‚ª’Ç‚¤À•W‚ÉŒü‚©‚¤ŠÔ.
+    // ã‚«ãƒ¡ãƒ©ãŒè¿½ã†åº§æ¨™ã«å‘ã‹ã†æ™‚é–“.
     [SerializeField] private float _time = 0.2f;
 
-    // ƒMƒ~ƒbƒN‚Ìˆ—
+    // ã‚®ãƒŸãƒƒã‚¯ã®å‡¦ç†
     private GimmickManager1_1 _manager;
 
-    // ƒMƒ~ƒbƒN‚Ìì“®’†‚ÌƒJƒƒ‰‚ÌÀ•W.
+    // ã‚®ãƒŸãƒƒã‚¯ã®ä½œå‹•ä¸­ã®ã‚«ãƒ¡ãƒ©ã®åº§æ¨™.
     [SerializeField] private GameObject[] _operationGimmickCameraPosition;
 
-    // ƒvƒŒƒCƒ„[‚ÌƒQ[ƒ€ƒIƒuƒWƒFƒNƒg.
+    // ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®ã‚²ãƒ¼ãƒ ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ.
     private GameObject _targetPlayer;
-    // ƒJƒƒ‰‚ÌÀ•W.
+    // ã‚«ãƒ¡ãƒ©ã®åº§æ¨™.
     private float _cameraPosX;
     private float _cameraPosY;
     private float _cameraPosZ;
-    // ƒXƒe[ƒW’[‚ÌƒJƒƒ‰‚ÌŒÅ’èÀ•W.
+    // ã‚¹ãƒ†ãƒ¼ã‚¸ç«¯ã®ã‚«ãƒ¡ãƒ©ã®å›ºå®šåº§æ¨™.
     private float _cameraFixedPositionLeft = 0;
     private float _cameraFixedPositionRight = 160;
 
@@ -35,7 +35,7 @@ public class CameraUpdate : MonoBehaviour
 
         _targetPlayer = GameObject.Find("Foxidle");
 
-        // X,YÀ•W‚ÉƒvƒŒƒCƒ„[‚ÌÀ•W‚ğ‘ã“ü
+        // X,Yåº§æ¨™ã«ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®åº§æ¨™ã‚’ä»£å…¥
         _cameraPosX = _targetPlayer.transform.position.x;
         _cameraPosY = _targetPlayer.transform.position.y;
 
@@ -46,12 +46,12 @@ public class CameraUpdate : MonoBehaviour
 
     private void FixedUpdate()
     {
-        // ƒJƒƒ‰‚Ì’Ç].
-        // ƒvƒŒƒCƒ„[‚ÌÀ•W‚ğ‘ã“ü‚µ‘±‚¯‚é.
+        // ã‚«ãƒ¡ãƒ©ã®è¿½å¾“.
+        // ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®åº§æ¨™ã‚’ä»£å…¥ã—ç¶šã‘ã‚‹.
         _cameraPosX = _targetPlayer.transform.position.x;
         _cameraPosY = _targetPlayer.transform.position.y;
 
-        // Œü‚¢‚Ä‚¢‚é•ûŒü‚É‚æ‚Á‚ÄƒJƒƒ‰‚ÌˆÊ’u‚ğ•ÏX.
+        // å‘ã„ã¦ã„ã‚‹æ–¹å‘ã«ã‚ˆã£ã¦ã‚«ãƒ¡ãƒ©ã®ä½ç½®ã‚’å¤‰æ›´.
         if (!Player2DMove._instance._isDirection)
         {
             _targetPosition = new Vector3(_cameraPosX + 7, (_cameraPosY / 5.0f) + 6.0f, _cameraPosZ);
@@ -61,7 +61,7 @@ public class CameraUpdate : MonoBehaviour
             _targetPosition = new Vector3(_cameraPosX - 7, (_cameraPosY / 5.0f) + 6.0f, _cameraPosZ);
         }
 
-        // ƒXƒe[ƒW’[‚É—ˆ‚½‚çƒJƒƒ‰‚ÌŒÅ’è.
+        // ã‚¹ãƒ†ãƒ¼ã‚¸ç«¯ã«æ¥ãŸã‚‰ã‚«ãƒ¡ãƒ©ã®å›ºå®š.
         if(transform.position.x <= _cameraFixedPositionLeft )
         {
             transform.position = new Vector3(_cameraFixedPositionLeft, (_cameraPosY / 5.0f) + 6.0f, -20.0f);
@@ -71,7 +71,7 @@ public class CameraUpdate : MonoBehaviour
             transform.position = new Vector3(_cameraFixedPositionRight, (_cameraPosY / 5.0f) + 6.0f, -20.0f);
         }
 
-        // ƒMƒ~ƒbƒN‚ªì“®‚µ‚Ä‚¢‚½‚çƒJƒƒ‰‚ğ“®‚©‚³‚È‚¢
+        // ã‚®ãƒŸãƒƒã‚¯ãŒä½œå‹•ã—ã¦ã„ãŸã‚‰ã‚«ãƒ¡ãƒ©ã‚’å‹•ã‹ã•ãªã„
         if(!_manager.GetSolveGimmick(0) && !_manager.GetSolveGimmick(1))
         {
             MoveCamera();
@@ -86,13 +86,13 @@ public class CameraUpdate : MonoBehaviour
         }
     }
 
-    // ƒJƒƒ‰‚ÌˆÚ“®.
+    // ã‚«ãƒ¡ãƒ©ã®ç§»å‹•.
     private void MoveCamera()
     {
         transform.position = Vector3.SmoothDamp(transform.position, _targetPosition, ref _velocity, _time);
     }
 
-    // ƒMƒ~ƒbƒN‚Ìì“®’†‚Ì‚Æ‚«‚ÌƒJƒƒ‰‚Ì‹““®.
+    // ã‚®ãƒŸãƒƒã‚¯ã®ä½œå‹•ä¸­ã®ã¨ãã®ã‚«ãƒ¡ãƒ©ã®æŒ™å‹•.
     private void OperationGimmickCamera(int num)
     {
         transform.position = Vector3.SmoothDamp(transform.position, _operationGimmickCameraPosition[num].transform.position, ref _velocity, _time);
