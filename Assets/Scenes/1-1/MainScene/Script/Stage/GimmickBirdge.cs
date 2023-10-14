@@ -3,11 +3,14 @@
 
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class GimmickBirdge : MonoBehaviour
 {
     public static GimmickBirdge _instance;
+
+    private GimmickManager1_1 _manager;
 
     // ‹´‚Ì’Ê˜H.
     // ¶.
@@ -15,10 +18,16 @@ public class GimmickBirdge : MonoBehaviour
     // ‰E.
     [SerializeField] private GameObject _birdgeRight;
 
-
+    // ‹´‚É‚¢‚é“G
+    [SerializeField] private GameObject _birdgeEnemy;
 
     // ƒJƒƒ‰
     private Camera _camera;
+
+    // ƒMƒ~ƒbƒN‚ªì“®’†‚©‚Ç‚¤‚©
+    private bool _isOperationGimmick;
+    // ƒMƒ~ƒbƒN‚ª“®‚¢‚½Œã‚É“G‚ª“®‚­‚©‚Ç‚¤‚©
+    private bool _isMoveEnemy = false;
 
     private void Awake()
     {
@@ -35,33 +44,33 @@ public class GimmickBirdge : MonoBehaviour
     private void Start()
     {
         _camera = GameObject.Find("Camera").GetComponent<Camera>();
+        _manager = GameObject.Find("GimmickManager").GetComponent<GimmickManager1_1>();
     }
 
-    private void CameraWork()
+    private void FixedUpdate()
     {
-
+        _isOperationGimmick = _manager._operationGimmick[0];
     }
 
-    /// <summary>
-    /// ‹´‚ª‚©‚©‚éˆ—.
-    /// </summary>
-    /// <param name="isOperationGimmick">ƒMƒ~ƒbƒN‚ğ“®‚©‚·‚Ì‚©‚Ç‚¤‚©</param>
-    public void UpdateBirdgeAisle(bool isOperationGimmick)
+    // ‹´‚ª‚©‚©‚éˆ—.
+    public void UpdateBirdgeAisle()
     {
+        // “G‚Ì“®‚«
+        MoveEnemy();
+
         // ‹´‚ª‰Ë‚©‚é‚ÆˆÈ~ˆ—‚µ‚È‚¢.
         if (_birdgeLeft.transform.localEulerAngles == new Vector3(0.0f, 0.0f, 0.0f) ||
            _birdgeRight.transform.localEulerAngles == new Vector3(0.0f, 0.0f, 0.0f))
             return;
 
-        Debug.Log(isOperationGimmick);
+        
 
-        if (!isOperationGimmick) return;
+        if (!_isOperationGimmick) return;
+        
         // ‹´‚Ì‰ñ“].
-        //RotateBirdgeAisleLeft(solveGimmick);
-        //RotateBirdgeAisleRight(solveGimmick);
-
-        RotateBirdgeAisle(_birdgeLeft, isOperationGimmick, new Vector3(0.0f, 0.0f, -1.0f));
-        RotateBirdgeAisle(_birdgeRight, isOperationGimmick, new Vector3(0.0f, 0.0f, 1.0f));
+        RotateBirdgeAisle(_birdgeLeft, new Vector3(0.0f, 0.0f, -1.0f));
+        RotateBirdgeAisle(_birdgeRight, new Vector3(0.0f, 0.0f, 1.0f));
+        
     }
 
     // ˆê“x‰ñ“]‚µI‚í‚é‚Æˆ—‚ğ’Ê‚³‚È‚¢.
@@ -69,15 +78,32 @@ public class GimmickBirdge : MonoBehaviour
     /// ‹´‚Ì‚í‚½‚é•”•ª‚Ì‰ñ“].
     /// </summary>
     /// <param name="birdge">‰ñ“]‚³‚¹‚é‹´‚ÌƒIƒuƒWƒFƒNƒg</param>
-    /// <param name="isOperationGimmick">“®ì‚µ‚Ä‚¢‚é‚©‚Ç‚¤‚©</param>
-    /// <param name="rotate"></param>
-    private void RotateBirdgeAisle(GameObject birdge, bool isOperationGimmick, Vector3 rotate)
+    /// <param name="rotate">‰ñ“]</param>
+    private void RotateBirdgeAisle(GameObject birdge, Vector3 rotate)
     {
         birdge.transform.Rotate(rotate);
+        _isMoveEnemy = true;
 
-        if(birdge.transform.localEulerAngles == new Vector3(0.0f, 0.0f, 0.0f))
+        if (birdge.transform.localEulerAngles == new Vector3(0.0f, 0.0f, 0.0f))
         {
-            isOperationGimmick = false;
+            Debug.Log(_manager._operationGimmick[0]);
+            _manager._operationGimmick[0] = false;
         }
+    }
+
+    // ‹´‚ª‰Ë‚©‚Á‚½‚Ì“G‚ÌˆÚ“®
+    private void MoveEnemy()
+    {
+        if(!_isMoveEnemy) return;
+
+        if(_birdgeEnemy.transform.position.y <= 50.0f)
+        {
+            _birdgeEnemy.transform.position += new Vector3(0.1f, 0.1f, 0.0f);
+        }
+        else
+        {
+            _birdgeEnemy.SetActive(false);
+        }
+            
     }
 }

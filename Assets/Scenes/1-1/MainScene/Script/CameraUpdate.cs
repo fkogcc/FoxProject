@@ -15,6 +15,9 @@ public class CameraUpdate : MonoBehaviour
     // ギミックの処理
     private GimmickManager1_1 _manager;
 
+    // ギミックの作動中のカメラの座標.
+    [SerializeField] private GameObject[] _operationGimmickCameraPosition;
+
     // プレイヤーのゲームオブジェクト.
     private GameObject _targetPlayer;
     // カメラの座標.
@@ -75,28 +78,19 @@ public class CameraUpdate : MonoBehaviour
         }
         else if(_manager.GetSolveGimmick(0))
         {
-
+            OperationGimmickCamera();
         }
-    }
-
-    // デバッグ用カメラポジション.
-    private void DebugCameraPos()
-    {
-        float playerPosX = _targetPlayer.transform.position.x;
-        float playerPosY = _targetPlayer.transform.position.y;
-        transform.position = new Vector3(playerPosX + 7, (playerPosY / 5.0f) + 6.0f, _cameraPosZ);
     }
 
     // カメラの移動.
     private void MoveCamera()
     {
-        // 移動.
         transform.position = Vector3.SmoothDamp(transform.position, _targetPosition, ref _velocity, _time);
     }
 
-    // 橋が架かるときのカメラの挙動
-    private void MoveBridCamera()
+    // ギミックの作動中のときのカメラの挙動.
+    private void OperationGimmickCamera()
     {
-
+        transform.position = Vector3.SmoothDamp(transform.position, _operationGimmickCameraPosition[0].transform.position, ref _velocity, _time);
     }
 }

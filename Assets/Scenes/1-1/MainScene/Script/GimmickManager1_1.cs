@@ -7,12 +7,12 @@ using UnityEngine;
 public class GimmickManager1_1 : MonoBehaviour
 {
     // ƒMƒ~ƒbƒN‚ªì“®‚µ‚Ä‚¢‚é‚©‚Ç‚¤‚©
-    [SerializeField] private bool[] _operationGimmick;
+    [SerializeField] public bool[] _operationGimmick;
 
     private void FixedUpdate()
     {
         // ‹´‚Ìˆ—.
-        GimmickBirdge._instance.UpdateBirdgeAisle(_operationGimmick[0]);
+        GimmickBirdge._instance.UpdateBirdgeAisle();
 
         // •—Ô‚Ìˆ—
         RotateWindmill._instance.UpdateRotateWindmill(_operationGimmick[1]);
