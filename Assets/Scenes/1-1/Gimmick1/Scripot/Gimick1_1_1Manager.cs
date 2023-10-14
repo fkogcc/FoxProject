@@ -1,32 +1,32 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Gimick1_1_1Manager : MonoBehaviour
 {
-    // ƒnƒ“ƒhƒ‹‚ÌˆÊ’u‚ğ•ÏX.
+    // ãƒãƒ³ãƒ‰ãƒ«ã®ä½ç½®ã‚’å¤‰æ›´.
     [SerializeField] private GameObject[] _handlePos;
-    // ƒnƒ“ƒhƒ‹‚Ì”»’è.
+    // ãƒãƒ³ãƒ‰ãƒ«ã®åˆ¤å®š.
     [SerializeField] private GameObject[] _handleColl;
 
-    // ƒnƒ“ƒhƒ‹‚Ì‹ß‚­‚Åƒ{ƒ^ƒ“‚ğ‚¨‚µ‚½‚©‚Ç‚¤‚©.
+    // ãƒãƒ³ãƒ‰ãƒ«ã®è¿‘ãã§ãƒœã‚¿ãƒ³ã‚’ãŠã—ãŸã‹ã©ã†ã‹.
     private bool[] _isButtonHandle = {false,false};
-    // •Ç‚Ì‹ß‚­‚Åƒ{ƒ^ƒ“‚ğ‚¨‚µ‚½‚©‚Ç‚¤‚©.
+    // å£ã®è¿‘ãã§ãƒœã‚¿ãƒ³ã‚’ãŠã—ãŸã‹ã©ã†ã‹.
     private bool[] _isButtonWall = { false, false };
-    // ‰ñ“]‚ğn‚ß‚é.
+    // å›è»¢ã‚’å§‹ã‚ã‚‹.
     private bool[] _isRota = { false, false };
-    // ÅŒã‚Ü‚Å‰ñ“]‚ğs‚Á‚½.
+    // æœ€å¾Œã¾ã§å›è»¢ã‚’è¡Œã£ãŸ.
     private bool[] _isEndRota = { false, false };
-    // 1ƒtƒŒ[ƒ€Œ„‚ğ—^‚¦‚é.
+    // 1ãƒ•ãƒ¬ãƒ¼ãƒ éš™ã‚’ä¸ãˆã‚‹.
     private bool[] _isOneFrameStop = { false, false };
-    // •Ç‚Ì–¼‘O.
+    // å£ã®åå‰.
     private string[] _handleWallName = {"HandleWall0","HandleWall1"};
-    // fot•¶‚Ég—p‚·‚éÅ‘å”.
+    // fotæ–‡ã«ä½¿ç”¨ã™ã‚‹æœ€å¤§æ•°.
     private int _maxNum;
     // Start is called before the first frame update.
     void Start()
     {
-        string objName = "3DPlayer";
+        string objName = "Player";
         _handleColl[0].GetComponent<CollsionHandle>().SetNameColl(objName);
         _handleColl[1].GetComponent<CollsionHandle>().SetNameColl(objName);
         _maxNum = 2;
@@ -36,13 +36,13 @@ public class Gimick1_1_1Manager : MonoBehaviour
     {
         for (int i = 0; i < _maxNum; i++)
         {
-            // ƒnƒ“ƒhƒ‹‚ğ“üè‚µ‚Ä‚¢‚È‚¢ê‡.
+            // ãƒãƒ³ãƒ‰ãƒ«ã‚’å…¥æ‰‹ã—ã¦ã„ãªã„å ´åˆ.
             if (!_isButtonHandle[i])
             {
-                // ƒnƒ“ƒhƒ‹‚É“–‚½‚Á‚Ä‚¢‚½‚ç.
+                // ãƒãƒ³ãƒ‰ãƒ«ã«å½“ãŸã£ã¦ã„ãŸã‚‰.
                 if (_handleColl[i].GetComponent<CollsionHandle>().IsGetHit())
                 {
-                    // ƒ{ƒ^ƒ“‚ğ‰Ÿ‚µ‚½‚ç.
+                    // ãƒœã‚¿ãƒ³ã‚’æŠ¼ã—ãŸã‚‰.
                     if (Input.GetKeyDown(KeyCode.JoystickButton1))
                     {
                         _isButtonHandle[i] = true;
@@ -51,46 +51,46 @@ public class Gimick1_1_1Manager : MonoBehaviour
                     }
                 }
             }
-            // ƒnƒ“ƒhƒ‹‚ğ“üè‚µ‚½ê‡.
+            // ãƒãƒ³ãƒ‰ãƒ«ã‚’å…¥æ‰‹ã—ãŸå ´åˆ.
             if (_isButtonHandle[i] && !_isEndRota[i])
             {
                 _handlePos[i].GetComponent<HandlePos>().HandlePosIsPlayer();
                 if (_handleColl[i].GetComponent<CollsionHandle>().IsGetHit())
                 {
-                    // ƒ{ƒ^ƒ“‚ğ‰Ÿ‚µ‚½‚ç.
+                    // ãƒœã‚¿ãƒ³ã‚’æŠ¼ã—ãŸã‚‰.
                     if (Input.GetKeyDown(KeyCode.JoystickButton1))
                     {
                         _isButtonWall[i] = true;
                     }
                 }
             }
-            // ƒnƒ“ƒhƒ‹‚ğ·‚µ‚ñ‚¾ê‡.
+            // ãƒãƒ³ãƒ‰ãƒ«ã‚’å·®ã—è¾¼ã‚“ã å ´åˆ.
             if (_isButtonWall[i] && !_isEndRota[i])
             {
                 _handlePos[i].GetComponent<HandlePos>().HandlePosIsHandleWall(i);
-                // ‰ñ“]‚ğn‚ß‚é.
+                // å›è»¢ã‚’å§‹ã‚ã‚‹.
                 if (Input.GetKeyDown(KeyCode.JoystickButton1) && _isOneFrameStop[i])
                 {
-                    // ‰ñ“]w¦
+                    // å›è»¢æŒ‡ç¤º
                     _isRota[i] = true;
                 }
-                // ‰ñ“]ŠJn.
+                // å›è»¢é–‹å§‹.
                 if (_isRota[i])
                 {
-                    // ‰ñ“]‘¬“x.
+                    // å›è»¢é€Ÿåº¦.
                     _handlePos[i].GetComponent<HandlePos>().Rota(0.3f);
-                    // ‰ñ“]ŠÔ.
+                    // å›è»¢æ™‚é–“.
                     if (_handlePos[i].GetComponent<HandlePos>().IsGetRotaTimeOver(2000))
                     {
-                        // ‰ñ“]I—¹.
+                        // å›è»¢çµ‚äº†.
                         _isEndRota[i] = true;
                     }
                 }
-                // ƒ{ƒ^ƒ“‚ğˆê“x‚Æ‚ß‚é.
+                // ãƒœã‚¿ãƒ³ã‚’ä¸€åº¦ã¨ã‚ã‚‹.
                 _isOneFrameStop[i] = true;
             }
         }
-        // “ä‰ğ‚«‚ªI‚í‚Á‚½‚©‚Ç‚¤‚©.
+        // è¬è§£ããŒçµ‚ã‚ã£ãŸã‹ã©ã†ã‹.
         if (_isEndRota[0] && _isEndRota[1])
         {
 

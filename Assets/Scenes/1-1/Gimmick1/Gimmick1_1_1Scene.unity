@@ -900,10 +900,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f4dd9a11125e5f47ab965290656e036, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _testHandle:
+  _handlePos:
   - {fileID: 1882513884}
   - {fileID: 1444381081}
-  _testCollHandle:
+  _handleColl:
   - {fileID: 1882513884}
   - {fileID: 1444381081}
 --- !u!1 &1203576581 stripped
@@ -1185,7 +1185,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2547387253882364434, guid: 546fe8400816cf942bbf47e67a845ed9, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.114248276
+      value: -0.05662632
       objectReference: {fileID: 0}
     - target: {fileID: 2547387253882364434, guid: 546fe8400816cf942bbf47e67a845ed9, type: 3}
       propertyPath: m_LocalPosition.y

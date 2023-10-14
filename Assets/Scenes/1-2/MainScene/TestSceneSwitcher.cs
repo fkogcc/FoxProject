@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 public class TestSceneSwitcher : MonoBehaviour
 {
     public static TestSceneSwitcher _instance;
-    // ƒvƒŒƒCƒ„[‚ÌHp‚ğó‚¯æ‚é.
+    // ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®Hpã‚’å—ã‘å–ã‚‹.
     public int _PlayerHp;
 
     private void Awake()
@@ -25,7 +25,6 @@ public class TestSceneSwitcher : MonoBehaviour
     void Start()
     {
         _PlayerHp = Player2DMove._instance._hp;
-        DontDestroyOnLoad(this);
     }
 
     // Update is called once per frame
