@@ -49,7 +49,7 @@ public class GimmickBirdge : MonoBehaviour
 
     private void FixedUpdate()
     {
-        _isOperationGimmick = _manager._operationGimmick[0];
+        _isOperationGimmick = _manager.GetSolveGimmick(0);
     }
 
     // ‹´‚ª‚©‚©‚éˆ—.
@@ -86,7 +86,6 @@ public class GimmickBirdge : MonoBehaviour
 
         if (birdge.transform.localEulerAngles == new Vector3(0.0f, 0.0f, 0.0f))
         {
-            Debug.Log(_manager._operationGimmick[0]);
             _manager._operationGimmick[0] = false;
         }
     }

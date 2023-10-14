@@ -15,7 +15,7 @@ public class GimmickManager1_1 : MonoBehaviour
         GimmickBirdge._instance.UpdateBirdgeAisle();
 
         // •—Ô‚Ìˆ—
-        RotateWindmill._instance.UpdateRotateWindmill(_operationGimmick[1]);
+        RotateWindmill._instance.UpdateRotateWindmill();
     }
 
     // ƒMƒ~ƒbƒN‚ğ‰ğ‚¢‚½‚©‚ğó‚¯æ‚é

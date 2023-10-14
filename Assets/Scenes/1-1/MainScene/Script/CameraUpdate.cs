@@ -78,7 +78,11 @@ public class CameraUpdate : MonoBehaviour
         }
         else if(_manager.GetSolveGimmick(0))
         {
-            OperationGimmickCamera();
+            OperationGimmickCamera(0);
+        }
+        else if(_manager.GetSolveGimmick(1))
+        {
+            OperationGimmickCamera(1);
         }
     }
 
@@ -89,8 +93,8 @@ public class CameraUpdate : MonoBehaviour
     }
 
     // ギミックの作動中のときのカメラの挙動.
-    private void OperationGimmickCamera()
+    private void OperationGimmickCamera(int num)
     {
-        transform.position = Vector3.SmoothDamp(transform.position, _operationGimmickCameraPosition[0].transform.position, ref _velocity, _time);
+        transform.position = Vector3.SmoothDamp(transform.position, _operationGimmickCameraPosition[num].transform.position, ref _velocity, _time);
     }
 }
