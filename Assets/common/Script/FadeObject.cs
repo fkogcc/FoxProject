@@ -21,6 +21,10 @@ public class FadeObject : MonoBehaviour
     void Start()
     {
         _fadeMaterial = GetComponent<Renderer>();
+        _r = _fadeMaterial.material.color.r;
+        _g = _fadeMaterial.material.color.g;
+        _b = _fadeMaterial.material.color.b;
+        _a = _fadeMaterial.material.color.a;
     }
 
     // Update is called once per frame
@@ -31,7 +35,9 @@ public class FadeObject : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if( _isFadeOut )
+        _isFadeOut = RotateWindmill._instance.GetWindActive();
+
+        if ( _isFadeOut )
         {
             StartFadeOut();
         }
@@ -44,7 +50,7 @@ public class FadeObject : MonoBehaviour
         SetMaterialColor();
         if(_a <= 0)
         {
-            _isFadeOut = false;
+            _a = 0;
             // 描画をoff.
             _fadeMaterial.enabled = false;
         }
