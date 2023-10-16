@@ -18,7 +18,7 @@ public class Player2DMove : MonoBehaviour
     // モーション番号.
     private int _motionNum;
     // ジャンプ力.
-    private float _jumpPower = 25.0f;
+    private float _jumpPower = 15.0f;
     // ジャンプしているかどうか.
     private bool _isJumpNow;
     // どの向きを向いているか.
@@ -56,8 +56,6 @@ public class Player2DMove : MonoBehaviour
             // プレイヤーの移動処理.
             Move();
         }
-
-        //TestSceneSwitcher._instance.SwitchToNextScene(3);
     }
 
     private void FixedUpdate()
@@ -88,7 +86,7 @@ public class Player2DMove : MonoBehaviour
         }
     }
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnCollisionStay(Collision collision)
     {
         // 地面から離れたら.
         if (collision.gameObject.tag == "Stage")
@@ -98,8 +96,12 @@ public class Player2DMove : MonoBehaviour
                 _isJumpNow = false;
             }
         }
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
         // 敵に当たったら体力を1減らす.
-        if (collision.gameObject.name == "Enemy")
+        if (collision.gameObject.tag == "Enemy")
         {
             _hp -= 1;
         }
@@ -115,6 +117,12 @@ public class Player2DMove : MonoBehaviour
                 _isJumpNow = true;
             }
         }
+    }
+
+    // アニメーション制御.
+    private void Anim()
+    {
+        
     }
 
     // ジャンプ処理.
