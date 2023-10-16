@@ -1,5 +1,5 @@
-// •—ÔƒMƒ~ƒbƒN‚Ìˆ—.
-// HACK:ƒ}ƒWƒbƒNƒiƒ“ƒo[‰ß‘½.
+ï»¿// é¢¨è»Šã‚®ãƒŸãƒƒã‚¯ã®å‡¦ç†.
+// HACK:ãƒã‚¸ãƒƒã‚¯ãƒŠãƒ³ãƒãƒ¼éå¤š.
 
 using System.Collections;
 using System.Collections.Generic;
@@ -7,27 +7,27 @@ using UnityEngine;
 
 public class RotateWindmill : MonoBehaviour
 {
-    // ƒCƒ“ƒXƒ^ƒ“ƒX.
+    // ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹.
     public static RotateWindmill _instance;
 
     private GimmickManager1_1 _manager;
 
-    // •—‚Ì—Í‚ğ”­¶‚³‚¹‚é”»’è.
+    // é¢¨ã®åŠ›ã‚’ç™ºç”Ÿã•ã›ã‚‹åˆ¤å®š.
     [SerializeField] private GameObject _windSpace;
-    // Å‚‰ñ“]‘¬“x.
+    // æœ€é«˜å›è»¢é€Ÿåº¦.
     [SerializeField] private float _rotateMaxSpeed = 30.0f;
-    // Å’á‰ñ“]‘¬“x.
+    // æœ€ä½å›è»¢é€Ÿåº¦.
     [SerializeField] private float _rotateMinSpeed = 0.5f;
-    // ‰ñ“]‘¬“x.
+    // å›è»¢é€Ÿåº¦.
     [SerializeField] private float _rotateSpeed = 0.5f;
-    // ‰ñ“]‰Á‘¬“x.
+    // å›è»¢åŠ é€Ÿåº¦.
     [SerializeField] private float _rotateAcceleration = 0.1f;
-    // ƒMƒ~ƒbƒN‚ğ‰ğ‚¢‚½‚©‚Ç‚¤‚©.
+    // ã‚®ãƒŸãƒƒã‚¯ã‚’è§£ã„ãŸã‹ã©ã†ã‹.
     //[SerializeField] private bool _isSolveGimmick = false;
-    // ‰ñ“]‘¬“x‚ª‰º‚ª‚é‚©‚Ç‚¤‚©.
+    // å›è»¢é€Ÿåº¦ãŒä¸‹ãŒã‚‹ã‹ã©ã†ã‹.
     private bool _isCountDownRotateSpeed = false;
 
-    // ƒMƒ~ƒbƒN‚ªì“®’†‚©‚Ç‚¤‚©
+    // ã‚®ãƒŸãƒƒã‚¯ãŒä½œå‹•ä¸­ã‹ã©ã†ã‹
     private bool _isOperationGimmick;
 
     private void Awake()
@@ -56,7 +56,7 @@ public class RotateWindmill : MonoBehaviour
     {
         transform.Rotate(_rotateSpeed, 0.0f, 0.0f);
 
-        // •—‚ğ”­¶‚³‚¹‚éƒ^ƒCƒ~ƒ“ƒO.
+        // é¢¨ã‚’ç™ºç”Ÿã•ã›ã‚‹ã‚¿ã‚¤ãƒŸãƒ³ã‚°.
         if (_rotateSpeed > 25.0f)
         {
             _windSpace.SetActive(true);
@@ -66,15 +66,15 @@ public class RotateWindmill : MonoBehaviour
             _windSpace.SetActive(false);
         }
 
-        // ƒMƒ~ƒbƒN‚ğ‰ğ‚¢‚Ä‚¢‚È‚©‚Á‚½‚çˆ—‚ğ’Ê‚³‚È‚¢.
+        // ã‚®ãƒŸãƒƒã‚¯ã‚’è§£ã„ã¦ã„ãªã‹ã£ãŸã‚‰å‡¦ç†ã‚’é€šã•ãªã„.
         if (!_isOperationGimmick) return;
         SolveGimmickAfter(_isOperationGimmick);
     }
 
-    // ƒMƒ~ƒbƒN‚ğ‰ğ‚¢‚½Œã‚Ìˆ—.
+    // ã‚®ãƒŸãƒƒã‚¯ã‚’è§£ã„ãŸå¾Œã®å‡¦ç†.
     private void SolveGimmickAfter(bool solveGimmick)
     {
-        // ƒXƒs[ƒh‚ª‰º‚ª‚Á‚Ä‚¢‚È‚¢‚©‚Ç‚¤‚©.
+        // ã‚¹ãƒ”ãƒ¼ãƒ‰ãŒä¸‹ãŒã£ã¦ã„ãªã„ã‹ã©ã†ã‹.
         if(!_isCountDownRotateSpeed)
         {
             _rotateSpeed += _rotateAcceleration;
@@ -85,16 +85,16 @@ public class RotateWindmill : MonoBehaviour
             
         }
         
-        // Å‚‰ñ“]‘¬“x‚É“’B‚µ‚½‚ç‰ñ“]‘¬“x‚ğ—‚Æ‚·.
-        // ‰ñ“]‘¬“x’á‘¬ŠJn.
+        // æœ€é«˜å›è»¢é€Ÿåº¦ã«åˆ°é”ã—ãŸã‚‰å›è»¢é€Ÿåº¦ã‚’è½ã¨ã™.
+        // å›è»¢é€Ÿåº¦ä½é€Ÿé–‹å§‹.
         if (_rotateSpeed >= _rotateMaxSpeed)
         {
             _rotateSpeed = _rotateMaxSpeed;
             _isCountDownRotateSpeed = true;
         }
 
-        // Å’á‰ñ“]‘¬“x‚ÉŒÅ’è.
-        // ‰ñ“]‘¬“x’á‘¬I—¹.
+        // æœ€ä½å›è»¢é€Ÿåº¦ã«å›ºå®š.
+        // å›è»¢é€Ÿåº¦ä½é€Ÿçµ‚äº†.
         if(_rotateSpeed <= _rotateMinSpeed)
         {
             _rotateSpeed = _rotateMinSpeed;

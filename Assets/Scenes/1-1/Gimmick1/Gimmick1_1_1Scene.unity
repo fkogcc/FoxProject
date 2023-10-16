@@ -97,7 +97,7 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
-  m_LightingDataAsset: {fileID: 0}
+  m_LightingDataAsset: {fileID: 112000000, guid: e66b5ceb2822ab6408bc2173cfcb79f8, type: 2}
   m_LightingSettings: {fileID: 0}
 --- !u!196 &4
 NavMeshSettings:
@@ -866,6 +866,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1153946837}
   - component: {fileID: 1153946838}
+  - component: {fileID: 1153946839}
   m_Layer: 0
   m_Name: Manager
   m_TagString: Untagged
@@ -900,12 +901,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f4dd9a11125e5f47ab965290656e036, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _testHandle:
+  _handlePos:
   - {fileID: 1882513884}
   - {fileID: 1444381081}
-  _testCollHandle:
+  _handleColl:
   - {fileID: 1882513884}
   - {fileID: 1444381081}
+--- !u!114 &1153946839
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1153946835}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e57407750c35964780775747d3cd8c7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1203576581 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -1352192843413321142, guid: 6f6c870681346004187a36cdbaf60ab4, type: 3}
@@ -1185,7 +1198,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2547387253882364434, guid: 546fe8400816cf942bbf47e67a845ed9, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.114248276
+      value: -0.05662632
       objectReference: {fileID: 0}
     - target: {fileID: 2547387253882364434, guid: 546fe8400816cf942bbf47e67a845ed9, type: 3}
       propertyPath: m_LocalPosition.y

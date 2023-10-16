@@ -1529,7 +1529,6 @@ GameObject:
   - component: {fileID: 2698344479787284194}
   - component: {fileID: 2698344479787284195}
   - component: {fileID: 2698344479787284196}
-  - component: {fileID: 2698344479787284192}
   - component: {fileID: 2698344479787284193}
   m_Layer: 0
   m_Name: 2DPlayer
@@ -1605,21 +1604,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &2698344479787284192
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3004775973324384907}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cf32d3657b651884993c9c1958389f58, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _isScene: 0
-  _isGateGimmick1: 0
-  _isGateGimmick2: 0
 --- !u!114 &2698344479787284193
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1632,6 +1616,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 721a6813e7b7afd429fdb920f8b52c3f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _hp: 0
+  _isDirection: 0
 --- !u!1 &3084667316828082209
 GameObject:
   m_ObjectHideFlags: 0

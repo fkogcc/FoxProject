@@ -4,10 +4,10 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
-public class TestFade : MonoBehaviour
+public class Fade1_2 : MonoBehaviour
 {
     // 色.
-    public Color _color;
+    private Color _color;
     // ゲートのボタンを押したかどうか.
     private bool _isPush;
 
@@ -36,7 +36,10 @@ public class TestFade : MonoBehaviour
     // ゲートの前にいるかの状態.
     private bool SetGateFlag()
     {
-        return testCol._instance._isGateGimmick1 || testCol._instance._isGateGimmick2;
+        return GimmickSceneTransition1_2._instance.GetGateGimmick1() || 
+            GimmickSceneTransition1_2._instance.GetGateGimmick2() ||
+            GimmickSceneTransition1_2._instance.GetGateGimmick3() ||
+            GimmickSceneTransition1_2._instance.GetGateGimmick4();
     }
 
     // フェード処理.
@@ -79,13 +82,21 @@ public class TestFade : MonoBehaviour
         }
 
         // シーン遷移.
-        if (testCol._instance._isGateGimmick1 && _color.a >= 0.9f)
+        if (GimmickSceneTransition1_2._instance.GetGateGimmick1() && _color.a >= 0.9f)
         {
-            SceneManager.LoadScene("Gimmick1_1_1Scene");
+            SceneManager.LoadScene("Gimmick1_2_1");
         }
-        else if (testCol._instance._isGateGimmick2 && _color.a >= 0.9f)
+        else if (GimmickSceneTransition1_2._instance.GetGateGimmick2() && _color.a >= 0.9f)
         {
-            SceneManager.LoadScene("Gimmick1_1_2Scene");
+            SceneManager.LoadScene("Gimmick1_2_2");
+        }
+        else if (GimmickSceneTransition1_2._instance.GetGateGimmick3() && _color.a >= 0.9f)
+        {
+            SceneManager.LoadScene("Gimmick1_2_3");
+        }
+        else if (GimmickSceneTransition1_2._instance.GetGateGimmick4() && _color.a >= 0.9f)
+        {
+            SceneManager.LoadScene("Gimmick1_2_4");
         }
 
     }
