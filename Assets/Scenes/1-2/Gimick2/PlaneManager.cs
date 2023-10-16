@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
@@ -32,49 +32,53 @@ public class PlaneManager : MonoBehaviour
         {
             if (_planeManager.GetComponent<PlaneBool>().GetAngle() == (int)moveNum.up)
             {
-                _player.transform.position += new Vector3(-0.001f, 0.0f, 0.0f);
+                _player.transform.position += new Vector3(-0.002f, 0.0f, 0.0f);
             }
             else if (_planeManager.GetComponent<PlaneBool>().GetAngle() == (int)moveNum.right)
             {
-                _player.transform.position += new Vector3(0.0f, 0.0f, 0.001f);
+                _player.transform.position += new Vector3(0.0f, 0.0f, 0.002f);
             }
             else if (_planeManager.GetComponent<PlaneBool>().GetAngle() == (int)moveNum.down)
             {
-                _player.transform.position += new Vector3(0.001f, 0.0f, 0.0f);
+                _player.transform.position += new Vector3(0.002f, 0.0f, 0.0f);
             }
             else if (_planeManager.GetComponent<PlaneBool>().GetAngle() == (int)moveNum.left)
             {
-                _player.transform.position += new Vector3(0.0f, 0.0f, -0.001f);
+                _player.transform.position += new Vector3(0.0f, 0.0f, -0.002f);
             }
 
         }
     }
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerStay(Collider other)
     {
-        if (!_isWall)
+        if (other.gameObject.tag == "Player")//ふれているタグがプレイヤーだった場合
         {
-            _planeManager.GetComponent<PlaneBool>().SetMoving(true);
-            if (_planeAngle == 0)
+
+            if (!_isWall)
             {
-                _planeManager.GetComponent<PlaneBool>().SetAngle((int)moveNum.up);
+                _planeManager.GetComponent<PlaneBool>().SetMoving(true);
+                if (_planeAngle == 0)
+                {
+                    _planeManager.GetComponent<PlaneBool>().SetAngle((int)moveNum.up);
+                }
+                else if (_planeAngle == 90)
+                {
+                    _planeManager.GetComponent<PlaneBool>().SetAngle((int)moveNum.right);
+                }
+                else if (_planeAngle == 180)
+                {
+                    _planeManager.GetComponent<PlaneBool>().SetAngle((int)moveNum.down);
+                }
+                else if (_planeAngle == 270)
+                {
+                    _planeManager.GetComponent<PlaneBool>().SetAngle((int)moveNum.left);
+                }
             }
-            else if (_planeAngle == 90)
+            else
             {
-                _planeManager.GetComponent<PlaneBool>().SetAngle((int)moveNum.right);
+                _planeManager.GetComponent<PlaneBool>().SetMoving(false);
+                _moveAngle = 4;
             }
-            else if (_planeAngle == 180)
-            {
-                _planeManager.GetComponent<PlaneBool>().SetAngle((int)moveNum.down);
-            }
-            else if (_planeAngle == 270)
-            {
-                _planeManager.GetComponent<PlaneBool>().SetAngle((int)moveNum.left);
-            }
-        }
-        else
-        {
-            _planeManager.GetComponent<PlaneBool>().SetMoving(false);
-            _moveAngle = 4;
         }
     }
     private void OnTriggerExit(Collider other)
