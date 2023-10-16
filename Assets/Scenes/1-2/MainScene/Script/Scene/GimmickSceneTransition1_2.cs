@@ -44,7 +44,6 @@ public class GimmickSceneTransition1_2 : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log(_isGateGimmick1);
     }
 
     private void OnTriggerEnter(Collider other)

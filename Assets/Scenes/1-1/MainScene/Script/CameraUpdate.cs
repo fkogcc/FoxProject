@@ -71,20 +71,20 @@ public class CameraUpdate : MonoBehaviour
             transform.position = new Vector3(_cameraFixedPositionRight, (_cameraPosY / 5.0f) + 6.0f, -20.0f);
         }
 
-        //MoveCamera();
+        MoveCamera();
         // ギミックが作動していたらカメラを動かさない
-        if (!_manager.GetSolveGimmick(0) && !_manager.GetSolveGimmick(1) && !_manager.GetSolveGimmick(2) && !_manager.GetSolveGimmick(3))
-        {
-            MoveCamera();
-        }
-        else if (_manager.GetSolveGimmick(0))
-        {
-            OperationGimmickCamera(0);
-        }
-        else if (_manager.GetSolveGimmick(1))
-        {
-            OperationGimmickCamera(1);
-        }
+        //if (!_manager.GetSolveGimmick(0) && !_manager.GetSolveGimmick(1) && !_manager.GetSolveGimmick(2) && !_manager.GetSolveGimmick(3))
+        //{
+        //    MoveCamera();
+        //}
+        //else if (_manager.GetSolveGimmick(0))
+        //{
+        //    OperationGimmickCamera(0);
+        //}
+        //else if (_manager.GetSolveGimmick(1))
+        //{
+        //    OperationGimmickCamera(1);
+        //}
     }
 
     // カメラの移動.
