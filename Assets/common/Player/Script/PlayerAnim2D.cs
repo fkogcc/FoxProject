@@ -1,12 +1,14 @@
-﻿// 3Dプレイヤーアニメーション.
+﻿// 2Dアニメーション
 
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerAnim3D : MonoBehaviour
+public class PlayerAnim2D : MonoBehaviour
 {
-    public static PlayerAnim3D _instance;
+    public static PlayerAnim2D _instance;
+    private float _horizontal = 0;
+
     private void Awake()
     {
         if( _instance == null )
@@ -19,49 +21,59 @@ public class PlayerAnim3D : MonoBehaviour
         }
     }
 
+    private void Update()
+    {
+        _horizontal = Input.GetAxis("Horizontal");
+    }
+
     //-------------------------------------------
     // アニメーション再生.
     // true: 再生.
     // false:再生しない.
     //-------------------------------------------
 
-    // 移動.
-    public bool Run()
+    // アイドル状態.
+    public bool Idle()
     {
-        // 垂直方向.
-        float vertical = Input.GetAxis("Vertical");
-        // 水平方向.
-        float horizontal = Input.GetAxis("Horizontal");
-        // スティックを傾けた.
-        bool isStickTilt = vertical != 0 ||
-            horizontal != 0;
-
-        
-        if(isStickTilt)
+        if(_horizontal == 0 && !Player2DMove._instance.GetIsJumpNow() &&
+            Player2DMove._instance.GetHp() != 0)
         {
             return true;
         }
+
+        return false;
+    }
+
+    // 移動.
+    public bool Run()
+    {
+        if(_horizontal != 0)
+        {
+            return true;
+        }
+
         return false;
     }
 
     // ジャンプアニメーション.
     public bool Jump()
     {
-        if(!IsGroundedCheck._instance._isGround)
+        if (Player2DMove._instance.GetIsJumpNow())
         {
             return true;
         }
+
         return false;
     }
 
     // ゲームオーバーアニメーション.
     public bool GameOver()
     {
-        //if (Player2DMove._instance._hp <= 0)
-        //{
-        //    return true;
-        //}
+        if(Player2DMove._instance.GetHp() <= 0)
+        {
+            return true;
+        }
+
         return false;
     }
-
 }

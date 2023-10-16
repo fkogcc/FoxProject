@@ -14,7 +14,7 @@ public class Player2DMove : MonoBehaviour
     // プレイヤーのアニメーション.
     private Animator _animator;
     // プレイヤーの体力.
-    public int _hp;
+    private int _hp;
     // モーション番号.
     private int _motionNum;
     // ジャンプ力.
@@ -61,6 +61,7 @@ public class Player2DMove : MonoBehaviour
     private void FixedUpdate()
     {
         FallDebug();
+        Anim();
 
         // HPが0になったら止める.
         if (_hp <= 0)
@@ -122,7 +123,10 @@ public class Player2DMove : MonoBehaviour
     // アニメーション制御.
     private void Anim()
     {
-        
+        _animator.SetBool("Idle", PlayerAnim2D._instance.Idle());
+        _animator.SetBool("Run", PlayerAnim2D._instance.Run());
+        _animator.SetBool("Jump", PlayerAnim2D._instance.Jump());
+        _animator.SetBool("GameOver", PlayerAnim2D._instance.GameOver());
     }
 
     // ジャンプ処理.
@@ -138,9 +142,7 @@ public class Player2DMove : MonoBehaviour
     {
         float hori = Input.GetAxis("Horizontal");
         float speed = hori * 25.0f;// 速さ.
-        Vector3 vec = new Vector3(speed, 0, 0);
-
-        _animator.SetInteger("MotionNum", _motionNum);
+        Vector3 vec = new (speed, 0, 0);
 
         if (Input.GetKey("joystick button 0"))
         {
@@ -185,15 +187,6 @@ public class Player2DMove : MonoBehaviour
         }
     }
 
-    /// <summary>
-    /// シーンを
-    /// </summary>
-    /// <param name="hp"></param>
-    private void SetHp(int hp)
-    {
-        hp = _hp;
-    }
-
     // 落下デバッグ用
     private void FallDebug()
     {
@@ -202,5 +195,15 @@ public class Player2DMove : MonoBehaviour
         {
             transform.position = new Vector3(-6.0f, 1.0f, 0.0f);
         }
+    }
+
+    public int GetHp()
+    {
+        return _hp;
+    }
+
+    public bool GetIsJumpNow()
+    {
+        return _isJumpNow;
     }
 }
