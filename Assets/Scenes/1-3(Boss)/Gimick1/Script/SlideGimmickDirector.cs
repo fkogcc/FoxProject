@@ -1,75 +1,78 @@
-using Microsoft.Cci;
+ï»¿using Microsoft.Cci;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class SlideGimmickDirector : MonoBehaviour
 {
-    /* ƒXƒeƒBƒbƒNî•ñ */
-    // ‚’¼•ûŒü.
+    /* ã‚¹ãƒ†ã‚£ãƒƒã‚¯æƒ…å ± */
+    // å‚ç›´æ–¹å‘.
     private float _vertical;
-    // …•½•ûŒü.
+    // æ°´å¹³æ–¹å‘.
     private float _horizontal;
-    // ƒvƒŒƒCƒ„[‚Ì“®‚­—Ê.
+    // ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®å‹•ãé‡.
     private const float kSpeed = 0.125f;
 
-    // ‰¡‚É•À‚ñ‚Å‚¢‚éƒuƒƒbƒN‚Ì”.
+    // æ¨ªã«ä¸¦ã‚“ã§ã„ã‚‹ãƒ–ãƒ­ãƒƒã‚¯ã®æ•°.
     private const int kRaw = 4;
-    // c‚É•À‚ñ‚Å‚¢‚éƒuƒƒbƒN‚Ì”.
+    // ç¸¦ã«ä¸¦ã‚“ã§ã„ã‚‹ãƒ–ãƒ­ãƒƒã‚¯ã®æ•°.
     private const int kCol = 4;
-    // ƒuƒƒbƒN‚Ì‘”.
+    // ãƒ–ãƒ­ãƒƒã‚¯ã®ç·æ•°.
     private const int kBlockNum = kRaw * kCol;
-    // ÅŒã‚ÌƒuƒƒbƒN‚ğ‹ó”’‚Æ‚·‚é.
+    // æœ€å¾Œã®ãƒ–ãƒ­ãƒƒã‚¯ã‚’ç©ºç™½ã¨ã™ã‚‹.
     private const int kNoneBlockNo = kBlockNum - 1;
-    // -1‚ğ‚Ğ‚Æ‚Â‘O‚É–ß‚éƒ{ƒ^ƒ“‚Æ‚µ‚Ä‚¨‚­
+    // -1ã‚’ã²ã¨ã¤å‰ã«æˆ»ã‚‹ãƒœã‚¿ãƒ³ã¨ã—ã¦ãŠã
     private const int kBackOneStepNo = -1;
-    // -2‚ğƒŠƒZƒbƒgƒ{ƒ^ƒ“‚Æ‚µ‚Ä‚¨‚­
+    // -2ã‚’ãƒªã‚»ãƒƒãƒˆãƒœã‚¿ãƒ³ã¨ã—ã¦ãŠã
     private const int kResetNo = -2;
 
-    // Œ»İ‚Ìè‚ÌˆÊ’u‚©‚ç‚Ìã‰º¶‰E.
+    // ç¾åœ¨ã®æ‰‹ã®ä½ç½®ã‹ã‚‰ã®ä¸Šä¸‹å·¦å³.
     private const int kDirUp = -kRaw;
     private const int kDirDown = kRaw;
     private const int kDirLeft = -1;
     private const int kDirRight = 1;
-    // ã‰º¶‰E‚Ì•ûŒü‚Ì”.
+    // ä¸Šä¸‹å·¦å³ã®æ–¹å‘ã®æ•°.
     private const int kDirNum = 4;
 
-    // “ü‚ê‘Ö‚¦‚É‚©‚¯‚éƒtƒŒ[ƒ€”.
+    // å…¥ã‚Œæ›¿ãˆã«ã‹ã‘ã‚‹ãƒ•ãƒ¬ãƒ¼ãƒ æ•°.
     private const int kMoveFrame = 10;
 
-    // ƒvƒŒƒCƒ„[.
+    // å…‰ã‚‹ç”¨ã®å€¤
+    private const float kAlpha = 0.02f;
+
+    // ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼.
     private GameObject _player;
 
-    // ƒMƒ~ƒbƒNeƒIƒuƒWƒF.
+    // ã‚®ãƒŸãƒƒã‚¯è¦ªã‚ªãƒ–ã‚¸ã‚§.
     private GameObject _parentObj;
-    // ƒMƒ~ƒbƒNqƒIƒuƒWƒF.
+    // ã‚®ãƒŸãƒƒã‚¯å­ã‚ªãƒ–ã‚¸ã‚§.
     private GameObject[] _gimmickObj;
 
-    // —v‘f‚Ì”Ô†.
+    // è¦ç´ ã®ç•ªå·.
     private int[] _eles;
 
-    // Œ»İ‚Ì—v‘f.
+    // ç¾åœ¨ã®è¦ç´ .
     private int _nowEle;
 
-    // ‚Í‚¶‚ß‚Ì—v‘fî•ñ‚ğ“ü‚ê‚é‚æ‚¤.
+    // ã¯ã˜ã‚ã®è¦ç´ æƒ…å ±ã‚’å…¥ã‚Œã‚‹ã‚ˆã†.
     private int[] _startEles;
-    // ‚Ğ‚Æ‚Â‘O‚É“®‚©‚µ‚½êŠî•ñ1
+    // ã²ã¨ã¤å‰ã«å‹•ã‹ã—ãŸå ´æ‰€æƒ…å ±1
     Stack<int> _endEle1;
-    // ‚Ğ‚Æ‚Â‘O‚É“®‚©‚µ‚½êŠî•ñ2
+    // ã²ã¨ã¤å‰ã«å‹•ã‹ã—ãŸå ´æ‰€æƒ…å ±2
     Stack<int> _endEle2;
 
-    // “ü‚ê‘Ö‚¦—p.
+    // å…¥ã‚Œæ›¿ãˆç”¨.
     private Vector3 _tempPos1;
     private Vector3 _tempPos2;
     private int _tempEle;
 
-    // “ü‚ê‘Ö‚¦ŠÔƒJƒEƒ“ƒg—p.
+    // å…¥ã‚Œæ›¿ãˆæ™‚é–“ã‚«ã‚¦ãƒ³ãƒˆç”¨.
     private int _moveCount;
     private int _moveEle;
-    // “ü‚ê‘Ö‚¦‚ğ‚µ‚Ä‚¢‚é‚©.
+    // å…¥ã‚Œæ›¿ãˆã‚’ã—ã¦ã„ã‚‹ã‹.
     private bool _isChange;
 
-    // ƒNƒŠƒA‚µ‚Ä‚¢‚é‚©‚µ‚Ä‚¢‚È‚¢‚©.
+    // ã‚¯ãƒªã‚¢ã—ã¦ã„ã‚‹ã‹ã—ã¦ã„ãªã„ã‹.
     private bool _isCreal;
 
     private GameObject _lightGimmick;
@@ -79,7 +82,7 @@ public class SlideGimmickDirector : MonoBehaviour
 
     private void Start()
     {
-        // ‰Šú‰»
+        // åˆæœŸåŒ–
         _vertical = 0.0f;
         _horizontal = 0.0f;
         _player = new GameObject();
@@ -113,55 +116,55 @@ public class SlideGimmickDirector : MonoBehaviour
         }
         
 
-        // ƒvƒŒƒCƒ„[‚ğ’T‚·
-        _player = GameObject.Find("Hand");
+        // ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã‚’æ¢ã™
+        _player = GameObject.Find("FoxHand");
 
-        // eƒIƒuƒWƒF‚ğ’T‚·.
+        // è¦ªã‚ªãƒ–ã‚¸ã‚§ã‚’æ¢ã™.
         _parentObj = GameObject.Find("Box");
 
         for (int i = 0; i < kBlockNum; i++)
         {
-            // qƒIƒuƒWƒF‚ğ’T‚·.
+            // å­ã‚ªãƒ–ã‚¸ã‚§ã‚’æ¢ã™.
             _gimmickObj[i] = _parentObj.transform.GetChild(i).gameObject;
-            // —v‘f”Ô†‚Ì‘ã“ü.
+            // è¦ç´ ç•ªå·ã®ä»£å…¥.
             _eles[i] = i;
         }
 
         int[] _dirNum = { kDirDown, kDirUp, kDirLeft, kDirRight };
         int _changeDir;
 
-        // ƒVƒƒƒbƒtƒ‹.
-        //for (int i = 0; i < 48; i++)
-        //{
-        //    // 0~‹ó”’’n‘O‚Ü‚Å‚ÌƒuƒƒbƒN‚Å“®‚©‚·‚æ‚¤‚É‚·‚é.
-        //    _nowEle = Random.Range(0, kNoneBlockNo);
+        // ã‚·ãƒ£ãƒƒãƒ•ãƒ«.
+        for (int i = 0; i < 48; i++)
+        {
+            // 0~ç©ºç™½åœ°å‰ã¾ã§ã®ãƒ–ãƒ­ãƒƒã‚¯ã§å‹•ã‹ã™ã‚ˆã†ã«ã™ã‚‹.
+            _nowEle = Random.Range(0, kNoneBlockNo);
 
-        //    // “®‚©‚·ˆÊ’u‚ª‹ó”’‚Å‚È‚¢ê‡‚Ì‚İ“®‚©‚·.
-        //    // “®‚©‚¹‚È‚¢or‹ó”’’n‚Å‚ ‚éê‡‚Í
-        //    // ‚à‚¤ˆê“xŒJ‚è•Ô‚µˆ—‚ğs‚¤‚æ‚¤‚É‚·‚é.
-        //    // ŒJ‚è•Ô‚·‚Ì‚ÍŠï”‰ñ‚µ‚©“®‚©‚µ‚Ä‚¢‚È‚¢ê‡Ï‚İ”z’u‚ªo—ˆ‚Ä‚µ‚Ü‚¤‚½‚ß.
-        //    _changeDir = _dirNum[Random.Range(0, kDirNum)];
-        //    if (MoveCheck(_changeDir, true)) ChangeTrs(_nowEle + _changeDir, false);
-        //    else i--;
-        //}
+            // å‹•ã‹ã™ä½ç½®ãŒç©ºç™½ã§ãªã„å ´åˆã®ã¿å‹•ã‹ã™.
+            // å‹•ã‹ã›ãªã„orç©ºç™½åœ°ã§ã‚ã‚‹å ´åˆã¯
+            // ã‚‚ã†ä¸€åº¦ç¹°ã‚Šè¿”ã—å‡¦ç†ã‚’è¡Œã†ã‚ˆã†ã«ã™ã‚‹.
+            // ç¹°ã‚Šè¿”ã™ã®ã¯å¥‡æ•°å›ã—ã‹å‹•ã‹ã—ã¦ã„ãªã„å ´åˆç©ã¿é…ç½®ãŒå‡ºæ¥ã¦ã—ã¾ã†ãŸã‚.
+            _changeDir = _dirNum[Random.Range(0, kDirNum)];
+            if (MoveCheck(_changeDir, true)) ChangeTrs(_nowEle + _changeDir, false);
+            else i--;
+        }
 
-        // ‰‚ß‚Ìó‘Ô‚ğ•Û‘¶
+        // åˆã‚ã®çŠ¶æ…‹ã‚’ä¿å­˜
         for (int i = 0; i < kBlockNum; i++)
         {
             _startEles[i] = _eles[i];
         }
-        _alpha = 0.02f;
-        _color = Color.yellow;
+        _alpha = kAlpha;
+        _color = Color.black;
     }
 
     private void Update()
     {
-        // ‚’¼•ûŒü.
+        // å‚ç›´æ–¹å‘.
         _vertical = Input.GetAxis("Horizontal");
-        // …•½•ûŒü.
+        // æ°´å¹³æ–¹å‘.
         _horizontal = Input.GetAxis("Vertical");
 
-        // ƒvƒŒƒCƒ„[‚ÌˆÚ“®ˆ—.
+        // ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®ç§»å‹•å‡¦ç†.
         if (0.0f < _horizontal)
         {
             _player.transform.position += Vector3.up * kSpeed;
@@ -179,21 +182,21 @@ public class SlideGimmickDirector : MonoBehaviour
             _player.transform.position += Vector3.left * kSpeed;
         }
 
-        // ƒNƒŠƒA‚µ‚Ä‚¢‚½‚çˆÚ“®ˆÈŠOˆ—‚µ‚È‚¢.
+        // ã‚¯ãƒªã‚¢ã—ã¦ã„ãŸã‚‰ç§»å‹•ä»¥å¤–å‡¦ç†ã—ãªã„.
         if (_isCreal) return;
 
-        // “ü‚ê‘Ö‚¦‚µ‚Ä‚¢‚½‚çˆ—‚µ‚È‚¢.
+        // å…¥ã‚Œæ›¿ãˆã—ã¦ã„ãŸã‚‰å‡¦ç†ã—ãªã„.
         if (_isChange) return;
 
-        // “Á’è‚Ìƒ{ƒ^ƒ“‚ğ‰Ÿ‚µ‚½‚çƒMƒ~ƒbƒN‚Ìˆ—.
+        // ç‰¹å®šã®ãƒœã‚¿ãƒ³ã‚’æŠ¼ã—ãŸã‚‰ã‚®ãƒŸãƒƒã‚¯ã®å‡¦ç†.
         if (Input.GetKeyDown(KeyCode.F) || Input.GetKeyDown("joystick button 1"))
         {
-            // Œ»İƒvƒŒƒCƒ„[‚Ìè‚ª‚ ‚éˆÊ’u‚ğ•Û‘¶.
+            // ç¾åœ¨ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®æ‰‹ãŒã‚ã‚‹ä½ç½®ã‚’ä¿å­˜.
             _nowEle = _player.GetComponent<GimmickHand>().HitNo;
 
             if (_nowEle == kBackOneStepNo)
             {
-                Debug.Log("‚Ğ‚Æ‚Â‘O‚É–ß‚é");
+                Debug.Log("ã²ã¨ã¤å‰ã«æˆ»ã‚‹");
                 BackOneStep();
             }
             else if (_nowEle == kResetNo)
@@ -202,7 +205,7 @@ public class SlideGimmickDirector : MonoBehaviour
             }
             else
             {
-                // “®‚©‚¹‚é‚©‚Ç‚¤‚©‚Ì”»’è‚ğ‚µ‚Ä‚¢‚­.
+                // å‹•ã‹ã›ã‚‹ã‹ã©ã†ã‹ã®åˆ¤å®šã‚’ã—ã¦ã„ã.
                 EleCheck();
             }
         }
@@ -210,11 +213,11 @@ public class SlideGimmickDirector : MonoBehaviour
 
     private void FixedUpdate()
     {
-        // ƒNƒŠƒA‚µ‚Ä‚¢‚½‚çŒõ‚ç‚¹‚éˆ—‚Ì‚İ‚·‚é.
+        // ã‚¯ãƒªã‚¢ã—ã¦ã„ãŸã‚‰å…‰ã‚‰ã›ã‚‹å‡¦ç†ã®ã¿ã™ã‚‹.
         if (_isCreal)
         {
-            if (1.0f <= _color.r) _alpha *= -1;
-            if (_color.r <= 0.0f) _alpha *= -1;
+            if (1.0f <= _color.r) _alpha = -kAlpha;
+            if (_color.r <= 0.0f) _alpha = kAlpha;
 
             _color.r += _alpha;
             _color.g += _alpha;
@@ -235,87 +238,87 @@ public class SlideGimmickDirector : MonoBehaviour
         {
             _moveCount++;
 
-            // ­‚µ‚¸‚Â“®‚©‚µ‚Ä‚¢‚­.
+            // å°‘ã—ãšã¤å‹•ã‹ã—ã¦ã„ã.
             _gimmickObj[_eles[_moveEle]].transform.position += _tempPos2;
 
-            // ŠÔ‚ª‚½‚Á‚½‚ç“®‚©‚È‚¢‚æ‚¤‚É‚·‚é.
+            // æ™‚é–“ãŒãŸã£ãŸã‚‰å‹•ã‹ãªã„ã‚ˆã†ã«ã™ã‚‹.
             if (kMoveFrame <= _moveCount) _isChange = false;
 
-            // “®‚«I‚í‚é‚Ü‚Å‰º‚Ìˆ—‚Ís‚í‚È‚¢‚æ‚¤‚·‚é.
+            // å‹•ãçµ‚ã‚ã‚‹ã¾ã§ä¸‹ã®å‡¦ç†ã¯è¡Œã‚ãªã„ã‚ˆã†ã™ã‚‹.
             return;
         }
 
-        // —v‘f‚ª”Ô†’Ê‚è‚É•À‚ñ‚Å‚¢‚é‚©Šm”F.
+        // è¦ç´ ãŒç•ªå·é€šã‚Šã«ä¸¦ã‚“ã§ã„ã‚‹ã‹ç¢ºèª.
         for (int i = 0; i < kBlockNum; i++)
         {
-            // —v‘f”Ô†’Ê‚è‚Å‚È‚¢‚È‚ç‚±‚±‚Å‚Ìˆ—I—¹.
+            // è¦ç´ ç•ªå·é€šã‚Šã§ãªã„ãªã‚‰ã“ã“ã§ã®å‡¦ç†çµ‚äº†.
             if (_eles[i] != i) return;
         }
 
-        // ‚±‚±‚Ü‚Å—ˆ‚½‚çƒNƒŠƒA‚µ‚Ä‚¢‚é‚Ì‚ÅŠ®—¹‚Æ‚·‚é.
+        // ã“ã“ã¾ã§æ¥ãŸã‚‰ã‚¯ãƒªã‚¢ã—ã¦ã„ã‚‹ã®ã§å®Œäº†ã¨ã™ã‚‹.
         _isCreal = true;
-        Debug.Log("ƒNƒŠƒA");
+        Debug.Log("ã‚¯ãƒªã‚¢");
     }
 
-    // 1‚Â‘O‚Ìî•ñ‚É–ß‚·
+    // 1ã¤å‰ã®æƒ…å ±ã«æˆ»ã™
     private void BackOneStep()
     {
-        // ƒf[ƒ^‚ª“ü‚Á‚Ä‚È‚¢ê‡‚Í‚â‚ç‚È‚¢
+        // ãƒ‡ãƒ¼ã‚¿ãŒå…¥ã£ã¦ãªã„å ´åˆã¯ã‚„ã‚‰ãªã„
         if (_endEle1.Count <= 0) return;
 
-        Debug.Log("•Ï‚¦‚é‚æ");
+        Debug.Log("å¤‰ãˆã‚‹ã‚ˆ");
         _nowEle = _endEle1.Pop();
         ChangeTrs(_endEle2.Pop(), false);
     }
 
-    // ‚Í‚¶‚ß‚Ìó‘Ô‚É–ß‚·
+    // ã¯ã˜ã‚ã®çŠ¶æ…‹ã«æˆ»ã™
     private void ResetBlock()
     {
         for (int i = 0; i < kBlockNum; i++)
         {
             _nowEle = i;
 
-            // Œ»İ‚ÌˆÊ’u‚Ì•¨‚ª‚Í‚¶‚ß‚Æˆê‚Ìê‡Ÿ‚Ì‚ÉˆÚ‚é
+            // ç¾åœ¨ã®ä½ç½®ã®ç‰©ãŒã¯ã˜ã‚ã¨ä¸€ç·’ã®å ´åˆæ¬¡ã®ã«ç§»ã‚‹
             if (_eles[i] == _startEles[_nowEle]) continue;
 
-            // ‚»‚êˆÈŠO‚Í’T‚µ‚¾‚·
+            // ãã‚Œä»¥å¤–ã¯æ¢ã—ã ã™
             for (int j = i + 1; j < kBlockNum; j++)
             {
-                // ‰‚ß‚ÌêŠ‚ğŒ©‚Â‚¯‚½‚ç‚»‚±‚ÆêŠ‘Ö‚¦
+                // åˆã‚ã®å ´æ‰€ã‚’è¦‹ã¤ã‘ãŸã‚‰ãã“ã¨å ´æ‰€æ›¿ãˆ
                 if (_eles[j] == _startEles[_nowEle])
                 {
                     ChangeTrs(j, false);
 
-                    // ’T‚µì‹ÆI—¹
+                    // æ¢ã—ä½œæ¥­çµ‚äº†
                     break;
                 }
             }
         }
 
-        // 1‚Â‘O‚É–ß‚µ‚½‚Æ‚¢‚¤î•ñ‚ğ‘S‚ÄÁ‹
+        // 1ã¤å‰ã«æˆ»ã—ãŸã¨ã„ã†æƒ…å ±ã‚’å…¨ã¦æ¶ˆå»
         _endEle1.Clear();
         _endEle2.Clear();
     }
 
     private void EleCheck()
     {
-        // —v‘f”Ô†‚ÌˆÊ’u‚ª‹ó”’’n‚È‚ç‰½‚à‚µ‚È‚¢.
+        // è¦ç´ ç•ªå·ã®ä½ç½®ãŒç©ºç™½åœ°ãªã‚‰ä½•ã‚‚ã—ãªã„.
         if (_eles[_nowEle] == kNoneBlockNo) return;
 
-        // ã‚Ìƒ`ƒFƒbƒN.
+        // ä¸Šã®ãƒã‚§ãƒƒã‚¯.
         if (DirCheck(kDirUp)) return;
-        // ‰º‚Ìƒ`ƒFƒbƒN.
+        // ä¸‹ã®ãƒã‚§ãƒƒã‚¯.
         if (DirCheck(kDirDown)) return;
-        // ¶‚Ìƒ`ƒFƒbƒN.
+        // å·¦ã®ãƒã‚§ãƒƒã‚¯.
         if (DirCheck(kDirLeft)) return;
-        // ‰E‚Ìƒ`ƒFƒbƒN.
+        // å³ã®ãƒã‚§ãƒƒã‚¯.
         if (DirCheck(kDirRight)) return;
     }
 
-    // ‚»‚Ì•ûŒü‚É“®‚©‚¹‚é‚©‚Ç‚¤‚©.
+    // ãã®æ–¹å‘ã«å‹•ã‹ã›ã‚‹ã‹ã©ã†ã‹.
     private bool DirCheck(int dir)
     {
-        // ‚»‚Ì•ûŒü‚É“®‚©‚¹‚é‚©‚ÌŠm”F.
+        // ãã®æ–¹å‘ã«å‹•ã‹ã›ã‚‹ã‹ã®ç¢ºèª.
         if (!MoveCheck(dir, false)) return false;
         
         ChangeTrs(_nowEle + dir, true);
@@ -323,17 +326,17 @@ public class SlideGimmickDirector : MonoBehaviour
         return true;
     }
 
-    // •ûŒü‚Ì×‚©‚¢ƒ`ƒFƒbƒN.
-    // “®‚©‚·Œü‚«AƒVƒƒƒbƒtƒ‹‚©‚Ç‚¤‚©.
+    // æ–¹å‘ã®ç´°ã‹ã„ãƒã‚§ãƒƒã‚¯.
+    // å‹•ã‹ã™å‘ãã€ã‚·ãƒ£ãƒƒãƒ•ãƒ«ã‹ã©ã†ã‹.
     bool MoveCheck(int dir, bool isShuffle)
     {
-        // —v‘f”‚È‚¢‚É‚¢‚È‚¯‚ê‚ÎŠm”F‚µ‚È‚¢.
+        // è¦ç´ æ•°ãªã„ã«ã„ãªã‘ã‚Œã°ç¢ºèªã—ãªã„.
         if ((_nowEle + dir) < 0 ||
             kBlockNum <= (_nowEle + dir))
         {
             return false;
         }
-        // ¶‰E‚Ìê‡’[‚É‚ ‚ê‚ÎŠm”F‚µ‚È‚¢.
+        // å·¦å³ã®å ´åˆç«¯ã«ã‚ã‚Œã°ç¢ºèªã—ãªã„.
         if (dir == kDirLeft &&
             (_nowEle % kRaw) == 0)
         {
@@ -345,19 +348,19 @@ public class SlideGimmickDirector : MonoBehaviour
             return false;
         }
 
-        // ƒVƒƒƒbƒtƒ‹‚Ìê‡.
+        // ã‚·ãƒ£ãƒƒãƒ•ãƒ«ã®å ´åˆ.
         if (isShuffle)
         {
-            // dir‚Ì•ûŒü‚Ì‚à‚Ì‚ª‹ó”’ˆÈŠO‚Ìê‡“®‚©‚·.
+            // dirã®æ–¹å‘ã®ã‚‚ã®ãŒç©ºç™½ä»¥å¤–ã®å ´åˆå‹•ã‹ã™.
             if (_eles[_nowEle + dir] != kNoneBlockNo)
             {
                 return true;
             }
         }
         else
-        // ƒVƒƒƒbƒtƒ‹‚Å‚È‚¢ê‡.
+        // ã‚·ãƒ£ãƒƒãƒ•ãƒ«ã§ãªã„å ´åˆ.
         {
-            // dir‚Ì•ûŒü‚Ì‚à‚Ì‚ª‹ó”’‚Ìê‡“®‚©‚·.
+            // dirã®æ–¹å‘ã®ã‚‚ã®ãŒç©ºç™½ã®å ´åˆå‹•ã‹ã™.
             if (_eles[_nowEle + dir] == kNoneBlockNo)
             {
                 return true;
@@ -368,29 +371,29 @@ public class SlideGimmickDirector : MonoBehaviour
 
     }
 
-    // ˆÊ’u‚Ì•ÏX.
-    // “®‚©‚·ˆÊ’uAƒVƒƒƒbƒtƒ‹‚©‚Ç‚¤‚©.
+    // ä½ç½®ã®å¤‰æ›´.
+    // å‹•ã‹ã™ä½ç½®ã€ã‚·ãƒ£ãƒƒãƒ•ãƒ«ã‹ã©ã†ã‹.
     private void ChangeTrs(int ele, bool isNormal)
     {
-        // ‚»‚ê‚¼‚ê‚ÌˆÊ’u‚ğ•Û‘¶.
+        // ãã‚Œãã‚Œã®ä½ç½®ã‚’ä¿å­˜.
         _tempPos1 = _gimmickObj[_eles[_nowEle]].transform.position;
         _tempPos2 = _gimmickObj[_eles[ele]].transform.position;
 
-        // •Û‘¶‚µ‚½ˆÊ’u‚ğg‚¢AˆÊ’u‚Ì“ü‚ê‘Ö‚¦.
-        // ‹ó”’’n‚Í‚·‚®‚ÉˆÚ“®.
+        // ä¿å­˜ã—ãŸä½ç½®ã‚’ä½¿ã„ã€ä½ç½®ã®å…¥ã‚Œæ›¿ãˆ.
+        // ç©ºç™½åœ°ã¯ã™ãã«ç§»å‹•.
         _gimmickObj[_eles[ele]].transform.position = _tempPos1;
-        // ’Êí‚Ì“®‚«ˆÈŠO‚·‚®‚É“®‚©‚·.
+        // é€šå¸¸ã®å‹•ãä»¥å¤–ã™ãã«å‹•ã‹ã™.
         if (!isNormal) _gimmickObj[_eles[_nowEle]].transform.position = _tempPos2;
-        // ’Êí‚Ìê‡‚Í“®‚«‚ğÀ‘•.
+        // é€šå¸¸ã®å ´åˆã¯å‹•ãã‚’å®Ÿè£….
         else MoveEfeStart(ele);
 
-        // ’Êí‚Ì“®‚«‚Ìê‡‚Í“®‚©‚µ‚½î•ñˆÊ’u‚ğ•Û‘¶‚·‚é.
+        // é€šå¸¸ã®å‹•ãã®å ´åˆã¯å‹•ã‹ã—ãŸæƒ…å ±ä½ç½®ã‚’ä¿å­˜ã™ã‚‹.
         if (isNormal)
         {
             _endEle1.Push(_nowEle);
             _endEle2.Push(ele);
         }
-        // —v‘f‚Ì”Ô†‚ğ•ÏX.
+        // è¦ç´ ã®ç•ªå·ã‚’å¤‰æ›´.
         _tempEle = _eles[_nowEle];
         _eles[_nowEle] = _eles[ele];
         _eles[ele] = _tempEle;
@@ -398,16 +401,16 @@ public class SlideGimmickDirector : MonoBehaviour
 
     void MoveEfeStart(int ele)
     {
-        // “®‚­”z—ñ‚ğ‘I‘ğ‚·‚é.
+        // å‹•ãé…åˆ—ã‚’é¸æŠã™ã‚‹.
         _moveEle = ele;
-        // ƒJƒEƒ“ƒg‚Ì‰Šú‰».
+        // ã‚«ã‚¦ãƒ³ãƒˆã®åˆæœŸåŒ–.
         _moveCount = 0;
 
-        // “®‚­ˆÊ’u‚Ü‚ÅƒxƒNƒgƒ‹‚ğ‹‚ßAˆÚ“®ŠÔ‚ÅŠ„‚é.
+        // å‹•ãä½ç½®ã¾ã§ãƒ™ã‚¯ãƒˆãƒ«ã‚’æ±‚ã‚ã€ç§»å‹•æ™‚é–“ã§å‰²ã‚‹.
         _tempPos2 = _tempPos2 - _tempPos1;
         _tempPos2 /= kMoveFrame;
 
-        // “®‚­‚æ‚¤‚É‚·‚é.
+        // å‹•ãã‚ˆã†ã«ã™ã‚‹.
         _isChange = true;
     }
 }
