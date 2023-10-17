@@ -23,10 +23,12 @@ public class Gimick1_1_1Manager : MonoBehaviour
     private string[] _handleWallName = {"HandleWall0","HandleWall1"};
     // fot文に使用する最大数.
     private int _maxNum;
-    // Start is called before the first frame update.
+    // ステージをクリアしたかどうか
+    private bool _clear = false;
+
     void Start()
     {
-        string objName = "Player";
+        string objName = "3DPlayer";
         _handleColl[0].GetComponent<CollsionHandle>().SetNameColl(objName);
         _handleColl[1].GetComponent<CollsionHandle>().SetNameColl(objName);
         _maxNum = 2;
@@ -78,9 +80,9 @@ public class Gimick1_1_1Manager : MonoBehaviour
                 if (_isRota[i])
                 {
                     // 回転速度.
-                    _handlePos[i].GetComponent<HandlePos>().Rota(0.3f);
+                    _handlePos[i].GetComponent<HandlePos>().Rota(1.0f);
                     // 回転時間.
-                    if (_handlePos[i].GetComponent<HandlePos>().IsGetRotaTimeOver(2000))
+                    if (_handlePos[i].GetComponent<HandlePos>().IsGetRotaTimeOver(350))
                     {
                         // 回転終了.
                         _isEndRota[i] = true;
@@ -93,7 +95,13 @@ public class Gimick1_1_1Manager : MonoBehaviour
         // 謎解きが終わったかどうか.
         if (_isEndRota[0] && _isEndRota[1])
         {
-
+            _clear = true;
         }
     }
+    // クリアしたかどうか
+    public bool GetResult()
+    {
+        return _clear;
+    }
 }
+
