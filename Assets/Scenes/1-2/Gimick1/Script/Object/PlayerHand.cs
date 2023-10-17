@@ -70,6 +70,11 @@ public class PlayerHand : MonoBehaviour
     {
         return _buttonName;
     }
+    public Vector3 PlayerHandPos()
+    {
+        Vector3 pos = this.transform.position;
+        return pos;
+    }
 
     void OnTriggerEnter(Collider other)
     {
