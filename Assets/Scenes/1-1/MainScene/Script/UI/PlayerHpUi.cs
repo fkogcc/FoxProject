@@ -19,6 +19,6 @@ public class PlayerHpUi : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        _textHp.SetText("X{0}", Player2DMove._instance._hp);
+        _textHp.SetText("X{0}", Player2DMove._instance.GetHp());
     }
 }

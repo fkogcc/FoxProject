@@ -105,6 +105,10 @@ public class Player2DMove : MonoBehaviour
         if (collision.gameObject.tag == "Enemy")
         {
             _hp -= 1;
+            if( _hp <= 0)
+            {
+                _hp = 0;
+            }
         }
     }
 
