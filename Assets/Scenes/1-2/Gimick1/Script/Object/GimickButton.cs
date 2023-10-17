@@ -8,12 +8,14 @@ public class GimickButton : MonoBehaviour
     private GameObject _playerObject;
     // プレイヤーが触れいているボタンの名前をいれるための変数.
     private string _name;
-
+    // マテリアルの配列の番号
+    private int _materialNum;
     // Start is called before the first frame update
     void Start()
     {
         // オブジェクトを取得.
         _playerObject = GameObject.Find("FoxHand");
+        _materialNum = 1;
     }
 
     // Update is called once per frame
@@ -23,7 +25,7 @@ public class GimickButton : MonoBehaviour
         if (_name == this.gameObject.name)
         {
             // みどりに色を変える.
-            this.GetComponent<Renderer>().material.color = Color.green;
+            this.GetComponent<Renderer>().materials[_materialNum].color = Color.green;
         }
 
         // プレイヤーがボタンを押した状態であったら.
@@ -47,7 +49,7 @@ public class GimickButton : MonoBehaviour
   
     public Color IsCheckColor()
     {
-        Color color = this.GetComponent<Renderer>().material.color;
+        Color color = this.GetComponent<Renderer>().materials[_materialNum].color;
         return color;
     }
 
@@ -56,7 +58,7 @@ public class GimickButton : MonoBehaviour
         if(ischange)
         {
             // しろ色を変える.
-            this.GetComponent<Renderer>().material.color = Color.white;
+            this.GetComponent<Renderer>().materials[_materialNum].color = Color.white;
         }
     }
 }
