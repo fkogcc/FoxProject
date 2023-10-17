@@ -33,8 +33,12 @@ public class TestSceneTransition1_1_2 : MonoBehaviour
     {
         // 切り替え後のスクリプト取得.
         GimmickManager1_1 gimmickManager1_1 = GameObject.FindWithTag("GimmickManager").GetComponent<GimmickManager1_1>();
+        Player2DMove player2D = GameObject.FindWithTag("Player").GetComponent<Player2DMove>();
+
         // ギミックを解いたかのデータを渡す.
         gimmickManager1_1._operationGimmick[1] = _active;
+        player2D.transform.position = new Vector3(94.0f, 0.0f, 0.0f);
+
         // 削除
         SceneManager.sceneLoaded -= GameSceneLoaded;
     }

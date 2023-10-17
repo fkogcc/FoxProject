@@ -20,9 +20,17 @@ public class Player2DMove : MonoBehaviour
     // ジャンプ力.
     private float _jumpPower = 15.0f;
     // ジャンプしているかどうか.
+    // true :している
+    // false:していない
     private bool _isJumpNow;
     // どの向きを向いているか.
+    // true :右
+    // false:左
     private bool _isDirection;
+    // 動けるように処理を通すかどうか.
+    // true :動ける
+    // false;動けない
+    private bool _isMoveActive = true;
 
     private void Awake()
     {
@@ -51,7 +59,17 @@ public class Player2DMove : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(_hp > 0)
+        // ボタン押したら(ボタン配置は仮).
+        if (Input.GetKeyDown("joystick button 3"))
+        {
+            // ゲートの前にいないときはスキップ.
+            if (!SetGateFlag()) return;
+
+            Debug.Log("通った");
+            _isMoveActive = false;
+        }
+
+        if (_hp > 0 || !_isMoveActive)
         {
             // プレイヤーの移動処理.
             Move();
@@ -191,6 +209,12 @@ public class Player2DMove : MonoBehaviour
         }
     }
 
+    // ゲートの前にいるかの状態.
+    private bool SetGateFlag()
+    {
+        return testCol._instance.GetIsGateGimmick1() || testCol._instance.GetIsGateGimmick2();
+    }
+
     // 落下デバッグ用
     private void FallDebug()
     {
@@ -201,18 +225,8 @@ public class Player2DMove : MonoBehaviour
         }
     }
 
-    public int GetHp()
-    {
-        return _hp;
-    }
-
-    public bool GetIsJumpNow()
-    {
-        return _isJumpNow;
-    }
-
-    public bool GetIsDirection()
-    {
-        return _isDirection;
-    }
+    public int GetHp()              { return _hp; }
+    public bool GetIsJumpNow()      { return _isJumpNow; }
+    public bool GetIsDirection()    { return _isDirection; }
+    public bool GetIsMoveActive()      { return _isMoveActive; }
 }
