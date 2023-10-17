@@ -8,8 +8,9 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
-public class TestFade : MonoBehaviour
+public class FadeSceneTransition : MonoBehaviour
 {
+    private testCol _transitionScene;
     // 色.
     public Color _color;
     // ゲートのボタンを押したかどうか.
@@ -26,6 +27,7 @@ public class TestFade : MonoBehaviour
         _color.b = 0.0f;
         _color.a = 1.0f;
         gameObject.GetComponent<Image>().color = _color;
+        _transitionScene = GameObject.Find("Foxidle").GetComponent<testCol>();
     }
 
     // Update is called once per frame
@@ -40,7 +42,8 @@ public class TestFade : MonoBehaviour
     // ゲートの前にいるかの状態.
     private bool SetGateFlag()
     {
-        return testCol._instance.GetIsGateGimmick1() || testCol._instance.GetIsGateGimmick2();
+        return _transitionScene.GetIsGateGimmick1() || _transitionScene.GetIsGateGimmick2() ||
+            _transitionScene.GetIsGoal();
     }
 
     // フェード処理.
@@ -83,13 +86,17 @@ public class TestFade : MonoBehaviour
         }
 
         // シーン遷移.
-        if (testCol._instance.GetIsGateGimmick1() && _color.a >= 0.9f && !Player2DMove._instance.GetIsMoveActive())
+        if (_transitionScene.GetIsGateGimmick1() && _color.a >= 0.9f && !Player2DMove._instance.GetIsMoveActive())
         {
             SceneManager.LoadScene("Gimmick1_1_1Scene");
         }
-        else if (testCol._instance.GetIsGateGimmick2() && _color.a >= 0.9f && !Player2DMove._instance.GetIsMoveActive())
+        else if (_transitionScene.GetIsGateGimmick2() && _color.a >= 0.9f && !Player2DMove._instance.GetIsMoveActive())
         {
             SceneManager.LoadScene("Gimmick1_1_2Scene");
+        }
+        else if(_transitionScene.GetIsGoal() && _color.a >= 0.9f && !Player2DMove._instance.GetIsMoveActive())
+        {
+            SceneManager.LoadScene("MainScene1-2");
         }
 
     }

@@ -13,6 +13,9 @@ public class testCol : MonoBehaviour
     private bool _isGateGimmick1;
     private bool _isGateGimmick2;
 
+    // ゴールについたかどうか
+    private bool _isGoal;
+
     private void Awake()
     {
         // シングルトン.
@@ -34,6 +37,7 @@ public class testCol : MonoBehaviour
         // 初期化.
         _isGateGimmick1 = false;
         _isGateGimmick2 = false;
+        _isGoal = false;
     }
 
     // Update is called once per frame
@@ -53,6 +57,10 @@ public class testCol : MonoBehaviour
         {
             _isGateGimmick2 = true;
         }
+        else if(other.tag == "Goal")
+        {
+            _isGoal = true;
+        }
     }
 
     private void OnTriggerExit(Collider other)
@@ -66,9 +74,15 @@ public class testCol : MonoBehaviour
         {
             _isGateGimmick2 = false;
         }
+        else if (other.tag == "Goal")
+        {
+            _isGoal = false;
+        }
     }
 
     public bool GetIsGateGimmick1(){ return _isGateGimmick1; }
 
     public bool GetIsGateGimmick2(){ return _isGateGimmick2; }
+
+    public bool GetIsGoal() { return _isGoal; }
 }
