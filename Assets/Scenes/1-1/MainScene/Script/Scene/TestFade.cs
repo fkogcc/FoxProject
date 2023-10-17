@@ -1,4 +1,8 @@
-﻿using System.Collections;
+﻿// フェードインアウト処理.
+// TODO:ファイル名がデバッグ用なので変える.
+// TODO:マジックナンバーあり.
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -36,7 +40,7 @@ public class TestFade : MonoBehaviour
     // ゲートの前にいるかの状態.
     private bool SetGateFlag()
     {
-        return testCol._instance._isGateGimmick1 || testCol._instance._isGateGimmick2;
+        return testCol._instance.GetIsGateGimmick1() || testCol._instance.GetIsGateGimmick2();
     }
 
     // フェード処理.
@@ -79,11 +83,11 @@ public class TestFade : MonoBehaviour
         }
 
         // シーン遷移.
-        if (testCol._instance._isGateGimmick1 && _color.a >= 0.9f)
+        if (testCol._instance.GetIsGateGimmick1() && _color.a >= 0.9f && !Player2DMove._instance.GetIsMoveActive())
         {
             SceneManager.LoadScene("Gimmick1_1_1Scene");
         }
-        else if (testCol._instance._isGateGimmick2 && _color.a >= 0.9f)
+        else if (testCol._instance.GetIsGateGimmick2() && _color.a >= 0.9f && !Player2DMove._instance.GetIsMoveActive())
         {
             SceneManager.LoadScene("Gimmick1_1_2Scene");
         }

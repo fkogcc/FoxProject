@@ -1,41 +1,41 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
 
 public class Player3DMove : MonoBehaviour
 {
-    // ƒLƒƒƒ‰ƒNƒ^[ƒRƒ“ƒgƒ[ƒ‰[.
+    // ã‚­ãƒ£ãƒ©ã‚¯ã‚¿ãƒ¼ã‚³ãƒ³ãƒˆãƒ­ãƒ¼ãƒ©ãƒ¼.
     private CharacterController _playerController;
-    // ƒJƒƒ‰.
+    // ã‚«ãƒ¡ãƒ©.
     private GameObject _camera;
-    // ƒAƒjƒ[ƒ^[.
+    // ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚¿ãƒ¼.
     private Animator _animator;
 
 
-    // ˆÚ“®ƒXƒs[ƒh.
+    // ç§»å‹•ã‚¹ãƒ”ãƒ¼ãƒ‰.
     [SerializeField] private float _speed = 5.0f;
-    // ƒWƒƒƒ“ƒv—Í.
+    // ã‚¸ãƒ£ãƒ³ãƒ—åŠ›.
     [SerializeField] private float _jumpPower = 8.0f;
-    // d—Í.
+    // é‡åŠ›.
     [SerializeField] private float _gravity = 10.0f;
 
-    // ’…’n’†‚É‚©‚¯‚ç‚ê‘±‚¯‚éd—Í/
+    // ç€åœ°ä¸­ã«ã‹ã‘ã‚‰ã‚Œç¶šã‘ã‚‹é‡åŠ›/
     private float _groundGravity = -10.0f;
 
-    // ’n–Ê‚É“–‚½‚Á‚Ä‚¢‚é‚©.
+    // åœ°é¢ã«å½“ãŸã£ã¦ã„ã‚‹ã‹.
     private bool _isGround = false;
 
-    // ‘€ì‰Â”\‚©‚Ç‚¤‚©.
+    // æ“ä½œå¯èƒ½ã‹ã©ã†ã‹.
     public bool _isController = true;
 
-    // “®‚­•ûŒü.
+    // å‹•ãæ–¹å‘.
     Vector3 _moveDirection = Vector3.zero;
 
     // Start is called before the first frame update
     void Start()
     {
-        // ƒ}ƒEƒXƒJ[ƒ\ƒ‹‚ğ”ñ•\¦‚É‚µAˆÊ’u‚ğŒÅ’è.
+        // ãƒã‚¦ã‚¹ã‚«ãƒ¼ã‚½ãƒ«ã‚’éè¡¨ç¤ºã«ã—ã€ä½ç½®ã‚’å›ºå®š.
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
 
@@ -59,7 +59,7 @@ public class Player3DMove : MonoBehaviour
         FallDebug();
     }
 
-    // ’n–Ê‚©‚ç—‚¿‚½‚ç‰ŠúˆÊ’u‚ÌƒXƒ|[ƒ“.
+    // åœ°é¢ã‹ã‚‰è½ã¡ãŸã‚‰åˆæœŸä½ç½®ã®ã‚¹ãƒãƒ¼ãƒ³.
     private void FallDebug()
     {
         if (this.transform.position.y <= -5.0f)
@@ -68,20 +68,20 @@ public class Player3DMove : MonoBehaviour
         }
     }
 
-    // ƒWƒƒƒ“ƒv.
+    // ã‚¸ãƒ£ãƒ³ãƒ—.
     private void Jump()
     {
-        // ’…’n‚µ‚Ä‚¢‚é‚Æ‚«‚Ìˆ—.
+        // ç€åœ°ã—ã¦ã„ã‚‹ã¨ãã®å‡¦ç†.
         if (_isGround)
         {
-            // Aƒ{ƒ^ƒ“‰Ÿ‚µ‚½‚çƒWƒƒƒ“ƒv.
+            // Aãƒœã‚¿ãƒ³æŠ¼ã—ãŸã‚‰ã‚¸ãƒ£ãƒ³ãƒ—.
             if (Input.GetKeyDown("joystick button 0"))
             {
                 _moveDirection.y = _jumpPower;
             }
         }
 
-        // ƒvƒŒƒCƒ„[‚É‚©‚©‚éd—Íˆ—.
+        // ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã«ã‹ã‹ã‚‹é‡åŠ›å‡¦ç†.
         if (!_isGround)
         {
             _moveDirection.y -= _gravity * Time.deltaTime;
@@ -95,47 +95,47 @@ public class Player3DMove : MonoBehaviour
         }
     }
 
-    // ˆÚ“®.
+    // ç§»å‹•.
     private void Move()
     {
-        // Ú’n‚µ‚Ä‚¢‚é‚©‚ğ‘ã“ü.
+        // æ¥åœ°ã—ã¦ã„ã‚‹ã‹ã‚’ä»£å…¥.
         _isGround = IsGroundedCheck._instance._isGround;
 
-        // ‚’¼•ûŒü.
+        // å‚ç›´æ–¹å‘.
         float vertical = Input.GetAxis("Vertical");
-        // …•½•ûŒü.
+        // æ°´å¹³æ–¹å‘.
         float horizontal = Input.GetAxis("Horizontal");
 
-        // ƒJƒƒ‰‚ÌŒü‚«‚ğŠî€‚É‚µ‚½³–Ê•ûŒü‚ÌƒxƒNƒgƒ‹.
+        // ã‚«ãƒ¡ãƒ©ã®å‘ãã‚’åŸºæº–ã«ã—ãŸæ­£é¢æ–¹å‘ã®ãƒ™ã‚¯ãƒˆãƒ«.
         Vector3 cameraForward = Vector3.Scale(_camera.transform.forward, new Vector3(1.0f, 0.0f, 1.0f)).normalized;
 
-        // ƒJƒƒ‰Šî€.
-        Vector3 moveZ = cameraForward * vertical * _speed;// ‘OŒã.
-        Vector3 moveX = _camera.transform.right * horizontal * _speed;// ¶‰E.
+        // ã‚«ãƒ¡ãƒ©åŸºæº–.
+        Vector3 moveZ = cameraForward * vertical * _speed;// å‰å¾Œ.
+        Vector3 moveX = _camera.transform.right * horizontal * _speed;// å·¦å³.
 
         _moveDirection = moveZ + moveX + new Vector3(0.0f, _moveDirection.y, 0.0f);
 
 
 
-        // ƒvƒŒƒCƒ„[‚Ìi‚Ş•ûŒü‚É‰ñ“].
+        // ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®é€²ã‚€æ–¹å‘ã«å›è»¢.
         transform.LookAt(transform.position + moveZ + moveX);
 
-        // Move‚Íw’è‚µ‚½ƒxƒNƒgƒ‹‚¾‚¯ˆÚ“®‚³‚¹‚é–½—ß.
+        // Moveã¯æŒ‡å®šã—ãŸãƒ™ã‚¯ãƒˆãƒ«ã ã‘ç§»å‹•ã•ã›ã‚‹å‘½ä»¤.
         _playerController.Move(_moveDirection * Time.deltaTime);
     }
 
-    // —‰ºƒ_ƒ[ƒW.
+    // è½ä¸‹ãƒ€ãƒ¡ãƒ¼ã‚¸.
     //private void FallDamage()
     //{
 
     //}
 
-    // ƒAƒjƒ[ƒVƒ‡ƒ“.
+    // ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³.
     private void Anim()
     {
-        _animator.SetBool("Run", PlayerAnim._instance.Run());
-        _animator.SetBool("Jump", PlayerAnim._instance.Jump());
-        _animator.SetBool("isDead", PlayerAnim._instance.GameOver());
+        _animator.SetBool("Run", PlayerAnim3D._instance.Run());
+        _animator.SetBool("Jump", PlayerAnim3D._instance.Jump());
+        _animator.SetBool("isDead", PlayerAnim3D._instance.GameOver());
     }
 
 }

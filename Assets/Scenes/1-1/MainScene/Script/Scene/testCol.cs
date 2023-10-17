@@ -1,4 +1,7 @@
-﻿using System.Collections;
+﻿// ゲートの当たり判定.
+// TODO:ファイル名がデバッグ用なので後で変える
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,11 +9,9 @@ public class testCol : MonoBehaviour
 {
     // インスタンス.
     public static testCol _instance;
-    // シーン遷移を行ったかどうか.
-    public bool _isScene;
     // シーン遷移の真偽.
-    public bool _isGateGimmick1;
-    public bool _isGateGimmick2;
+    private bool _isGateGimmick1;
+    private bool _isGateGimmick2;
 
     private void Awake()
     {
@@ -31,7 +32,6 @@ public class testCol : MonoBehaviour
     void Start()
     {
         // 初期化.
-        _isScene = false;
         _isGateGimmick1 = false;
         _isGateGimmick2 = false;
     }
@@ -67,4 +67,8 @@ public class testCol : MonoBehaviour
             _isGateGimmick2 = false;
         }
     }
+
+    public bool GetIsGateGimmick1(){ return _isGateGimmick1; }
+
+    public bool GetIsGateGimmick2(){ return _isGateGimmick2; }
 }

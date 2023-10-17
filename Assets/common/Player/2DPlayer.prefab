@@ -1530,6 +1530,7 @@ GameObject:
   - component: {fileID: 2698344479787284195}
   - component: {fileID: 2698344479787284196}
   - component: {fileID: 2698344479787284193}
+  - component: {fileID: 6518691929001983071}
   m_Layer: 0
   m_Name: 2DPlayer
   m_TagString: Untagged
@@ -1594,7 +1595,7 @@ Animator:
   m_GameObject: {fileID: 3004775973324384907}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: b48701a6886771e42b6f4ce466726b88, type: 2}
+  m_Controller: {fileID: 9100000, guid: 7420da9e3cb4a2e489540aaf06ed5c52, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -1618,6 +1619,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _hp: 0
   _isDirection: 0
+--- !u!114 &6518691929001983071
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3004775973324384907}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c66029cdc3c466244ac98740be5e2d1b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3084667316828082209
 GameObject:
   m_ObjectHideFlags: 0

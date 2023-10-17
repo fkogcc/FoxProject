@@ -22,6 +22,10 @@ public class RotateWindmill : MonoBehaviour
     [SerializeField] private float _rotateSpeed = 0.5f;
     // 回転加速度.
     [SerializeField] private float _rotateAcceleration = 0.1f;
+
+    // 風の判定が生きているかどうか.
+    private bool _isWindActive = false;
+
     // ギミックを解いたかどうか.
     //[SerializeField] private bool _isSolveGimmick = false;
     // 回転速度が下がるかどうか.
@@ -56,14 +60,16 @@ public class RotateWindmill : MonoBehaviour
     {
         transform.Rotate(_rotateSpeed, 0.0f, 0.0f);
 
+        _windSpace.SetActive(_isWindActive);
+
         // 風を発生させるタイミング.
         if (_rotateSpeed > 25.0f)
         {
-            _windSpace.SetActive(true);
+            _isWindActive = true;
         }
         else if (_rotateSpeed < 20.0f)
         {
-            _windSpace.SetActive(false);
+            _isWindActive = false;
         }
 
         // ギミックを解いていなかったら処理を通さない.
@@ -101,5 +107,10 @@ public class RotateWindmill : MonoBehaviour
             _manager._operationGimmick[1] = false;
             _isCountDownRotateSpeed = false;
         }
+    }
+
+    public bool GetWindActive()
+    {
+        return _isWindActive;
     }
 }

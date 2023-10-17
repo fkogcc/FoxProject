@@ -1,12 +1,12 @@
-// ƒvƒŒƒCƒ„[ƒAƒjƒ[ƒVƒ‡ƒ“.
+ï»¿// 3Dãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³.
 
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerAnim : MonoBehaviour
+public class PlayerAnim3D : MonoBehaviour
 {
-    public static PlayerAnim _instance;
+    public static PlayerAnim3D _instance;
     private void Awake()
     {
         if( _instance == null )
@@ -15,24 +15,24 @@ public class PlayerAnim : MonoBehaviour
         }
         else
         {
-            Destroy(this.gameObject);
+            Destroy(gameObject);
         }
     }
 
     //-------------------------------------------
-    // ƒAƒjƒ[ƒVƒ‡ƒ“Ä¶.
-    // true: Ä¶.
-    // false:Ä¶‚µ‚È‚¢.
+    // ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³å†ç”Ÿ.
+    // true: å†ç”Ÿ.
+    // false:å†ç”Ÿã—ãªã„.
     //-------------------------------------------
 
-    // ˆÚ“®.
+    // ç§»å‹•.
     public bool Run()
     {
-        // ‚’¼•ûŒü.
+        // å‚ç›´æ–¹å‘.
         float vertical = Input.GetAxis("Vertical");
-        // …•½•ûŒü.
+        // æ°´å¹³æ–¹å‘.
         float horizontal = Input.GetAxis("Horizontal");
-        // ƒXƒeƒBƒbƒN‚ğŒX‚¯‚½.
+        // ã‚¹ãƒ†ã‚£ãƒƒã‚¯ã‚’å‚¾ã‘ãŸ.
         bool isStickTilt = vertical != 0 ||
             horizontal != 0;
 
@@ -44,7 +44,7 @@ public class PlayerAnim : MonoBehaviour
         return false;
     }
 
-    // ƒWƒƒƒ“ƒvƒAƒjƒ[ƒVƒ‡ƒ“.
+    // ã‚¸ãƒ£ãƒ³ãƒ—ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³.
     public bool Jump()
     {
         if(!IsGroundedCheck._instance._isGround)
@@ -54,7 +54,7 @@ public class PlayerAnim : MonoBehaviour
         return false;
     }
 
-    // ƒQ[ƒ€ƒI[ƒo[ƒAƒjƒ[ƒVƒ‡ƒ“.
+    // ã‚²ãƒ¼ãƒ ã‚ªãƒ¼ãƒãƒ¼ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³.
     public bool GameOver()
     {
         //if (Player2DMove._instance._hp <= 0)
