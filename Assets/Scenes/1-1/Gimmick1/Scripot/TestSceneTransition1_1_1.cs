@@ -6,20 +6,28 @@ using UnityEngine.SceneManagement;
 public class TestSceneTransition1_1_1 : MonoBehaviour
 {
     private Gimick1_1_1Manager _Gimmick1_1_1;
+
+    private FadeScene _fade;
+
     // 解いたかどうか.
     private bool _active = false;
 
     // Start is called before the first frame update
     void Start()
     {
-        _Gimmick1_1_1 = GameObject.Find("Manager").GetComponent<Gimick1_1_1Manager>();
+        _Gimmick1_1_1 = GetComponent<Gimick1_1_1Manager>();
+        _fade = GameObject.FindWithTag("Fade").GetComponent<FadeScene>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        // RBボタンでシーン遷移
         if(_Gimmick1_1_1.GetResult())
+        {
+            _fade._isFadeOut = true;
+        }
+
+        if(_fade.GetAlphColor() >= 0.9f && _fade._isFadeOut)
         {
             _active = _Gimmick1_1_1.GetResult();
             SceneManager.sceneLoaded += GameSceneLoaded;
