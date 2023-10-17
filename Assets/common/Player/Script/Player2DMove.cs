@@ -6,6 +6,7 @@ using UnityEngine;
 public class Player2DMove : MonoBehaviour
 {
     public static Player2DMove _instance;
+    private testCol _transitionScene;
 
     // プレイヤーのリジットボディ.
     private Rigidbody _rigid;
@@ -48,6 +49,7 @@ public class Player2DMove : MonoBehaviour
     void Start()
     {
         // 初期化処理.
+        _transitionScene = GameObject.Find("Foxidle").GetComponent<testCol>();
         _rigid = GetComponent<Rigidbody>();
         _pMaterial = GetComponent<BoxCollider>();
         _animator = GetComponent<Animator>();
@@ -212,7 +214,8 @@ public class Player2DMove : MonoBehaviour
     // ゲートの前にいるかの状態.
     private bool SetGateFlag()
     {
-        return testCol._instance.GetIsGateGimmick1() || testCol._instance.GetIsGateGimmick2();
+        return _transitionScene.GetIsGateGimmick1() || _transitionScene.GetIsGateGimmick2() ||
+            _transitionScene.GetIsGoal();
     }
 
     // 落下デバッグ用

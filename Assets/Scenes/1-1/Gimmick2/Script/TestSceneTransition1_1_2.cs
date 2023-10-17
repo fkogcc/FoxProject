@@ -8,21 +8,31 @@ using UnityEngine.SceneManagement;
 
 public class TestSceneTransition1_1_2 : MonoBehaviour
 {
-    // 解いたかどうかのテストのbool型
+    private GearRotation _Gimmick1_1_2;
+
+    private FadeScene _fade;
+
+    // 解いたかどうか.
     private bool _active = false;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        _Gimmick1_1_2 = GameObject.Find("GearHandle").GetComponent<GearRotation>();
+        _fade = GameObject.FindWithTag("Fade").GetComponent<FadeScene>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown("joystick button 5"))
+        if (_Gimmick1_1_2.GetResult())
         {
-            _active = true;
+            _fade._isFadeOut = true;
+        }
+
+        if (_fade.GetAlphColor() >= 0.9f && _fade._isFadeOut)
+        {
+            _active = _Gimmick1_1_2.GetResult();
             SceneManager.sceneLoaded += GameSceneLoaded;
             SceneManager.LoadScene("MainScene1-1");
         }
