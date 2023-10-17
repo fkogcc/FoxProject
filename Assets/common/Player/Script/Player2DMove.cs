@@ -14,7 +14,7 @@ public class Player2DMove : MonoBehaviour
     // プレイヤーのアニメーション.
     private Animator _animator;
     // プレイヤーの体力.
-    private int _hp;
+    public int _hp;
     // モーション番号.
     private int _motionNum;
     // ジャンプ力.
@@ -22,7 +22,7 @@ public class Player2DMove : MonoBehaviour
     // ジャンプしているかどうか.
     private bool _isJumpNow;
     // どの向きを向いているか.
-    public bool _isDirection;
+    private bool _isDirection;
 
     private void Awake()
     {
@@ -205,5 +205,10 @@ public class Player2DMove : MonoBehaviour
     public bool GetIsJumpNow()
     {
         return _isJumpNow;
+    }
+
+    public bool GetIsDirection()
+    {
+        return _isDirection;
     }
 }

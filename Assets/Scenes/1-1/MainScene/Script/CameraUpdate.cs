@@ -52,7 +52,7 @@ public class CameraUpdate : MonoBehaviour
         _cameraPosY = _targetPlayer.transform.position.y;
 
         // 向いている方向によってカメラの位置を変更.
-        if (!Player2DMove._instance._isDirection)
+        if (!Player2DMove._instance.GetIsDirection())
         {
             _targetPosition = new Vector3(_cameraPosX + 7, (_cameraPosY / 5.0f) + 6.0f, _cameraPosZ);
         }

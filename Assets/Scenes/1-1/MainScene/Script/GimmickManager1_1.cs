@@ -1,4 +1,4 @@
-﻿// 1-1ギミックマネージャー
+﻿// 1-1表世界のギミックマネージャー
 
 using System.Collections;
 using System.Collections.Generic;
@@ -8,6 +8,10 @@ public class GimmickManager1_1 : MonoBehaviour
 {
     // ギミックが作動しているかどうか
     [SerializeField] public bool[] _operationGimmick;
+
+    private void Start()
+    {
+    }
 
     private void FixedUpdate()
     {
