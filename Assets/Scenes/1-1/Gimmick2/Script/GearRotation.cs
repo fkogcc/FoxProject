@@ -10,14 +10,14 @@ public class GearRotation : MonoBehaviour
     private Vector3 _rotaDegrees;
     // 回転.
     private Quaternion _rotation;
-    // 一回転したかのフラグ
+    // 一回転したかのフラグ(クリアした判定にも使用).
     private bool _playerRotation;
     // プレイヤーが範囲内にいるかどうかのフラグ.
     private bool _colRange;
     // 回転率.
     private float _gearDegree;
     // 回転した回数
-    private int _count;
+    //private int _count;
 
     // インスタンスの作成.
     void Start()
@@ -34,7 +34,7 @@ public class GearRotation : MonoBehaviour
     // 60フレームに一回の更新処理.
     void FixedUpdate()
     {
-        // プレイヤーが持ち手を持って一回転したら
+        // プレイヤーが持ち手を持って一回転したら.
         if (_playerRotation)
         {
             // 回転度合をかけて足す(ずっと回転させる).
@@ -89,5 +89,9 @@ public class GearRotation : MonoBehaviour
             _colRange = false;
             _rb.freezeRotation = true;
         }
+    }
+    public bool GetResult()
+    {
+        return _playerRotation;
     }
 }
