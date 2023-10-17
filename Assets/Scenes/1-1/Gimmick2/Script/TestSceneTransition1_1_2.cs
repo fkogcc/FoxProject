@@ -9,6 +9,9 @@ using UnityEngine.SceneManagement;
 public class TestSceneTransition1_1_2 : MonoBehaviour
 {
     private GearRotation _Gimmick1_1_2;
+
+    private FadeScene _fade;
+
     // 解いたかどうか.
     private bool _active = false;
 
@@ -16,12 +19,18 @@ public class TestSceneTransition1_1_2 : MonoBehaviour
     void Start()
     {
         _Gimmick1_1_2 = GameObject.Find("GearHandle").GetComponent<GearRotation>();
+        _fade = GameObject.FindWithTag("Fade").GetComponent<FadeScene>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(_Gimmick1_1_2.GetResult())
+        if (_Gimmick1_1_2.GetResult())
+        {
+            _fade._isFadeOut = true;
+        }
+
+        if (_fade.GetAlphColor() >= 0.9f && _fade._isFadeOut)
         {
             _active = _Gimmick1_1_2.GetResult();
             SceneManager.sceneLoaded += GameSceneLoaded;
