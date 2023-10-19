@@ -1,38 +1,45 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class BoxPull : MonoBehaviour
 {
-    // ƒMƒ~ƒbƒNƒuƒƒbƒN‚Ì’·‚³
+    // ã‚®ãƒŸãƒƒã‚¯ãƒ–ãƒ­ãƒƒã‚¯ã®é•·ã•
     private const float kGimmickLength = 0.75f;
 
-    // ƒfƒBƒŒƒNƒ^[.
+    // ãƒ–ãƒ­ãƒƒã‚¯ã‚’è¿½åŠ ã™ã‚‹è·é›¢
+    private float _longDis;
+    // ãƒ–ãƒ­ãƒƒã‚¯ã‚’æ¸›ã‚‰ã™è·é›¢
+    private float _shortDis;
+
+    // ãƒ‡ã‚£ãƒ¬ã‚¯ã‚¿ãƒ¼.
     private BoxDirector _director;
-    // ƒMƒ~ƒbƒN‚ÌF.
-    public string Color;
-    // ƒvƒŒƒCƒ„[‚ÌˆÊ’uî•ñ.
+    // ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®ä½ç½®æƒ…å ±.
     private Transform _player;
-    // ƒMƒ~ƒbƒNƒIƒuƒWƒF.
+
+    // ã‚®ãƒŸãƒƒã‚¯ã®è‰².
+    public string Color;
+    // ã‚®ãƒŸãƒƒã‚¯ã‚ªãƒ–ã‚¸ã‚§.
     private GameObject _gimmick;
     private List<GameObject> _gimmicks;
-    // ƒuƒƒbƒN‚ğ’Ç‰Á‚·‚é‹——£
-    private float _longDis;
-    // ƒuƒƒbƒN‚ğŒ¸‚ç‚·‹——£
-    private float _shortDis;
-    // ƒNƒŠƒAƒIƒuƒWƒF.
-    private GameObject _clearObj;
-    // ˆø‚Á’£‚ê‚é”ÍˆÍ‚É‚¢‚é‚©‚Ì.
+    // ã‚¯ãƒªã‚¢ã‚ªãƒ–ã‚¸ã‚§.
+
+    // å¼•ã£å¼µã‚Œã‚‹ç¯„å›²ã«ã„ã‚‹ã‹ã®.
     private bool _isPullRange;
-    // ˆø‚Á’£‚Á‚Ä‚¢‚é‚©.
+    // å¼•ã£å¼µã£ã¦ã„ã‚‹ã‹.
     private bool _isPull;
-    // ƒMƒ~ƒbƒNƒNƒŠƒA‚µ‚Ä‚¢‚é‚©.
+
+    // ã‚®ãƒŸãƒƒã‚¯ã‚¯ãƒªã‚¢ã—ã¦ã„ã‚‹ã‹.
     private bool _isClear;
-    // ˆø‚Á’£‚èn‚ß‚½ˆÊ’u.
-    private Vector3 _startPos;
-    // ˆÚ“®ƒxƒNƒgƒ‹.
+
+    // å¼•ã£å¼µã‚Šå§‹ã‚ãŸã‚®ãƒŸãƒƒã‚¯ä½ç½®.
+    private Vector3 _startGimmickPos;
+    // å¼•ã£å¼µã‚Šå§‹ã‚ãŸãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®ä½ç½®
+    private Vector3 _startPlayerPos;
+
+    // ç§»å‹•ãƒ™ã‚¯ãƒˆãƒ«.
     private Vector3 _moveVec;
-    // Šp“x‚ğ“ü‚ê‚é‚æ‚¤
+    // è§’åº¦ã‚’å…¥ã‚Œã‚‹ã‚ˆã†
     private float _angle = 0.0f;
 
     void Start()
@@ -41,7 +48,7 @@ public class BoxPull : MonoBehaviour
 
         _player = GameObject.Find("3DPlayer").GetComponent<Transform>();
 
-        // ƒNƒŠƒA‘O‚Ü‚Å‚ÌƒIƒuƒWƒF.
+        // ã‚¯ãƒªã‚¢å‰ã¾ã§ã®ã‚ªãƒ–ã‚¸ã‚§.
         _gimmick = (GameObject)Resources.Load(Color + "Cube");
 
         _gimmicks = new List<GameObject>();
@@ -49,28 +56,29 @@ public class BoxPull : MonoBehaviour
         _longDis = 0.0f;
         _shortDis = 0.0f;
 
-        // ƒNƒŠƒAŒã‚ÌƒIƒuƒWƒF.
-        _clearObj = (GameObject)Resources.Load(Color + "Cylinder");
+        // ã‚¯ãƒªã‚¢å¾Œã®ã‚ªãƒ–ã‚¸ã‚§.
+//        _clearObj = (GameObject)Resources.Load(Color + "Cylinder");
 
-        // boolŠÖŒW‚ğ‚·‚×‚Äfalse‚É.
+        // boolé–¢ä¿‚ã‚’ã™ã¹ã¦falseã«.
         _isPullRange = false;
         _isPull = false;
         _isClear = false;
 
-        _startPos = new Vector3();
+        _startGimmickPos = new Vector3();
+        _startPlayerPos = new Vector3();
         _moveVec = new Vector3();
     }
 
     // Update is called once per frame
     void Update()
     {
-        // ƒMƒ~ƒbƒN‚ğƒNƒŠƒA‚µ‚Ä‚¢‚½‚çˆ—‚ğ‚µ‚È‚¢.
+        // ã‚®ãƒŸãƒƒã‚¯ã‚’ã‚¯ãƒªã‚¢ã—ã¦ã„ãŸã‚‰å‡¦ç†ã‚’ã—ãªã„.
         if (_isClear) return;
 
         if ((Input.GetKeyDown("joystick button 1") || Input.GetKeyDown(KeyCode.F)) && _isPullRange)
         {
-            // ˆø‚Á’£‚èn‚ß‚½ˆÊ’u‚Ì•Û‘¶.
-            _startPos = _player.position;
+            // å¼•ã£å¼µã‚Šå§‹ã‚ãŸä½ç½®ã®ä¿å­˜.
+            _startPlayerPos = _player.position;
 
             _gimmicks.Add(Instantiate(_gimmick, this.transform.position, Quaternion.identity));
             _shortDis = 0;
@@ -83,28 +91,27 @@ public class BoxPull : MonoBehaviour
 
         if ((Input.GetKeyUp("joystick button 1") || Input.GetKeyUp(KeyCode.F)) && _isPull)
         {
-            foreach (var temp in _gimmicks)
-            {
-                Destroy(temp.gameObject);
-            }
-            _gimmicks.Clear();
-
-            // —£‚µ‚½F‚ªˆø‚Á’£‚èn‚ß‚½F‚Æ“¯‚¶‚©.
-            // ƒMƒ~ƒbƒNƒNƒŠƒA”ÍˆÍ“à‚É‚¢‚é‚©.
+            // é›¢ã—ãŸè‰²ãŒå¼•ã£å¼µã‚Šå§‹ã‚ãŸè‰²ã¨åŒã˜ã‹.
+            // ã‚®ãƒŸãƒƒã‚¯ã‚¯ãƒªã‚¢ç¯„å›²å†…ã«ã„ã‚‹ã‹.
             if (_director.IsSameColor())
             {
-                // ƒMƒ~ƒbƒN‚ğƒNƒŠƒA‚µ‚½‚±‚Æ‚É‚·‚é.
+                // ã‚®ãƒŸãƒƒã‚¯ã‚’ã‚¯ãƒªã‚¢ã—ãŸã“ã¨ã«ã™ã‚‹.
                 _isClear = true;
 
-                // ƒNƒŠƒAŒãƒIƒuƒWƒF‚ğ¶¬.
-                Instantiate(_clearObj);
+                // ã‚¯ãƒªã‚¢å¾Œã‚ªãƒ–ã‚¸ã‚§ã‚’ç”Ÿæˆ.
+                //                Instantiate(_clearObj);
 
-                // ‰º‚ÍƒNƒŠƒAŒã‚ÉƒIƒuƒWƒFƒNƒg‚ğ•Ï‚¦‚È‚¢‚Å‚â‚é•û–@.
-                //// ˆÊ’u‚ğ‚«‚ê‚¢‚É‚È‚é‚æ‚¤‚É®Œ`.
-                //_moveVec = _director.GetGimmickPos() - this.transform.position;
-
-
-                //ObjPlacement();
+                //// ä½ç½®ã‚’ãã‚Œã„ã«ãªã‚‹ã‚ˆã†ã«æ•´å½¢.
+                ObjPlacement(_director.GetGimmickPos(), _startGimmickPos);
+            }
+            else
+            {
+                // ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’å‰Šé™¤ã™ã‚‹
+                foreach (var temp in _gimmicks)
+                {
+                    Destroy(temp.gameObject);
+                }
+                _gimmicks.Clear();
             }
 
             _isPull = false;
@@ -113,60 +120,67 @@ public class BoxPull : MonoBehaviour
 
     void FixedUpdate()
     {
-        // ƒMƒ~ƒbƒN‚ğƒNƒŠƒA‚µ‚Ä‚¢‚½‚çˆ—‚ğ‚µ‚È‚¢.
+        // ã‚®ãƒŸãƒƒã‚¯ã‚’ã‚¯ãƒªã‚¢ã—ã¦ã„ãŸã‚‰å‡¦ç†ã‚’ã—ãªã„.
         if (_isClear) return;
 
         if (_isPull)
         {
-            ObjPlacement();
+            ObjPlacement(_player.position, _startPlayerPos);
         }
     }
 
-    // ”ÍˆÍ“à‚É“ü‚Á‚½ê‡ˆø‚Á’£‚ê‚é‚æ‚¤‚É‚·‚é.
+    // ç¯„å›²å†…ã«å…¥ã£ãŸå ´åˆå¼•ã£å¼µã‚Œã‚‹ã‚ˆã†ã«ã™ã‚‹.
     void OnTriggerEnter(Collider other)
     {
         _isPullRange = true;
+        _startGimmickPos = this.transform.position;
     }
 
-    // ”ÍˆÍŠO‚Éo‚½‚çˆø‚Á’£‚ê‚È‚¢‚æ‚¤‚É‚·‚é.
+    // ç¯„å›²å¤–ã«å‡ºãŸã‚‰å¼•ã£å¼µã‚Œãªã„ã‚ˆã†ã«ã™ã‚‹.
     void OnTriggerExit(Collider other)
     {
         _isPullRange = false;
     }
 
-    // ˆÚ“®—Ê•ª‚¸‚ç‚µ‚ÄƒIƒuƒWƒFƒNƒg‚Ìİ’u.
-    void ObjPlacement()
+    // ç§»å‹•é‡åˆ†ãšã‚‰ã—ã¦ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®è¨­ç½®.
+    void ObjPlacement(Vector3 targetPos, Vector3 startPos)
     {
-        // Œ»İ‚Ü‚Å‚ÌƒxƒNƒgƒ‹‚ğŒvZ.
-        _moveVec = _player.position - _startPos;
+        // ç¾åœ¨ã¾ã§ã®ãƒ™ã‚¯ãƒˆãƒ«ã‚’è¨ˆç®—.
+        _moveVec = targetPos - startPos;
 
         float _nowLength = _moveVec.magnitude;
-        // ‹——£‚ªL‚Ñ‚½‚ç’Ç‰Á‚·‚é.
-        if (_longDis <= _nowLength)
+        // è·é›¢ãŒä¼¸ã³ãŸã‚‰è¿½åŠ ã™ã‚‹.
+        while (true)
         {
-            // ”»’è‹——£‚ÌXV.
-            _longDis += kGimmickLength;
-            _shortDis += kGimmickLength;
+            if (_longDis <= _nowLength)
+            {
+                // åˆ¤å®šè·é›¢ã®æ›´æ–°.
+                _longDis += kGimmickLength;
+                _shortDis += kGimmickLength;
 
-            // ƒuƒƒbƒN‚Ì’Ç‰Á.
-            _gimmicks.Add(Instantiate(_gimmick, this.transform.position, Quaternion.identity));
+                // ãƒ–ãƒ­ãƒƒã‚¯ã®è¿½åŠ .
+                _gimmicks.Add(Instantiate(_gimmick, this.transform.position, Quaternion.identity));
+                continue;
+            }
+            // è·é›¢ãŒæ¸›ã£ãŸã‚‰å‰Šé™¤ã™ã‚‹.
+            else if (_nowLength < _shortDis)
+            {
+                // åˆ¤å®šè·é›¢ã®æ›´æ–°.
+                _longDis -= kGimmickLength;
+                _shortDis -= kGimmickLength;
+
+                // GameObjectã‚’å‰Šé™¤ã®ã®ã¡ã€ãƒªã‚¹ãƒˆã‹ã‚‰å‰Šé™¤.
+                Destroy(_gimmicks[_gimmicks.Count - 1]);
+                _gimmicks.RemoveAt(_gimmicks.Count - 1);
+                continue;
+            }
+            break;
         }
-        // ‹——£‚ªŒ¸‚Á‚½‚çíœ‚·‚é.
-        else if (_nowLength < _shortDis)
-        {
-            // ”»’è‹——£‚ÌXV.
-            _longDis -= kGimmickLength;
-            _shortDis -= kGimmickLength;
 
-            // GameObject‚ğíœ‚Ì‚Ì‚¿AƒŠƒXƒg‚©‚çíœ.
-            Destroy(_gimmicks[_gimmicks.Count - 1]);
-            _gimmicks.RemoveAt(_gimmicks.Count - 1);
-        }
-
-        // Šp“x‚ğ‹‚ß‚é.
+        // è§’åº¦ã‚’æ±‚ã‚ã‚‹.
         _angle = Mathf.Atan2(_moveVec.z, _moveVec.x) * Mathf.Rad2Deg * -1;
 
-        // o‚·ƒIƒuƒWƒFƒNƒg‚Ì—Ê‚ÅŠ„‚é.
+        // å‡ºã™ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®é‡ã§å‰²ã‚‹.
         _moveVec /= _gimmicks.Count;
 
         for (int i = 0; i < _gimmicks.Count; i++)

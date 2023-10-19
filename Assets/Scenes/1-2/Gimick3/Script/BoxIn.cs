@@ -1,29 +1,30 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class BoxIn : MonoBehaviour
 {
-    // ƒfƒBƒŒƒNƒ^[.
+    // ãƒ‡ã‚£ãƒ¬ã‚¯ã‚¿ãƒ¼.
     private BoxDirector _director;
-    // ƒMƒ~ƒbƒN‚ÌF.
+    // ã‚®ãƒŸãƒƒã‚¯ã®è‰².
     public string Color;
 
-    // ‰Šú‰»ˆ—.
+    // åˆæœŸåŒ–å‡¦ç†.
     void Start()
     {
-        // GimmickDirector‚Ìî•ñ‚ğæ“¾‚·‚é.
+        // GimmickDirectorã®æƒ…å ±ã‚’å–å¾—ã™ã‚‹.
         _director = GameObject.Find("GimmickDirector").GetComponent<BoxDirector>();
     }
 
     void OnTriggerEnter(Collider other)
     {
         _director.SetGimmickIn(Color, this.transform.position);
+        Debug.Log(this.transform.position);
     }
 
     private void OnTriggerExit(Collider other)
     {
-        Debug.Log("ƒMƒ~ƒbƒNŠO");
+        Debug.Log("ã‚®ãƒŸãƒƒã‚¯å¤–");
         _director.IsSetFlag(false);
     }
 }
