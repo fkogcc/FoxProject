@@ -5,7 +5,7 @@ using UnityEngine;
 public class BoxPull : MonoBehaviour
 {
     // ギミックブロックの長さ
-    private const float kGimmickLength = 0.75f;
+    private const float kGimmickLength = 0.7f;
 
     // ブロックを追加する距離
     private float _longDis;
@@ -56,9 +56,6 @@ public class BoxPull : MonoBehaviour
         _longDis = 0.0f;
         _shortDis = 0.0f;
 
-        // クリア後のオブジェ.
-//        _clearObj = (GameObject)Resources.Load(Color + "Cylinder");
-
         // bool関係をすべてfalseに.
         _isPullRange = false;
         _isPull = false;
@@ -80,6 +77,8 @@ public class BoxPull : MonoBehaviour
             // 引っ張り始めた位置の保存.
             _startPlayerPos = _player.position;
 
+            // 初めに二つ追加する.
+            _gimmicks.Add(Instantiate(_gimmick, this.transform.position, Quaternion.identity));
             _gimmicks.Add(Instantiate(_gimmick, this.transform.position, Quaternion.identity));
             _shortDis = 0;
             _longDis = kGimmickLength;
@@ -97,9 +96,6 @@ public class BoxPull : MonoBehaviour
             {
                 // ギミックをクリアしたことにする.
                 _isClear = true;
-
-                // クリア後オブジェを生成.
-                //                Instantiate(_clearObj);
 
                 //// 位置をきれいになるように整形.
                 ObjPlacement(_director.GetGimmickPos(), _startGimmickPos);
@@ -181,11 +177,11 @@ public class BoxPull : MonoBehaviour
         _angle = Mathf.Atan2(_moveVec.z, _moveVec.x) * Mathf.Rad2Deg * -1;
 
         // 出すオブジェクトの量で割る.
-        _moveVec /= _gimmicks.Count;
+        _moveVec /= _gimmicks.Count -1;
 
         for (int i = 0; i < _gimmicks.Count; i++)
         {
-            _gimmicks[i].transform.position = this.transform.position + _moveVec * (i + 1);
+            _gimmicks[i].transform.position = this.transform.position + _moveVec * (i);
             _gimmicks[i].transform.rotation = Quaternion.AngleAxis(_angle, new Vector3(0.0f, 1.0f, 0.0f));
         }
     }
