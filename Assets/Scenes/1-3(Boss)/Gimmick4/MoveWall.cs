@@ -7,7 +7,7 @@ public class MoveWall : MonoBehaviour
     private float kwallHeight = 1.5f;//最初の壁の高さ
     private float kclearHeight = -0.5f;//この高さまで壁を下げたらクリア
     private float kclearLavaPos = 8f;
-    private Vector3 klavaSpeed = new Vector3(0,0,0.03f);
+    private Vector3 klavaSpeed = new Vector3(0.03f,0,0);
     private GameObject _rope;
     private GameObject _wall;
     private GameObject _lava;
@@ -19,7 +19,7 @@ public class MoveWall : MonoBehaviour
     {
         _rope = GameObject.Find("Rope");
         _wall = GameObject.Find("MoveWall");
-        _lava = GameObject.Find("Movelava");
+        _lava = GameObject.Find("MoveLava");
         _wallPos = _wall.transform.position;//壁のポジションを取得
     }
 
