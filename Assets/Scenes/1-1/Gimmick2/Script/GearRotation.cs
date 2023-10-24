@@ -5,7 +5,7 @@ using UnityEngine;
 public class GearRotation : MonoBehaviour
 {
     // オブジェクトのRigidbodyを取得.
-    Rigidbody _rb;
+    private Rigidbody _rigidbody;
     // 回転度合.
     private Vector3 _rotaDegrees;
     // 回転.
@@ -14,10 +14,16 @@ public class GearRotation : MonoBehaviour
     private bool _playerRotation;
     // プレイヤーが範囲内にいるかどうかのフラグ.
     private bool _colRange;
+    // 今の回転率.
+    private int _nowAngel;
+    // 前フレームの回転率.
+    private int _prevAngle;
     // 回転率.
-    private float _gearDegree;
-    // 回転した回数
-    //private int _count;
+    private int _angle;
+    // 一回転したら時間を計測するためのタイマー.
+    private int _coutnTime;
+    // タイマーが指定した時間に達したかのフラグ.
+    private bool _isTimeFlag;
 
     // インスタンスの作成.
     void Start()
@@ -27,8 +33,11 @@ public class GearRotation : MonoBehaviour
         _rotation = Quaternion.AngleAxis(0.0f, _rotaDegrees);
         _playerRotation = false;
         _colRange = false; 
-         _rb = GetComponent<Rigidbody>();
-        _gearDegree = 0.0f;
+         _rigidbody = GetComponent<Rigidbody>();
+        _nowAngel = (int)this.transform.localEulerAngles.y % 360;
+        _prevAngle = (int)this.transform.localEulerAngles.y % 360;
+        _angle = 360;
+        _coutnTime = 60 * 2;
     }
 
     // 60フレームに一回の更新処理.
@@ -37,8 +46,13 @@ public class GearRotation : MonoBehaviour
         // プレイヤーが持ち手を持って一回転したら.
         if (_playerRotation)
         {
+            _coutnTime--;
             // 回転度合をかけて足す(ずっと回転させる).
             this.transform.rotation = _rotation * this.transform.rotation;
+            if(_coutnTime < 0)
+            {
+                _isTimeFlag = true;
+            }
         }
     }
 
@@ -47,30 +61,9 @@ public class GearRotation : MonoBehaviour
     {
         // 判定内にいたら.
         if (_colRange)
-        { // 一回転していなかったら.
-            if (!_playerRotation)
-            {
-                // 回転させる計算.
-                _gearDegree = this.transform.localEulerAngles.y % 360;
-                _gearDegree = _gearDegree - 359.0f;
-                // ボタンを押したら回転できるようにする.
-                if (Input.GetKeyDown("joystick button 1"))
-                {
-                    _rb.constraints = RigidbodyConstraints.FreezePosition
-                     | RigidbodyConstraints.FreezeRotationX
-                     | RigidbodyConstraints.FreezeRotationZ;
-                }
-                // 一回転したら.
-                if (_gearDegree >= 0.0f)
-                {
-                    _playerRotation = true;
-                    // RigidbodyのRotationを固定させる.
-                    _rb.freezeRotation = true;
-                    // 回転速度を固定させる.
-                    _rotation = Quaternion.AngleAxis(1.5f, _rotaDegrees);
-                }
-            }
-
+        {
+            // 回転を調べる処理.
+            CheckRotation();
         }
     }
     // プレイヤーがコライダー内にいるとき.
@@ -87,11 +80,64 @@ public class GearRotation : MonoBehaviour
         if (other.tag == "Player")
         {
             _colRange = false;
-            _rb.freezeRotation = true;
+            _rigidbody.freezeRotation = true;
         }
     }
+    // 回転を調べる処理.
+    private void CheckRotation()
+    {
+        // 一回転していなかったら.
+        if (!_playerRotation)
+        {
+            GearRotaRete();
+
+            // ボタンを押したら回転できるようにする.
+            if (Input.GetKeyDown("joystick button 1"))
+            {
+                _rigidbody.constraints = RigidbodyConstraints.FreezePosition
+                 | RigidbodyConstraints.FreezeRotationX
+                 | RigidbodyConstraints.FreezeRotationZ;
+            }
+            // 一回転したら.
+            if (_angle < 0.0f)
+            {
+                _playerRotation = true;
+                // RigidbodyのRotationを固定させる.
+                _rigidbody.freezeRotation = true;
+                // 回転速度を固定させる.
+                _rotation = Quaternion.AngleAxis(1.5f, _rotaDegrees);
+            }
+        }
+    }
+    // ギミックの回転率を調べる処理
+    private void GearRotaRete()
+    {
+        // 回転させる計算.
+        // 前のフレームの回転率.
+        _prevAngle = _nowAngel;
+        // 現在の回転率.
+        _nowAngel = (int)this.transform.localEulerAngles.y % 360;
+        // 現在のフレームより前のフレームが小さければ
+        // 指定した方向と逆回転しているので処理をしない.
+        if (_nowAngel >_prevAngle)
+        {
+            return;
+        }
+        // 現在のフレームより前のフレームがおおきければ
+        // 指定した方向の回転しているので処理をする.
+        else if (_nowAngel < _prevAngle )
+        {
+            if (_prevAngle != _nowAngel)
+            {
+                // 現在の回転率と前フレームの回転率を減算して.
+                // 差をアングルに入れる.
+                _angle += _nowAngel - _prevAngle;
+            }
+        }
+    }
+    // シーン移行するための関数.
     public bool GetResult()
     {
-        return _playerRotation;
+        return _isTimeFlag;
     }
 }
