@@ -1,29 +1,27 @@
-// 
+ï»¿/*æ•µã‚’ç‡ƒã‚„ã™å‡¦ç†*/
 
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class FireGimmick : MonoBehaviour
 {
-    // ƒVƒ“ƒOƒ‹ƒgƒ“
+    // ã‚·ãƒ³ã‚°ãƒ«ãƒˆãƒ³
     public static FireGimmick _instance;
 
-    // ƒp[ƒeƒBƒNƒ‹ƒIƒuƒWƒFƒNƒg
+    // ãƒ‘ãƒ¼ãƒ†ã‚£ã‚¯ãƒ«ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ
     [SerializeField] private ParticleSystem _particleSystem;
 
-    // ƒfƒoƒbƒO—pƒQ[ƒ€ƒIƒuƒWƒFƒNƒg(Enemy)
+    // ãƒ‡ãƒãƒƒã‚°ç”¨ã‚²ãƒ¼ãƒ ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ(Enemy)
     [SerializeField] private GameObject _debugEnemyObject;
 
-    // ‰Š‚ª”R‚¦‘±‚¯‚éÅ‘åŠÔ
+    // ç‚ãŒç‡ƒãˆç¶šã‘ã‚‹æœ€å¤§æ™‚é–“
     [SerializeField] private float _burningMaxCount;
 
-    // ‰Š‚ª”R‚¦‘±‚¯‚Ä‚¢‚éŠÔ
+    // ç‚ãŒç‡ƒãˆç¶šã‘ã¦ã„ã‚‹æ™‚é–“
     private float _burningCount = 0;
 
     private void Awake()
     {
-        // ƒVƒ“ƒOƒ‹ƒgƒ“‚Ìô•¶
+        // ã‚·ãƒ³ã‚°ãƒ«ãƒˆãƒ³ã®å‘ªæ–‡
         if( _instance == null )
         {
             _instance = this;
@@ -41,28 +39,27 @@ public class FireGimmick : MonoBehaviour
     }
 
     /// <summary>
-    /// ‰ŠXVˆ—
+    /// ç‚æ›´æ–°å‡¦ç†
     /// </summary>
-    /// <param name="solve">ƒMƒ~ƒbƒN‚ğ‰ğ‚¢‚½‚©‚Ç‚¤‚©</param>
+    /// <param name="solve">ã‚®ãƒŸãƒƒã‚¯ã‚’è§£ã„ãŸã‹ã©ã†ã‹</param>
     public void UpdateFire(bool solve)
     {
         if (!solve) return;
-        // ƒp[ƒeƒBƒNƒ‹Ä¶
+        // ãƒ‘ãƒ¼ãƒ†ã‚£ã‚¯ãƒ«å†ç”Ÿ.
         _particleSystem.Play();
 
-        // ”R‚¦‘±‚¯‚Ä‚¢‚éŠÔ‚ğ‘«‚µ‘±‚¯‚é
         if( _burningCount < _burningMaxCount )
         {
             _burningCount++;
         }
 
-        // ”R‚¦‘±‚¯‚Ä‚¢‚éŠÔ‚ªÅ‘å’l‚Æ“¯‚¶‚É‚È‚ê‚Îƒp[ƒeƒBƒNƒ‹I—¹
-        if(_burningCount == _burningMaxCount)
+        // ç‡ƒãˆç¶šã‘ã¦ã„ã‚‹æ™‚é–“ãŒæœ€å¤§å€¤ã¨åŒã˜ã«ãªã‚Œã°ãƒ‘ãƒ¼ãƒ†ã‚£ã‚¯ãƒ«çµ‚äº†.
+        if(_burningCount >= _burningMaxCount)
         {
             _particleSystem.Stop();
         }
 
-        // ƒfƒoƒbƒO—pEnemyÁ‹
+        // ãƒ‡ãƒãƒƒã‚°ç”¨Enemyæ¶ˆå»
         if(_burningCount == _burningMaxCount / 2)
         _debugEnemyObject.SetActive(false);
     }

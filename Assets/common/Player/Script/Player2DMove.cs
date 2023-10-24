@@ -6,18 +6,17 @@ using UnityEngine;
 public class Player2DMove : MonoBehaviour
 {
     public static Player2DMove _instance;
+    private PlayerAnim2D _anim;
     private testCol _transitionScene;
 
     // プレイヤーのリジットボディ.
     private Rigidbody _rigid;
     // マテリアル.
-    private BoxCollider _pMaterial;
+    private BoxCollider _boxCollider;
     // プレイヤーのアニメーション.
     private Animator _animator;
     // プレイヤーの体力.
-    public int _hp;
-    // モーション番号.
-    private int _motionNum;
+    private int _hp = 5;
     // ジャンプ力.
     private float _jumpPower = 15.0f;
     // ジャンプしているかどうか.
@@ -49,12 +48,12 @@ public class Player2DMove : MonoBehaviour
     void Start()
     {
         // 初期化処理.
+        _anim = GetComponent<PlayerAnim2D>();
         _transitionScene = GameObject.Find("Foxidle").GetComponent<testCol>();
         _rigid = GetComponent<Rigidbody>();
-        _pMaterial = GetComponent<BoxCollider>();
+        _boxCollider = GetComponent<BoxCollider>();
         _animator = GetComponent<Animator>();
         _hp = 5;
-        _motionNum = 0;
         _isDirection = false;
     }
     
@@ -67,7 +66,6 @@ public class Player2DMove : MonoBehaviour
             // ゲートの前にいないときはスキップ.
             if (!SetGateFlag()) return;
 
-            Debug.Log("通った");
             _isMoveActive = false;
         }
 
@@ -82,12 +80,6 @@ public class Player2DMove : MonoBehaviour
     {
         FallDebug();
         Anim();
-
-        // HPが0になったら止める.
-        if (_hp <= 0)
-        {
-            _motionNum = 3;
-        }
 
         // 右を向く.
         if (!_isDirection)
@@ -147,10 +139,10 @@ public class Player2DMove : MonoBehaviour
     // アニメーション制御.
     private void Anim()
     {
-        _animator.SetBool("Idle", PlayerAnim2D._instance.Idle());
-        _animator.SetBool("Run", PlayerAnim2D._instance.Run());
-        _animator.SetBool("Jump", PlayerAnim2D._instance.Jump());
-        _animator.SetBool("GameOver", PlayerAnim2D._instance.GameOver());
+        _animator.SetBool("Idle", _anim.Idle());
+        _animator.SetBool("Run", _anim.Run());
+        _animator.SetBool("Jump", _anim.Jump());
+        _animator.SetBool("GameOver", _anim.GameOver());
     }
 
     // ジャンプ処理.
@@ -170,20 +162,13 @@ public class Player2DMove : MonoBehaviour
 
         if (Input.GetKey("joystick button 0"))
         {
-            _motionNum = 2;
             Jump();
-
         }
 
         // 移動しているかどうかでプレイヤーの摩擦力を変更.
         if (hori != 0)
         {
-            _pMaterial.material.dynamicFriction = 0.0f;
-
-            if (!_isJumpNow)
-            {
-                _motionNum = 1;
-            }
+            _boxCollider.material.dynamicFriction = 0.0f;
 
             // 速度が10以下ならば力を加える.
             if (_rigid.velocity.x < 10.0f && _rigid.velocity.x > -10.0f)
@@ -193,8 +178,7 @@ public class Player2DMove : MonoBehaviour
         }
         else if (hori == 0 && !_isJumpNow)
         {
-            _pMaterial.material.dynamicFriction = 1.0f;
-            _motionNum = 0;
+            _boxCollider.material.dynamicFriction = 1.0f;
         }
 
         if (hori < 0)

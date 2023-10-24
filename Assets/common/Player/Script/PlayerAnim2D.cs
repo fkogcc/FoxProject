@@ -6,20 +6,7 @@ using UnityEngine;
 
 public class PlayerAnim2D : MonoBehaviour
 {
-    public static PlayerAnim2D _instance;
     private float _horizontal = 0;
-
-    private void Awake()
-    {
-        if( _instance == null )
-        {
-            _instance = this;
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
-    }
 
     private void Update()
     {

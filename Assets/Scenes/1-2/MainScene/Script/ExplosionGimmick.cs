@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,33 +6,33 @@ public class ExplosionGimmick : MonoBehaviour
 {
     public static ExplosionGimmick _instance;
 
-    // ƒp[ƒeƒBƒNƒ‹ƒIƒuƒWƒFƒNƒg
+    [Header("ãƒ‘ãƒ¼ãƒ†ã‚£ã‚¯ãƒ«ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ")]
     [SerializeField] ParticleSystem _particleSystem;
 
-    // ”š’eƒIƒuƒWƒFƒNƒg
+    [Header("çˆ†ç™ºã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ")]
     [SerializeField] GameObject _bombObject;
 
-    // ”š”­‚Ì—^‚¦‚é—Í
+    [Header("çˆ†ç™ºã™ã‚‹åŠ›")]
     [SerializeField] private float _force;
 
-    // ”š”­”ÍˆÍ‚Ì”¼Œa
+    [Header("çˆ†ç™ºç¯„å›²ã®åŠå¾„")]
     [SerializeField] private float _radius;
 
-    // ã‚É”ò‚Î‚³‚ê‚é—Í
+    [Header("ä¸Šã«é£›ã°ã•ã‚Œã‚‹åŠ›")]
     [SerializeField] private float _upwardsPower;
 
-    // ƒp[ƒeƒBƒNƒ‹‚ÌÅ‘åÄ¶ŠÔ
+    [Header("ãƒ‘ãƒ¼ãƒ†ã‚£ã‚¯ãƒ«ã®æœ€å¤§å†ç”Ÿæ™‚é–“")]
     [SerializeField] private float _particleMaxCount;
 
-    // ƒp[ƒeƒBƒNƒ‹Ä¶ŠÔ
+    // ãƒ‘ãƒ¼ãƒ†ã‚£ã‚¯ãƒ«å†ç”Ÿæ™‚é–“
     private float _particleCount;
 
-    // ”š”­‚·‚éÀ•W
+    // çˆ†ç™ºã™ã‚‹åº§æ¨™
     Vector3 _ExplosionPosition;
 
     private void Awake()
     {
-        // ƒVƒ“ƒOƒ‹ƒgƒ“‚Ìô•¶
+        // ã‚·ãƒ³ã‚°ãƒ«ãƒˆãƒ³ã®å‘ªæ–‡
         if( _instance == null )
         {
             _instance = this;
@@ -46,41 +46,41 @@ public class ExplosionGimmick : MonoBehaviour
     }
 
     /// <summary>
-    /// ”š”­ˆ—
+    /// çˆ†ç™ºå‡¦ç†
     /// </summary>
-    /// <param name="solve">ƒMƒ~ƒbƒN‚ğ‰ğ‚¢‚½‚©‚Ç‚¤‚©</param>
+    /// <param name="solve">ã‚®ãƒŸãƒƒã‚¯ã‚’è§£ã„ãŸã‹ã©ã†ã‹</param>
     public void UpdateExplosion(bool solve)
     {
         if(!solve) return;
 
-        // ƒp[ƒeƒBƒNƒ‹Ä¶
+        // ãƒ‘ãƒ¼ãƒ†ã‚£ã‚¯ãƒ«å†ç”Ÿ
         _particleSystem.Play();
-        // ƒp[ƒeƒBƒNƒ‹À•W‚ğ‘ã“ü
+        // ãƒ‘ãƒ¼ãƒ†ã‚£ã‚¯ãƒ«åº§æ¨™ã‚’ä»£å…¥
         _ExplosionPosition = _particleSystem.transform.position;
 
-        // ”ÍˆÍ“à‚ÌRigidbody‚ÉAddExplosionForce
-        // Œã‚ÅƒRƒƒ“ƒg•ÏX
+        // ç¯„å›²å†…ã®Rigidbodyã«AddExplosionForce
+        // å¾Œã§ã‚³ãƒ¡ãƒ³ãƒˆå¤‰æ›´
         Collider[] hitColliders = Physics.OverlapSphere(_ExplosionPosition, _radius);
         for(int i = 0; i < hitColliders.Length; i++)
         {
             Rigidbody rigidbody = hitColliders[i].GetComponent<Rigidbody>();
 
-            // ”ÍˆÍ“à‚É‚¢‚éRigidbody‚ğ‚ÂƒIƒuƒWƒFƒNƒg‚ğ‚«”ò‚Î‚·
+            // ç¯„å›²å†…ã«ã„ã‚‹Rigidbodyã‚’æŒã¤ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’å¹ãé£›ã°ã™
             if(rigidbody)
             {
                 rigidbody.AddExplosionForce(_force, _ExplosionPosition, _radius, _upwardsPower, ForceMode.Impulse);
             }
         }
 
-        // Ä¶‚µ‚Ä‚¢‚éŠÔ
+        // å†ç”Ÿã—ã¦ã„ã‚‹æ™‚é–“
         if(_particleCount < _particleMaxCount)
         {
             _particleCount++;
         }
-        // ŠÔ‚ª‚½‚Â‚Æƒp[ƒeƒBƒNƒ‹Ä¶I—¹
+        // æ™‚é–“ãŒãŸã¤ã¨ãƒ‘ãƒ¼ãƒ†ã‚£ã‚¯ãƒ«å†ç”Ÿçµ‚äº†
         if(_particleCount == _particleMaxCount )
         {
-            // ƒp[ƒeƒBƒNƒ‹Ä¶I—¹
+            // ãƒ‘ãƒ¼ãƒ†ã‚£ã‚¯ãƒ«å†ç”Ÿçµ‚äº†
             _particleSystem.Stop();
         }
 

@@ -19,25 +19,25 @@ public class CameraUpdate : MonoBehaviour
     [SerializeField] private GameObject[] _operationGimmickCameraPosition;
 
     // プレイヤーのゲームオブジェクト.
-    private GameObject _targetPlayer;
+    private GameObject _followPlayer;
     // カメラの座標.
     private float _cameraPosX;
     private float _cameraPosY;
     private float _cameraPosZ;
     // ステージ端のカメラの固定座標.
-    private float _cameraFixedPositionLeft = 0;
-    private float _cameraFixedPositionRight = 160;
+    [SerializeField] private float _cameraFixedPositionLeft = 0;
+    [SerializeField] private float _cameraFixedPositionRight = 0;
 
     // Start is called before the first frame update
     void Start()
     {
         _manager = GameObject.Find("GimmickManager").GetComponent<GimmickManager1_1>();
 
-        _targetPlayer = GameObject.Find("Foxidle");
+        _followPlayer = GameObject.Find("Foxidle");
 
         // X,Y座標にプレイヤーの座標を代入
-        _cameraPosX = _targetPlayer.transform.position.x;
-        _cameraPosY = _targetPlayer.transform.position.y;
+        _cameraPosX = _followPlayer.transform.position.x;
+        _cameraPosY = _followPlayer.transform.position.y;
 
         
 
@@ -48,8 +48,8 @@ public class CameraUpdate : MonoBehaviour
     {
         // カメラの追従.
         // プレイヤーの座標を代入し続ける.
-        _cameraPosX = _targetPlayer.transform.position.x;
-        _cameraPosY = _targetPlayer.transform.position.y;
+        _cameraPosX = _followPlayer.transform.position.x;
+        _cameraPosY = _followPlayer.transform.position.y;
 
         // 向いている方向によってカメラの位置を変更.
         if (!Player2DMove._instance.GetIsDirection())
