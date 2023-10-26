@@ -415,7 +415,7 @@ GameObject:
   - component: {fileID: 1089321222}
   - component: {fileID: 1089321221}
   m_Layer: 5
-  m_Name: Text (Legacy)
+  m_Name: Credits
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -461,12 +461,11 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Credits
-
-'
+  m_text: "Credits\n\nPlanner\n\u77F3\u6A4B\u3000\u53F6\u6075\n\nProgrammingLeader\n\u5927\u91CE\u3000\u681E\u7A42\n\nProgrammer\n\u6D5C\u677E\u3000\u5EC9\u6597\n\u5742\u672C\u3000\u96C4\u4ECB\n\u7530\u4EE3\u3000\u6602\u6C70\n\u91D1\u5B50\u3000\u77AC\n\u5EE3\u672C\u3000\u52DD\u5FD7\n\nCG
+    Artist\n\u98EF\u7530\u3000\u5149\u8F1D\n\u85E4\u4E38\u3000\u51F1\u4E9C\n\u85E4\u3000\u3000\u614E"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 543b33ad54814144b96c987534c52106, type: 2}
+  m_sharedMaterial: {fileID: -7821752163275461566, guid: 543b33ad54814144b96c987534c52106, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -555,7 +554,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  - {fileID: -7821752163275461566, guid: 543b33ad54814144b96c987534c52106, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
