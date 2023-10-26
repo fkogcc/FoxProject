@@ -6,6 +6,8 @@ using UnityEngine;
 
 public class WallGimmick : MonoBehaviour
 {
+    private SolveGimmickManager _manager;
+
     // シングルトン
     public static WallGimmick _instance;
     // 扉が開いた時の最終位置
@@ -30,7 +32,16 @@ public class WallGimmick : MonoBehaviour
 
     private void Start()
     {
+        _manager = GameObject.Find("SceneManager").GetComponent<SolveGimmickManager>();
         _targetPosition = new Vector3(transform.position.x, transform.position.y + 10.0f, transform.position.z);
+    }
+
+    private void FixedUpdate()
+    {
+        if (_manager._solve[0])
+        {
+            UpdateWall();
+        }
     }
 
     /// <summary>

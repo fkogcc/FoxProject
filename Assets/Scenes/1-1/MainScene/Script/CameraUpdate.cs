@@ -38,9 +38,6 @@ public class CameraUpdate : MonoBehaviour
         // X,Y座標にプレイヤーの座標を代入
         _cameraPosX = _followPlayer.transform.position.x;
         _cameraPosY = _followPlayer.transform.position.y;
-
-        
-
         _cameraPosZ = -20.0f;
     }
 
