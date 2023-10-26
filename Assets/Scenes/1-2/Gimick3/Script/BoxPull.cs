@@ -40,7 +40,8 @@ public class BoxPull : MonoBehaviour
     // 移動ベクトル.
     private Vector3 _moveVec;
     // 角度を入れるよう
-    private float _angle = 0.0f;
+    private float _sideAngle = 0.0f;
+    private float _frontAngle = 0.0f;
 
     void Start()
     {
@@ -174,7 +175,8 @@ public class BoxPull : MonoBehaviour
         }
 
         // 角度を求める.
-        _angle = Mathf.Atan2(_moveVec.z, _moveVec.x) * Mathf.Rad2Deg * -1;
+        _sideAngle = Mathf.Atan2(_moveVec.z, _moveVec.x) * Mathf.Rad2Deg * -1;
+        _frontAngle = Mathf.Atan2(_moveVec.x, _moveVec.y) * Mathf.Rad2Deg;
 
         // 出すオブジェクトの量で割る.
         _moveVec /= _gimmicks.Count -1;
@@ -182,7 +184,7 @@ public class BoxPull : MonoBehaviour
         for (int i = 0; i < _gimmicks.Count; i++)
         {
             _gimmicks[i].transform.position = this.transform.position + _moveVec * (i);
-            _gimmicks[i].transform.rotation = Quaternion.AngleAxis(_angle, new Vector3(0.0f, 1.0f, 0.0f));
+            _gimmicks[i].transform.rotation = Quaternion.AngleAxis(_sideAngle, new Vector3(0.0f, 1.0f, 0.0f)) * Quaternion.AngleAxis(_frontAngle, new Vector3(0.0f, 0.0f, 1.0f));
         }
     }
 }

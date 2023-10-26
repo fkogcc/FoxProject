@@ -1,27 +1,27 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 
 public class TurnGraph : MonoBehaviour
 {
-    // ‰ñ“]–½—ß.
+    // å›è»¢å‘½ä»¤.
     private bool _connected = false;
-    // ‰ñ“]—Ê.
+    // å›è»¢é‡.
     private int _rota = 0;
-    // ‰ñ“]—Ê•Û‘¶.
+    // å›è»¢é‡ä¿å­˜.
     private float _tempRota = 0.0f;
-    // ³‰ğ‚ÌŠp“x.
+    // æ­£è§£ã®è§’åº¦.
     public int _ansRota;
-    // ³‰ğ‚ª–³‚¢‹U•¨‚Ìê‡.
+    // æ­£è§£ãŒç„¡ã„å½ç‰©ã®å ´åˆ.
     public bool _isFake;
 
     void Update()
     {
-        // ƒ{ƒ^ƒ“‚ª‰Ÿ‚³‚ê‚½‚ç.
+        // ãƒœã‚¿ãƒ³ãŒæŠ¼ã•ã‚ŒãŸã‚‰.
         if (_connected)
         {
-            // 90“x‰ñ“]‚µ‚½‚ç~‚ß‚é.
+            // 90åº¦å›è»¢ã—ãŸã‚‰æ­¢ã‚ã‚‹.
             if (_rota >= _tempRota + 90.0f)
             {
                 _connected = false;
@@ -29,13 +29,14 @@ public class TurnGraph : MonoBehaviour
             }
             else
             {
-                // ‰ñ“]‚³‚¹‚é.
+                // å›è»¢ã•ã›ã‚‹.
                 _rota += 1;
-                this.transform.rotation = Quaternion.Euler(90.0f, 0.0f, _rota);
+                this.transform.rotation = Quaternion.Euler(0.0f, _rota, 0.0f);
+            //    this.transform.Rotate(0.0f, _rota, 0.0f);
             }
         }
 
-        // 360“x‰ñ“]‚µ‚½‚ç0“x‚É–ß‚·.
+        // 360åº¦å›è»¢ã—ãŸã‚‰0åº¦ã«æˆ»ã™.
         if (_tempRota >= 360.0f)
         {
             _rota = 0;
@@ -43,13 +44,13 @@ public class TurnGraph : MonoBehaviour
         }
     }
 
-    // ‰ñ“]‚ğ—LŒø‚É‚·‚é.
+    // å›è»¢ã‚’æœ‰åŠ¹ã«ã™ã‚‹.
     public void Rota()
     {
         _connected = true;
     }
 
-    // ‰ñ“]Œ‹‰Ê‚ª³‰ğ‚¾‚Á‚½‚çtrue.
+    // å›è»¢çµæœãŒæ­£è§£ã ã£ãŸã‚‰true.
     public bool IsGetAns()
     {
         if (_isFake) return true;
