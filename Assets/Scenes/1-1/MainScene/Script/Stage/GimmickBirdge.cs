@@ -10,7 +10,7 @@ public class GimmickBirdge : MonoBehaviour
 {
     public static GimmickBirdge _instance;
 
-    private GimmickManager1_1 _manager;
+    //private GimmickManager1_1 _manager;
 
     // 橋の通路.
     // 左.
@@ -44,12 +44,12 @@ public class GimmickBirdge : MonoBehaviour
     private void Start()
     {
         _camera = GameObject.Find("Camera").GetComponent<Camera>();
-        _manager = GameObject.Find("GimmickManager").GetComponent<GimmickManager1_1>();
+        //_manager = GameObject.Find("GimmickManager").GetComponent<GimmickManager1_1>();
     }
 
     private void FixedUpdate()
     {
-        _isOperationGimmick = _manager.GetSolveGimmick(0);
+        //_isOperationGimmick = _manager.GetSolveGimmick(0);
     }
 
     // 橋がかかる処理.
@@ -86,7 +86,7 @@ public class GimmickBirdge : MonoBehaviour
 
         if (birdge.transform.localEulerAngles == new Vector3(0.0f, 0.0f, 0.0f))
         {
-            _manager._operationGimmick[0] = false;
+           // _manager._operationGimmick[0] = false;
         }
     }
 

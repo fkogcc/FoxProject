@@ -9,7 +9,7 @@ public class BurnedEnemy : MonoBehaviour
     [Header("燃え尽きるまでの時間")]
     [SerializeField] private int _burnedTime;
 
-    private Material[] _materials;
+    //private Material[] _materials;
     private float _a = 1.0f;
 
 
@@ -18,12 +18,12 @@ public class BurnedEnemy : MonoBehaviour
     {
         for(int objNum = 0; objNum < _burnedEnemy.Length; objNum++)
         {
-            _materials[objNum] = _burnedEnemy[objNum].GetComponent<Material>();
+            //_materials[objNum] = _burnedEnemy[objNum].GetComponent<Material>();
         }
 
         //_materials[0].color.a = 0.0f;
 
-        _a = _materials[0].color.a;
+        //_a = _materials[0].color.a;
     }
 
     // Update is called once per frame
@@ -34,7 +34,7 @@ public class BurnedEnemy : MonoBehaviour
 
     private void FixedUpdate()
     {
-        Debug.Log(_a);
+        //Debug.Log(_a);
 
         if(_a >= 0)
         {

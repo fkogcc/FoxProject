@@ -10,7 +10,7 @@ public class RotateWindmill : MonoBehaviour
     // インスタンス.
     public static RotateWindmill _instance;
 
-    private GimmickManager1_1 _manager;
+    //private GimmickManager1_1 _manager;
 
     // 風の力を発生させる判定.
     [SerializeField] private GameObject _windSpace;
@@ -48,12 +48,12 @@ public class RotateWindmill : MonoBehaviour
 
     private void Start()
     {
-        _manager = GameObject.Find("GimmickManager").GetComponent<GimmickManager1_1>();
+        //_manager = GameObject.Find("GimmickManager").GetComponent<GimmickManager1_1>();
     }
 
     private void FixedUpdate()
     {
-        _isOperationGimmick = _manager.GetSolveGimmick(1);
+        //_isOperationGimmick = _manager.GetSolveGimmick(1);
     }
 
     public void UpdateRotateWindmill()
@@ -104,7 +104,7 @@ public class RotateWindmill : MonoBehaviour
         if(_rotateSpeed <= _rotateMinSpeed)
         {
             _rotateSpeed = _rotateMinSpeed;
-            _manager._operationGimmick[1] = false;
+            //_manager._operationGimmick[1] = false;
             _isCountDownRotateSpeed = false;
         }
     }

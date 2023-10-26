@@ -8,27 +8,13 @@ public class WallGimmick : MonoBehaviour
 {
     private SolveGimmickManager _manager;
 
-    // シングルトン
-    public static WallGimmick _instance;
-    // 扉が開いた時の最終位置
+    // 扉が開いた時の最終位置.
     private Vector3 _targetPosition;
     private Vector3 _velocity = Vector3.zero;
     [Header("ドアの配置をリセットするときの座標")]
     [SerializeField] private Vector3 _resetPosition = Vector3.zero;
-    // ターゲットにたどり着く時間
+    // ターゲットにたどり着く時間.
     [SerializeField] private float _time;
-
-    private void Awake()
-    {
-        if (_instance == null)
-        {
-            _instance = this;
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
-    }
 
     private void Start()
     {
@@ -42,27 +28,24 @@ public class WallGimmick : MonoBehaviour
         {
             UpdateWall();
         }
+        if (!_manager._solve[0])
+        {
+            DebugReset();
+        }
     }
 
     /// <summary>
-    /// 壁のギミック更新処理
+    /// 壁のギミック更新処理.
     /// </summary>
-    /// <param name="solveGimmick">ギミックを解いたかどうか</param>
-    public void UpdateWall(bool solveGimmick)
+    public void UpdateWall()
     {
-        // ギミックが解かれていなかったらreturn
-        if(!solveGimmick) return;
-
         transform.position = Vector3.SmoothDamp(transform.position, _targetPosition, ref _velocity, _time);
     }
 
-    // デバッグ用ギミックリセット
-    public void DebugReset(bool solveGimmick)
+    // デバッグ用ギミックリセット.
+    public void DebugReset()
     {
-        if(!solveGimmick)
-        {
-            transform.position = _resetPosition;
-        }
+        transform.position = _resetPosition;
     }
 
 }
