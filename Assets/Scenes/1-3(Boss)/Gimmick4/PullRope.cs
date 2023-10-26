@@ -57,7 +57,6 @@ public class PullRope : MonoBehaviour
             _longDis = kGimmickLength;
 
             _isPull = true;
-            _isFlag = false;
         }
         if ((Input.GetKeyUp("joystick button 1") || Input.GetKeyUp(KeyCode.F)) && _isPull)
         {
@@ -120,11 +119,11 @@ public class PullRope : MonoBehaviour
     }
     void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("Player"))
-        {
-
-            _isFlag = true;
-        }
+        _isFlag = true;
+    }
+    private void OnTriggerExit(Collider other)
+    {
+        _isFlag = false;
     }
 
 }
