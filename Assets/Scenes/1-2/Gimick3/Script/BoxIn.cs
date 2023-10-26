@@ -19,6 +19,7 @@ public class BoxIn : MonoBehaviour
     void OnTriggerEnter(Collider other)
     {
         _director.SetGimmickIn(Color, this.transform.position);
+        _director.SetObj(this.gameObject);
         Debug.Log(this.transform.position);
     }
 

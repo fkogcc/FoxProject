@@ -6,6 +6,10 @@ public class BoxPull : MonoBehaviour
 {
     // ギミックブロックの長さ
     private const float kGimmickLength = 0.7f;
+    // Y軸
+    private Vector3 kAxisY = new Vector3(0.0f, 1.0f, 0.0f);
+    // Z軸
+    private Vector3 kAxisZ = new Vector3(0.0f, 0.0f, 1.0f);
 
     // ブロックを追加する距離
     private float _longDis;
@@ -99,7 +103,23 @@ public class BoxPull : MonoBehaviour
                 _isClear = true;
 
                 //// 位置をきれいになるように整形.
-                ObjPlacement(_director.GetGimmickPos(), _startGimmickPos);
+                //ObjPlacement(_director.GetGimmickPos(), _startGimmickPos);
+
+                // オブジェクトを削除する
+                foreach (var temp in _gimmicks)
+                {
+                    Destroy(temp.gameObject);
+                }
+                _gimmicks.Clear();
+
+                _moveVec = _director.GetGimmickPos() - _startGimmickPos;
+
+                // 角度を求める.
+                _sideAngle = Mathf.Atan2(_moveVec.z, _moveVec.x) * Mathf.Rad2Deg * -1;
+                _frontAngle = Mathf.Atan2(_moveVec.x, _moveVec.y) * Mathf.Rad2Deg;
+
+                GameObject instance = Instantiate(_gimmick, this.transform.position + _moveVec / 2, Quaternion.AngleAxis(_sideAngle, kAxisY) * Quaternion.AngleAxis(_frontAngle, kAxisZ));
+                instance.transform.localScale = new Vector3(0.8f, instance.transform.localScale.x * _moveVec.sqrMagnitude, 0.8f);
             }
             else
             {
@@ -184,7 +204,7 @@ public class BoxPull : MonoBehaviour
         for (int i = 0; i < _gimmicks.Count; i++)
         {
             _gimmicks[i].transform.position = this.transform.position + _moveVec * (i);
-            _gimmicks[i].transform.rotation = Quaternion.AngleAxis(_sideAngle, new Vector3(0.0f, 1.0f, 0.0f)) * Quaternion.AngleAxis(_frontAngle, new Vector3(0.0f, 0.0f, 1.0f));
+            _gimmicks[i].transform.rotation = Quaternion.AngleAxis(_sideAngle, kAxisY) * Quaternion.AngleAxis(_frontAngle, kAxisZ);
         }
     }
 }
