@@ -16,16 +16,25 @@ public class TurnGraph : MonoBehaviour
     // 正解が無い偽物の場合.
     public bool _isFake;
 
+    // 回転した回数をカウントする
+    private int _isRotaCount = 0;
+
     void Update()
     {
         // ボタンが押されたら.
         if (_connected)
         {
+            if(_isRotaCount == 4)
+            {
+                _isRotaCount = 0;
+            }
+
             // 90度回転したら止める.
             if (_rota >= _tempRota + 90.0f)
             {
                 _connected = false;
                 _tempRota = _rota;
+                _isRotaCount++;
             }
             else
             {
@@ -55,11 +64,16 @@ public class TurnGraph : MonoBehaviour
     {
         if (_isFake) return true;
 
-            if (_ansRota == _tempRota)
+        if (_ansRota == _isRotaCount)
         {
             return true;
         }
 
         return false;
+    }
+
+    public float tempAngle()
+    {
+        return _tempRota;
     }
 }

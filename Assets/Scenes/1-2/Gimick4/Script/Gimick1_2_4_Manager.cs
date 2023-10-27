@@ -1,24 +1,26 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Gimick1_2_4_Manager : MonoBehaviour
 {
 
-    // ƒ{ƒ^ƒ“‘€ì.
+    // ãƒœã‚¿ãƒ³æ“ä½œ.
     GameObject _botton;
-    // ‰ñ“]—p.
+    // å›è»¢ç”¨.
     [SerializeField] GameObject[] _rota;
-    // ”»’è—p.
+    // åˆ¤å®šç”¨.
     [SerializeField] GameObject[] _coll;
-    // ‰ñ“]‚·‚éƒIƒuƒWƒFƒNƒg‚ÌÅ‘å”.
+    // å›è»¢ã™ã‚‹ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®æœ€å¤§æ•°.
     public int _objRotaMaxNum;
-    // “ä‰ğ‚«‚ª‚Æ‚¯‚½‚©‚Ç‚¤‚©.
+    // è¬è§£ããŒã¨ã‘ãŸã‹ã©ã†ã‹.
     private bool _isClear = false;
+    // ã‚¯ãƒªã‚¢å‡ºæ¥ãŸã‹ã©ã†ã‹.
+    private bool _clear = false;
 
     void Start()
     {
-        // ƒ{ƒ^ƒ“—p.
+        // ãƒœã‚¿ãƒ³ç”¨.
         _botton = GameObject.Find("GameManager");
     }
 
@@ -26,19 +28,28 @@ public class Gimick1_2_4_Manager : MonoBehaviour
     {
         for(int i = 0; i < _objRotaMaxNum; i++)
         {
-            // ƒIƒuƒWƒFƒNƒg‚É‚ ‚½‚Á‚Ä‚¢‚½‚ç.
+            // ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã«ã‚ãŸã£ã¦ã„ãŸã‚‰.
             if (_coll[i].GetComponent<MyCollsion3D>().IsGetHit())
             {
-                // ƒ{ƒ^ƒ“‚ğ‚¨‚µ‚½‚ç.
+                // ãƒœã‚¿ãƒ³ã‚’ãŠã—ãŸã‚‰.
                 if (_botton.GetComponent<Botton>().GetButtonB())
                 {
-                    // ‰ñ“]‚µ‚½‚ç.
+                    // å›è»¢ã—ãŸã‚‰.
                     _rota[i].GetComponent<TurnGraph>().Rota();
                 }
             }
         }
 
-        // ‚·‚×‚Ä‚Ì“ä‚ª‚Æ‚¯‚½‚ç.
+        for (int i = 0; i < _objRotaMaxNum; i++)
+        {
+            if(_rota[i].GetComponent<TurnGraph>().IsGetAns())
+            {
+               // Debug.Log(i);
+                Debug.Log(_rota[i].GetComponent<TurnGraph>().tempAngle());
+            }
+        }
+
+        // ã™ã¹ã¦ã®è¬ãŒã¨ã‘ãŸã‚‰.
         if (_rota[0].GetComponent<TurnGraph>().IsGetAns() &&
             _rota[1].GetComponent<TurnGraph>().IsGetAns() &&
             _rota[2].GetComponent<TurnGraph>().IsGetAns() &&
@@ -50,8 +61,15 @@ public class Gimick1_2_4_Manager : MonoBehaviour
             _rota[8].GetComponent<TurnGraph>().IsGetAns() &&
             _rota[9].GetComponent<TurnGraph>().IsGetAns())
         {
-            // ‚±‚±‚ÅƒV[ƒ“‚ğØ‚è‘Ö‚¦.
+            // ã“ã“ã§ã‚·ãƒ¼ãƒ³ã‚’åˆ‡ã‚Šæ›¿ãˆ.
+            _clear = true;
+            Debug.Log("ã‚¯ãƒªã‚¢"); 
         }
 
+    }
+    // ã‚¯ãƒªã‚¢ã—ãŸã‹ã©ã†ã‹
+    public bool GetResult()
+    {
+        return _clear;
     }
 }
