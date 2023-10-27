@@ -74,7 +74,7 @@ public class BoxDirector : MonoBehaviour
             {
                 Debug.Log("[BoxGimmick]ÉNÉäÉAÇµÇ‹ÇµÇΩ");
 
-                SceneManager.LoadScene(NextStageName);
+                SceneTransitionManager.LoadScene(NextStageName);
             }
             return true;
         }

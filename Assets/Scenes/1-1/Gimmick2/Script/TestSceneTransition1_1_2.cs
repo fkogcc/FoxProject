@@ -33,8 +33,8 @@ public class TestSceneTransition1_1_2 : MonoBehaviour
         if (_fade.GetAlphColor() >= 0.9f && _fade._isFadeOut)
         {
             _active = _Gimmick1_1_2.GetResult();
-            SceneManager.sceneLoaded += GameSceneLoaded;
-            SceneManager.LoadScene("MainScene1-1");
+            SceneTransitionManager.sceneLoaded += GameSceneLoaded;
+            SceneTransitionManager.LoadScene("MainScene1-1");
         }
     }
 
@@ -50,6 +50,6 @@ public class TestSceneTransition1_1_2 : MonoBehaviour
         player2D.transform.position = new Vector3(94.0f, 0.0f, 0.0f);
 
         // 削除
-        SceneManager.sceneLoaded -= GameSceneLoaded;
+        SceneTransitionManager.sceneLoaded -= GameSceneLoaded;
     }
 }

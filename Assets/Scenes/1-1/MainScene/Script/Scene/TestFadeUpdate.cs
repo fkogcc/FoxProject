@@ -31,6 +31,6 @@ public class TestFadeUpdate : MonoBehaviour
     {
         Instantiate(transitionPrefab);
         yield return new WaitForSeconds(waitTime);
-        SceneManager.LoadScene(targetSceneName);
+        SceneTransitionManager.LoadScene(targetSceneName);
     }
 }

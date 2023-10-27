@@ -84,19 +84,19 @@ public class Fade1_2 : MonoBehaviour
         // シーン遷移.
         if (GimmickSceneTransition1_2._instance.GetGateGimmick1() && _color.a >= 0.9f)
         {
-            SceneManager.LoadScene("Gimmick1_2_1");
+            SceneTransitionManager.LoadScene("Gimmick1_2_1");
         }
         else if (GimmickSceneTransition1_2._instance.GetGateGimmick2() && _color.a >= 0.9f)
         {
-            SceneManager.LoadScene("Gimmick1_2_2");
+            SceneTransitionManager.LoadScene("Gimmick1_2_2");
         }
         else if (GimmickSceneTransition1_2._instance.GetGateGimmick3() && _color.a >= 0.9f)
         {
-            SceneManager.LoadScene("Gimmick1_2_3");
+            SceneTransitionManager.LoadScene("Gimmick1_2_3");
         }
         else if (GimmickSceneTransition1_2._instance.GetGateGimmick4() && _color.a >= 0.9f)
         {
-            SceneManager.LoadScene("Gimmick1_2_4");
+            SceneTransitionManager.LoadScene("Gimmick1_2_4");
         }
 
     }

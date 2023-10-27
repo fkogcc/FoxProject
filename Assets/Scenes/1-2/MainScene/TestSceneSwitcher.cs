@@ -32,7 +32,7 @@ public class TestSceneSwitcher : MonoBehaviour
     {
         if (Input.GetKeyDown("joystick button 5"))
         {
-            SceneManager.LoadScene("test3D");
+            SceneTransitionManager.LoadScene("test3D");
         }
     }
 
@@ -42,7 +42,7 @@ public class TestSceneSwitcher : MonoBehaviour
         if (Input.GetKeyDown("joystick button 5"))
         {
             //Player2DMove._instance._hp = Hp;
-            SceneManager.LoadScene("test3D");
+            SceneTransitionManager.LoadScene("test3D");
         }
         
     }

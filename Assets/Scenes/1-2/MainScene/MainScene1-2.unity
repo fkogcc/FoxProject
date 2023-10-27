@@ -11513,10 +11513,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _particleSystem: {fileID: 1839389231}
   _bombObject: {fileID: 0}
-  _force: 0
-  _radius: 0
-  _upwardsPower: 0
-  _particleMaxCount: 0
+  _force: 5
+  _radius: 10
+  _upwardsPower: 3
+  _particleMaxCount: 100
 --- !u!1 &1115507100
 GameObject:
   m_ObjectHideFlags: 0

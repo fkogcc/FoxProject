@@ -6,7 +6,7 @@ public class ExplosionGimmick : MonoBehaviour
 {
     private SolveGimmickManager _manager;
 
-    [Header("パーティクルオブジェクト")]
+    [Header("火花のパーティクルオブジェクト")]
     [SerializeField] ParticleSystem _particleSystem;
 
     [Header("爆発オブジェクト")]
@@ -33,6 +33,7 @@ public class ExplosionGimmick : MonoBehaviour
     private void Start()
     {
         _manager = GameObject.Find("SceneManager").GetComponent<SolveGimmickManager>();
+        //_particleSystem.Stop();
     }
 
     private void FixedUpdate()

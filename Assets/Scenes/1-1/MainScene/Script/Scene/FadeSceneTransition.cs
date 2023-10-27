@@ -88,15 +88,15 @@ public class FadeSceneTransition : MonoBehaviour
         // シーン遷移.
         if (_transitionScene.GetIsGateGimmick1() && _color.a >= 0.9f && !Player2DMove._instance.GetIsMoveActive())
         {
-            SceneManager.LoadScene("Gimmick1_1_1Scene");
+            SceneTransitionManager.LoadScene("Gimmick1_1_1Scene");
         }
         else if (_transitionScene.GetIsGateGimmick2() && _color.a >= 0.9f && !Player2DMove._instance.GetIsMoveActive())
         {
-            SceneManager.LoadScene("Gimmick1_1_2Scene");
+            SceneTransitionManager.LoadScene("Gimmick1_1_2Scene");
         }
         else if(_transitionScene.GetIsGoal() && _color.a >= 0.9f && !Player2DMove._instance.GetIsMoveActive())
         {
-            SceneManager.LoadScene("MainScene1-2");
+            SceneTransitionManager.LoadScene("MainScene1-2");
         }
 
     }
