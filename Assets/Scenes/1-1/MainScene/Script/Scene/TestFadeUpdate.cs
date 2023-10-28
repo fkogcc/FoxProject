@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -31,6 +31,6 @@ public class TestFadeUpdate : MonoBehaviour
     {
         Instantiate(transitionPrefab);
         yield return new WaitForSeconds(waitTime);
-        SceneTransitionManager.LoadScene(targetSceneName);
+        SceneManager.LoadScene(targetSceneName);
     }
 }

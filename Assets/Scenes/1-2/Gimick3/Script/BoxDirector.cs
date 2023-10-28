@@ -1,27 +1,27 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class BoxDirector : MonoBehaviour
 {
-    // Ÿ‚ÌƒV[ƒ“‚Ì–¼‘O.
+    // æ¬¡ã®ã‚·ãƒ¼ãƒ³ã®åå‰.
     public string NextStageName;
 
-    // ƒNƒŠƒA”ƒJƒEƒ“ƒg.
+    // ã‚¯ãƒªã‚¢æ•°ã‚«ã‚¦ãƒ³ãƒˆ.
     private int _clearCount;
-    // ’u‚¯‚é‚©‚Ìƒtƒ‰ƒO.
+    // ç½®ã‘ã‚‹ã‹ã®ãƒ•ãƒ©ã‚°.
     private bool _isSetFlag;
-    // ˆø‚«n‚ß‚½‚ÌF.
+    // å¼•ãå§‹ã‚ãŸæ™‚ã®è‰².
     private string _pullColor;
-    // ƒMƒ~ƒbƒNİ’uêŠ‚ÌF.
+    // ã‚®ãƒŸãƒƒã‚¯è¨­ç½®å ´æ‰€ã®è‰².
     private string _gimmickColor;
-    // ƒMƒ~ƒbƒNİ’uêŠ‚ÌÀ•W.
+    // ã‚®ãƒŸãƒƒã‚¯è¨­ç½®å ´æ‰€ã®åº§æ¨™.
     private Vector3 _gimmickPos;
-    // ƒMƒ~ƒbƒN‚ÌÅ‘å”.
+    // ã‚®ãƒŸãƒƒã‚¯ã®æœ€å¤§æ•°.
     private int _gimmickNum;
 
-    // ‰Šú‰»ˆ—
+    // åˆæœŸåŒ–å‡¦ç†
     void Start()
     {
         _clearCount = 0;
@@ -32,38 +32,38 @@ public class BoxDirector : MonoBehaviour
         _gimmickNum = 4;
     }
 
-    // ˆø‚«n‚ß‚½F‚Ìæ“¾
+    // å¼•ãå§‹ã‚ãŸè‰²ã®å–å¾—
     public void SetGimmickOut(string color)
     {
         _pullColor = color;
     }
 
-    // ƒMƒ~ƒbƒN‚É“–‚½‚Á‚½‚Ìˆ—.
+    // ã‚®ãƒŸãƒƒã‚¯ã«å½“ãŸã£ãŸæ™‚ã®å‡¦ç†.
     public void SetGimmickIn(string color, Vector3 temp)
     {
-        // ƒMƒ~ƒbƒNİ’uêŠ‚É“–‚½‚Á‚½‚çFæ“¾.
+        // ã‚®ãƒŸãƒƒã‚¯è¨­ç½®å ´æ‰€ã«å½“ãŸã£ãŸã‚‰è‰²å–å¾—.
         _gimmickColor = color;
-        // À•W‚Ì•Û.
+        // åº§æ¨™ã®ä¿æŒ.
         _gimmickPos = temp;
-        // ƒMƒ~ƒbƒN”ÍˆÍ“à‚É‚¢‚é‚æ‚¤‚É‚·‚é.
+        // ã‚®ãƒŸãƒƒã‚¯ç¯„å›²å†…ã«ã„ã‚‹ã‚ˆã†ã«ã™ã‚‹.
         _isSetFlag = true;
     }
-    // ƒMƒ~ƒbƒN‚ÌˆÊ’u‚ğ•Ô‚·.
+    // ã‚®ãƒŸãƒƒã‚¯ã®ä½ç½®ã‚’è¿”ã™.
     public Vector3 GetGimmickPos()
     {
         return _gimmickPos;
     }
 
-    // ƒtƒ‰ƒO‚ğ•Ô‚·.
+    // ãƒ•ãƒ©ã‚°ã‚’è¿”ã™.
     public void IsSetFlag(bool flag)
     {
         _isSetFlag = flag;
     }
 
-    // ˆø‚«n‚ß‚½F‚Æ“¯‚¶‚È‚ç‚Îtrue•Ô‚·.
+    // å¼•ãå§‹ã‚ãŸè‰²ã¨åŒã˜ãªã‚‰ã°trueè¿”ã™.
     public bool IsSameColor()
     {
-        // ”ÍˆÍŠO‚É‚¢‚é‚È‚ç‚¨‚¯‚È‚¢‚æ‚¤‚É‚·‚é.
+        // ç¯„å›²å¤–ã«ã„ã‚‹ãªã‚‰ãŠã‘ãªã„ã‚ˆã†ã«ã™ã‚‹.
         if (!_isSetFlag) return false;
 
         if (_pullColor == _gimmickColor)
@@ -72,9 +72,9 @@ public class BoxDirector : MonoBehaviour
 
             if (_gimmickNum <= _clearCount)
             {
-                Debug.Log("[BoxGimmick]ƒNƒŠƒA‚µ‚Ü‚µ‚½");
+                Debug.Log("[BoxGimmick]ã‚¯ãƒªã‚¢ã—ã¾ã—ãŸ");
 
-                SceneTransitionManager.LoadScene(NextStageName);
+                SceneManager.LoadScene(NextStageName);
             }
             return true;
         }
