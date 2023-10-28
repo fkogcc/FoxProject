@@ -44,7 +44,7 @@ public class BoxDirector : MonoBehaviour
         _lineObj.Add("Bule", GameObject.Find("BuleLine"));
         _lineObj.Add("Green", GameObject.Find("GreenLine"));
         _lineObj.Add("Red", GameObject.Find("RedLine"));
-        if (GimmickNum < 4)
+        if (4 < GimmickNum)
         {
             _lineObj.Add("Yellow", GameObject.Find("YellowLine"));
             _lineObj.Add("YellowGreen", GameObject.Find("YellowGreenLine"));
