@@ -20,12 +20,10 @@ public class BoxIn : MonoBehaviour
     {
         _director.SetGimmickIn(Color, this.transform.position);
         _director.SetObj(this.gameObject);
-        Debug.Log(this.transform.position);
     }
 
     private void OnTriggerExit(Collider other)
     {
-        Debug.Log("ギミック外");
         _director.IsSetFlag(false);
     }
 }

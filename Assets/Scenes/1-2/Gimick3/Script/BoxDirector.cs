@@ -7,6 +7,8 @@ public class BoxDirector : MonoBehaviour
 {
     // 次のシーンの名前.
     public string NextStageName;
+    // ギミックの最大数.
+    public int GimmickNum = 0;
 
     private GameObject _nowObj;
 
@@ -22,8 +24,8 @@ public class BoxDirector : MonoBehaviour
     private string _gimmickColor;
     // ギミック設置場所の座標.
     private Vector3 _gimmickPos;
-    // ギミックの最大数.
-    private int _gimmickNum;
+
+    Dictionary<string, GameObject> _lineObj;
 
     // 初期化処理
     void Start()
@@ -36,12 +38,24 @@ public class BoxDirector : MonoBehaviour
         _pullColor = "";
         _gimmickColor = "";
         _gimmickPos = new Vector3();
-        _gimmickNum = 4;
+
+        _lineObj = new Dictionary<string, GameObject>();
+        _lineObj.Add("Pink", GameObject.Find("PinkLine"));
+        _lineObj.Add("Bule", GameObject.Find("BuleLine"));
+        _lineObj.Add("Green", GameObject.Find("GreenLine"));
+        _lineObj.Add("Red", GameObject.Find("RedLine"));
+        if (GimmickNum < 4)
+        {
+            _lineObj.Add("Yellow", GameObject.Find("YellowLine"));
+            _lineObj.Add("YellowGreen", GameObject.Find("YellowGreenLine"));
+            _lineObj.Add("SkyBule", GameObject.Find("SkyBuleLine"));
+            _lineObj.Add("Orange", GameObject.Find("OrangeLine"));
+        }
     }
 
     private void Update()
     {
-        if (_isAllClear && Input.GetKeyDown(""))
+        if (_isAllClear && Input.GetKeyDown(KeyCode.N))
         {
             SceneManager.LoadScene(NextStageName);
         }
@@ -89,8 +103,9 @@ public class BoxDirector : MonoBehaviour
         {
             _clearCount++;
             _nowObj.GetComponent<ParticleSystem>().Play();
+            Destroy(_lineObj[_gimmickColor]);
 
-            if (_gimmickNum <= _clearCount)
+            if (GimmickNum <= _clearCount)
             {
                 Debug.Log("[BoxGimmick]クリアしました");
 
