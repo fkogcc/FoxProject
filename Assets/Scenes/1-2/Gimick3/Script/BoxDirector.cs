@@ -60,7 +60,7 @@ public class BoxDirector : MonoBehaviour
             SceneManager.LoadScene(NextStageName);
         }
     }
-
+    
     // 引き始めた色の取得
     public void SetGimmickOut(string color)
     {

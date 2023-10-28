@@ -1,4 +1,4 @@
-// ƒxƒ‹ƒgƒRƒ“ƒxƒAƒMƒ~ƒbƒN
+ï»¿// ãƒ™ãƒ«ãƒˆã‚³ãƒ³ãƒ™ã‚¢ã‚®ãƒŸãƒƒã‚¯
 
 using System.Collections;
 using System.Collections.Generic;
@@ -6,42 +6,34 @@ using UnityEngine;
 
 public class BeltConveyorGimmick : MonoBehaviour
 {
-    public static BeltConveyorGimmick _instance;
+    private SolveGimmickManager _manager;
 
-    // ƒxƒ‹ƒgƒRƒ“ƒxƒA‚ª•¨‘Ì‚ğ“®‚©‚·Œü‚«
+    // ãƒ™ãƒ«ãƒˆã‚³ãƒ³ãƒ™ã‚¢ãŒç‰©ä½“ã‚’å‹•ã‹ã™å‘ã
     [SerializeField] private Vector3 _moveDirection = Vector3.forward;
-    // ƒxƒ‹ƒgƒRƒ“ƒxƒA‚Ì‘¬“x
+    // ãƒ™ãƒ«ãƒˆã‚³ãƒ³ãƒ™ã‚¢ã®é€Ÿåº¦
     [SerializeField] private float _ConveyorSpeed;
-    // ƒRƒ“ƒxƒA‚ÉÚ‚Á‚Ä‚¢‚é•¨‘Ì‚Ì‰Á‘¬“x
+    // ã‚³ãƒ³ãƒ™ã‚¢ã«è¼‰ã£ã¦ã„ã‚‹ç‰©ä½“ã®åŠ é€Ÿåº¦
     [SerializeField] private float _forcePower;
 
-    // ƒxƒ‹ƒgƒRƒ“ƒxƒA‚ÌŒ»İ‚Ì‘¬“x
+    // ãƒ™ãƒ«ãƒˆã‚³ãƒ³ãƒ™ã‚¢ã®ç¾åœ¨ã®é€Ÿåº¦
     [SerializeField] private float _CurrentSpeed { get { return _currentSpeed; } }
 
     private float _currentSpeed = 0;
     private List<Rigidbody> _rigidbodies = new List<Rigidbody>();
 
-    // ƒxƒ‹ƒgƒRƒ“ƒxƒA‚Ì‰Ò“­ó‹µ
-    //[SerializeField] private bool _isOn = false;
-
-
-    private void Awake()
-    {
-        if(_instance == null)
-        {
-            _instance = this;
-        }
-        else
-        {
-            Destroy(_instance);
-        }
-    }
-
-    // Start is called before the first frame update
     void Start()
     {
-        // •ûŒü‚ğ³‹K‰»‚·‚é
+        _manager = GameObject.Find("SceneManager").GetComponent<SolveGimmickManager>();
+        // æ–¹å‘ã‚’æ­£è¦åŒ–ã™ã‚‹.
         _moveDirection = _moveDirection.normalized;
+    }
+
+    private void FixedUpdate()
+    {
+        if (_manager._solve[1])
+        {
+            UpdateBeltConveyor();
+        }
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -57,21 +49,19 @@ public class BeltConveyorGimmick : MonoBehaviour
     }
 
     /// <summary>
-    /// ƒxƒ‹ƒgƒRƒ“ƒxƒA‚ÌXVˆ—
+    /// ãƒ™ãƒ«ãƒˆã‚³ãƒ³ãƒ™ã‚¢ã®æ›´æ–°å‡¦ç†.
     /// </summary>
-    /// <param name="solve">ƒMƒ~ƒbƒN‚ğ‰ğ‚¢‚½‚©‚Ç‚¤‚©</param>
-    public void UpdateBeltConveyor(bool solve)
+    public void UpdateBeltConveyor()
     {
-        if (!solve) return;
-        // Á–Å‚µ‚½ƒIƒuƒWƒFƒNƒg‚Íœ‹‚·‚é
+        // æ¶ˆæ»…ã—ãŸã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã¯é™¤å»ã™ã‚‹.
         _rigidbodies.RemoveAll(r => r == null);
 
         foreach (var r in _rigidbodies)
         {
-            // •¨‘Ì‚ÌˆÚ“®‘¬“x‚Ìƒxƒ‹ƒgƒRƒ“ƒxƒA•ûŒü‚Ì¬•ª‚¾‚¯‚ğæ‚èo‚·
+            // ç‰©ä½“ã®ç§»å‹•é€Ÿåº¦ã®ãƒ™ãƒ«ãƒˆã‚³ãƒ³ãƒ™ã‚¢æ–¹å‘ã®æˆåˆ†ã ã‘ã‚’å–ã‚Šå‡ºã™.
             var objectSpeed = Vector3.Dot(r.velocity, _moveDirection);
 
-            // –Ú•W’lˆÈ‰º‚È‚ç‰Á‘¬‚·‚é
+            // ç›®æ¨™å€¤ä»¥ä¸‹ãªã‚‰åŠ é€Ÿã™ã‚‹.
             if (objectSpeed < Mathf.Abs(_ConveyorSpeed))
             {
                 r.AddForce(_moveDirection * _forcePower, ForceMode.Acceleration);
