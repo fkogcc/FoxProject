@@ -39,9 +39,13 @@ public class BoxPull : MonoBehaviour
 
     // 移動ベクトル.
     private Vector3 _moveVec;
-    // 角度を入れるよう
-    private float _sideAngle = 0.0f;
-    private float _frontAngle = 0.0f;
+
+    // 角度を入れるよう.
+    private float _angleSide = 0.0f;
+    private float _angleCenter = 0.0f;
+    // 軸用.
+    private Vector3 _axisSide;
+    private Vector3 _axisCenter;
 
     void Start()
     {
@@ -65,7 +69,10 @@ public class BoxPull : MonoBehaviour
         _startGimmickPos = new Vector3();
         _startPlayerPos = new Vector3();
         _moveVec = new Vector3();
-    }
+
+        _axisSide = new Vector3(0.0f, 1.0f, 0.0f);
+        _axisCenter = new Vector3();
+}
 
     // Update is called once per frame
     void Update()
@@ -98,8 +105,17 @@ public class BoxPull : MonoBehaviour
                 // ギミックをクリアしたことにする.
                 _isClear = true;
 
-                //// 位置をきれいになるように整形.
-                ObjPlacement(_director.GetGimmickPos(), _startGimmickPos);
+                // オブジェクトを削除する
+                foreach (var temp in _gimmicks)
+                {
+                    Destroy(temp.gameObject);
+                }
+                _gimmicks.Clear();
+
+                VectorAngleCal(_director.GetGimmickPos(), _startGimmickPos);
+
+                GameObject instance = Instantiate(_gimmick, this.transform.position + _moveVec / 2, Quaternion.AngleAxis(_angleCenter, _axisCenter) * Quaternion.AngleAxis(_angleSide, _axisSide));
+                instance.transform.localScale = new Vector3(_moveVec.magnitude * 1.024f, 0.8f, 0.8f);
             }
             else
             {
@@ -122,7 +138,7 @@ public class BoxPull : MonoBehaviour
 
         if (_isPull)
         {
-            ObjPlacement(_player.position, _startPlayerPos);
+            ObjPlacement();
         }
     }
 
@@ -140,43 +156,31 @@ public class BoxPull : MonoBehaviour
     }
 
     // 移動量分ずらしてオブジェクトの設置.
-    void ObjPlacement(Vector3 targetPos, Vector3 startPos)
+    void ObjPlacement()
     {
-        // 現在までのベクトルを計算.
-        _moveVec = targetPos - startPos;
+        VectorAngleCal(_player.position, _startPlayerPos);
 
-        float _nowLength = _moveVec.magnitude;
         // 距離が伸びたら追加する.
-        while (true)
+        if (_longDis <= _moveVec.magnitude)
         {
-            if (_longDis <= _nowLength)
-            {
-                // 判定距離の更新.
-                _longDis += kGimmickLength;
-                _shortDis += kGimmickLength;
+            // 判定距離の更新.
+            _longDis += kGimmickLength;
+            _shortDis += kGimmickLength;
 
-                // ブロックの追加.
-                _gimmicks.Add(Instantiate(_gimmick, this.transform.position, Quaternion.identity));
-                continue;
-            }
-            // 距離が減ったら削除する.
-            else if (_nowLength < _shortDis)
-            {
-                // 判定距離の更新.
-                _longDis -= kGimmickLength;
-                _shortDis -= kGimmickLength;
-
-                // GameObjectを削除ののち、リストから削除.
-                Destroy(_gimmicks[_gimmicks.Count - 1]);
-                _gimmicks.RemoveAt(_gimmicks.Count - 1);
-                continue;
-            }
-            break;
+            // ブロックの追加.
+            _gimmicks.Add(Instantiate(_gimmick, this.transform.position, Quaternion.identity));
         }
+        // 距離が減ったら削除する.
+        else if (_moveVec.magnitude < _shortDis)
+        {
+            // 判定距離の更新.
+            _longDis -= kGimmickLength;
+            _shortDis -= kGimmickLength;
 
-        // 角度を求める.
-        _sideAngle = Mathf.Atan2(_moveVec.z, _moveVec.x) * Mathf.Rad2Deg * -1;
-        _frontAngle = Mathf.Atan2(_moveVec.x, _moveVec.y) * Mathf.Rad2Deg;
+            // GameObjectを削除ののち、リストから削除.
+            Destroy(_gimmicks[_gimmicks.Count - 1]);
+            _gimmicks.RemoveAt(_gimmicks.Count - 1);
+        }
 
         // 出すオブジェクトの量で割る.
         _moveVec /= _gimmicks.Count -1;
@@ -184,7 +188,21 @@ public class BoxPull : MonoBehaviour
         for (int i = 0; i < _gimmicks.Count; i++)
         {
             _gimmicks[i].transform.position = this.transform.position + _moveVec * (i);
-            _gimmicks[i].transform.rotation = Quaternion.AngleAxis(_sideAngle, new Vector3(0.0f, 1.0f, 0.0f)) * Quaternion.AngleAxis(_frontAngle, new Vector3(0.0f, 0.0f, 1.0f));
+            _gimmicks[i].transform.rotation = Quaternion.AngleAxis(_angleCenter, _axisCenter) * Quaternion.AngleAxis(_angleSide, _axisSide);
         }
+    }
+
+    void VectorAngleCal(Vector3 pos1, Vector3 pos2)
+    {
+        // 現在までのベクトルを計算.
+        _moveVec = pos1 - pos2;
+
+        // 角度を求める.
+        _angleSide = Mathf.Atan2(_moveVec.z, _moveVec.x) * Mathf.Rad2Deg * -1;
+        // 縦に動いた角度を求める.
+        _angleCenter = Mathf.Atan2(_moveVec.y, Mathf.Sqrt(_moveVec.x * _moveVec.x + _moveVec.z * _moveVec.z)) * Mathf.Rad2Deg * -1;
+        // 側面の法線ベクトルを軸とする. 
+        _axisCenter.x = _moveVec.z;
+        _axisCenter.z = -_moveVec.x;
     }
 }
