@@ -57,7 +57,6 @@ public class RotateWindmill : MonoBehaviour
     {
         if (_gimmickManager._solve[1])
         {
-            Debug.Log("あ");
             UpdateRotateWindmill();
         }
     }

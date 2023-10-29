@@ -23,7 +23,7 @@ public class BeltConveyorGimmick : MonoBehaviour
 
     void Start()
     {
-        _manager = GameObject.Find("SceneManager").GetComponent<SolveGimmickManager>();
+        _manager = GameObject.FindWithTag("GimmickManager").GetComponent<SolveGimmickManager>();
         // 方向を正規化する.
         _moveDirection = _moveDirection.normalized;
     }

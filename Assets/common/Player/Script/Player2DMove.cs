@@ -7,7 +7,7 @@ public class Player2DMove : MonoBehaviour
 {
     public static Player2DMove _instance;
     private PlayerAnim2D _anim;
-    private testCol _transitionScene;
+    private GateFlag _transitionScene;
 
     // プレイヤーのリジットボディ.
     private Rigidbody _rigid;
@@ -49,7 +49,7 @@ public class Player2DMove : MonoBehaviour
     {
         // 初期化処理.
         _anim = GetComponent<PlayerAnim2D>();
-        _transitionScene = GameObject.Find("Foxidle").GetComponent<testCol>();
+        _transitionScene = GameObject.Find("Foxidle").GetComponent<GateFlag>();
         _rigid = GetComponent<Rigidbody>();
         _boxCollider = GetComponent<BoxCollider>();
         _animator = GetComponent<Animator>();
@@ -198,8 +198,19 @@ public class Player2DMove : MonoBehaviour
     // ゲートの前にいるかの状態.
     private bool SetGateFlag()
     {
-        return _transitionScene.GetIsGateGimmick1() || _transitionScene.GetIsGateGimmick2() ||
-            _transitionScene.GetIsGoal();
+        return _transitionScene._isGateGimmick1_1 ||
+            _transitionScene._isGateGimmick1_2 ||
+            _transitionScene._isGateGimmick2_1 ||
+            _transitionScene._isGateGimmick2_2 ||
+            _transitionScene._isGateGimmick2_3 ||
+            _transitionScene._isGateGimmick2_4 ||
+            _transitionScene._isGateGimmick3_1 ||
+            _transitionScene._isGateGimmick3_2 ||
+            _transitionScene._isGateGimmick3_3 ||
+            _transitionScene._isGateGimmick3_4 ||
+            _transitionScene._isGoal1_1 ||
+            _transitionScene._isGoal1_2 ||
+            _transitionScene._isGoal1_3;
     }
 
     // 落下デバッグ用

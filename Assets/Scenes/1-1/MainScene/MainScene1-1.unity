@@ -5422,7 +5422,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: c96a3e66104451f439175e00234e1937, type: 3}
       propertyPath: m_TagString
-      value: Goal
+      value: Goal1_1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c96a3e66104451f439175e00234e1937, type: 3}
@@ -25632,7 +25632,7 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 3004775973324384907, guid: efd49aba95bbbb648975da0474da9c3a, type: 3}
   m_PrefabInstance: {fileID: 2698344481242408160}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1611804765
+--- !u!114 &1611804760
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -25641,9 +25641,22 @@ MonoBehaviour:
   m_GameObject: {fileID: 1611804759}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cf32d3657b651884993c9c1958389f58, type: 3}
+  m_Script: {fileID: 11500000, guid: d0d8a030bec51864b80fe9964be40469, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _isGateGimmick1_1: 0
+  _isGateGimmick1_2: 0
+  _isGateGimmick2_1: 0
+  _isGateGimmick2_2: 0
+  _isGateGimmick2_3: 0
+  _isGateGimmick2_4: 0
+  _isGateGimmick3_1: 0
+  _isGateGimmick3_2: 0
+  _isGateGimmick3_3: 0
+  _isGateGimmick3_4: 0
+  _isGoal1_1: 0
+  _isGoal1_2: 0
+  _isGoal1_3: 0
 --- !u!1 &1656179246
 GameObject:
   m_ObjectHideFlags: 0
@@ -25658,7 +25671,7 @@ GameObject:
   - component: {fileID: 1656179247}
   m_Layer: 0
   m_Name: Gate2
-  m_TagString: Gimmick2
+  m_TagString: Gimmick1_2
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -27004,6 +27017,10 @@ PrefabInstance:
     - target: {fileID: 6487269949968605801, guid: 48321353464bcd84482454e4cf735915, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9050899783979416432, guid: 48321353464bcd84482454e4cf735915, type: 3}
+      propertyPath: m_TagString
+      value: Gimmick1_1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 48321353464bcd84482454e4cf735915, type: 3}
