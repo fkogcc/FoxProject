@@ -10,6 +10,8 @@ public class RotateWindmill : MonoBehaviour
     // インスタンス.
     public static RotateWindmill _instance;
 
+    private SolveGimmickManager _gimmickManager;
+
     //private GimmickManager1_1 _manager;
 
     // 風の力を発生させる判定.
@@ -48,15 +50,19 @@ public class RotateWindmill : MonoBehaviour
 
     private void Start()
     {
-        //_manager = GameObject.Find("GimmickManager").GetComponent<GimmickManager1_1>();
+        _gimmickManager = GameObject.FindWithTag("GimmickManager").GetComponent<SolveGimmickManager>();
     }
 
     private void FixedUpdate()
     {
-        //_isOperationGimmick = _manager.GetSolveGimmick(1);
+        if (_gimmickManager._solve[1])
+        {
+            Debug.Log("あ");
+            UpdateRotateWindmill();
+        }
     }
 
-    public void UpdateRotateWindmill()
+    private void UpdateRotateWindmill()
     {
         transform.Rotate(_rotateSpeed, 0.0f, 0.0f);
 
@@ -73,7 +79,6 @@ public class RotateWindmill : MonoBehaviour
         }
 
         // ギミックを解いていなかったら処理を通さない.
-        if (!_isOperationGimmick) return;
         SolveGimmickAfter(_isOperationGimmick);
     }
 
