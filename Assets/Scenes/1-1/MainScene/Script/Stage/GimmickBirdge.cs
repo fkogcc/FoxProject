@@ -1,16 +1,14 @@
 ﻿// 橋の処理.
-// HACK:橋の回転処理をもっとスマートにできそう.
 
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Rendering.UI;
 
 public class GimmickBirdge : MonoBehaviour
 {
     public static GimmickBirdge _instance;
 
     //private GimmickManager1_1 _manager;
+    private SolveGimmickManager _manager;
 
     // 橋の通路.
     // 左.
@@ -24,8 +22,6 @@ public class GimmickBirdge : MonoBehaviour
     // カメラ
     private Camera _camera;
 
-    // ギミックが作動中かどうか
-    private bool _isOperationGimmick;
     // ギミックが動いた後に敵が動くかどうか
     private bool _isMoveEnemy = false;
 
@@ -45,28 +41,29 @@ public class GimmickBirdge : MonoBehaviour
     {
         _camera = GameObject.Find("Camera").GetComponent<Camera>();
         //_manager = GameObject.Find("GimmickManager").GetComponent<GimmickManager1_1>();
+        _manager = GameObject.FindWithTag("GimmickManager").GetComponent<SolveGimmickManager>();
     }
 
     private void FixedUpdate()
     {
-        //_isOperationGimmick = _manager.GetSolveGimmick(0);
+        
+        if (_manager._solve[0])
+        {
+            UpdateBirdgeAisle();
+            
+        }
     }
 
     // 橋がかかる処理.
-    public void UpdateBirdgeAisle()
+    private void UpdateBirdgeAisle()
     {
         // 敵の動き
         MoveEnemy();
 
         // 橋が架かると以降処理しない.
         if (_birdgeLeft.transform.localEulerAngles == new Vector3(0.0f, 0.0f, 0.0f) ||
-           _birdgeRight.transform.localEulerAngles == new Vector3(0.0f, 0.0f, 0.0f))
-            return;
+           _birdgeRight.transform.localEulerAngles == new Vector3(0.0f, 0.0f, 0.0f)) return;
 
-        
-
-        if (!_isOperationGimmick) return;
-        
         // 橋の回転.
         RotateBirdgeAisle(_birdgeLeft, new Vector3(0.0f, 0.0f, -1.0f));
         RotateBirdgeAisle(_birdgeRight, new Vector3(0.0f, 0.0f, 1.0f));

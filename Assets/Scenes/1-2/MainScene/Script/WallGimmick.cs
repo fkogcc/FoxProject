@@ -18,7 +18,7 @@ public class WallGimmick : MonoBehaviour
 
     private void Start()
     {
-        _manager = GameObject.Find("SceneManager").GetComponent<SolveGimmickManager>();
+        _manager = GameObject.FindWithTag("GimmickManager").GetComponent<SolveGimmickManager>();
         _targetPosition = new Vector3(transform.position.x, transform.position.y + 10.0f, transform.position.z);
     }
 

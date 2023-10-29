@@ -4,8 +4,7 @@ using UnityEngine;
 
 public class FireGimmick : MonoBehaviour
 {
-    // シングルトン
-    public static FireGimmick _instance;
+    private SolveGimmickManager _gimmickManager;
 
     // パーティクルオブジェクト
     [SerializeField] private ParticleSystem _particleSystem;
@@ -19,32 +18,26 @@ public class FireGimmick : MonoBehaviour
     // 炎が燃え続けている時間
     private float _burningCount = 0;
 
-    private void Awake()
-    {
-        // シングルトンの呪文
-        if( _instance == null )
-        {
-            _instance = this;
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
-    }
-
-    // Start is called before the first frame update
     void Start()
     {
+        _gimmickManager = GameObject.FindWithTag("GimmickManager").GetComponent<SolveGimmickManager>();
         _particleSystem.Pause();
+    }
+
+    private void FixedUpdate()
+    {
+        if (_gimmickManager._solve[3])
+        {
+            UpdateFire();
+        }
     }
 
     /// <summary>
     /// 炎更新処理
     /// </summary>
     /// <param name="solve">ギミックを解いたかどうか</param>
-    public void UpdateFire(bool solve)
+    private void UpdateFire()
     {
-        if (!solve) return;
         // パーティクル再生.
         _particleSystem.Play();
 

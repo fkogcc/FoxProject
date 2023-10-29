@@ -32,7 +32,7 @@ public class ExplosionGimmick : MonoBehaviour
 
     private void Start()
     {
-        _manager = GameObject.Find("SceneManager").GetComponent<SolveGimmickManager>();
+        _manager = GameObject.FindWithTag("GimmickManager").GetComponent<SolveGimmickManager>();
         //_particleSystem.Stop();
     }
 
