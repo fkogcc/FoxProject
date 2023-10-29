@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class TestSceneTransition1_1_1 : MonoBehaviour
+public class SceneTransition1_1_1 : MonoBehaviour
 {
     private Gimick1_1_1Manager _Gimmick1_1_1;
 
@@ -39,11 +39,11 @@ public class TestSceneTransition1_1_1 : MonoBehaviour
     private void GameSceneLoaded(Scene next, LoadSceneMode mode)
     {
         // 切り替え後のスクリプト取得.
-        //GimmickManager1_1 gimmickManager1_1 = GameObject.FindWithTag("GimmickManager").GetComponent<GimmickManager1_1>();
+        SolveGimmickManager solveGimmickManager = GameObject.FindWithTag("GimmickManager").GetComponent<SolveGimmickManager>();
         Player2DMove player2D = GameObject.FindWithTag("Player").GetComponent<Player2DMove>();
 
         // ギミックを解いたかのデータを渡す.
-        //gimmickManager1_1._operationGimmick[0] = _active;
+        solveGimmickManager._solve[0] = _active;
         player2D.transform.position = new Vector3(22.0f, 0.0f, 0.0f);
 
         // 削除

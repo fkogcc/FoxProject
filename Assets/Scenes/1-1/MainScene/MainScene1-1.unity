@@ -16717,10 +16717,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1155752655}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 528d2e901d20f1e46a07c0b6fe2e0a9c, type: 3}
+  m_Script: {fileID: 11500000, guid: 1fe733d158ca21e4ebf04c09e4db39e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _operationGimmick: 00000000
+  _solve: 00000000
 --- !u!1 &1181909500
 GameObject:
   m_ObjectHideFlags: 0
@@ -27831,7 +27831,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2519987739933323313, guid: efd49aba95bbbb648975da0474da9c3a, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.52
+      value: 92.9
       objectReference: {fileID: 0}
     - target: {fileID: 2519987739933323313, guid: efd49aba95bbbb648975da0474da9c3a, type: 3}
       propertyPath: m_LocalPosition.y
@@ -27893,6 +27893,10 @@ PrefabInstance:
     - target: {fileID: 6717521992649619771, guid: f13038ffe48ab1d438a1ebbd83154288, type: 3}
       propertyPath: _time
       value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6717521992649619771, guid: f13038ffe48ab1d438a1ebbd83154288, type: 3}
+      propertyPath: _cameraFixedPositionRight
+      value: 160
       objectReference: {fileID: 0}
     - target: {fileID: 6717521992649619771, guid: f13038ffe48ab1d438a1ebbd83154288, type: 3}
       propertyPath: _operationGimmickCameraPosition.Array.size
