@@ -9,7 +9,7 @@ public class FallBlock : MonoBehaviour
     Vector3 _moveVec;//ブロックの動く位置
     Vector3 kfallVel = new Vector3(0, -0.1f, 0);//ブロックの落ちる速度
     float kspeed = 0.1f;
-    int kfallTime = 150;//板が落ちる時間
+    int kfallTime = 50;//板が落ちる時間
     int _frameCount;
 
     // Start is called before the first frame update
