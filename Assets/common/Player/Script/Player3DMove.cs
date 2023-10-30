@@ -35,10 +35,6 @@ public class Player3DMove : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        // マウスカーソルを非表示にし、位置を固定.
-        Cursor.visible = false;
-        Cursor.lockState = CursorLockMode.Locked;
-
         _playerController = GetComponent<CharacterController>();
         _camera = GameObject.Find("Camera");
         _animator = GetComponent<Animator>();
