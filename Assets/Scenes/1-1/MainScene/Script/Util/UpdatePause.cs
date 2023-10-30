@@ -1,13 +1,13 @@
-// ƒ|[ƒY‰æ–Ê‚Ìˆ—.
-// FIXME:‚Ü‚¾’Ç‰Á‚µ‚½‚¢‹@”\‚ª‚ ‚é‚Ì‚Å“r’†‚æ
+ï»¿// ãƒãƒ¼ã‚ºç”»é¢ã®å‡¦ç†.
+// FIXME:ã¾ã è¿½åŠ ã—ãŸã„æ©Ÿèƒ½ãŒã‚ã‚‹ã®ã§é€”ä¸­ã‚ˆ
 
 using UnityEngine;
 
 public class UpdatePause : MonoBehaviour
 {
-    // ƒ|[ƒY‰æ–Ê‚ğŠJ‚¢‚½‚©‚Ç‚¤‚©.
+    // ãƒãƒ¼ã‚ºç”»é¢ã‚’é–‹ã„ãŸã‹ã©ã†ã‹.
     [SerializeField] private bool _isPause = false;
-    // ƒ|[ƒY‰æ–Ê‚ÌƒIƒuƒWƒFƒNƒg
+    // ãƒãƒ¼ã‚ºç”»é¢ã®ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ
     [SerializeField] private GameObject _pauseCanvas;
 
     // Start is called before the first frame update
@@ -19,10 +19,10 @@ public class UpdatePause : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // ƒ|[ƒY‰æ–Ê‚ğŠJ‚¢‚Ä‚¢‚é‚©‚Ç‚¤‚©.
+        // ãƒãƒ¼ã‚ºç”»é¢ã‚’é–‹ã„ã¦ã„ã‚‹ã‹ã©ã†ã‹.
         _pauseCanvas.gameObject.SetActive(_isPause);
 
-        // ŠÔ‚ğ“®‚©‚·.
+        // æ™‚é–“ã‚’å‹•ã‹ã™.
         if (!_isPause)
         {
             Time.timeScale = 1;
@@ -36,7 +36,7 @@ public class UpdatePause : MonoBehaviour
 
     private void FixedUpdate()
     {
-        // ŠÔ‚ğ~‚ß‚é.
+        // æ™‚é–“ã‚’æ­¢ã‚ã‚‹.
         if (_isPause)
         {
             Time.timeScale = 0;
