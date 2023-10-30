@@ -21,6 +21,7 @@ public class BoxPull : MonoBehaviour
     public string Color;
     // ギミックオブジェ.
     private GameObject _gimmick;
+    private GameObject _gimmickClear;
     private List<GameObject> _gimmicks;
     // クリアオブジェ.
 
@@ -55,6 +56,7 @@ public class BoxPull : MonoBehaviour
 
         // クリア前までのオブジェ.
         _gimmick = (GameObject)Resources.Load(Color + "Cube");
+        _gimmickClear = (GameObject)Resources.Load(Color + "Capsule");
 
         _gimmicks = new List<GameObject>();
 
@@ -98,36 +100,52 @@ public class BoxPull : MonoBehaviour
 
         if ((Input.GetKeyUp("joystick button 1") || Input.GetKeyUp(KeyCode.F)) && _isPull)
         {
-            // 離した色が引っ張り始めた色と同じか.
-            // ギミッククリア範囲内にいるか.
-            if (_director.IsSameColor())
+            // オブジェクトを削除する
+            foreach (var temp in _gimmicks)
             {
-                // ギミックをクリアしたことにする.
-                _isClear = true;
-
-                // オブジェクトを削除する
-                foreach (var temp in _gimmicks)
-                {
-                    Destroy(temp.gameObject);
-                }
-                _gimmicks.Clear();
-
-                VectorAngleCal(_director.GetGimmickPos(), _startGimmickPos);
-
-                GameObject instance = Instantiate(_gimmick, this.transform.position + _moveVec / 2, Quaternion.AngleAxis(_angleCenter, _axisCenter) * Quaternion.AngleAxis(_angleSide, _axisSide));
-                instance.transform.localScale = new Vector3(_moveVec.magnitude * 1.024f, 0.8f, 0.8f);
+                Destroy(temp.gameObject);
             }
-            else
-            {
-                // オブジェクトを削除する
-                foreach (var temp in _gimmicks)
-                {
-                    Destroy(temp.gameObject);
-                }
-                _gimmicks.Clear();
-            }
+            _gimmicks.Clear();
 
             _isPull = false;
+
+            // 離した色が引っ張り始めた色と同じか.
+            // ギミッククリア範囲内にいるか.
+            // 違うなら処理終了.
+            if (!_director.IsSameColor()) return;
+
+            // ここまで来たらギミックをクリアしてる.
+            _isClear = true;
+
+            VectorAngleCal(_director.GetGimmickPos(), _startGimmickPos);
+
+            // 1階2階で繋がっていない.
+            if (Mathf.Abs(_moveVec.y) < 1)
+            {
+                _moveVec *= 0.5f;
+                GameObject instance = Instantiate(_gimmickClear, this.transform.position + _moveVec, Quaternion.AngleAxis(90, _axisCenter) * Quaternion.AngleAxis(_angleSide, _axisSide));
+                instance.transform.localScale = new Vector3(1.0f, _moveVec.magnitude, 1.0f);
+            }
+            // 1階2階で繋がっている.
+            else
+            {
+                _moveVec *= 0.25f;
+
+                Vector3 tempPos = _moveVec * 2f;
+
+                _moveVec.y = 0f;
+
+                GameObject instance = Instantiate(_gimmickClear, this.transform.position + _moveVec, Quaternion.AngleAxis(90, _axisCenter) * Quaternion.AngleAxis(_angleSide, _axisSide));
+                instance.transform.localScale = new Vector3(1.0f, _moveVec.magnitude, 1.0f);
+                instance = Instantiate(_gimmickClear, this.transform.position + tempPos, Quaternion.identity);
+                instance.transform.localScale = new Vector3(1.0f, _moveVec.magnitude, 1.0f);
+
+                _moveVec *= 3f;
+                _moveVec.y = tempPos.y * 2f;
+
+                instance = Instantiate(_gimmickClear, this.transform.position + _moveVec, Quaternion.AngleAxis(90, _axisCenter) * Quaternion.AngleAxis(_angleSide, _axisSide));
+                instance.transform.localScale = new Vector3(1.0f, _moveVec.magnitude, 1.0f);
+            }
         }
     }
 
@@ -183,7 +201,7 @@ public class BoxPull : MonoBehaviour
         }
 
         // 出すオブジェクトの量で割る.
-        _moveVec /= _gimmicks.Count -1;
+        _moveVec /= _gimmicks.Count - 1;
 
         for (int i = 0; i < _gimmicks.Count; i++)
         {
