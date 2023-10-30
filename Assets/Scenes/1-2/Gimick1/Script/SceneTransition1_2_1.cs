@@ -28,6 +28,8 @@ public class SceneTransition1_2_1 : MonoBehaviour
             SceneManager.LoadScene("MainScene1-2");
         }
 
+        Debug.Log($"{name}");
+
         // シーン切り替え時に呼ぶ.
         void GameSceneLoaded(Scene next, LoadSceneMode mode)
         {
