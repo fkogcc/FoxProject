@@ -13,9 +13,8 @@ public class SlideGimmickDirector : MonoBehaviour
     // プレイヤーの動く量.
     private const float kSpeed = 0.125f;
 
-    // 横に並んでいるブロックの数.
+    // 縦・横に並んでいるブロックの数.
     private const int kRaw = 4;
-    // 縦に並んでいるブロックの数.
     private const int kCol = 4;
     // ブロックの総数.
     private const int kBlockNum = kRaw * kCol;
@@ -42,9 +41,7 @@ public class SlideGimmickDirector : MonoBehaviour
 
     // プレイヤー.
     private GameObject _player;
-
-    // ギミック親オブジェ.
-    private GameObject _parentObj;
+    
     // ギミック子オブジェ.
     private GameObject[] _gimmickObj;
 
@@ -75,10 +72,11 @@ public class SlideGimmickDirector : MonoBehaviour
     // クリアしているかしていないか.
     private bool _isCreal;
 
-    private GameObject _lightGimmick;
-    private MeshRenderer[] _render;
+    // 光る用のブロック
+    private MeshRenderer[] _lightGimmick;
     float _alpha;
     Color _color;
+    int _lightEleLog = -1;
 
     private void Start()
     {
@@ -87,7 +85,6 @@ public class SlideGimmickDirector : MonoBehaviour
         _horizontal = 0.0f;
         _player = new GameObject();
 
-        _parentObj = new GameObject();
         _gimmickObj = new GameObject[kBlockNum];
 
         _eles = new int[kBlockNum];
@@ -108,20 +105,19 @@ public class SlideGimmickDirector : MonoBehaviour
 
         _isCreal = false;
 
-        _lightGimmick = GameObject.Find("LightBox");
-        _render = new MeshRenderer[kBlockNum];
-        for (int i = 0; i < kBlockNum; i++)
-        {
-            _render[i] = _lightGimmick.transform.GetChild(i).GetComponent<MeshRenderer>();
-        }
-        
-
         // プレイヤーを探す
         _player = GameObject.Find("FoxHand");
 
-        // 親オブジェを探す.
-        _parentObj = GameObject.Find("Box");
+        // 親オブジェクトを探す(光るやつ).
+        GameObject _parentObj = GameObject.Find("LightBox");
+        _lightGimmick = new MeshRenderer[kBlockNum];
+        for (int i = 0; i < kBlockNum; i++)
+        {
+            _lightGimmick[i] = _parentObj.transform.GetChild(i).GetComponent<MeshRenderer>();
+        }
 
+        // 親オブジェを探す(ピース).
+        _parentObj = GameObject.Find("Box");
         for (int i = 0; i < kBlockNum; i++)
         {
             // 子オブジェを探す.
@@ -222,14 +218,10 @@ public class SlideGimmickDirector : MonoBehaviour
             _color.r += _alpha;
             _color.g += _alpha;
 
-            Debug.Log("*********");
-            Debug.Log(_color.r);
-            Debug.Log(_color.g);
-
             for (int i = 0; i < kBlockNum; i++)
             {
-                _render[i].material.EnableKeyword("_EMISSION");
-                _render[i].material.SetColor("_EmissionColor", _color);
+                _lightGimmick[i].material.EnableKeyword("_EMISSION");
+                _lightGimmick[i].material.SetColor("_EmissionColor", _color);
             }
             return;
         }
@@ -266,7 +258,6 @@ public class SlideGimmickDirector : MonoBehaviour
         // データが入ってない場合はやらない
         if (_endEle1.Count <= 0) return;
 
-        Debug.Log("変えるよ");
         _nowEle = _endEle1.Pop();
         ChangeTrs(_endEle2.Pop(), false);
     }
@@ -412,5 +403,23 @@ public class SlideGimmickDirector : MonoBehaviour
 
         // 動くようにする.
         _isChange = true;
+    }
+
+    public void ChangeNowSelectLight(int num)
+    {
+        // todo : 光らせる位置を調整する
+
+        // 元々光らせていたら光らせないようにする
+        if (_lightEleLog != -1)
+        {
+            _lightGimmick[_lightEleLog].material.EnableKeyword("_EMISSION");
+            _lightGimmick[_lightEleLog].material.SetColor("_EmissionColor", Color.black);
+        }
+
+        _lightEleLog = num;
+
+        // 現在選択している場所を光らせる
+        _lightGimmick[num].material.EnableKeyword("_EMISSION");
+        _lightGimmick[num].material.SetColor("_EmissionColor", Color.yellow);
     }
 }
