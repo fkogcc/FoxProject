@@ -21,6 +21,8 @@ public class BoxPull : MonoBehaviour
     public string Color;
     // ギミックオブジェ.
     private GameObject _gimmick;
+    private GameObject _gimmickClear;
+    private GameObject _gimmickSpher;
     private List<GameObject> _gimmicks;
     // クリアオブジェ.
 
@@ -55,6 +57,8 @@ public class BoxPull : MonoBehaviour
 
         // クリア前までのオブジェ.
         _gimmick = (GameObject)Resources.Load(Color + "Cube");
+        _gimmickClear = (GameObject)Resources.Load(Color + "Cylinder");
+        _gimmickSpher = (GameObject)Resources.Load(Color + "Sphere");
 
         _gimmicks = new List<GameObject>();
 
@@ -98,36 +102,96 @@ public class BoxPull : MonoBehaviour
 
         if ((Input.GetKeyUp("joystick button 1") || Input.GetKeyUp(KeyCode.F)) && _isPull)
         {
-            // 離した色が引っ張り始めた色と同じか.
-            // ギミッククリア範囲内にいるか.
-            if (_director.IsSameColor())
+            // オブジェクトを削除する
+            foreach (var temp in _gimmicks)
             {
-                // ギミックをクリアしたことにする.
-                _isClear = true;
-
-                // オブジェクトを削除する
-                foreach (var temp in _gimmicks)
-                {
-                    Destroy(temp.gameObject);
-                }
-                _gimmicks.Clear();
-
-                VectorAngleCal(_director.GetGimmickPos(), _startGimmickPos);
-
-                GameObject instance = Instantiate(_gimmick, this.transform.position + _moveVec / 2, Quaternion.AngleAxis(_angleCenter, _axisCenter) * Quaternion.AngleAxis(_angleSide, _axisSide));
-                instance.transform.localScale = new Vector3(_moveVec.magnitude * 1.024f, 0.8f, 0.8f);
+                Destroy(temp.gameObject);
             }
-            else
-            {
-                // オブジェクトを削除する
-                foreach (var temp in _gimmicks)
-                {
-                    Destroy(temp.gameObject);
-                }
-                _gimmicks.Clear();
-            }
+            _gimmicks.Clear();
 
             _isPull = false;
+
+            // 離した色が引っ張り始めた色と同じか.
+            // ギミッククリア範囲内にいるか.
+            // 違うなら処理終了.
+            if (!_director.IsSameColor()) return;
+
+            // ここまで来たらギミックをクリアしてる.
+            _isClear = true;
+
+            VectorAngleCal(_director.GetGimmickPos(), _startGimmickPos);
+
+            // スケールを入れる用の変数
+            Vector3 scale = new Vector3(0.8f, 0.8f, 0.8f);
+
+            // 形をきれいに見せるように球体を作成
+            GameObject instance = Instantiate(_gimmickSpher, _startGimmickPos, Quaternion.identity);
+            instance.transform.localScale = scale;
+
+            // 1階2階で繋がっていない.
+            if (Mathf.Abs(_moveVec.y) < 1)
+            {
+                _moveVec *= 0.5f;
+                instance = Instantiate(_gimmickClear, this.transform.position + _moveVec, Quaternion.AngleAxis(90, _axisCenter) * Quaternion.AngleAxis(_angleSide, _axisSide));
+                scale.y = _moveVec.magnitude;
+                instance.transform.localScale = scale;
+            }
+            // 1階2階で繋がっている.
+            else
+            {
+                // 合成クオータニオン
+                Quaternion compositeAngle = Quaternion.AngleAxis(90, _axisCenter) * Quaternion.AngleAxis(_angleSide, _axisSide);
+
+                // 初めに移動量を1/4に
+                _moveVec *= 0.25f;
+
+                // 1つ目のブロック
+                // 移動量を入れる
+                Vector3 tempPos = _moveVec;
+                // 高さの移動は無しとする
+                tempPos.y = 0;
+
+                float scaleY = tempPos.magnitude;
+
+                instance = Instantiate(_gimmickClear, this.transform.position + tempPos, compositeAngle);
+                scale.y = scaleY;
+                instance.transform.localScale = scale;
+
+                // 2つ目
+                // 高さそのままでx,zを元の2倍
+                tempPos *= 2f;
+                instance = Instantiate(_gimmickSpher, this.transform.position + tempPos, Quaternion.identity);
+                scale.y = 0.8f;
+                instance.transform.localScale = scale;
+
+                // 3つ目
+                // x,zそのままで高さを半分の地点に
+                tempPos = _moveVec * 2f;
+                instance = Instantiate(_gimmickClear, this.transform.position + tempPos, Quaternion.AngleAxis(_angleSide, _axisSide));
+                scale.y = 4f;
+                instance.transform.localScale = scale;
+
+                // 4つ目
+                // x, yそのままで高さを一番下or一番上にする
+                tempPos.y = _moveVec.y * 4f;
+                instance = Instantiate(_gimmickSpher, this.transform.position + tempPos, Quaternion.identity);
+                scale.y = 0.8f;
+                instance.transform.localScale = scale;
+
+                // 5つ目
+                // 高さそのままでx, yを元の3倍
+                // 移動量の3倍を入れる
+                tempPos = _moveVec * 3f;
+                tempPos.y = _moveVec.y * 4f;
+                instance = Instantiate(_gimmickClear, this.transform.position + tempPos, compositeAngle);
+                scale.y = scaleY;
+                instance.transform.localScale = scale;
+            }
+
+            // 形をきれいに見せるように球体を作成
+            instance = Instantiate(_gimmickSpher, _director.GetGimmickPos(), Quaternion.identity);
+            scale.y = 0.8f;
+            instance.transform.localScale = scale;
         }
     }
 
@@ -183,7 +247,7 @@ public class BoxPull : MonoBehaviour
         }
 
         // 出すオブジェクトの量で割る.
-        _moveVec /= _gimmicks.Count -1;
+        _moveVec /= _gimmicks.Count - 1;
 
         for (int i = 0; i < _gimmicks.Count; i++)
         {
