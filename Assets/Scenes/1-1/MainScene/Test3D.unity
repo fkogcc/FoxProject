@@ -1076,7 +1076,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1287953526237379033, guid: bd037697781acda40b5e323c73a69281, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.15
+      value: 0.963
       objectReference: {fileID: 0}
     - target: {fileID: 1287953526237379033, guid: bd037697781acda40b5e323c73a69281, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1111,12 +1111,16 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1609196384570465832, guid: bd037697781acda40b5e323c73a69281, type: 3}
+      propertyPath: _rayOffset
+      value: -0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1609196384570465832, guid: bd037697781acda40b5e323c73a69281, type: 3}
       propertyPath: _raySphereLength
       value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 1609196384570465832, guid: bd037697781acda40b5e323c73a69281, type: 3}
       propertyPath: _SphereCastRegulationY
-      value: 0.5
+      value: 0.51
       objectReference: {fileID: 0}
     - target: {fileID: 1609196384570465833, guid: bd037697781acda40b5e323c73a69281, type: 3}
       propertyPath: m_Radius
@@ -1129,6 +1133,14 @@ PrefabInstance:
     - target: {fileID: 1915272582234858339, guid: bd037697781acda40b5e323c73a69281, type: 3}
       propertyPath: m_Name
       value: Foxidle
+      objectReference: {fileID: 0}
+    - target: {fileID: 2505489861581680398, guid: bd037697781acda40b5e323c73a69281, type: 3}
+      propertyPath: m_Constraints
+      value: 112
+      objectReference: {fileID: 0}
+    - target: {fileID: 2505489861581680398, guid: bd037697781acda40b5e323c73a69281, type: 3}
+      propertyPath: m_IsKinematic
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bd037697781acda40b5e323c73a69281, type: 3}
@@ -1153,7 +1165,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2547387253882364434, guid: 546fe8400816cf942bbf47e67a845ed9, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.0556772
+      value: 2.8686771
       objectReference: {fileID: 0}
     - target: {fileID: 2547387253882364434, guid: 546fe8400816cf942bbf47e67a845ed9, type: 3}
       propertyPath: m_LocalPosition.z

@@ -5,13 +5,14 @@ using Cinemachine;
 
 public class Player3DMove : MonoBehaviour
 {
-    // キャラクターコントローラー.
-    private CharacterController _playerController;
     // カメラ.
     private GameObject _camera;
     // アニメーター.
     private Animator _animator;
+    // リジットボディ
+    private Rigidbody _rigidbody;
 
+    private IsGroundedCheck _isGroundedCheck;
 
     // 移動スピード.
     [SerializeField] private float _speed = 5.0f;
@@ -35,10 +36,10 @@ public class Player3DMove : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        _playerController = GetComponent<CharacterController>();
+        _rigidbody = GetComponent<Rigidbody>();
         _camera = GameObject.Find("Camera");
         _animator = GetComponent<Animator>();
-
+        _isGroundedCheck = GetComponent<IsGroundedCheck>();
     }
 
     // Update is called once per frame
@@ -53,6 +54,7 @@ public class Player3DMove : MonoBehaviour
     private void FixedUpdate()
     {
         FallDebug();
+        //Debug.Log();
     }
 
     // 地面から落ちたら初期位置のスポーン.
@@ -111,13 +113,15 @@ public class Player3DMove : MonoBehaviour
 
         _moveDirection = moveZ + moveX + new Vector3(0.0f, _moveDirection.y, 0.0f);
 
-
-
         // プレイヤーの進む方向に回転.
-        transform.LookAt(transform.position + moveZ + moveX);
+        //transform.LookAt(transform.position + moveZ + moveX);
 
-        // Moveは指定したベクトルだけ移動させる命令.
-        _playerController.Move(_moveDirection * Time.deltaTime);
+        transform.forward = Vector3.Slerp(transform.forward, moveZ + moveX, Time.deltaTime * 10.0f);
+
+        const float power = 25;
+
+        _rigidbody.AddForce(_moveDirection * power, ForceMode.Acceleration);
+
     }
 
     // 落下ダメージ.
