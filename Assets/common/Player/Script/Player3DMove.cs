@@ -54,7 +54,7 @@ public class Player3DMove : MonoBehaviour
     private void FixedUpdate()
     {
         FallDebug();
-        //Debug.Log();
+        
     }
 
     // 地面から落ちたら初期位置のスポーン.
@@ -121,7 +121,7 @@ public class Player3DMove : MonoBehaviour
         const float power = 25;
 
         _rigidbody.AddForce(_moveDirection * power, ForceMode.Acceleration);
-
+        //Debug.Log();
     }
 
     // 落下ダメージ.
