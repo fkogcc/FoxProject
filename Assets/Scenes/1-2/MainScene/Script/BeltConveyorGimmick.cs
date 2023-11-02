@@ -8,6 +8,11 @@ public class BeltConveyorGimmick : MonoBehaviour
 {
     private SolveGimmickManager _manager;
 
+    // マテリアルの保持
+    private Material _material;
+    // シェーダー
+    private Shader _shader;
+
     // ベルトコンベアが物体を動かす向き
     [SerializeField] private Vector3 _moveDirection = Vector3.forward;
     // ベルトコンベアの速度
@@ -26,6 +31,9 @@ public class BeltConveyorGimmick : MonoBehaviour
         _manager = GameObject.FindWithTag("GimmickManager").GetComponent<SolveGimmickManager>();
         // 方向を正規化する.
         _moveDirection = _moveDirection.normalized;
+
+        _material = GameObject.Find("BeltMesh").GetComponent<Material>();
+        _shader = GameObject.Find("BeltMesh").GetComponent<Shader>();
     }
 
     private void FixedUpdate()
@@ -34,6 +42,8 @@ public class BeltConveyorGimmick : MonoBehaviour
         {
             UpdateBeltConveyor();
         }
+
+        //_shader.
     }
 
     private void OnCollisionEnter(Collision collision)
