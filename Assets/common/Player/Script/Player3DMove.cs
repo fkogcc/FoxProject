@@ -1,4 +1,6 @@
-﻿using System.Collections;
+﻿/*3Dのプレイヤーの挙動*/
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
@@ -13,6 +15,10 @@ public class Player3DMove : MonoBehaviour
     private Rigidbody _rigidbody;
 
     private IsGroundedCheck _isGroundedCheck;
+
+    private PlayerAnim3D _anim3D;
+
+    private IsGroundedCheck _groundCheck;
 
     // 移動スピード.
     [SerializeField] private float _speed = 5.0f;
@@ -33,6 +39,8 @@ public class Player3DMove : MonoBehaviour
     // 動く方向.
     Vector3 _moveDirection = Vector3.zero;
 
+    private Vector3 _moveVelocity = Vector3.zero;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -40,6 +48,7 @@ public class Player3DMove : MonoBehaviour
         _camera = GameObject.Find("Camera");
         _animator = GetComponent<Animator>();
         _isGroundedCheck = GetComponent<IsGroundedCheck>();
+        _anim3D = GetComponent<PlayerAnim3D>();
     }
 
     // Update is called once per frame
@@ -48,7 +57,7 @@ public class Player3DMove : MonoBehaviour
         if (!_isController) return;
         Anim();
         Move();
-        Jump();
+        //Jump();
     }
 
     private void FixedUpdate()
@@ -67,37 +76,37 @@ public class Player3DMove : MonoBehaviour
     }
 
     // ジャンプ.
-    private void Jump()
-    {
-        // 着地しているときの処理.
-        if (_isGround)
-        {
-            // Aボタン押したらジャンプ.
-            if (Input.GetKeyDown("joystick button 0"))
-            {
-                _moveDirection.y = _jumpPower;
-            }
-        }
+    //private void Jump()
+    //{
+    //    // 着地しているときの処理.
+    //    if (_isGround)
+    //    {
+    //        // Aボタン押したらジャンプ.
+    //        if (Input.GetKeyDown("joystick button 0"))
+    //        {
+    //            _moveDirection.y = _jumpPower;
+    //        }
+    //    }
 
-        // プレイヤーにかかる重力処理.
-        if (!_isGround)
-        {
-            _moveDirection.y -= _gravity * Time.deltaTime;
-        }
-        else
-        {
-            if (!Input.GetKey("joystick button 0"))
-            {
-                _moveDirection.y = _groundGravity;
-            }
-        }
-    }
+    //    // プレイヤーにかかる重力処理.
+    //    if (!_isGround)
+    //    {
+    //        _moveDirection.y -= _gravity * Time.deltaTime;
+    //    }
+    //    else
+    //    {
+    //        if (!Input.GetKey("joystick button 0"))
+    //        {
+    //            _moveDirection.y = _groundGravity;
+    //        }
+    //    }
+    //}
 
     // 移動.
     private void Move()
     {
         // 接地しているかを代入.
-        _isGround = IsGroundedCheck._instance._isGround;
+        _isGround = _groundCheck._isGround;
 
         // 垂直方向.
         float vertical = Input.GetAxis("Vertical");
@@ -113,14 +122,29 @@ public class Player3DMove : MonoBehaviour
 
         _moveDirection = moveZ + moveX + new Vector3(0.0f, _moveDirection.y, 0.0f);
 
+        _moveVelocity = _moveDirection * _speed;
+
         // プレイヤーの進む方向に回転.
         //transform.LookAt(transform.position + moveZ + moveX);
 
         transform.forward = Vector3.Slerp(transform.forward, moveZ + moveX, Time.deltaTime * 10.0f);
 
-        const float power = 25;
+        //if(_rigidbody.velocity.magnitude <= 10)
+        //{
+        //    //_rigidbody.AddForce(_moveDirection * 10, ForceMode.Acceleration);
 
-        _rigidbody.AddForce(_moveDirection * power, ForceMode.Acceleration);
+        //    _rigidbody.velocity = _moveDirection * Time.deltaTime;
+        //}
+
+        //float gravity = 20.0f;
+
+        if(_rigidbody.velocity.magnitude <= 10)
+        {
+            _rigidbody.AddForce(_moveVelocity);
+        }
+
+        //_rigidbody.velocity = new Vector3(_moveDirection.x, gravity, _moveDirection.z);
+        
         //Debug.Log();
     }
 
@@ -133,9 +157,9 @@ public class Player3DMove : MonoBehaviour
     // アニメーション.
     private void Anim()
     {
-        _animator.SetBool("Run", PlayerAnim3D._instance.Run());
-        _animator.SetBool("Jump", PlayerAnim3D._instance.Jump());
-        _animator.SetBool("isDead", PlayerAnim3D._instance.GameOver());
+        _animator.SetBool("Run", _anim3D.Run());
+        _animator.SetBool("Jump", _anim3D.Jump());
+        _animator.SetBool("isDead", _anim3D.GameOver());
     }
 
 }

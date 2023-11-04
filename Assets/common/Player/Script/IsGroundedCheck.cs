@@ -1,11 +1,11 @@
-﻿using System.Collections;
+﻿/*着地判定*/
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class IsGroundedCheck : MonoBehaviour
 {
-    public static IsGroundedCheck _instance;
-
     // 足から地面までのRayの長さ.
     //[SerializeField] private float _rayLength = 1.0f;
 
@@ -30,17 +30,6 @@ public class IsGroundedCheck : MonoBehaviour
     // レイ
     RaycastHit hit;
 
-    private void Awake()
-    {
-        if(_instance == null)
-        {
-            _instance = this;
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
-    }
 
     // Start is called before the first frame update
     void Start()
