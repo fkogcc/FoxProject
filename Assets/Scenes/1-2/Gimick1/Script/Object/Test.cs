@@ -4,6 +4,7 @@ using UnityEngine;
 using Cinemachine;
 using System;
 
+// HACK カメラの管理のスクリプトいろいろなおす
 public class Test : MonoBehaviour
 {
 
@@ -16,43 +17,71 @@ public class Test : MonoBehaviour
         // 照準を合わせる対象
         public Transform lookAt;
         // おためし
-        public Quaternion rota;
+        public float rota;
     }
 
-    private CinemachineVirtualCamera vcamera;
+    //private enum cameraNum
+    //{
+    //    GimickMonitor  = 0, 
+    //    Left = 1,
+    //    Right = 2,
+
+    //}
+    private CinemachineVirtualCamera _vCamera;
+    //private CinemachinePOV _cameraPov;
 
     // 追従対象リスト
     [SerializeField] private TargetInfo[] _targetList;
 
-    int _count = 0;
+    private int _count = 0;
+    private string _cameraName;
     // Start is called before the first frame update
     void Start()
     {
-        vcamera = this.GetComponent<CinemachineVirtualCamera>();
+        _vCamera = this.GetComponent<CinemachineVirtualCamera>();
+        //_cameraPov = this.GetComponent<CinemachinePOV>();
         var info = _targetList[_count];
-        vcamera.Follow = info.follow;
-        vcamera.LookAt = info.lookAt;
-        vcamera.transform.rotation = info.rota;
+        _vCamera.Follow = info.follow;
+        _vCamera.LookAt = info.lookAt;
+
+        _cameraName = null;
+        //_vCamera.transform.rotation = info.rota;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown("joystick button 2"))
+        //if (Input.GetKeyDown("joystick button 2"))
+        //{
+        //    _count++;
+        //}
+        //if(_count >= 3)
+        //{
+        //    _count = 0;
+        //}
+        // 
+
+        for(int count = 0; count < _targetList.Length;count++)
         {
-            _count++;
-        }
-        if(_count >= 2)
-        {
-            _count = 0;
+            //Debug.Log(_targetList[count].follow.name + "     " + _cameraName);
+            //Debug.Log("いま入っているのは" + _cameraName);
+            if (_targetList[count].follow.name == _cameraName)
+            {
+                var info = _targetList[count];
+                _vCamera.Follow = info.follow;
+                _vCamera.LookAt = info.lookAt;
+                _vCamera.GetCinemachineComponent(CinemachineCore.Stage.Aim).GetComponent<CinemachinePOV>().m_HorizontalAxis.Value = info.rota;
+            }
         }
 
-        var info = _targetList[_count];
-        vcamera.Follow = info.follow;
-        vcamera.LookAt = info.lookAt;
-        vcamera.GetCinemachineComponent(CinemachineCore.Stage.Aim).GetComponent<CinemachinePOV>().m_HorizontalAxis.Value = 0.2f;
         //this.transform.rotation = info.rota * this.transform.rotation;
         //vcamera.transform.rotation = info.rota;
-        Debug.Log(this.transform.rotation);
+        //Debug.Log(this.transform.rotation);
+    }
+
+    public void SetCameraName(string name)
+    {
+        _cameraName = name;
+        //Debug.Log("いま入っているのは" + _cameraName);
     }
 }
