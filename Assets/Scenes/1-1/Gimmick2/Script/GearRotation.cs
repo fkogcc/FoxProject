@@ -25,6 +25,20 @@ public class GearRotation : MonoBehaviour
     // タイマーが指定した時間に達したかのフラグ.
     private bool _isTimeFlag;
 
+
+    // てすと
+    // 回転中しているかどうか
+    public bool IsRotating { get; private set; }
+
+    // 角速度[deg/s]
+    public float AngularVelocity { get; private set; }
+
+    // 回転軸
+    public Vector3 Axis { get; private set; }
+
+    // 前フレームの姿勢
+    private Quaternion _prevRotation;
+
     // インスタンスの作成.
     void Start()
     {
@@ -32,12 +46,17 @@ public class GearRotation : MonoBehaviour
         _rotaDegrees += new Vector3(0.0f, -1.0f, 0.0f);
         _rotation = Quaternion.AngleAxis(0.0f, _rotaDegrees);
         _playerRotation = false;
-        _colRange = false; 
-         _rigidbody = GetComponent<Rigidbody>();
+        _colRange = false;
+        _rigidbody = GetComponent<Rigidbody>();
         _nowAngel = (int)this.transform.localEulerAngles.y % 360;
         _prevAngle = (int)this.transform.localEulerAngles.y % 360;
         _angle = 360;
         _coutnTime = 60 * 2;
+
+
+        // てすと
+        _prevRotation = transform.rotation;
+
     }
 
     // 60フレームに一回の更新処理.
@@ -54,6 +73,7 @@ public class GearRotation : MonoBehaviour
                 _isTimeFlag = true;
             }
         }
+
     }
 
     // 更新処理.
@@ -65,6 +85,8 @@ public class GearRotation : MonoBehaviour
             // 回転を調べる処理.
             CheckRotation();
         }
+
+        //TestRota();
     }
     // プレイヤーがコライダー内にいるとき.
     void OnTriggerEnter(Collider other)
@@ -83,6 +105,41 @@ public class GearRotation : MonoBehaviour
             _rigidbody.freezeRotation = true;
         }
     }
+
+    //private void TestRota()
+    //{
+    //    // 現在フレームの姿勢を取得
+    //    var rotation = transform.rotation;
+
+    //    // 前フレームからの回転量を求める
+    //    var diffRotation = Quaternion.Inverse(_prevRotation) * rotation;
+    //    // 回転した角度と軸（ローカル空間）を求める
+    //    diffRotation.ToAngleAxis(out var angle, out var axis);
+
+    //    // 回転角度が0以外なら回転しているとみなす
+    //    IsRotating = !Mathf.Approximately(angle, 0);
+
+    //    // 回転角度から角速度を計算
+    //    AngularVelocity = angle / Time.deltaTime;
+    //    // ローカル空間の回転軸をワールド空間に変換
+    //    Axis = rotation * axis;
+
+    //    //Debug.Log(_prevRotation);
+    //    // 前フレームの姿勢を更新
+    //    _prevRotation = rotation;
+
+    //    //// 回転中かどうか
+    //    //if (IsRotating)
+    //    //{
+    //    //    // 回転している場合は、角速度と回転軸を出力
+    //    //    print($"角速度 = {AngularVelocity}, 回転軸 = {Axis}");
+    //    //}
+    //    //else
+    //    //{
+    //    //    // 回転していない場合
+    //    //    print("回転していない");
+    //    //}
+    //}
     // 回転を調べる処理.
     private void CheckRotation()
     {
@@ -117,9 +174,13 @@ public class GearRotation : MonoBehaviour
         _prevAngle = _nowAngel;
         // 現在の回転率.
         _nowAngel = (int)this.transform.localEulerAngles.y % 360;
+
+        //Debug.Log(_nowAngel);
+        //Debug.Log(_nowAngel - _prevAngle);
+
         // 現在のフレームより前のフレームが小さければ
         // 指定した方向と逆回転しているので処理をしない.
-        if (_nowAngel >_prevAngle)
+        if (_nowAngel >_prevAngle || _nowAngel - _prevAngle > 0 || _nowAngel - _prevAngle < -10)
         {
             return;
         }
