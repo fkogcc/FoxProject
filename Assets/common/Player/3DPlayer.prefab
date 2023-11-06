@@ -770,6 +770,7 @@ GameObject:
   - component: {fileID: 2505489861581680398}
   - component: {fileID: 1914021162554197736}
   - component: {fileID: 7085766201023754968}
+  - component: {fileID: 6180932596194017782}
   m_Layer: 0
   m_Name: 3DPlayer
   m_TagString: Untagged
@@ -851,13 +852,13 @@ CapsuleCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1915272582234858339}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 3a29b966583465b4789363b652e02572, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: 1.2
   m_Height: 4.5
   m_Direction: 1
-  m_Center: {x: 0, y: 2.2687778, z: 0}
+  m_Center: {x: 0, y: 2.2, z: 0}
 --- !u!114 &7085766201023754968
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -877,6 +878,20 @@ MonoBehaviour:
   _raySphereLength: 0.45
   _SphereCastRegulationY: 0.5
   _distanceGround: 0.5
+--- !u!136 &6180932596194017782
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1915272582234858339}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.5
+  m_Height: 1
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1955179898831666840
 GameObject:
   m_ObjectHideFlags: 0

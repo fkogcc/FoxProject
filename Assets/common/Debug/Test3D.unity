@@ -1144,7 +1144,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7085766201023754968, guid: bd037697781acda40b5e323c73a69281, type: 3}
       propertyPath: _jumpPower
-      value: 10
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 7085766201023754968, guid: bd037697781acda40b5e323c73a69281, type: 3}
       propertyPath: _distanceGround
@@ -1158,7 +1158,8 @@ PrefabInstance:
       propertyPath: _SphereCastRegulationY
       value: 0.5
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 6180932596194017782, guid: bd037697781acda40b5e323c73a69281, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: bd037697781acda40b5e323c73a69281, type: 3}
 --- !u!1001 &2547387252258684958
 PrefabInstance:
