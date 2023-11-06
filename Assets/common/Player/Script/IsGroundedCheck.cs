@@ -1,46 +1,35 @@
+ï»¿/*ç€åœ°åˆ¤å®š*/
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class IsGroundedCheck : MonoBehaviour
 {
-    public static IsGroundedCheck _instance;
-
-    // ‘«‚©‚ç’n–Ê‚Ü‚Å‚ÌRay‚Ì’·‚³.
+    // è¶³ã‹ã‚‰åœ°é¢ã¾ã§ã®Rayã®é•·ã•.
     //[SerializeField] private float _rayLength = 1.0f;
 
-    // g‘Ì‚É‚ß‚è‚Ü‚¹‚éRay‚Ì’·‚³.
+    [Header("èº«ä½“ã«ã‚ã‚Šè¾¼ã¾ã›ã‚‹Rayã®é•·ã•")]
     [SerializeField] private float _rayOffset;
 
-    // ‰~‚ÌRay‚Ì’·‚³
+    [Header("å††ã®Rayã®é•·ã•")]
     [SerializeField] private float _raySphereLength = 0.1f;
 
-    // ‰~‚ÌyÀ•W’²®
+    [Header("å††ã®yåº§æ¨™èª¿æ•´")]
     [SerializeField] private float _SphereCastRegulationY = 0;
 
-    // Ray‚Ì”»’è‚É—p‚¢‚éLayer.
+    // Rayã®åˆ¤å®šã«ç”¨ã„ã‚‹Layer.
     //[SerializeField] private LayerMask _layerMask = default;
 
-    // SphereCast‚Ì’†SÀ•W
+    // SphereCastã®ä¸­å¿ƒåº§æ¨™
     private Vector3 _SphereCastCenterPosition = Vector3.zero;
 
-    // ’n–Ê‚ÉÚ’n‚µ‚Ä‚¢‚é‚©‚Ç‚¤‚©.
+    // åœ°é¢ã«æ¥åœ°ã—ã¦ã„ã‚‹ã‹ã©ã†ã‹.
     public bool _isGround;
 
-    // ƒŒƒC
+    // ãƒ¬ã‚¤
     RaycastHit hit;
 
-    private void Awake()
-    {
-        if(_instance == null)
-        {
-            _instance = this;
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
-    }
 
     // Start is called before the first frame update
     void Start()
@@ -63,22 +52,22 @@ public class IsGroundedCheck : MonoBehaviour
 
     private bool CheckGrounded()
     {
-        // Ray‚Ì‰ŠúˆÊ’u‚Æp¨.
+        // Rayã®åˆæœŸä½ç½®ã¨å§¿å‹¢.
         Ray ray = new(origin: transform.position + Vector3.up * _rayOffset, direction: Vector3.down);
 
-        // ‰~ƒLƒƒƒXƒg.
+        // å††ã‚­ãƒ£ã‚¹ãƒˆ.
         Physics.SphereCast(_SphereCastCenterPosition, _raySphereLength, -transform.up, out hit);
 
-        // Ú’n‹——£‚É‚æ‚Á‚Ätrue.
-        if (hit.distance <= 0.1f && hit.distance != 0.0f)
+        // æ¥åœ°è·é›¢ã«ã‚ˆã£ã¦true.
+        if (hit.distance <= 0.2f && hit.distance != 0.0f)
         {
             return true;
         }
 
-        // Ray‚ªÚ’n‚·‚é‚©‚Ç‚¤‚©.
-        // ‰~
+        // RayãŒæ¥åœ°ã™ã‚‹ã‹ã©ã†ã‹.
+        // å††
         return false;
-        // ü
+        // ç·š
         //return Physics.Raycast(ray, _rayLength, _layerMask);
 
         //return Physics.SphereCast(transform.position, 0.1f, -transform.up, out hit);
@@ -86,10 +75,10 @@ public class IsGroundedCheck : MonoBehaviour
 
     private void OnDrawGizmos()
     {
-        // ƒfƒoƒbƒO•\¦.
-        // Ú’n.
-        // true —Î.
-        // false Ô.
+        // ãƒ‡ãƒãƒƒã‚°è¡¨ç¤º.
+        // æ¥åœ°.
+        // true ç·‘.
+        // false èµ¤.
         Gizmos.color = _isGround ? Color.green : Color.red;
         //Gizmos.DrawRay(transform.position + Vector3.up * _rayOffset, Vector3.down * _rayLength);
         //Gizmos.DrawWireSphere(transform.position, 0.1f);

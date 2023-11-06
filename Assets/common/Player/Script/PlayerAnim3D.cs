@@ -6,24 +6,18 @@ using UnityEngine;
 
 public class PlayerAnim3D : MonoBehaviour
 {
-    public static PlayerAnim3D _instance;
-    private void Awake()
-    {
-        if( _instance == null )
-        {
-            _instance = this;
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
-    }
+    private IsGroundedCheck _groundCheck;
 
     //-------------------------------------------
     // アニメーション再生.
     // true: 再生.
     // false:再生しない.
     //-------------------------------------------
+
+    private void Start()
+    {
+        _groundCheck = GetComponent<IsGroundedCheck>();
+    }
 
     // 移動.
     public bool Run()
@@ -47,10 +41,10 @@ public class PlayerAnim3D : MonoBehaviour
     // ジャンプアニメーション.
     public bool Jump()
     {
-        if(!IsGroundedCheck._instance._isGround)
-        {
-            return true;
-        }
+        //if(!_groundCheck._isGround)
+        //{
+        //    return true;
+        //}
         return false;
     }
 

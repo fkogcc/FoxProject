@@ -18,7 +18,7 @@ public class Player2DMove : MonoBehaviour
     // プレイヤーの体力.
     private int _hp = 5;
     // ジャンプ力.
-    private float _jumpPower = 15.0f;
+    private float _jumpPower = 30.0f;
     // ジャンプしているかどうか.
     // true :している
     // false:していない
@@ -160,7 +160,7 @@ public class Player2DMove : MonoBehaviour
         float speed = hori * 25.0f;// 速さ.
         Vector3 vec = new (speed, 0, 0);
 
-        if (Input.GetKey("joystick button 0"))
+        if (Input.GetKeyDown("joystick button 0"))
         {
             Jump();
         }
