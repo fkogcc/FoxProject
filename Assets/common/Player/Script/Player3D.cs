@@ -12,6 +12,10 @@ public class Player3D : MonoBehaviour
     private Animator _animator;
     private Rigidbody _rigidbody;
 
+    private Transform _transform;
+
+    private BoxCollider _collider;
+
     // 着地しているかどうか.
     private bool _isGround;
 
@@ -55,6 +59,10 @@ public class Player3D : MonoBehaviour
         _anim3D = GetComponent<PlayerAnim3D>();
         _animator = GetComponent<Animator>();
         _rigidbody = GetComponent<Rigidbody>();
+
+        _transform = GetComponent<Transform>();
+
+        _collider = GetComponent<BoxCollider>();
     }
 
     void Update()
@@ -75,7 +83,7 @@ public class Player3D : MonoBehaviour
             transform.position.y + _SphereCastRegulationY, 
             transform.position.z);
 
-        Debug.Log(IsGroundShpere());
+        //Debug.Log(IsGroundShpere());
 
         //Debug.DrawRay(ray.origin, ray.direction * distance, Color.red); // レイを赤色で表示させる
     }
@@ -121,19 +129,42 @@ public class Player3D : MonoBehaviour
         Vector3 cameraForward = Vector3.Scale(_camera.transform.forward, new Vector3(1.0f, 0.0f, 1.0f)).normalized;
 
         // カメラ基準.
-        Vector3 moveZ = cameraForward * vertical * _speed;// 前後.
+        Vector3 moveZ = _speed * vertical * cameraForward;// 前後.
         Vector3 moveX = _camera.transform.right * horizontal * _speed;// 左右.
 
-        _moveDirection = moveZ + moveX + new Vector3(0.0f, _moveDirection.y, 0.0f);
+        _moveDirection = moveZ + moveX/* + new Vector3(0.0f, 0.0f, 0.0f)*/;
 
-        transform.forward = Vector3.Slerp(transform.forward, moveZ + moveX, Time.deltaTime * 10.0f);
+        transform.forward = Vector3.Slerp(transform.forward, _moveDirection, Time.deltaTime * 10.0f);
+
+        //_transform.rotation = Quaternion.Euler(0.0f, _transform.rotation.y, 0.0f);
+
+        //_rigidbody.velocity = _moveDirection.normalized * 5;
+
+        //_rigidbody.velocity = new Vector3(_moveDirection.x, 0.0f, _moveDirection.z).normalized * 5;
 
         //_rigidbody.velocity = new Vector3(_moveDirection.x, Physics.gravity.y, _moveDirection.z);
 
-        if(_rigidbody.velocity.magnitude <= 5)
+
+        //if (_rigidbody.velocity.magnitude <= 5)
+        //{
+        //    _rigidbody.AddForce(_moveDirection);
+        //}
+
+        if(vertical != 0.0f || horizontal != 0.0f)
+        {
+            _collider.material.dynamicFriction = 0.0f;
+        }
+        else
+        {
+            _collider.material.dynamicFriction = 1.0f;
+        }
+
+        if((_rigidbody.velocity.x < 10.0f && _rigidbody.velocity.x > -10.0f) || (_rigidbody.velocity.z < 10.0f && _rigidbody.velocity.z < -10.0f))
         {
             _rigidbody.AddForce(_moveDirection);
         }
+
+        Debug.Log(_rigidbody.velocity);
     }
 
     // ジャンプ処理
