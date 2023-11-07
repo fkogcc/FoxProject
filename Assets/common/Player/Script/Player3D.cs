@@ -27,6 +27,7 @@ public class Player3D : MonoBehaviour
 
     // 移動方向.
     private Vector3 _moveDirection = Vector3.zero;
+    Vector3 vector = Vector3.zero;
 
     private Ray ray; // 飛ばすレイ
     private float distance = 0.5f; // レイを飛ばす距離
@@ -132,6 +133,11 @@ public class Player3D : MonoBehaviour
         Vector3 moveZ = _speed * vertical * cameraForward;// 前後.
         Vector3 moveX = _camera.transform.right * horizontal * _speed;// 左右.
 
+        
+
+        vector.x = horizontal * _speed;
+        vector.z = vertical * _speed;
+
         _moveDirection = moveZ + moveX/* + new Vector3(0.0f, 0.0f, 0.0f)*/;
 
         transform.forward = Vector3.Slerp(transform.forward, _moveDirection, Time.deltaTime * 10.0f);
@@ -150,19 +156,13 @@ public class Player3D : MonoBehaviour
         //    _rigidbody.AddForce(_moveDirection);
         //}
 
-        if(vertical != 0.0f || horizontal != 0.0f)
-        {
-            _collider.material.dynamicFriction = 0.0f;
-        }
-        else
-        {
-            _collider.material.dynamicFriction = 1.0f;
-        }
 
-        if((_rigidbody.velocity.x < 10.0f && _rigidbody.velocity.x > -10.0f) || (_rigidbody.velocity.z < 10.0f && _rigidbody.velocity.z < -10.0f))
-        {
-            _rigidbody.AddForce(_moveDirection);
-        }
+        //if((_rigidbody.velocity.x < 10.0f && _rigidbody.velocity.x > -10.0f) || (_rigidbody.velocity.z < 10.0f && _rigidbody.velocity.z > -10.0f))
+        //{
+        //    _rigidbody.AddForce(_moveDirection);
+        //}
+
+        _rigidbody.AddForce(_moveDirection * (vector - _rigidbody.velocity));
 
         Debug.Log(_rigidbody.velocity);
     }
