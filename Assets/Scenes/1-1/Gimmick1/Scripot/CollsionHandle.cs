@@ -1,20 +1,20 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class CollsionHandle : MonoBehaviour
 {
-    // ”»’è‚ğæ‚è‚½‚¢ƒIƒuƒWƒFƒNƒg‚Ì–¼‘O.
+    // åˆ¤å®šã‚’å–ã‚ŠãŸã„ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®åå‰.
     private string _objectName;
-    // “–‚½‚Á‚Ä‚¢‚é‚©‚Ç‚¤‚©.
+    // å½“ãŸã£ã¦ã„ã‚‹ã‹ã©ã†ã‹.
     private bool _isColliding;
 
-    // ”»’èˆ—‚ğ‚Ç‚¤‚·‚é‚©‚ğŒˆ‚ß‚é.
+    // åˆ¤å®šå‡¦ç†ã‚’ã©ã†ã™ã‚‹ã‹ã‚’æ±ºã‚ã‚‹.
     public void SetHit(bool isHit)
     {
         _isColliding = isHit;
     }
-    // “–‚½‚Á‚Ä‚¢‚é‚©‚Ç‚¤‚©.
+    // å½“ãŸã£ã¦ã„ã‚‹ã‹ã©ã†ã‹.
     public bool IsGetHit()
     {
         return _isColliding;
@@ -25,7 +25,7 @@ public class CollsionHandle : MonoBehaviour
         _objectName = name;
     }
 
-    // w’è‚µ‚½ƒIƒuƒWƒFƒNƒg‚É“–‚½‚Á‚½‚ç.
+    // æŒ‡å®šã—ãŸã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã«å½“ãŸã£ãŸã‚‰.
     private void OnTriggerStay(Collider other)
     {
         if (other.name == _objectName)
@@ -33,7 +33,7 @@ public class CollsionHandle : MonoBehaviour
             _isColliding = true;
         }
     }
-    // w’è‚µ‚½ƒIƒuƒWƒFƒNƒg‚É“–‚½‚Á‚Ä‚¢‚È‚©‚Á‚½‚ç.
+    // æŒ‡å®šã—ãŸã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã«å½“ãŸã£ã¦ã„ãªã‹ã£ãŸã‚‰.
     private void OnTriggerExit(Collider other)
     {
         if (other.name == _objectName)

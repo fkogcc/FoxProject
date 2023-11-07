@@ -7,21 +7,33 @@ public class Gimick1_2_4_Manager : MonoBehaviour
 
     // ボタン操作.
     GameObject _botton;
+    // プレイヤー.
+    GameObject _tempWarp;
+    Gimick1_2_4_PlayerWarp _warp;
     // 回転用.
     [SerializeField] GameObject[] _rota;
+    // 回転用のクラスのメモリを確保
+    TurnGraph[] _rotaGraph = new TurnGraph[10];
     // 判定用.
     [SerializeField] GameObject[] _coll;
     // 回転するオブジェクトの最大数.
     public int _objRotaMaxNum;
     // 謎解きがとけたかどうか.
     private bool _isClear = false;
-    // クリア出来たかどうか.
-    private bool _clear = false;
+    // 回路が正しい場合のカウント.
+    private int _ansCount = 0;
 
     void Start()
     {
         // ボタン用.
         _botton = GameObject.Find("GameManager");
+        _tempWarp = GameObject.Find("Warp");
+        _warp = _tempWarp.GetComponent<Gimick1_2_4_PlayerWarp>();
+
+        for (int i = 0; i < _objRotaMaxNum; i++)
+        {
+            _rotaGraph[i] = _rota[i].GetComponent<TurnGraph>();
+        }
     }
 
     void Update()
@@ -39,37 +51,32 @@ public class Gimick1_2_4_Manager : MonoBehaviour
                 }
             }
         }
-
+        
+        // 回路が正しく接続されている数を確認.
         for (int i = 0; i < _objRotaMaxNum; i++)
         {
-            if(_rota[i].GetComponent<TurnGraph>().IsGetAns())
+            if(!_rotaGraph[i].IsGetAns())
             {
-               // Debug.Log(i);
-                Debug.Log(_rota[i].GetComponent<TurnGraph>().tempAngle());
+                _ansCount = 0;
+                break;
+            }
+            else
+            {
+                _ansCount++;    
             }
         }
 
-        // すべての謎がとけたら.
-        if (_rota[0].GetComponent<TurnGraph>().IsGetAns() &&
-            _rota[1].GetComponent<TurnGraph>().IsGetAns() &&
-            _rota[2].GetComponent<TurnGraph>().IsGetAns() &&
-            _rota[3].GetComponent<TurnGraph>().IsGetAns() &&
-            _rota[4].GetComponent<TurnGraph>().IsGetAns() &&
-            _rota[5].GetComponent<TurnGraph>().IsGetAns() &&
-            _rota[6].GetComponent<TurnGraph>().IsGetAns() &&
-            _rota[7].GetComponent<TurnGraph>().IsGetAns() &&
-            _rota[8].GetComponent<TurnGraph>().IsGetAns() &&
-            _rota[9].GetComponent<TurnGraph>().IsGetAns())
+        // 全ての回路が正しく接続されている場合.
+        if (_ansCount == _objRotaMaxNum)
         {
-            // ここでシーンを切り替え.
-            _clear = true;
-            Debug.Log("クリア"); 
+            _isClear = true;
+            _warp.GetComponent<Gimick1_2_4_PlayerWarp>().NextStagePos();
         }
 
     }
-    // クリアしたかどうか
+    // クリアしたかどうか.
     public bool GetResult()
     {
-        return _clear;
+        return _isClear;
     }
 }
