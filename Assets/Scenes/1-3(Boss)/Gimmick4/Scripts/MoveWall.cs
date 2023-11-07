@@ -6,13 +6,19 @@ public class MoveWall : MonoBehaviour
 {
     private float kwallHeight = 1.5f;//最初の壁の高さ
     private float kclearHeight = -0.5f;//この高さまで壁を下げたらクリア
-    private float kclearLavaPos = 8f;
+    private float kclearLavaPos = 9.2f;//クリアした際の溶岩のポジション
     private Vector3 klavaSpeed = new Vector3(0.03f,0,0);
+    //ロープのゲームオブジェクト
     private GameObject _rope;
+    //下がる壁のゲームオブジェクト
     private GameObject _wall;
+    //動く溶岩のゲームオブジェクト
     private GameObject _lava;
-    private Vector3 _wallPos;//動く壁のポジション
+    //動く壁のポジション
+    private Vector3 _wallPos;
+    //引っ張ったロープの長さ
     private float _ropeLength;
+    //引っ張れる場所にいるかどうか
     private bool _isFlag;
     // Start is called before the first frame update
     void Start()
