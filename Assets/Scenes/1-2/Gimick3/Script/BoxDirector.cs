@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class BoxDirector : MonoBehaviour
 {
@@ -11,8 +10,6 @@ public class BoxDirector : MonoBehaviour
     public int GimmickNum = 0;
 
     private GameObject _nowObj;
-
-    private bool _isAllClear;
 
     // クリア数カウント.
     private int _clearCount;
@@ -31,7 +28,6 @@ public class BoxDirector : MonoBehaviour
     void Start()
     {
         _nowObj = new GameObject();
-        _isAllClear = false;
 
         _clearCount = 0;
         _isSetFlag = false;
@@ -50,14 +46,6 @@ public class BoxDirector : MonoBehaviour
             _lineObj.Add("YellowGreen", GameObject.Find("YellowGreenLine"));
             _lineObj.Add("SkyBule", GameObject.Find("SkyBuleLine"));
             _lineObj.Add("Orange", GameObject.Find("OrangeLine"));
-        }
-    }
-
-    private void Update()
-    {
-        if (_isAllClear && Input.GetKeyDown(KeyCode.N))
-        {
-            SceneManager.LoadScene(NextStageName);
         }
     }
     
@@ -109,10 +97,15 @@ public class BoxDirector : MonoBehaviour
             {
                 Debug.Log("[BoxGimmick]クリアしました");
 
-                _isAllClear = true;
+                GetRezult();
             }
             return true;
         }
+        return false;
+    }
+
+    public bool GetRezult()
+    {
         return false;
     }
 }
