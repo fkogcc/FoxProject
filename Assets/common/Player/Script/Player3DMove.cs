@@ -54,7 +54,7 @@ public class Player3DMove : MonoBehaviour
 
     [SerializeField] private float _testmove;
     
-
+    float currentGravity = -0.1f;
     void Start()
     {
         _camera = GameObject.Find("Camera");
@@ -120,6 +120,8 @@ public class Player3DMove : MonoBehaviour
         }
     }
 
+
+    // 回転を含む移動処理
     private void MoveDirection()
     {
         // 垂直方向.
@@ -133,6 +135,17 @@ public class Player3DMove : MonoBehaviour
         cameraForward.y = 0.0f;
         cameraRight.y = 0.0f;
 
+        float Gravity = 1.1f;
+
+        
+
+        currentGravity *= Gravity;
+
+        if(currentGravity <= -20.0f)
+        {
+            currentGravity = -20.0f;
+        }
+
         // プレイヤーの回転
         transform.forward = Vector3.Slerp(transform.forward, _moveDirection, Time.deltaTime * 10.0f);
 
@@ -141,6 +154,11 @@ public class Player3DMove : MonoBehaviour
 
         // プレイヤーの移動
         _rigidbody.velocity = new Vector3(_moveDirection.x, _rigidbody.velocity.y, _moveDirection.z);
+
+        //_rigidbody.AddForce()
+        //_rigidbody.AddForce(_testmove * (_moveDirection - _rigidbody.velocity));
+
+        Debug.Log(_rigidbody.velocity.y);
     }
 
     // ジャンプ処理
