@@ -1116,6 +1116,10 @@ PrefabInstance:
       propertyPath: m_UseGravity
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2505489861581680398, guid: bd037697781acda40b5e323c73a69281, type: 3}
+      propertyPath: m_IsKinematic
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bd037697781acda40b5e323c73a69281, type: 3}
 --- !u!1 &1211178472
