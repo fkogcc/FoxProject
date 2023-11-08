@@ -770,7 +770,6 @@ GameObject:
   - component: {fileID: 2505489861581680398}
   - component: {fileID: 1914021162554197736}
   - component: {fileID: 7085766201023754968}
-  - component: {fileID: 6180932596194017782}
   m_Layer: 0
   m_Name: 3DPlayer
   m_TagString: Untagged
@@ -856,9 +855,9 @@ CapsuleCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: 1.2
-  m_Height: 4.5
+  m_Height: 4.656178
   m_Direction: 1
-  m_Center: {x: 0, y: 2.2, z: 0}
+  m_Center: {x: 0, y: 2.2780888, z: 0}
 --- !u!114 &7085766201023754968
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -871,27 +870,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e6279f0aac667ec48803e863d592f701, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _speed: 100
-  _jumpPower: 100
+  _speed: 5
+  _jumpPower: 25
   _isController: 1
   _rayOffset: 0
-  _raySphereLength: 0.45
+  _raySphereLength: 0.49
   _SphereCastRegulationY: 0.5
   _distanceGround: 0.5
---- !u!136 &6180932596194017782
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1915272582234858339}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 0.5
-  m_Height: 1
-  m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
+  _testmove: 50
 --- !u!1 &1955179898831666840
 GameObject:
   m_ObjectHideFlags: 0

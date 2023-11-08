@@ -8,6 +8,8 @@ public class PlayerAnim3D : MonoBehaviour
 {
     private IsGroundedCheck _groundCheck;
 
+    private Player3DMove _player;
+
     //-------------------------------------------
     // アニメーション再生.
     // true: 再生.
