@@ -52,6 +52,7 @@ public class Player3D : MonoBehaviour
 
     [SerializeField] private float _distanceGround;
 
+    [SerializeField] private float _testmove;
     
 
     void Start()
@@ -126,21 +127,21 @@ public class Player3D : MonoBehaviour
         // 水平方向.
         float horizontal = Input.GetAxis("Horizontal");
 
-        // カメラの向きを基準にした正面方向のベクトル.
-        Vector3 cameraForward = Vector3.Scale(_camera.transform.forward, new Vector3(1.0f, 0.0f, 1.0f)).normalized;
+        //// カメラの向きを基準にした正面方向のベクトル.
+        //Vector3 cameraForward = Vector3.Scale(_camera.transform.forward, new Vector3(1.0f, 0.0f, 1.0f)).normalized;
 
-        // カメラ基準.
-        Vector3 moveZ = _speed * vertical * cameraForward;// 前後.
-        Vector3 moveX = _camera.transform.right * horizontal * _speed;// 左右.
+        //// カメラ基準.
+        //Vector3 moveZ = _speed * vertical * cameraForward;// 前後.
+        //Vector3 moveX = _camera.transform.right * horizontal * _speed;// 左右.
 
         
 
-        vector.x = horizontal * _speed;
-        vector.z = vertical * _speed;
+        //vector.x = horizontal * _speed;
+        //vector.z = vertical * _speed;
 
-        _moveDirection = moveZ + moveX/* + new Vector3(0.0f, 0.0f, 0.0f)*/;
+        //_moveDirection = moveZ + moveX/* + new Vector3(0.0f, 0.0f, 0.0f)*/;
 
-        transform.forward = Vector3.Slerp(transform.forward, _moveDirection, Time.deltaTime * 10.0f);
+        
 
         //_transform.rotation = Quaternion.Euler(0.0f, _transform.rotation.y, 0.0f);
 
@@ -162,9 +163,31 @@ public class Player3D : MonoBehaviour
         //    _rigidbody.AddForce(_moveDirection);
         //}
 
-        _rigidbody.AddForce(_moveDirection * (vector - _rigidbody.velocity));
+        Vector3 cameraForward = _camera.transform.forward;
+        Vector3 cameraRight = _camera.transform.right;
+        cameraForward.y = 0.0f;
+        cameraRight.y = 0.0f;
 
-        Debug.Log(_rigidbody.velocity);
+        // プレイヤーの回転
+        transform.forward = Vector3.Slerp(transform.forward, _moveDirection, Time.deltaTime * 10.0f);
+
+        // カメラの角度によって正面方向を変える
+        _moveDirection = _speed * (cameraRight.normalized * horizontal + cameraForward.normalized * vertical);
+
+        // プレイヤーの移動
+        _rigidbody.AddForce(_testmove * (_moveDirection - _rigidbody.velocity));
+
+        // 摩擦力の変更
+        if (horizontal == 0.0f && vertical == 0.0f && IsGroundShpere() && !Input.GetKeyDown("joystick button 0"))
+        {
+            _rigidbody.drag = 50.0f;
+        }
+        else
+        {
+            _rigidbody.drag = 5.0f;
+        }
+
+        //Debug.Log(_rigidbody.velocity);
     }
 
     // ジャンプ処理
@@ -174,6 +197,7 @@ public class Player3D : MonoBehaviour
         {
             if (IsGroundShpere())
             {
+                //Debug.Log("通った");
                 //_isGround = false;
                 _rigidbody.AddForce(Vector3.up * _jumpPower, ForceMode.Impulse);
             }
@@ -204,7 +228,7 @@ public class Player3D : MonoBehaviour
         Physics.SphereCast(_SphereCastCenterPosition, _raySphereLength, -transform.up, out hit);
 
         // 接地距離によってtrue.
-        if (hit.distance <= _distanceGround && hit.distance >= 0.0f)
+        if (hit.distance <= _distanceGround /*&& hit.distance >= 0.0f*/)
         {
             return true;
         }
