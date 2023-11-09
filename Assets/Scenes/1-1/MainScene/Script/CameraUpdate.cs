@@ -1,10 +1,13 @@
 ﻿// 2Dカメラ処理.
-// HACK:マジックナンバーが残っているので何とかする.
 
 using UnityEngine;
 
 public class CameraUpdate : MonoBehaviour
 {
+    // ギミックマネージャー
+    SolveGimmickManager _gimmickManager;
+
+
     // カメラが追う座標.
     private Vector3 _targetPosition;
     // カメラの速度
@@ -30,6 +33,8 @@ public class CameraUpdate : MonoBehaviour
     void Start()
     {
         _followPlayer = GameObject.Find("Foxidle");
+
+        _gimmickManager = GameObject.FindWithTag("GimmickManager").GetComponent<SolveGimmickManager>();
 
         // X,Y座標にプレイヤーの座標を代入
         _cameraPosX = _followPlayer.transform.position.x;
@@ -65,6 +70,8 @@ public class CameraUpdate : MonoBehaviour
         }
 
         MoveCamera();
+
+
         // ギミックが作動していたらカメラを動かさない
         //if (!_manager.GetSolveGimmick(0) && !_manager.GetSolveGimmick(1) && !_manager.GetSolveGimmick(2) && !_manager.GetSolveGimmick(3))
         //{
@@ -90,5 +97,34 @@ public class CameraUpdate : MonoBehaviour
     private void OperationGimmickCamera(int num)
     {
         transform.position = Vector3.SmoothDamp(transform.position, _operationGimmickCameraPosition[num].transform.position, ref _velocity, _time);
+    }
+
+    /// <summary>
+    /// カメラの全体の処理
+    /// </summary>
+    /// <param name="GimmickNum">ギミックのナンバー</param>
+    private void WholeCamera(int gimmickNum)
+    {
+        for (int i = 0; i < gimmickNum; i++)
+        {
+            if(!_gimmickManager._solve[i])
+            {
+                MoveCamera();
+            }
+            else if(_gimmickManager._solve[i])
+            {
+                OperationGimmickCamera(i);
+            }
+        }
+
+        //if(!_gimmickManager._solve[0] && !_gimmickManager._solve[1] && 
+        //    !_gimmickManager._solve[2] && !_gimmickManager._solve[3])
+        //{
+        //    MoveCamera();
+        //}
+        //else if(_gimmickManager._solve[gimmickNum])
+        //{
+        //    OperationGimmickCamera(gimmickNum);
+        //}
     }
 }
