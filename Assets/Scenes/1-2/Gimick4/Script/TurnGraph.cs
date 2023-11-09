@@ -39,9 +39,8 @@ public class TurnGraph : MonoBehaviour
             else
             {
                 // 回転させる.
-                _rota += 1;
+                _rota += 5;
                 this.transform.rotation = Quaternion.Euler(0.0f, _rota, 0.0f);
-            //    this.transform.Rotate(0.0f, _rota, 0.0f);
             }
         }
 

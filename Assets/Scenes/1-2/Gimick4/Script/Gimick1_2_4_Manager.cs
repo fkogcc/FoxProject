@@ -50,6 +50,11 @@ public class Gimick1_2_4_Manager : MonoBehaviour
     public float _clearCameraRotaY;
     public float _clearCameraRotaX;
 
+    // サウンド関係
+    public AudioClip _sound;
+    public AudioClip _sound2;
+    AudioSource _audioSource;        
+
     void Start()
     {
         // ボタン用.
@@ -82,11 +87,13 @@ public class Gimick1_2_4_Manager : MonoBehaviour
             _cameraData      = GameObject.Find("AnsPos");
             _cameraPos       = _cameraData.transform;
         }
+
+        // サウンドのコンポーネントを取得
+        _audioSource = GameObject.Find("Sound").GetComponent<AudioSource>();
     }
 
     void Update()
     {
-        Debug.Log("動いています1_2_4_0");
         for(int i = 0; i < _objRotaMaxNum; i++)
         {
             // オブジェクトにあたっていたら.
@@ -95,8 +102,12 @@ public class Gimick1_2_4_Manager : MonoBehaviour
                 // ボタンをおしたら.
                 if (_botton.GetComponent<Botton>().GetButtonB())
                 {
+                    // サウンドを再生
+                    _audioSource.PlayOneShot(_sound);
+                    
                     // 回転したら.
                     _rota[i].GetComponent<TurnGraph>().Rota();
+
                 }
             }
         }
@@ -125,13 +136,19 @@ public class Gimick1_2_4_Manager : MonoBehaviour
         // 全ての回路が正しく接続されている場合.
         if (_ansFrameCount == _objRotaMaxNum)
         {
+            if (_clearFrameCount == 0)
+            {
+                // サウンドを再生
+                _audioSource.PlayOneShot(_sound2);
+            }
+
             // クリア後少し間を開ける為のカウント.
             _clearFrameCount++;
 
             // 光った演出用のライトを表示させる.
             _light.SetActive(true);
           
-            //// カメラのターゲット位置と角度を変更.
+            // カメラのターゲット位置と角度を変更.
             _camera.Follow = _cameraPos;
             _camera.GetCinemachineComponent(CinemachineCore.Stage.Aim).GetComponent<CinemachinePOV>().m_VerticalAxis.Value   = _clearCameraRotaY;
             _camera.GetCinemachineComponent(CinemachineCore.Stage.Aim).GetComponent<CinemachinePOV>().m_HorizontalAxis.Value = _clearCameraRotaX;
