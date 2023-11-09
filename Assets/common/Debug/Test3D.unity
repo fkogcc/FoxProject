@@ -1113,6 +1113,10 @@ PrefabInstance:
       value: 3DPlayer
       objectReference: {fileID: 0}
     - target: {fileID: 2505489861581680398, guid: bd037697781acda40b5e323c73a69281, type: 3}
+      propertyPath: m_Drag
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2505489861581680398, guid: bd037697781acda40b5e323c73a69281, type: 3}
       propertyPath: m_UseGravity
       value: 1
       objectReference: {fileID: 0}
@@ -1526,6 +1530,22 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2547387252357561709, guid: 546fe8400816cf942bbf47e67a845ed9, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.73351246
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547387252357561709, guid: 546fe8400816cf942bbf47e67a845ed9, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.14262362
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547387252357561709, guid: 546fe8400816cf942bbf47e67a845ed9, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.6039662
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547387252357561709, guid: 546fe8400816cf942bbf47e67a845ed9, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0.27720538
+      objectReference: {fileID: 0}
     - target: {fileID: 2547387252357561710, guid: 546fe8400816cf942bbf47e67a845ed9, type: 3}
       propertyPath: _player
       value: 
@@ -1541,6 +1561,10 @@ PrefabInstance:
     - target: {fileID: 2547387253817141642, guid: 546fe8400816cf942bbf47e67a845ed9, type: 3}
       propertyPath: m_ScreenY
       value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 2547387253817141642, guid: 546fe8400816cf942bbf47e67a845ed9, type: 3}
+      propertyPath: m_LookaheadTime
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2547387253817141642, guid: 546fe8400816cf942bbf47e67a845ed9, type: 3}
       propertyPath: m_SoftZoneWidth
