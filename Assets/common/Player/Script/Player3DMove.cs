@@ -1,65 +1,117 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Cinemachine;
+using UnityEngine.EventSystems;
 
 public class Player3DMove : MonoBehaviour
 {
-    // キャラクターコントローラー.
-    private CharacterController _playerController;
     // カメラ.
     private GameObject _camera;
-    // アニメーター.
-    private Animator _animator;
 
+    private PlayerAnim3D _anim3D;
+    private Animator _animator;
+    private Rigidbody _rigidbody;
+
+    private Transform _transform;
+
+    private BoxCollider _collider;
+
+    // 着地しているかどうか.
+    private bool _isGround;
 
     // 移動スピード.
-    [SerializeField] private float _speed = 5.0f;
+    [SerializeField] private float _speed = 5;
+
     // ジャンプ力.
-    [SerializeField] private float _jumpPower = 8.0f;
-    // 重力.
-    [SerializeField] private float _gravity = 10.0f;
+    [SerializeField] private float _jumpPower;
 
-    // 着地中にかけられ続ける重力/
-    private float _groundGravity = -10.0f;
+    // 移動方向.
+    private Vector3 _moveDirection = Vector3.zero;
+    Vector3 vector = Vector3.zero;
 
-    // 地面に当たっているか.
-    private bool _isGround = false;
+    private Ray ray; // 飛ばすレイ
+    private float distance = 0.5f; // レイを飛ばす距離
+    private RaycastHit hit; // レイが何かに当たった時の情報
+    private Vector3 rayPosition; // レイを発射する位置
 
     // 操作可能かどうか.
     public bool _isController = true;
 
-    // 動く方向.
-    Vector3 _moveDirection = Vector3.zero;
 
-    // Start is called before the first frame update
+    [Header("身体にめり込ませるRayの長さ")]
+    [SerializeField] private float _rayOffset;
+
+    [Header("円のRayの長さ")]
+    [SerializeField] private float _raySphereLength = 0.1f;
+
+    [Header("円のy座標調整")]
+    [SerializeField] private float _SphereCastRegulationY = 0;
+
+    // SphereCastの中心座標
+    private Vector3 _SphereCastCenterPosition = Vector3.zero;
+
+    [SerializeField] private float _distanceGround;
+
+    [SerializeField] private float _testmove;
+    
+    float currentGravity = -0.1f;
     void Start()
     {
-        // マウスカーソルを非表示にし、位置を固定.
-        Cursor.visible = false;
-        Cursor.lockState = CursorLockMode.Locked;
-
-        _playerController = GetComponent<CharacterController>();
         _camera = GameObject.Find("Camera");
+        _anim3D = GetComponent<PlayerAnim3D>();
         _animator = GetComponent<Animator>();
+        _rigidbody = GetComponent<Rigidbody>();
 
+        _transform = GetComponent<Transform>();
+
+        _collider = GetComponent<BoxCollider>();
     }
 
-    // Update is called once per frame
     void Update()
     {
+        //print(_isGround);
+
         if (!_isController) return;
-        Anim();
-        Move();
+        MoveDirection();
         Jump();
+        Anim();
+        FallDebug();
     }
 
     private void FixedUpdate()
     {
-        FallDebug();
+        _SphereCastCenterPosition = 
+            new Vector3(transform.position.x, 
+            transform.position.y + _SphereCastRegulationY, 
+            transform.position.z);
+
+        //Debug.Log(IsGroundShpere());
+
+        //Debug.DrawRay(ray.origin, ray.direction * distance, Color.red); // レイを赤色で表示させる
     }
 
-    // 地面から落ちたら初期位置のスポーン.
+    private void OnCollisionEnter(Collision collision)
+    {
+        //if(collision.gameObject.tag == "Stage")
+        //{
+        //    _isGround = true;
+        //}
+    }
+
+    private void OnDrawGizmos()
+    {
+        // デバッグ表示.
+        // 接地.
+        // true 緑.
+        // false 赤.
+        Gizmos.color = IsGroundShpere() ? Color.green : Color.red;
+        //Gizmos.DrawRay(transform.position + Vector3.up * _rayOffset, Vector3.down * _rayLength);
+        //Gizmos.DrawWireSphere(transform.position, 0.1f);
+        Gizmos.DrawWireSphere(_SphereCastCenterPosition + -transform.up * (hit.distance), _raySphereLength);
+    }
+
+
+    // 落下時の復帰判定
     private void FallDebug()
     {
         if (this.transform.position.y <= -5.0f)
@@ -68,74 +120,83 @@ public class Player3DMove : MonoBehaviour
         }
     }
 
-    // ジャンプ.
-    private void Jump()
+
+    // 回転を含む移動処理
+    private void MoveDirection()
     {
-        // 着地しているときの処理.
-        if (_isGround)
-        {
-            // Aボタン押したらジャンプ.
-            if (Input.GetKeyDown("joystick button 0"))
-            {
-                _moveDirection.y = _jumpPower;
-            }
-        }
-
-        // プレイヤーにかかる重力処理.
-        if (!_isGround)
-        {
-            _moveDirection.y -= _gravity * Time.deltaTime;
-        }
-        else
-        {
-            if (!Input.GetKey("joystick button 0"))
-            {
-                _moveDirection.y = _groundGravity;
-            }
-        }
-    }
-
-    // 移動.
-    private void Move()
-    {
-        // 接地しているかを代入.
-        _isGround = IsGroundedCheck._instance._isGround;
-
         // 垂直方向.
         float vertical = Input.GetAxis("Vertical");
         // 水平方向.
         float horizontal = Input.GetAxis("Horizontal");
 
-        // カメラの向きを基準にした正面方向のベクトル.
-        Vector3 cameraForward = Vector3.Scale(_camera.transform.forward, new Vector3(1.0f, 0.0f, 1.0f)).normalized;
+        
+        Vector3 cameraForward = _camera.transform.forward;
+        Vector3 cameraRight = _camera.transform.right;
+        cameraForward.y = 0.0f;
+        cameraRight.y = 0.0f;
 
-        // カメラ基準.
-        Vector3 moveZ = cameraForward * vertical * _speed;// 前後.
-        Vector3 moveX = _camera.transform.right * horizontal * _speed;// 左右.
+        float Gravity = 1.1f;
 
-        _moveDirection = moveZ + moveX + new Vector3(0.0f, _moveDirection.y, 0.0f);
+        
 
+        currentGravity *= Gravity;
 
+        if(currentGravity <= -20.0f)
+        {
+            currentGravity = -20.0f;
+        }
 
-        // プレイヤーの進む方向に回転.
-        transform.LookAt(transform.position + moveZ + moveX);
+        // プレイヤーの回転
+        transform.forward = Vector3.Slerp(transform.forward, _moveDirection, Time.deltaTime * 10.0f);
 
-        // Moveは指定したベクトルだけ移動させる命令.
-        _playerController.Move(_moveDirection * Time.deltaTime);
+        // カメラの角度によって正面方向を変える
+        _moveDirection = _speed * (cameraRight.normalized * horizontal + cameraForward.normalized * vertical);
+
+        // プレイヤーの移動
+        _rigidbody.velocity = new Vector3(_moveDirection.x, _rigidbody.velocity.y, _moveDirection.z);
+
+        //_rigidbody.AddForce()
+        //_rigidbody.AddForce(_testmove * (_moveDirection - _rigidbody.velocity));
+
+        Debug.Log(_rigidbody.velocity.y);
     }
 
-    // 落下ダメージ.
-    //private void FallDamage()
-    //{
+    // ジャンプ処理
+    private void Jump()
+    {
+        if(Input.GetKeyDown("joystick button 0"))
+        {
+            if (IsGroundShpere())
+            {
+                _rigidbody.AddForce(Vector3.up * _jumpPower, ForceMode.Impulse);
+            }
+        }
+    }
 
-    //}
+    // Rayが接地するかどうか.
+    // 円
+    private bool IsGroundShpere()
+    {
+        Ray ray = new(origin: transform.position + Vector3.up * _rayOffset, direction: Vector3.down);
 
-    // アニメーション.
+        // 円キャスト.
+        Physics.SphereCast(_SphereCastCenterPosition, _raySphereLength, -transform.up, out hit);
+
+        // 接地距離によってtrue.
+        if (hit.distance <= _distanceGround)
+        {
+            return true;
+        }
+
+        
+        return false;
+    }
+
+    // アニメーションの処理
     private void Anim()
     {
-        _animator.SetBool("Run", PlayerAnim3D._instance.Run());
-        _animator.SetBool("Jump", PlayerAnim3D._instance.Jump());
-        _animator.SetBool("isDead", PlayerAnim3D._instance.GameOver());
+        _animator.SetBool("Run", _anim3D.Run());
+        _animator.SetBool("Jump", _anim3D.Jump());
+        _animator.SetBool("isDead", _anim3D.GameOver());
     }
-
 }

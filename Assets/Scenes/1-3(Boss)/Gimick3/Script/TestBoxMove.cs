@@ -1,14 +1,14 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class TestBoxMove : MonoBehaviour
 {
-	// Rigidbody‚Ìæ“¾.
+	// Rigidbodyã®å–å¾—.
 	Rigidbody _rb;
-	// ƒvƒŒƒCƒ„[‚Ì‰Ÿ‚·—Í.
-	public float _pushPower = 2.0f;
-	// ‰Ÿ‚µ‚Ä‚¢‚é•ûŒü.
+	// ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®æŠ¼ã™åŠ›.
+	public float _pushPower = 4.0f;
+	// æŠ¼ã—ã¦ã„ã‚‹æ–¹å‘.
 	Vector3 _pushDir;
 	// Start is called before the first frame update
 	void Start()
@@ -29,7 +29,7 @@ public class TestBoxMove : MonoBehaviour
 	void OnControllerColliderHit(ControllerColliderHit hit)
 	{
 		_rb = hit.collider.attachedRigidbody;
-		// ‘Šè‚ÌƒIƒuƒWƒFƒNƒg‚ÉRigidbody‚ª‚Â‚¢‚Ä‚¢‚È‚©‚Á‚½‚èAisKinematic‚Éƒ`ƒFƒbƒN‚ª“ü‚Á‚Ä‚¢‚éê‡‚É‚Í‰Ÿ‚¹‚È‚¢.
+		// ç›¸æ‰‹ã®ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã«RigidbodyãŒã¤ã„ã¦ã„ãªã‹ã£ãŸã‚Šã€isKinematicã«ãƒã‚§ãƒƒã‚¯ãŒå…¥ã£ã¦ã„ã‚‹å ´åˆã«ã¯æŠ¼ã›ãªã„.
 		if (_rb == null || _rb.isKinematic)
 		{
 			return;
@@ -39,9 +39,9 @@ public class TestBoxMove : MonoBehaviour
 		{
 			return;
 		}
-		// ‰Ÿ‚µ‚Ä‚¢‚é•ûŒü‚ğæ“¾‚·‚é
+		// æŠ¼ã—ã¦ã„ã‚‹æ–¹å‘ã‚’å–å¾—ã™ã‚‹
 		_pushDir = new Vector3(hit.moveDirection.x, 0, hit.moveDirection.z);
-		// ‰Ÿ‚µ‚Ä‚¢‚é•ûŒü‚É‰Ÿ‚µ‚Ä‚¢‚é—Í‚ğŠ|‚¯‚ÄˆÚ“®‚³‚¹‚é
+		// æŠ¼ã—ã¦ã„ã‚‹æ–¹å‘ã«æŠ¼ã—ã¦ã„ã‚‹åŠ›ã‚’æ›ã‘ã¦ç§»å‹•ã•ã›ã‚‹
 		_rb.velocity = _pushDir * _pushPower;
 	}
 }

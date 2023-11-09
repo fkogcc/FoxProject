@@ -10,7 +10,10 @@ using UnityEngine.SceneManagement;
 
 public class FadeSceneTransition : MonoBehaviour
 {
-    private testCol _transitionScene;
+    private GateFlag _transitionScene;
+
+    private SceneTransitionManager _sceneTransitionManager;
+
     // 色.
     public Color _color;
     // ゲートのボタンを押したかどうか.
@@ -27,7 +30,8 @@ public class FadeSceneTransition : MonoBehaviour
         _color.b = 0.0f;
         _color.a = 1.0f;
         gameObject.GetComponent<Image>().color = _color;
-        _transitionScene = GameObject.Find("Foxidle").GetComponent<testCol>();
+        _transitionScene = GameObject.Find("Foxidle").GetComponent<GateFlag>();
+        _sceneTransitionManager = GetComponent<SceneTransitionManager>();
     }
 
     // Update is called once per frame
@@ -42,8 +46,19 @@ public class FadeSceneTransition : MonoBehaviour
     // ゲートの前にいるかの状態.
     private bool SetGateFlag()
     {
-        return _transitionScene.GetIsGateGimmick1() || _transitionScene.GetIsGateGimmick2() ||
-            _transitionScene.GetIsGoal();
+        return _transitionScene._isGateGimmick1_1 || 
+            _transitionScene._isGateGimmick1_2 ||
+            _transitionScene._isGateGimmick2_1 ||
+            _transitionScene._isGateGimmick2_2 ||
+            _transitionScene._isGateGimmick2_3 ||
+            _transitionScene._isGateGimmick2_4 ||
+            _transitionScene._isGateGimmick3_1 ||
+            _transitionScene._isGateGimmick3_2 ||
+            _transitionScene._isGateGimmick3_3 ||
+            _transitionScene._isGateGimmick3_4 ||
+            _transitionScene._isGoal1_1 ||
+            _transitionScene._isGoal1_2 ||
+            _transitionScene._isGoal1_3;
     }
 
     // フェード処理.
@@ -85,18 +100,45 @@ public class FadeSceneTransition : MonoBehaviour
             _isPush = true;
         }
 
+        // 共通フラグ
+        bool transitionFlagCommon = _color.a >= 0.9f && !Player2DMove._instance.GetIsMoveActive();
+
         // シーン遷移.
-        if (_transitionScene.GetIsGateGimmick1() && _color.a >= 0.9f && !Player2DMove._instance.GetIsMoveActive())
+        if (_transitionScene._isGateGimmick1_1 && transitionFlagCommon)
         {
-            SceneManager.LoadScene("Gimmick1_1_1Scene");
+            _sceneTransitionManager.MainScene1_1_1();
         }
-        else if (_transitionScene.GetIsGateGimmick2() && _color.a >= 0.9f && !Player2DMove._instance.GetIsMoveActive())
+        else if (_transitionScene._isGateGimmick1_2 && transitionFlagCommon)
         {
-            SceneManager.LoadScene("Gimmick1_1_2Scene");
+            _sceneTransitionManager.MainScene1_1_2();
         }
-        else if(_transitionScene.GetIsGoal() && _color.a >= 0.9f && !Player2DMove._instance.GetIsMoveActive())
+        else if (_transitionScene._isGateGimmick2_1 && transitionFlagCommon)
         {
-            SceneManager.LoadScene("MainScene1-2");
+            _sceneTransitionManager.MainScene1_2_1();
+        }
+        else if (_transitionScene._isGateGimmick2_2 && transitionFlagCommon)
+        {
+            _sceneTransitionManager.MainScene1_2_2();
+        }
+        else if (_transitionScene._isGateGimmick2_3 && transitionFlagCommon)
+        {
+            _sceneTransitionManager.MainScene1_2_3();
+        }
+        else if (_transitionScene._isGateGimmick2_4 && transitionFlagCommon)
+        {
+            _sceneTransitionManager.MainScene1_2_4();
+        }
+        else if(_transitionScene._isGoal1_1 && transitionFlagCommon)
+        {
+            _sceneTransitionManager.MainScene1_2();
+        }
+        else if (_transitionScene._isGoal1_2 && transitionFlagCommon)
+        {
+            _sceneTransitionManager.MainScene1_3();
+        }
+        else if (_transitionScene._isGoal1_3 && transitionFlagCommon)
+        {
+            _sceneTransitionManager.EndScene();
         }
 
     }

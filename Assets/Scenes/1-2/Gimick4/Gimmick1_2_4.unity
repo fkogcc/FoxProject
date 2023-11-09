@@ -756,6 +756,7 @@ GameObject:
   - component: {fileID: 141163507}
   - component: {fileID: 141163506}
   - component: {fileID: 141163505}
+  - component: {fileID: 141163508}
   m_Layer: 0
   m_Name: GameManager2
   m_TagString: Untagged
@@ -843,6 +844,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
+
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &148134205 stripped
@@ -932,6 +934,7 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 7d836771a091a2345a8a1ad923d094e4, type: 3}
   m_PrefabInstance: {fileID: 1860667268}
   m_PrefabAsset: {fileID: 0}
+
 --- !u!1001 &162104012
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4368,7 +4371,9 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 7d836771a091a2345a8a1ad923d094e4, type: 3}
   m_PrefabInstance: {fileID: 573384245}
   m_PrefabAsset: {fileID: 0}
+
 --- !u!1001 &828341285
+
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -5499,6 +5504,7 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: -656100618118971214, guid: 3d419c9ce7c0de241bab4b97fe16d4f7, type: 3}
   m_PrefabInstance: {fileID: 295340530}
   m_PrefabAsset: {fileID: 0}
+
 --- !u!65 &1005765668
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -9424,6 +9430,25 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7d836771a091a2345a8a1ad923d094e4, type: 3}
+--- !u!1 &1911800118 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5084730003539476859, guid: 41316c13ae15329419fc57a282178b42, type: 3}
+  m_PrefabInstance: {fileID: 1044051471}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1911800119
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1911800118}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 088b3a56207e16a4188c6546ffdf919e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _isFadeIn: 0
+  _isFadeOut: 0
 --- !u!4 &1911879467 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 7d836771a091a2345a8a1ad923d094e4, type: 3}

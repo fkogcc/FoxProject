@@ -1,4 +1,4 @@
-// •ÇƒMƒ~ƒbƒN
+ï»¿// å£ã‚®ãƒŸãƒƒã‚¯
 
 using System.Collections;
 using System.Collections.Generic;
@@ -6,45 +6,46 @@ using UnityEngine;
 
 public class WallGimmick : MonoBehaviour
 {
-    // ƒVƒ“ƒOƒ‹ƒgƒ“
-    public static WallGimmick _instance;
-    // ”à‚ªŠJ‚¢‚½‚ÌÅIˆÊ’u
-    private Vector3 _targetPosition = new Vector3(84.0f, 15.0f, 1.0f);
+    private SolveGimmickManager _manager;
+
+    // æ‰‰ãŒé–‹ã„ãŸæ™‚ã®æœ€çµ‚ä½ç½®.
+    private Vector3 _targetPosition;
     private Vector3 _velocity = Vector3.zero;
-    // ƒ^[ƒQƒbƒg‚É‚½‚Ç‚è’…‚­ŠÔ
+    [Header("ãƒ‰ã‚¢ã®é…ç½®ã‚’ãƒªã‚»ãƒƒãƒˆã™ã‚‹ã¨ãã®åº§æ¨™")]
+    [SerializeField] private Vector3 _resetPosition = Vector3.zero;
+    // ã‚¿ãƒ¼ã‚²ãƒƒãƒˆã«ãŸã©ã‚Šç€ãæ™‚é–“.
     [SerializeField] private float _time;
 
-    private void Awake()
+    private void Start()
     {
-        if (_instance == null)
+        _manager = GameObject.FindWithTag("GimmickManager").GetComponent<SolveGimmickManager>();
+        _targetPosition = new Vector3(transform.position.x, transform.position.y + 10.0f, transform.position.z);
+    }
+
+    private void FixedUpdate()
+    {
+        if (_manager._solve[0])
         {
-            _instance = this;
+            UpdateWall();
         }
-        else
+        if (!_manager._solve[0])
         {
-            Destroy(gameObject);
+            DebugReset();
         }
     }
 
     /// <summary>
-    /// •Ç‚ÌƒMƒ~ƒbƒNXVˆ—
+    /// å£ã®ã‚®ãƒŸãƒƒã‚¯æ›´æ–°å‡¦ç†.
     /// </summary>
-    /// <param name="solveGimmick">ƒMƒ~ƒbƒN‚ğ‰ğ‚¢‚½‚©‚Ç‚¤‚©</param>
-    public void UpdateWall(bool solveGimmick)
+    public void UpdateWall()
     {
-        // ƒMƒ~ƒbƒN‚ª‰ğ‚©‚ê‚Ä‚¢‚È‚©‚Á‚½‚çreturn
-        if(!solveGimmick) return;
-
         transform.position = Vector3.SmoothDamp(transform.position, _targetPosition, ref _velocity, _time);
     }
 
-    // ƒfƒoƒbƒO—pƒMƒ~ƒbƒNƒŠƒZƒbƒg
-    public void DebugReset(bool solveGimmick)
+    // ãƒ‡ãƒãƒƒã‚°ç”¨ã‚®ãƒŸãƒƒã‚¯ãƒªã‚»ãƒƒãƒˆ.
+    public void DebugReset()
     {
-        if(!solveGimmick)
-        {
-            transform.position = new Vector3(84.0f, 5.0f, 1.0f);
-        }
+        transform.position = _resetPosition;
     }
 
 }

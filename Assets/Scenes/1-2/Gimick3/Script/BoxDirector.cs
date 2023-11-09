@@ -1,83 +1,111 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class BoxDirector : MonoBehaviour
 {
-    // Ÿ‚ÌƒV[ƒ“‚Ì–¼‘O.
+    // æ¬¡ã®ã‚·ãƒ¼ãƒ³ã®åå‰.
     public string NextStageName;
+    // ã‚®ãƒŸãƒƒã‚¯ã®æœ€å¤§æ•°.
+    public int GimmickNum = 0;
 
-    // ƒNƒŠƒA”ƒJƒEƒ“ƒg.
+    private GameObject _nowObj;
+
+    // ã‚¯ãƒªã‚¢æ•°ã‚«ã‚¦ãƒ³ãƒˆ.
     private int _clearCount;
-    // ’u‚¯‚é‚©‚Ìƒtƒ‰ƒO.
+    // ç½®ã‘ã‚‹ã‹ã®ãƒ•ãƒ©ã‚°.
     private bool _isSetFlag;
-    // ˆø‚«n‚ß‚½‚ÌF.
+    // å¼•ãå§‹ã‚ãŸæ™‚ã®è‰².
     private string _pullColor;
-    // ƒMƒ~ƒbƒNİ’uêŠ‚ÌF.
+    // ã‚®ãƒŸãƒƒã‚¯è¨­ç½®å ´æ‰€ã®è‰².
     private string _gimmickColor;
-    // ƒMƒ~ƒbƒNİ’uêŠ‚ÌÀ•W.
+    // ã‚®ãƒŸãƒƒã‚¯è¨­ç½®å ´æ‰€ã®åº§æ¨™.
     private Vector3 _gimmickPos;
-    // ƒMƒ~ƒbƒN‚ÌÅ‘å”.
-    private int _gimmickNum;
 
-    // ‰Šú‰»ˆ—
+    Dictionary<string, GameObject> _lineObj;
+
+    // åˆæœŸåŒ–å‡¦ç†
     void Start()
     {
+        _nowObj = new GameObject();
+
         _clearCount = 0;
         _isSetFlag = false;
         _pullColor = "";
         _gimmickColor = "";
         _gimmickPos = new Vector3();
-        _gimmickNum = 4;
-    }
 
-    // ˆø‚«n‚ß‚½F‚Ìæ“¾
+        _lineObj = new Dictionary<string, GameObject>();
+        _lineObj.Add("Pink", GameObject.Find("PinkLine"));
+        _lineObj.Add("Bule", GameObject.Find("BuleLine"));
+        _lineObj.Add("Green", GameObject.Find("GreenLine"));
+        _lineObj.Add("Red", GameObject.Find("RedLine"));
+        if (4 < GimmickNum)
+        {
+            _lineObj.Add("Yellow", GameObject.Find("YellowLine"));
+            _lineObj.Add("YellowGreen", GameObject.Find("YellowGreenLine"));
+            _lineObj.Add("SkyBule", GameObject.Find("SkyBuleLine"));
+            _lineObj.Add("Orange", GameObject.Find("OrangeLine"));
+        }
+    }
+    
+    // å¼•ãå§‹ã‚ãŸè‰²ã®å–å¾—
     public void SetGimmickOut(string color)
     {
         _pullColor = color;
     }
 
-    // ƒMƒ~ƒbƒN‚É“–‚½‚Á‚½‚Ìˆ—.
+    // ã‚®ãƒŸãƒƒã‚¯ã«å½“ãŸã£ãŸæ™‚ã®å‡¦ç†.
     public void SetGimmickIn(string color, Vector3 temp)
     {
-        // ƒMƒ~ƒbƒNİ’uêŠ‚É“–‚½‚Á‚½‚çFæ“¾.
+        // ã‚®ãƒŸãƒƒã‚¯è¨­ç½®å ´æ‰€ã«å½“ãŸã£ãŸã‚‰è‰²å–å¾—.
         _gimmickColor = color;
-        // À•W‚Ì•Û.
+        // åº§æ¨™ã®ä¿æŒ.
         _gimmickPos = temp;
-        // ƒMƒ~ƒbƒN”ÍˆÍ“à‚É‚¢‚é‚æ‚¤‚É‚·‚é.
+        // ã‚®ãƒŸãƒƒã‚¯ç¯„å›²å†…ã«ã„ã‚‹ã‚ˆã†ã«ã™ã‚‹.
         _isSetFlag = true;
     }
-    // ƒMƒ~ƒbƒN‚ÌˆÊ’u‚ğ•Ô‚·.
+    // ã‚®ãƒŸãƒƒã‚¯ã®ä½ç½®ã‚’è¿”ã™.
     public Vector3 GetGimmickPos()
     {
         return _gimmickPos;
     }
 
-    // ƒtƒ‰ƒO‚ğ•Ô‚·.
+    // ãƒ•ãƒ©ã‚°ã‚’è¿”ã™.
     public void IsSetFlag(bool flag)
     {
         _isSetFlag = flag;
     }
+    public void SetObj(GameObject obj)
+    {
+        _nowObj = obj;
+    }
 
-    // ˆø‚«n‚ß‚½F‚Æ“¯‚¶‚È‚ç‚Îtrue•Ô‚·.
+    // å¼•ãå§‹ã‚ãŸè‰²ã¨åŒã˜ãªã‚‰ã°trueè¿”ã™.
     public bool IsSameColor()
     {
-        // ”ÍˆÍŠO‚É‚¢‚é‚È‚ç‚¨‚¯‚È‚¢‚æ‚¤‚É‚·‚é.
+        // ç¯„å›²å¤–ã«ã„ã‚‹ãªã‚‰ãŠã‘ãªã„ã‚ˆã†ã«ã™ã‚‹.
         if (!_isSetFlag) return false;
 
         if (_pullColor == _gimmickColor)
         {
             _clearCount++;
+            _nowObj.GetComponent<ParticleSystem>().Play();
+            Destroy(_lineObj[_gimmickColor]);
 
-            if (_gimmickNum <= _clearCount)
+            if (GimmickNum <= _clearCount)
             {
-                Debug.Log("[BoxGimmick]ƒNƒŠƒA‚µ‚Ü‚µ‚½");
+                Debug.Log("[BoxGimmick]ã‚¯ãƒªã‚¢ã—ã¾ã—ãŸ");
 
-                SceneManager.LoadScene(NextStageName);
+                GetRezult();
             }
             return true;
         }
+        return false;
+    }
+
+    public bool GetRezult()
+    {
         return false;
     }
 }

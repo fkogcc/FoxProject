@@ -1,20 +1,24 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class GimmickHand : MonoBehaviour
 {
-    private string _hitNo;
+    private int _hitNo;
+    private GameObject _directer;
 
-    public int HitNo { get { return int.Parse(_hitNo); } }
+    public int HitNo { get { return _hitNo; } }
 
     void Start()
     {
-        _hitNo = "15";
+        _hitNo = 15;
+        _directer = GameObject.Find("GameManager");
     }
 
     void OnTriggerEnter(Collider other)
     {
-        _hitNo = other.name;
+        _hitNo = int.Parse(other.name);
+
+        _directer.GetComponent<SlideGimmickDirector>().ChangeNowSelectLight(_hitNo);
     }
 }
