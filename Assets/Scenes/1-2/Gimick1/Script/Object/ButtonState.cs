@@ -22,7 +22,7 @@ public class ButtonState : MonoBehaviour
     private GimickButton[] _button;
     // HACK ほんとにこれはテスト、あとでぜったい変えます、ほんとにまずい.
     private string[] _objNameTest;
-    private const string _buttonNameTest = "Button";
+    private const string _buttonNameTest = "FrontButton";
 
     // Start is called before the first frame update
     void Start()
