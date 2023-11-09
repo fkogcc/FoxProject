@@ -146,22 +146,18 @@ public class Player3DMove : MonoBehaviour
             currentGravity = -20.0f;
         }
 
-        // プレイヤーの回転
+        // プレイヤーの回転.
         transform.forward = Vector3.Slerp(transform.forward, _moveDirection, Time.deltaTime * 10.0f);
 
-        // カメラの角度によって正面方向を変える
+        // カメラの角度によって正面方向を変える.
         _moveDirection = _speed * (cameraRight.normalized * horizontal + cameraForward.normalized * vertical);
 
-        // プレイヤーの移動
+        // プレイヤーの移動.
         _rigidbody.velocity = new Vector3(_moveDirection.x, _rigidbody.velocity.y, _moveDirection.z);
 
-        //_rigidbody.AddForce()
-        //_rigidbody.AddForce(_testmove * (_moveDirection - _rigidbody.velocity));
-
-        Debug.Log(_rigidbody.velocity.y);
     }
 
-    // ジャンプ処理
+    // ジャンプ処理.
     private void Jump()
     {
         if(Input.GetKeyDown("joystick button 0"))
@@ -192,7 +188,7 @@ public class Player3DMove : MonoBehaviour
         return false;
     }
 
-    // アニメーションの処理
+    // アニメーションの処理.
     private void Anim()
     {
         _animator.SetBool("Run", _anim3D.Run());
