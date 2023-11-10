@@ -47,8 +47,7 @@ public class ButtonState : MonoBehaviour
 
     }
 
-    // Update is called once per frame
-    void Update()
+    public void ButtonAcquisition()
     {
         // ボタンが押されたかどうかを取得する.
         _isButtonState = _playerObject.GetComponent<PlayerHand>().IsGetButtonState();
@@ -99,7 +98,7 @@ public class ButtonState : MonoBehaviour
 
         // 答えと違ったら違うという表示を出す.
         // for文で処理を回す.
-        if (_num == _max　&& isCheckColor())
+        if (_num == _max && isCheckColor())
         {
             for (int obj = 0; obj < _max; obj++)
             {
@@ -112,11 +111,6 @@ public class ButtonState : MonoBehaviour
                 }
             }
         }
-
-    }
-    void FixedUpdate()
-    {
-
     }
     // 取得したオブジェクト(ボタン)の情報を初期化する.
     private void ObjGetInit()

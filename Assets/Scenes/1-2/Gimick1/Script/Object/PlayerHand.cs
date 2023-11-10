@@ -22,23 +22,8 @@ public class PlayerHand : MonoBehaviour
         _isCollision = false;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        // プレイヤーの手が判定内にいて、ボタンを押されたら.
-        if (_isCollision && Input.GetKeyDown("joystick button 1"))
-        {
-            // ボタンが押されたフラグを返す.
-            _isButtonState = true;
-        }
-        // 条件に当てはまらなかったら.
-        else
-        {
-            // ボタンのフラグをfalseで返す.
-            _isButtonState = false ;
-        }
-    }
-    void FixedUpdate()
+    // プレイヤーの手の移動処理
+    public void MovePlayerHand()
     {
         // HACK とりあえず手を動かす用の処理(後でもっといい方法に書き直したいな).
         if (Input.GetAxis("Vertical") > 0)
@@ -62,6 +47,23 @@ public class PlayerHand : MonoBehaviour
             transform.position -= transform.right * _speed * Time.deltaTime;
         }
     }
+
+    public void ButtonPush()
+    {
+        // プレイヤーの手が判定内にいて、ボタンを押されたら.
+        if (_isCollision && Input.GetKeyDown("joystick button 1"))
+        {
+            // ボタンが押されたフラグを返す.
+            _isButtonState = true;
+        }
+        // 条件に当てはまらなかったら.
+        else
+        {
+            // ボタンのフラグをfalseで返す.
+            _isButtonState = false;
+        }
+    }
+
     public bool IsGetButtonState()
     {
         return _isButtonState;

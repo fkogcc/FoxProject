@@ -21,6 +21,10 @@ public class GimickButton : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        ButtonChengeColor();
+    }
+    public void ButtonChengeColor()
+    {
         // 自身の名前とプレイヤーが触れているボタンの名前が一緒だったら.
         if (_name == this.gameObject.name)
         {
@@ -40,13 +44,8 @@ public class GimickButton : MonoBehaviour
             // 名前には何も入れない
             _name = "";
         }
+    }
 
-    }
-    void FixedUpdate()
-    {
-        
-    }
-  
     public Color IsCheckColor()
     {
         Color color = this.GetComponent<Renderer>().materials[_materialNum].color;
