@@ -7,9 +7,6 @@ using UnityEngine;
 
 public class RotateWindmill : MonoBehaviour
 {
-    // インスタンス.
-    public static RotateWindmill _instance;
-
     private SolveGimmickManager _gimmickManager;
 
     //private GimmickManager1_1 _manager;
@@ -36,18 +33,6 @@ public class RotateWindmill : MonoBehaviour
     // ギミックが作動中かどうか
     private bool _isOperationGimmick;
 
-    private void Awake()
-    {
-        if( _instance == null )
-        {
-            _instance = this;
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
-    }
-
     private void Start()
     {
         _gimmickManager = GameObject.FindWithTag("GimmickManager").GetComponent<SolveGimmickManager>();
@@ -55,18 +40,23 @@ public class RotateWindmill : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (_gimmickManager._solve[1])
-        {
-            UpdateRotateWindmill();
-        }
-    }
-
-    private void UpdateRotateWindmill()
-    {
         transform.Rotate(_rotateSpeed, 0.0f, 0.0f);
 
         _windSpace.SetActive(_isWindActive);
 
+        WindSpwon();
+
+        if (_gimmickManager._solve[1])
+        {
+            //UpdateRotateWindmill();
+
+            RotateSpeed();
+        }
+    }
+
+    // 風の生成タイミング
+    private void WindSpwon()
+    {
         // 風を発生させるタイミング.
         if (_rotateSpeed > 25.0f)
         {
@@ -76,7 +66,37 @@ public class RotateWindmill : MonoBehaviour
         {
             _isWindActive = false;
         }
+    }
 
+    // 風車の羽の回転速度の処理.
+    private void RotateSpeed()
+    {
+        // スピードを下げるかどうか.
+        if(!_isCountDownRotateSpeed)
+        {
+            _rotateSpeed += _rotateAcceleration;
+        }
+        else if(_isCountDownRotateSpeed)
+        {
+            _rotateSpeed -= _rotateAcceleration;
+        }
+
+        // 回転の減速.
+        if(_rotateSpeed >= _rotateMaxSpeed)
+        {
+            _isCountDownRotateSpeed = true;
+        }
+        else if(_rotateSpeed <= _rotateMinSpeed)
+        {
+            _rotateSpeed = _rotateMinSpeed;
+            _isCountDownRotateSpeed = false;
+            _gimmickManager._solve[1] = false;
+        }
+    }
+
+    // 風車のギミック処理
+    private void UpdateRotateWindmill()
+    {
         // ギミックを解いていなかったら処理を通さない.
         SolveGimmickAfter(_isOperationGimmick);
     }

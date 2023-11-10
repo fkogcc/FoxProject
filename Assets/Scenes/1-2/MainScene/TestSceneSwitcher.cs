@@ -24,7 +24,7 @@ public class TestSceneSwitcher : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        _PlayerHp = Player2DMove._instance.GetHp();
+        //_PlayerHp = Player2DMove._instance.GetHp();
     }
 
     // Update is called once per frame

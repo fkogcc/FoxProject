@@ -5,8 +5,9 @@ using UnityEngine;
 public class CameraUpdate : MonoBehaviour
 {
     // ギミックマネージャー
-    SolveGimmickManager _gimmickManager;
+    private SolveGimmickManager _gimmickManager;
 
+    private Player2DMove _player;
 
     // カメラが追う座標.
     private Vector3 _targetPosition;
@@ -32,7 +33,8 @@ public class CameraUpdate : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        _followPlayer = GameObject.Find("Foxidle");
+        _followPlayer = GameObject.FindWithTag("Player");
+        _player = _followPlayer.GetComponent<Player2DMove>();
 
         _gimmickManager = GameObject.FindWithTag("GimmickManager").GetComponent<SolveGimmickManager>();
 
@@ -50,7 +52,7 @@ public class CameraUpdate : MonoBehaviour
         _cameraPosY = _followPlayer.transform.position.y;
 
         // 向いている方向によってカメラの位置を変更.
-        if (!Player2DMove._instance.GetIsDirection())
+        if (!_player.GetIsDirection())
         {
             _targetPosition = new Vector3(_cameraPosX + 7, (_cameraPosY / 5.0f) + 6.0f, _cameraPosZ);
         }
@@ -69,7 +71,17 @@ public class CameraUpdate : MonoBehaviour
             transform.position = new Vector3(_cameraFixedPositionRight, (_cameraPosY / 5.0f) + 6.0f, -20.0f);
         }
 
-        MoveCamera();
+        if(!_gimmickManager._solve[0] && !_gimmickManager._solve[1] && !_gimmickManager._solve[2] && !_gimmickManager._solve[3])
+        {
+            MoveCamera();
+        }
+        else
+        {
+            WholeCamera();
+        }
+        
+
+        
 
 
         // ギミックが作動していたらカメラを動かさない
@@ -103,15 +115,14 @@ public class CameraUpdate : MonoBehaviour
     /// カメラの全体の処理
     /// </summary>
     /// <param name="GimmickNum">ギミックのナンバー</param>
-    private void WholeCamera(int gimmickNum)
+    private void WholeCamera()
     {
-        for (int i = 0; i < gimmickNum; i++)
+        //if (_gimmickManager._solve[0] && _gimmickManager._solve[1] && _gimmickManager._solve[2] && _gimmickManager._solve[3]) return;
+
+
+        for (int i = 0; i < 4; i++)
         {
-            if(!_gimmickManager._solve[i])
-            {
-                MoveCamera();
-            }
-            else if(_gimmickManager._solve[i])
+            if(_gimmickManager._solve[i])
             {
                 OperationGimmickCamera(i);
             }

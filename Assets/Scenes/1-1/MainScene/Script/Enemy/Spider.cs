@@ -1,17 +1,22 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Spider : MonoBehaviour
 {
-    // ƒAƒjƒ[ƒVƒ‡ƒ“.
+    private RotateWindmill _windmill;
+
+    // ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³.
     Animator _animator;
+    BoxCollider col;
 
     // Start is called before the first frame update
     void Start()
     {
-        // ƒAƒjƒ[ƒVƒ‡ƒ“‚Ìæ“¾.
+        _windmill = GameObject.Find("windmill:windmill:polySurface132").GetComponent<RotateWindmill>();
+        // ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã®å–å¾—.
         _animator = GetComponent<Animator>();
+        col = GetComponent<BoxCollider>();
     }
 
     // Update is called once per frame
@@ -22,18 +27,32 @@ public class Spider : MonoBehaviour
 
     private void FixedUpdate()
     {
-        // —‰º‚µ‚½‚çƒIƒuƒWƒFƒNƒg‚ğÁ‚·.
-        if (transform.position.y < -20.0f || transform.position.z < -50.0f)
+        // è½ä¸‹ã—ãŸã‚‰ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’æ¶ˆã™.
+        if (transform.position.y < -20.0f || transform.position.z < -30.0f)
         {
             Destroy(gameObject);
+        }
+
+        if(_windmill.GetWindActive())
+        {
+            _animator.enabled = false;
+        }
+        else
+        {
+            //_animator.enabled = true;
         }
     }
 
     private void OnTriggerStay(Collider other)
     {
-        if (other.name != "WindSpace") return;
+        Debug.Log("é€šã£ã¦ã‚‹");
 
-        // •—‚É“–‚½‚é‚ÆƒAƒjƒ[ƒVƒ‡ƒ“‚ğI—¹.
+        // é¢¨ã«å½“ãŸã‚‹ã¨ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã‚’çµ‚äº†.
         _animator.enabled = false;
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        //_animator.enabled = true;
     }
 }

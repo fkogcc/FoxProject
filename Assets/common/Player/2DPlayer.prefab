@@ -1531,9 +1531,10 @@ GameObject:
   - component: {fileID: 2698344479787284196}
   - component: {fileID: 2698344479787284193}
   - component: {fileID: 6518691929001983071}
+  - component: {fileID: 2602555136799249742}
   m_Layer: 0
   m_Name: 2DPlayer
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1617,8 +1618,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 721a6813e7b7afd429fdb920f8b52c3f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _hp: 0
-  _isDirection: 0
 --- !u!114 &6518691929001983071
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1631,6 +1630,31 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c66029cdc3c466244ac98740be5e2d1b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &2602555136799249742
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3004775973324384907}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0d8a030bec51864b80fe9964be40469, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _isGateGimmick1_1: 0
+  _isGateGimmick1_2: 0
+  _isGateGimmick2_1: 0
+  _isGateGimmick2_2: 0
+  _isGateGimmick2_3: 0
+  _isGateGimmick2_4: 0
+  _isGateGimmick3_1: 0
+  _isGateGimmick3_2: 0
+  _isGateGimmick3_3: 0
+  _isGateGimmick3_4: 0
+  _isGoal1_1: 0
+  _isGoal1_2: 0
+  _isGoal1_3: 0
 --- !u!1 &3084667316828082209
 GameObject:
   m_ObjectHideFlags: 0

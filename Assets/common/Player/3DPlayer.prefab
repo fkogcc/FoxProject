@@ -770,6 +770,7 @@ GameObject:
   - component: {fileID: 2505489861581680398}
   - component: {fileID: 1914021162554197736}
   - component: {fileID: 7085766201023754968}
+  - component: {fileID: 3498901213022387698}
   m_Layer: 0
   m_Name: 3DPlayer
   m_TagString: Untagged
@@ -878,6 +879,20 @@ MonoBehaviour:
   _SphereCastRegulationY: 0.5
   _distanceGround: 0.5
   _testmove: 50
+--- !u!136 &3498901213022387698
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1915272582234858339}
+  m_Material: {fileID: 13400000, guid: 750b8da9dd211fe4fa03e94065a05808, type: 2}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 1.34
+  m_Height: 4.390796
+  m_Direction: 1
+  m_Center: {x: 0, y: 2.2895763, z: 0}
 --- !u!1 &1955179898831666840
 GameObject:
   m_ObjectHideFlags: 0

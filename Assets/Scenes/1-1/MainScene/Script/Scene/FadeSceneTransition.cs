@@ -10,9 +10,14 @@ using UnityEngine.SceneManagement;
 
 public class FadeSceneTransition : MonoBehaviour
 {
+    private Player2DMove _player;
+
     private GateFlag _transitionScene;
 
     private SceneTransitionManager _sceneTransitionManager;
+
+    // ゴールしたタイミング
+    public bool _isGoal;
 
     // 色.
     public Color _color;
@@ -22,7 +27,9 @@ public class FadeSceneTransition : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        _player = GameObject.FindWithTag("Player").GetComponent<Player2DMove>();
         // 初期化.
+        _isGoal = false;
         _isPush = false;
         _color = gameObject.GetComponent<Image>().color;
         _color.r = 0.0f;
@@ -30,7 +37,7 @@ public class FadeSceneTransition : MonoBehaviour
         _color.b = 0.0f;
         _color.a = 1.0f;
         gameObject.GetComponent<Image>().color = _color;
-        _transitionScene = GameObject.Find("Foxidle").GetComponent<GateFlag>();
+        _transitionScene = GameObject.FindWithTag("Player").GetComponent<GateFlag>();
         _sceneTransitionManager = GetComponent<SceneTransitionManager>();
     }
 
@@ -101,7 +108,7 @@ public class FadeSceneTransition : MonoBehaviour
         }
 
         // 共通フラグ
-        bool transitionFlagCommon = _color.a >= 0.9f && !Player2DMove._instance.GetIsMoveActive();
+        bool transitionFlagCommon = _color.a >= 0.9f && !_player.GetIsMoveActive();
 
         // シーン遷移.
         if (_transitionScene._isGateGimmick1_1 && transitionFlagCommon)
@@ -130,15 +137,22 @@ public class FadeSceneTransition : MonoBehaviour
         }
         else if(_transitionScene._isGoal1_1 && transitionFlagCommon)
         {
+            //_isGoal = true;
             _sceneTransitionManager.MainScene1_2();
         }
         else if (_transitionScene._isGoal1_2 && transitionFlagCommon)
         {
+            //_isGoal = true;
             _sceneTransitionManager.MainScene1_3();
         }
         else if (_transitionScene._isGoal1_3 && transitionFlagCommon)
         {
             _sceneTransitionManager.EndScene();
+        }
+
+        if ((_transitionScene._isGoal1_1 || _transitionScene._isGoal1_2) && Input.GetKeyDown("joystick button 3"))
+        {
+            _isGoal = true;
         }
 
     }
