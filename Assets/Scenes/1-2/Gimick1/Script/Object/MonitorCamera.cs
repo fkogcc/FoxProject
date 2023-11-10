@@ -36,6 +36,13 @@ public class MonitorCamera : MonoBehaviour
             // プレイヤーの手を表示する
             _handObject.gameObject.SetActive(true);
 
+            //if (_handObject == null)
+            //{
+            //    // テスト
+            //    _handObject = Instantiate(PlayerHand,
+            //            this.transform.position,
+            //            Quaternion.identity) as GameObject;
+            //}
         }
         else
         {
@@ -44,6 +51,11 @@ public class MonitorCamera : MonoBehaviour
             _vcamera.Priority = 5;
             _playerObject.gameObject.SetActive(true);
             _handObject.gameObject.SetActive(false);
+
+            //if (_handObject != null)
+            //{
+            //    Destroy(_handObject);
+            //}
         }
     }
 
