@@ -10,6 +10,8 @@ public class FadeObject : MonoBehaviour
     // マテリアル.
     private Renderer _fadeMaterial;
 
+    private RotateWindmill _rotateWindmill;
+
     // フェードする速度.
     private float _fadeSpeed = 0.01f;
     // _fadeMaterialの色.
@@ -22,6 +24,8 @@ public class FadeObject : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        _rotateWindmill = GameObject.Find("windmill:windmill:polySurface132").GetComponent<RotateWindmill>();
+
         _fadeMaterial = GetComponent<Renderer>();
         _r = _fadeMaterial.material.color.r;
         _g = _fadeMaterial.material.color.g;
@@ -37,7 +41,9 @@ public class FadeObject : MonoBehaviour
 
     private void FixedUpdate()
     {
-        _isFadeOut = RotateWindmill._instance.GetWindActive();
+        //_isFadeOut = RotateWindmill._instance.GetWindActive();
+
+        _isFadeOut = _rotateWindmill.GetWindActive();
 
         if ( _isFadeOut )
         {

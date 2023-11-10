@@ -41,8 +41,8 @@ public class GimmickBirdge : MonoBehaviour
 
     private void FixedUpdate()
     {
-        Debug.Log("left" + _birdgeLeft.transform.localEulerAngles.z);
-        Debug.Log("right" + _birdgeRight.transform.localEulerAngles.z);
+        //Debug.Log("left" + _birdgeLeft.transform.localEulerAngles.z);
+        //Debug.Log("right" + _birdgeRight.transform.localEulerAngles.z);
 
         if (_manager._solve[0])
         {
