@@ -38,6 +38,7 @@ public class GateFlag : MonoBehaviour
 
     void Update()
     {
+        //Debug.Log($"{name}");
     }
 
 

@@ -5,7 +5,6 @@ using UnityEngine;
 
 public class Player2DMove : MonoBehaviour
 {
-    public static Player2DMove _instance;
     private PlayerAnim2D _anim;
     private GateFlag _transitionScene;
 
@@ -15,6 +14,9 @@ public class Player2DMove : MonoBehaviour
     private BoxCollider _boxCollider;
     // プレイヤーのアニメーション.
     private Animator _animator;
+
+    private FadeSceneTransition _flag;
+
     // プレイヤーの体力.
     private int _hp = 5;
     // ジャンプ力.
@@ -32,19 +34,6 @@ public class Player2DMove : MonoBehaviour
     // false;動けない
     private bool _isMoveActive = true;
 
-    private void Awake()
-    {
-        if( _instance == null )
-        {
-            _instance = this;
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
-    }
-
-    // Start is called before the first frame update
     void Start()
     {
         // 初期化処理.
@@ -53,11 +42,13 @@ public class Player2DMove : MonoBehaviour
         _rigid = GetComponent<Rigidbody>();
         _boxCollider = GetComponent<BoxCollider>();
         _animator = GetComponent<Animator>();
+
+        _flag = GameObject.Find("Fade").GetComponent<FadeSceneTransition>();
+
         _hp = 5;
         _isDirection = false;
     }
     
-    // Update is called once per frame
     void Update()
     {
         // ボタン押したら(ボタン配置は仮).
@@ -81,22 +72,47 @@ public class Player2DMove : MonoBehaviour
         FallDebug();
         Anim();
 
+        // ゴールした時に正面を向くようにする.
+        if (_flag._isGoal)
+        {
+            //transform.localEulerAngles = new Vector3(0.0f,180.0f, 0.0f);
+
+            transform.forward = Vector3.Slerp(transform.forward, new Vector3(0.0f, 0.0f, 0.0f), Time.deltaTime * 10.0f);
+
+            //if (transform.localEulerAngles.y >= 185.0f && transform.localEulerAngles.y <= 175.0f)
+            //{
+            //    Debug.Log("通った");
+            //    if (!_isDirection)
+            //    {
+            //        transform.Rotate(0f, 5f, 0f);
+            //    }
+            //    else
+            //    {
+            //        transform.Rotate(0f, -5f, 0f);
+            //    }
+            //}
+        }
+
+        if (!_flag._isGoal) return;
+
         // 右を向く.
         if (!_isDirection)
         {
-            if(transform.localEulerAngles.y > 120.0f)
+            if(transform.localEulerAngles.y >= 120.0f)
             {
                 transform.Rotate(0f, -10f, 0f);
             }
         }
         // 左を向く.
-        if (_isDirection)
+        else if (_isDirection)
         {
-            if (transform.localEulerAngles.y < 240.0f)
+            if (transform.localEulerAngles.y <= 240.0f)
             {
                 transform.Rotate(0f, 10f, 0f);
             }
         }
+        
+        
     }
 
     private void OnCollisionStay(Collision collision)
@@ -143,6 +159,7 @@ public class Player2DMove : MonoBehaviour
         _animator.SetBool("Run", _anim.Run());
         _animator.SetBool("Jump", _anim.Jump());
         _animator.SetBool("GameOver", _anim.GameOver());
+        _animator.SetBool("Goal", _anim.Goal());
     }
 
     // ジャンプ処理.
@@ -181,6 +198,7 @@ public class Player2DMove : MonoBehaviour
             _boxCollider.material.dynamicFriction = 1.0f;
         }
 
+        // 方向返還.
         if (hori < 0)
         {
             if (hori == 0) return;

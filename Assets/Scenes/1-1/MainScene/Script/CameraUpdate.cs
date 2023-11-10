@@ -5,8 +5,9 @@ using UnityEngine;
 public class CameraUpdate : MonoBehaviour
 {
     // ギミックマネージャー
-    SolveGimmickManager _gimmickManager;
+    private SolveGimmickManager _gimmickManager;
 
+    private Player2DMove _player;
 
     // カメラが追う座標.
     private Vector3 _targetPosition;
@@ -32,7 +33,8 @@ public class CameraUpdate : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        _followPlayer = GameObject.Find("Foxidle");
+        _followPlayer = GameObject.FindWithTag("Player");
+        _player = _followPlayer.GetComponent<Player2DMove>();
 
         _gimmickManager = GameObject.FindWithTag("GimmickManager").GetComponent<SolveGimmickManager>();
 
@@ -50,7 +52,7 @@ public class CameraUpdate : MonoBehaviour
         _cameraPosY = _followPlayer.transform.position.y;
 
         // 向いている方向によってカメラの位置を変更.
-        if (!Player2DMove._instance.GetIsDirection())
+        if (!_player.GetIsDirection())
         {
             _targetPosition = new Vector3(_cameraPosX + 7, (_cameraPosY / 5.0f) + 6.0f, _cameraPosZ);
         }

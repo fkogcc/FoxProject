@@ -6,8 +6,6 @@ using UnityEngine;
 
 public class PlayerAnim3D : MonoBehaviour
 {
-    private IsGroundedCheck _groundCheck;
-
     private Player3DMove _player;
 
     //-------------------------------------------
@@ -18,7 +16,7 @@ public class PlayerAnim3D : MonoBehaviour
 
     private void Start()
     {
-        _groundCheck = GetComponent<IsGroundedCheck>();
+        _player = GetComponent<Player3DMove>();
     }
 
     // 移動.
@@ -43,10 +41,10 @@ public class PlayerAnim3D : MonoBehaviour
     // ジャンプアニメーション.
     public bool Jump()
     {
-        //if(!_groundCheck._isGround)
-        //{
-        //    return true;
-        //}
+        if (!_player._isGround)
+        {
+            return true;
+        }
         return false;
     }
 

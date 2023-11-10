@@ -17,7 +17,7 @@ public class Player3DMove : MonoBehaviour
     private BoxCollider _collider;
 
     // 着地しているかどうか.
-    private bool _isGround;
+    public bool _isGround;
 
     // 移動スピード.
     [SerializeField] private float _speed = 5;
@@ -84,6 +84,8 @@ public class Player3DMove : MonoBehaviour
             new Vector3(transform.position.x, 
             transform.position.y + _SphereCastRegulationY, 
             transform.position.z);
+
+        _isGround = IsGroundShpere();
 
         //Debug.Log(IsGroundShpere());
 

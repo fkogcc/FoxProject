@@ -7,6 +7,14 @@ using UnityEngine;
 public class PlayerAnim2D : MonoBehaviour
 {
     private float _horizontal = 0;
+    private Player2DMove _player;
+    private FadeSceneTransition _flag;
+
+    private void Start()
+    {
+        _player = GetComponent<Player2DMove>();
+        _flag = GameObject.Find("Fade").GetComponent<FadeSceneTransition>();
+    }
 
     private void Update()
     {
@@ -22,8 +30,8 @@ public class PlayerAnim2D : MonoBehaviour
     // アイドル状態.
     public bool Idle()
     {
-        if(_horizontal == 0 && !Player2DMove._instance.GetIsJumpNow() &&
-            Player2DMove._instance.GetHp() != 0)
+        if(_horizontal == 0 && !_player.GetIsJumpNow() &&
+            _player.GetHp() != 0)
         {
             return true;
         }
@@ -45,7 +53,7 @@ public class PlayerAnim2D : MonoBehaviour
     // ジャンプアニメーション.
     public bool Jump()
     {
-        if (Player2DMove._instance.GetIsJumpNow())
+        if (_player.GetIsJumpNow())
         {
             return true;
         }
@@ -56,7 +64,18 @@ public class PlayerAnim2D : MonoBehaviour
     // ゲームオーバーアニメーション.
     public bool GameOver()
     {
-        if(Player2DMove._instance.GetHp() <= 0)
+        if(_player.GetHp() <= 0)
+        {
+            return true;
+        }
+
+        return false;
+    }
+
+    // ゴールアニメーション.
+    public bool Goal()
+    {
+        if (_flag._isGoal)
         {
             return true;
         }
