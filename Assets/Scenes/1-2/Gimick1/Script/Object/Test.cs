@@ -46,8 +46,6 @@ public class Test : MonoBehaviour
 
         for(int count = 0; count < _targetList.Length;count++)
         {
-            //Debug.Log(_targetList[count].follow.name + "     " + _cameraName);
-            //Debug.Log("いま入っているのは" + _cameraName);
             if (_targetList[count].follow.name == _cameraName)
             {
                 var info = _targetList[count];

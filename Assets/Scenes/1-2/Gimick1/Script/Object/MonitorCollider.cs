@@ -31,10 +31,10 @@ public class MonitorCollider : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        CameraChengeFlag();
+        CameraFlag();
     }
     // カメラを切り替える処理
-    public void CameraChengeFlag()
+    public void CameraFlag()
     {
         // プレイヤーが判定内にいるとき.
         if (_isPlayerCollider)
@@ -78,6 +78,7 @@ public class MonitorCollider : MonoBehaviour
             _isPlayerCollider = false;
             // おされた場所のモニターがどこかを保存する.
             _name = null;
+
         }
     }
 }
