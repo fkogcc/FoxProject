@@ -11,6 +11,9 @@ public class Gimmck1_2_4_SetActiveManager : MonoBehaviour
     // ステージ2のライトのオブジェクトを取得.
     public GameObject _stageTwoLight; 
 
+    // カウントダウンするオブジェクトを取得
+    public GameObject _countDown; 
+
     void Start()
     {
         _stageTwo.SetActive(false);
@@ -28,8 +31,10 @@ public class Gimmck1_2_4_SetActiveManager : MonoBehaviour
 
             _stageTwo.SetActive(true);
 
+            _countDown.SetActive(true);
+
             // ライトを光らす場合.
-            if(_stageTwo.GetComponent<Gimick1_2_4_Manager1Mk2>().IsLight())
+            if (_stageTwo.GetComponent<Gimick1_2_4_Manager1Mk2>().IsLight())
             {
                 _stageTwoLight.SetActive(true);
             }
@@ -39,6 +44,25 @@ public class Gimmck1_2_4_SetActiveManager : MonoBehaviour
         if (_stageTwo.GetComponent<Gimick1_2_4_Manager1Mk2>().GetResult())
         {
             _stageTwo.SetActive(false);
+        }
+
+        // ステージ1をクリアしていなくて
+        if(!_stageOne.GetComponent<Gimick1_2_4_Manager>().GetResult())
+        {
+            // カウントダウンをしない場合
+            if(_stageOne.GetComponent<Gimick1_2_4_Manager>().IsCountDown())
+            {
+                _countDown.SetActive(false);
+            }
+        }
+        // ステージ1をクリアしていなくて
+        if (!_stageOne.GetComponent<Gimick1_2_4_Manager1Mk2>().GetResult())
+        {
+            // カウントダウンをしない場合
+            if (_stageOne.GetComponent<Gimick1_2_4_Manager1Mk2>().IsCountDown())
+            {
+                _countDown.SetActive(false);
+            }
         }
     }
 }
