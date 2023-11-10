@@ -31,6 +31,11 @@ public class MonitorCollider : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        CameraChengeFlag();
+    }
+    // カメラを切り替える処理
+    public void CameraChengeFlag()
+    {
         // プレイヤーが判定内にいるとき.
         if (_isPlayerCollider)
         {
@@ -40,7 +45,6 @@ public class MonitorCollider : MonoBehaviour
                 // ボタンのフラグをオンにする(カメラON).
                 _isPushButton = true;
                 _name = this.transform.name;
-                //_gameObject.GetComponent<MonitorCamera>().SetPushFlag(_isPushButton);
 
             }
             // Xボタンを押したら
@@ -48,23 +52,11 @@ public class MonitorCollider : MonoBehaviour
             {
                 // ボタンのフラグをオフにする(カメラOFF).
                 _isPushButton = false;
-                //_gameObject.GetComponent<MonitorCamera>().SetPushFlag(_isPushButton);
 
             }
             _monitorObject.GetComponent<Test>().SetCameraName(_name);
             _gameObject.GetComponent<MonitorCamera>().SetPushFlag(_isPushButton);
         }
-        // ボタンを押したかのフラグを渡す.
-        //_gameObject.GetComponent<MonitorCamera>().SetPushFlag(_isPushButton);
-        //Debug.Log("いま入っているのは" + _name);
-        //_monitorObject.GetComponent<Test>().SetCameraName(_name);
-        // 推された場所のモニターがどこかを保存する.
-        //_name = null;
-    }
-
-    void FixedUpdate()
-    {
-        
     }
 
     // 当たり判定の処理
@@ -78,16 +70,14 @@ public class MonitorCollider : MonoBehaviour
 
         }
     }
-
     void OnTriggerExit(Collider other)
     {
         if (other.tag == "Player")
         {
             // プレイヤーがコライダーから出たとき.
             _isPlayerCollider = false;
-            // 推された場所のモニターがどこかを保存する.
+            // おされた場所のモニターがどこかを保存する.
             _name = null;
-
         }
     }
 }

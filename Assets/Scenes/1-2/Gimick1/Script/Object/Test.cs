@@ -7,7 +7,6 @@ using System;
 // HACK カメラの管理のスクリプトいろいろなおす
 public class Test : MonoBehaviour
 {
-
     // 追従対象情報
     [Serializable]
     public struct TargetInfo
@@ -20,13 +19,6 @@ public class Test : MonoBehaviour
         public float rota;
     }
 
-    //private enum cameraNum
-    //{
-    //    GimickMonitor  = 0, 
-    //    Left = 1,
-    //    Right = 2,
-
-    //}
     private CinemachineVirtualCamera _vCamera;
     //private CinemachinePOV _cameraPov;
 
@@ -51,15 +43,6 @@ public class Test : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //if (Input.GetKeyDown("joystick button 2"))
-        //{
-        //    _count++;
-        //}
-        //if(_count >= 3)
-        //{
-        //    _count = 0;
-        //}
-        // 
 
         for(int count = 0; count < _targetList.Length;count++)
         {
@@ -73,15 +56,10 @@ public class Test : MonoBehaviour
                 _vCamera.GetCinemachineComponent(CinemachineCore.Stage.Aim).GetComponent<CinemachinePOV>().m_HorizontalAxis.Value = info.rota;
             }
         }
-
-        //this.transform.rotation = info.rota * this.transform.rotation;
-        //vcamera.transform.rotation = info.rota;
-        //Debug.Log(this.transform.rotation);
     }
 
     public void SetCameraName(string name)
     {
         _cameraName = name;
-        //Debug.Log("いま入っているのは" + _cameraName);
     }
 }
