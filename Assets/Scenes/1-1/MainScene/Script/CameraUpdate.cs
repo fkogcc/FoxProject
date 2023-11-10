@@ -69,7 +69,17 @@ public class CameraUpdate : MonoBehaviour
             transform.position = new Vector3(_cameraFixedPositionRight, (_cameraPosY / 5.0f) + 6.0f, -20.0f);
         }
 
-        MoveCamera();
+        if(!_gimmickManager._solve[0] && !_gimmickManager._solve[1] && !_gimmickManager._solve[2] && !_gimmickManager._solve[3])
+        {
+            MoveCamera();
+        }
+        else
+        {
+            WholeCamera();
+        }
+        
+
+        
 
 
         // ギミックが作動していたらカメラを動かさない
@@ -103,15 +113,14 @@ public class CameraUpdate : MonoBehaviour
     /// カメラの全体の処理
     /// </summary>
     /// <param name="GimmickNum">ギミックのナンバー</param>
-    private void WholeCamera(int gimmickNum)
+    private void WholeCamera()
     {
-        for (int i = 0; i < gimmickNum; i++)
+        //if (_gimmickManager._solve[0] && _gimmickManager._solve[1] && _gimmickManager._solve[2] && _gimmickManager._solve[3]) return;
+
+
+        for (int i = 0; i < 4; i++)
         {
-            if(!_gimmickManager._solve[i])
-            {
-                MoveCamera();
-            }
-            else if(_gimmickManager._solve[i])
+            if(_gimmickManager._solve[i])
             {
                 OperationGimmickCamera(i);
             }
