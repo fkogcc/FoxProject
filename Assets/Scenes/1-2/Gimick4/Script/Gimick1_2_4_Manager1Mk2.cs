@@ -52,6 +52,11 @@ public class Gimick1_2_4_Manager1Mk2 : MonoBehaviour
     // ライトが光るかどうか
     private bool _isLight = false;
 
+    // サウンド関係
+    public AudioClip _sound;
+    public AudioClip _sound2;
+    AudioSource _audioSource;
+
     void Start()
     {
         // ボタン用.
@@ -72,6 +77,9 @@ public class Gimick1_2_4_Manager1Mk2 : MonoBehaviour
             _cameraData = GameObject.Find("AnsPos1");
             _cameraPos = _cameraData.transform;
         }
+
+        // サウンドのコンポーネントを取得
+        _audioSource = GameObject.Find("Sound").GetComponent<AudioSource>();
     }
 
     void Update()
@@ -99,6 +107,9 @@ public class Gimick1_2_4_Manager1Mk2 : MonoBehaviour
                 // ボタンをおしたら.
                 if (_botton.GetComponent<Botton>().GetButtonB())
                 {
+                    // サウンドを再生
+                    _audioSource.PlayOneShot(_sound);
+
                     // 回転したら.
                     _rota[i].GetComponent<TurnGraph>().Rota();
                 }
@@ -129,6 +140,12 @@ public class Gimick1_2_4_Manager1Mk2 : MonoBehaviour
         // 全ての回路が正しく接続されている場合.
         if (_ansFrameCount == _objRotaMaxNum)
         {
+            if(_clearFrameCount == 0)
+            {
+                // サウンドを再生
+                _audioSource.PlayOneShot(_sound);
+            }
+
             // クリア後少し間を開ける為のカウント.
             _clearFrameCount++;
 
