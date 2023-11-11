@@ -32,18 +32,14 @@ public class RotaGimmick : MonoBehaviour
         if (_isHit)
         {
             _player.transform.position += _vec;
+            // 動かしたら一度当たっていない状態に戻す.
+            _isHit = false;
         }
     }
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnCollisionStay(Collision collision)
     {
-        // 当たっていることにする.
+        // 触れている間はあたっていることにする.
         _isHit = true;
-    }
-
-    private void OnCollisionExit(Collision collision)
-    {
-        // 当たっていないことにする.
-        _isHit = false;
     }
 }
