@@ -26,6 +26,9 @@ public class BeltConveyorGimmick : MonoBehaviour
     private float _currentSpeed = 0;
     private List<Rigidbody> _rigidbodies = new List<Rigidbody>();
 
+    // 作動時間.
+    private int _operatingTime = 0;
+
     void Start()
     {
         _manager = GameObject.FindWithTag("GimmickManager").GetComponent<SolveGimmickManager>();
@@ -41,6 +44,13 @@ public class BeltConveyorGimmick : MonoBehaviour
         if (_manager._solve[1])
         {
             UpdateBeltConveyor();
+            _operatingTime++;
+        }
+
+        if(_operatingTime >= 90)
+        {
+            _manager._solve[1] = false;
+            _operatingTime = 0;
         }
 
         //_shader.

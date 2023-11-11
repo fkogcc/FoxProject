@@ -30,6 +30,9 @@ public class ExplosionGimmick : MonoBehaviour
     // 爆発する座標
     Vector3 _ExplosionPosition;
 
+    // 作動時間.
+    private int _operatingTime = 0;
+
     private void Start()
     {
         _manager = GameObject.FindWithTag("GimmickManager").GetComponent<SolveGimmickManager>();
@@ -41,6 +44,13 @@ public class ExplosionGimmick : MonoBehaviour
         if (_manager._solve[2])
         {
             UpdateExplosion();
+            _operatingTime++;
+        }
+
+        if(_operatingTime >= 90)
+        {
+            _manager._solve[2] = false;
+            _operatingTime = 0;
         }
     }
 
