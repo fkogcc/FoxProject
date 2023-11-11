@@ -87,6 +87,11 @@ public class Player3DMove : MonoBehaviour
 
         _isGround = IsGroundShpere();
 
+        if(_rigidbody.velocity.y <= -20.0f && IsGroundShpere())
+        {
+            Debug.Log("通った");
+        }
+
         //Debug.Log(IsGroundShpere());
 
         //Debug.DrawRay(ray.origin, ray.direction * distance, Color.red); // レイを赤色で表示させる
@@ -94,7 +99,7 @@ public class Player3DMove : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        //if(collision.gameObject.tag == "Stage")
+        //if (collision.gameObject.tag == "Stage" && _rigidbody.velocity.y >= 20.0f)
         //{
         //    _isGround = true;
         //}
@@ -107,8 +112,6 @@ public class Player3DMove : MonoBehaviour
         // true 緑.
         // false 赤.
         Gizmos.color = IsGroundShpere() ? Color.green : Color.red;
-        //Gizmos.DrawRay(transform.position + Vector3.up * _rayOffset, Vector3.down * _rayLength);
-        //Gizmos.DrawWireSphere(transform.position, 0.1f);
         Gizmos.DrawWireSphere(_SphereCastCenterPosition + -transform.up * (hit.distance), _raySphereLength);
     }
 
