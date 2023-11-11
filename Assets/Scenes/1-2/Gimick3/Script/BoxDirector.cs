@@ -22,6 +22,9 @@ public class BoxDirector : MonoBehaviour
     // ギミック設置場所の座標.
     private Vector3 _gimmickPos;
 
+    // 全てクリアしているかのフラグ.
+    private bool _isAllClear;
+
     Dictionary<string, GameObject> _lineObj;
 
     // 初期化処理
@@ -34,6 +37,8 @@ public class BoxDirector : MonoBehaviour
         _pullColor = "";
         _gimmickColor = "";
         _gimmickPos = new Vector3();
+
+        _isAllClear = false;
 
         _lineObj = new Dictionary<string, GameObject>();
         _lineObj.Add("Pink", GameObject.Find("PinkLine"));
@@ -97,15 +102,15 @@ public class BoxDirector : MonoBehaviour
             {
                 Debug.Log("[BoxGimmick]クリアしました");
 
-                GetRezult();
+                _isAllClear = true;
             }
             return true;
         }
         return false;
     }
 
-    public bool GetRezult()
+    public bool GetResult()
     {
-        return false;
+        return _isAllClear;
     }
 }
