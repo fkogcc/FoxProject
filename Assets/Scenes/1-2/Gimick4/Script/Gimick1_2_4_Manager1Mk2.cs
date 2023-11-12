@@ -7,6 +7,8 @@ public class Gimick1_2_4_Manager1Mk2 : MonoBehaviour
 {
     // クリア後のフレームカウントの最大数
     static readonly int ClearCountMaxFrame = 60 * 3;
+    // ゲームのリセット用カウント
+    static readonly int GameOverCountMaxFrame = 60;
 
     // ボタン操作.
     private GameObject _botton;
@@ -57,6 +59,19 @@ public class Gimick1_2_4_Manager1Mk2 : MonoBehaviour
     public AudioClip _sound2;
     AudioSource _audioSource;
 
+    // カウントダウンを確認
+    public GameObject _count;
+    private Gimmick1_2_4_CountDown _countDown;
+
+    // 時間制限内にクリアできなかった場合
+    private int _gameOverFrameCount = 0;
+
+    // ステージ全体をうつすかどうか
+    private bool _isMap = false;
+
+    // カウントダウンを止めるかどうか
+    private bool _isCountDown = false;
+
     void Start()
     {
         // ボタン用.
@@ -80,6 +95,9 @@ public class Gimick1_2_4_Manager1Mk2 : MonoBehaviour
 
         // サウンドのコンポーネントを取得
         _audioSource = GameObject.Find("Sound").GetComponent<AudioSource>();
+
+        // カウントダウンをするクラスを取得
+        _countDown = _count.GetComponent<Gimmick1_2_4_CountDown>();
     }
 
     void Update()
@@ -133,10 +151,38 @@ public class Gimick1_2_4_Manager1Mk2 : MonoBehaviour
                 }
             }
         }
+
+        // マップ全体を見る.
+        MapDrawer();
     }
 
     private void FixedUpdate()
     {
+        if (_countDown.IsCount())
+        {
+            // ゲームオーバーになるとカウントする
+            _gameOverFrameCount++;
+
+            // 
+            if (_gameOverFrameCount > GameOverCountMaxFrame)
+            {
+                // ゲームオーバー用カウントを初期化する
+                _gameOverFrameCount = 0;
+
+                // カウントダウンを初期化する
+                _countDown.SstResetCount();
+
+                // カウントダウンをとめる
+                _countDown.SetTimeCount(true);
+
+                // 角度を初期化
+                for (int i = 0; i < _objRotaMaxNum; i++)
+                {
+                    _rota[i].GetComponent<TurnGraph>().ResetRota();
+                }
+            }
+        }
+
         // 全ての回路が正しく接続されている場合.
         if (_ansFrameCount == _objRotaMaxNum)
         {
@@ -146,11 +192,24 @@ public class Gimick1_2_4_Manager1Mk2 : MonoBehaviour
                 _audioSource.PlayOneShot(_sound);
             }
 
+            _isCountDown = true;
+            // カウントダウンを見えなくする
+         //   _count.SetActive(false);
+
+            // カウントダウンをとめる.
+            _countDown.SetTimeCount(false);
+
             // クリア後少し間を開ける為のカウント.
             _clearFrameCount++;
 
             // 光った演出用のライトを表示させる.
             _isLight = true;
+
+            // カメラのターゲット位置と角度を変更.
+            _camera.Follow = _cameraPos;
+            _camera.GetCinemachineComponent(CinemachineCore.Stage.Aim).GetComponent<CinemachinePOV>().m_VerticalAxis.Value = _clearCameraRotaY;
+            _camera.GetCinemachineComponent(CinemachineCore.Stage.Aim).GetComponent<CinemachinePOV>().m_HorizontalAxis.Value = _clearCameraRotaX;
+
 
             // 一定数カウントが値を御超えると.
             if (_clearFrameCount > ClearCountMaxFrame)
@@ -158,6 +217,30 @@ public class Gimick1_2_4_Manager1Mk2 : MonoBehaviour
                 // クリアした場合のフラグを立てる
                 _isClear = true;
             }
+        }
+    }
+
+    // マップ全体を見る
+    private void MapDrawer()
+    {
+        // Yを押した場合.
+        if (Input.GetKeyDown(KeyCode.JoystickButton3))
+        {
+            _isMap = !_isMap;
+        }
+
+        // ステージ全体を見ているかどうか.
+        if (_isMap)
+        {
+            // カメラのターゲット位置と角度を変更.
+            _camera.Follow = _cameraPos;
+            _camera.GetCinemachineComponent(CinemachineCore.Stage.Aim).GetComponent<CinemachinePOV>().m_VerticalAxis.Value = _clearCameraRotaY;
+            _camera.GetCinemachineComponent(CinemachineCore.Stage.Aim).GetComponent<CinemachinePOV>().m_HorizontalAxis.Value = _clearCameraRotaX;
+        }
+        else
+        {
+            // カメラのターゲット位置と角度を変更.
+            _camera.Follow = GameObject.Find("3DPlayer").transform;
         }
     }
 
@@ -171,5 +254,11 @@ public class Gimick1_2_4_Manager1Mk2 : MonoBehaviour
     public bool IsLight()
     {
         return _isLight;
+    }
+
+    // カウントダウンを止めるかどうか
+    public bool IsCountDown()
+    {
+        return _isCountDown;
     }
 }

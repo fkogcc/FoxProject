@@ -75,4 +75,13 @@ public class TurnGraph : MonoBehaviour
     {
         return _tempRota;
     }
+
+    public void ResetRota()
+    {
+        _isRotaCount = 0;
+        _rota = 0;
+        _tempRota = 0.0f;
+        _connected = false;
+        this.transform.rotation = Quaternion.Euler(0.0f, 0.0f, 0.0f);
+    }
 }
