@@ -159,26 +159,26 @@ public class SlideGimmickDirector : MonoBehaviour
         if (!_playerHand.activeSelf) return;
 
         // 垂直方向.
-        _vertical = Input.GetAxis("Horizontal");
+        _horizontal = Input.GetAxis("Horizontal");
         // 水平方向.
-        _horizontal = Input.GetAxis("Vertical");
+        _vertical = Input.GetAxis("Vertical");
 
         // プレイヤーの移動処理.
         if (0.0f < _horizontal)
         {
-            _playerHand.transform.position += Vector3.up * kSpeed;
+            _playerHand.transform.position += Vector3.right * kSpeed;
         }
         if (_horizontal < 0.0f)
         {
-            _playerHand.transform.position += Vector3.down * kSpeed;
+            _playerHand.transform.position += Vector3.left * kSpeed;
         }
         if (0.0f < _vertical)
         {
-            _playerHand.transform.position += Vector3.right * kSpeed;
+            _playerHand.transform.position += Vector3.up * kSpeed;
         }
         if (_vertical < 0.0f)
         {
-            _playerHand.transform.position += Vector3.left * kSpeed;
+            _playerHand.transform.position += Vector3.down * kSpeed;
         }
 
         // クリアしていたら移動以外処理しない.
@@ -423,5 +423,10 @@ public class SlideGimmickDirector : MonoBehaviour
         // 現在選択している場所を光らせる
         _lightGimmick[num].material.EnableKeyword("_EMISSION");
         _lightGimmick[num].material.SetColor("_EmissionColor", Color.white);
+    }
+
+    public bool GetResult()
+    {
+        return _isCreal;
     }
 }
