@@ -64,10 +64,23 @@ public class SceneTransitionManager : MonoBehaviour
         SceneManager.LoadScene("MainScene1-3");
     }
 
+    // 1-3-1ギミックへの道
+    public void GimmickRoad3_1()
+    {
+        Debug.Log("通る");
+        SceneManager.LoadScene("GimmickRoad3_1");
+    }
+
     // 1-3-1ギミック.
     public void MainScene1_3_1()
     {
         SceneManager.LoadScene("Gimmick1_3_1");
+    }
+
+    // 1-3-2ギミックへの道
+    public void GimmickRoad3_2()
+    {
+        SceneManager.LoadScene("GimmickRoad3_2");
     }
 
     // 1-3-2ギミック.
@@ -76,16 +89,28 @@ public class SceneTransitionManager : MonoBehaviour
         SceneManager.LoadScene("Gimmick1_3_2");
     }
 
+    // 1-3-3ギミックへの道
+    public void GimmickRoad3_3()
+    {
+        SceneManager.LoadScene("GimmickRoad3_3");
+    }
+
     // 1-3-3ギミック.
     public void MainScene1_3_3()
     {
         SceneManager.LoadScene("Gimmick1_3_3");
     }
 
+    // 1-3-4ギミックへの道
+    public void GimmickRoad3_4()
+    {
+        SceneManager.LoadScene("GimmickRoad3_4");
+    }
+
     // 1-3-4ギミック.
     public void MainScene1_3_4()
     {
-        SceneManager.LoadScene("Gimmick1_3_4");
+        SceneManager.LoadScene("Gimick1_3_4");
     }
 
     // エンドシーン.

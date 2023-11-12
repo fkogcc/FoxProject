@@ -1,16 +1,12 @@
-﻿// フェードインアウト処理.
-// TODO:ファイル名がデバッグ用なので変える.
+﻿// 2Dのフェードインアウト処理.
 // TODO:マジックナンバーあり.
 
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.SceneManagement;
 
-public class FadeSceneTransition : MonoBehaviour
+public class Fade3DSceneTransition : MonoBehaviour
 {
-    private Player2DMove _player;
+    private Player3DMove _player;
 
     private GateFlag _transitionScene;
 
@@ -27,7 +23,7 @@ public class FadeSceneTransition : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        _player = GameObject.FindWithTag("Player").GetComponent<Player2DMove>();
+        _player = GameObject.FindWithTag("Player").GetComponent<Player3DMove>();
         // 初期化.
         _isGoal = false;
         _isPush = false;
@@ -48,24 +44,7 @@ public class FadeSceneTransition : MonoBehaviour
         FadeUpdate();
         // シーン遷移関数.
         SceneTransition();
-    }
-
-    // ゲートの前にいるかの状態.
-    private bool SetGateFlag()
-    {
-        return _transitionScene._isGateGimmick1_1 || 
-            _transitionScene._isGateGimmick1_2 ||
-            _transitionScene._isGateGimmick2_1 ||
-            _transitionScene._isGateGimmick2_2 ||
-            _transitionScene._isGateGimmick2_3 ||
-            _transitionScene._isGateGimmick2_4 ||
-            _transitionScene._isGateGimmick3_1 ||
-            _transitionScene._isGateGimmick3_2 ||
-            _transitionScene._isGateGimmick3_3 ||
-            _transitionScene._isGateGimmick3_4 ||
-            _transitionScene._isGoal1_1 ||
-            _transitionScene._isGoal1_2 ||
-            _transitionScene._isGoal1_3;
+        //Debug.Log($"{name}");
     }
 
     // フェード処理.
@@ -103,7 +82,7 @@ public class FadeSceneTransition : MonoBehaviour
         if (Input.GetKeyDown("joystick button 3"))
         {
             // ゲートの前にいないときはスキップ.
-            if (!SetGateFlag()) return;
+            if (!_transitionScene.SetGateFlag()) return;
             _isPush = true;
         }
 
@@ -135,14 +114,44 @@ public class FadeSceneTransition : MonoBehaviour
         {
             _sceneTransitionManager.MainScene1_2_4();
         }
-        else if(_transitionScene._isGoal1_1 && transitionFlagCommon)
+        else if (_transitionScene._isGateRoad3_1 && transitionFlagCommon)
         {
-            //_isGoal = true;
+            _sceneTransitionManager.GimmickRoad3_1();
+        }
+        else if (_transitionScene._isGateGimmick3_1 && transitionFlagCommon)
+        {
+            _sceneTransitionManager.MainScene1_3_1();
+        }
+        else if (_transitionScene._isGateRoad3_2 && transitionFlagCommon)
+        {
+            _sceneTransitionManager.GimmickRoad3_2();
+        }
+        else if (_transitionScene._isGateGimmick3_2 && transitionFlagCommon)
+        {
+            _sceneTransitionManager.MainScene1_3_2();
+        }
+        else if (_transitionScene._isGateRoad3_3 && transitionFlagCommon)
+        {
+            _sceneTransitionManager.GimmickRoad3_3();
+        }
+        else if (_transitionScene._isGateGimmick3_3 && transitionFlagCommon)
+        {
+            _sceneTransitionManager.MainScene1_3_3();
+        }
+        else if (_transitionScene._isGateRoad3_4 && transitionFlagCommon)
+        {
+            _sceneTransitionManager.GimmickRoad3_4();
+        }
+        else if (_transitionScene._isGateGimmick3_4 && transitionFlagCommon)
+        {
+            _sceneTransitionManager.MainScene1_3_4();
+        }
+        else if (_transitionScene._isGoal1_1 && transitionFlagCommon)
+        {
             _sceneTransitionManager.MainScene1_2();
         }
-        else if (_transitionScene._isGoal1_2 && transitionFlagCommon)
+        else if ((_transitionScene._isGoal1_2 || _transitionScene._isGateMainScene1_3) && transitionFlagCommon)
         {
-            //_isGoal = true;
             _sceneTransitionManager.MainScene1_3();
         }
         else if (_transitionScene._isGoal1_3 && transitionFlagCommon)
@@ -154,6 +163,8 @@ public class FadeSceneTransition : MonoBehaviour
         {
             _isGoal = true;
         }
+
+        
 
     }
 }
