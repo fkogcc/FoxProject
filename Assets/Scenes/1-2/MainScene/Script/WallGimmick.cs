@@ -15,6 +15,8 @@ public class WallGimmick : MonoBehaviour
     [SerializeField] private Vector3 _resetPosition = Vector3.zero;
     // ターゲットにたどり着く時間.
     [SerializeField] private float _time;
+    // 作動時間.
+    private int _operatingTime = 0;
 
     private void Start()
     {
@@ -27,11 +29,15 @@ public class WallGimmick : MonoBehaviour
         if (_manager._solve[0])
         {
             UpdateWall();
+
+            _operatingTime++;
         }
-        if (!_manager._solve[0])
+        if(_operatingTime == 90)
         {
-            DebugReset();
+            _manager._solve[0] = false;
+            _operatingTime = 0;
         }
+        
     }
 
     /// <summary>
@@ -41,11 +47,4 @@ public class WallGimmick : MonoBehaviour
     {
         transform.position = Vector3.SmoothDamp(transform.position, _targetPosition, ref _velocity, _time);
     }
-
-    // デバッグ用ギミックリセット.
-    public void DebugReset()
-    {
-        transform.position = _resetPosition;
-    }
-
 }

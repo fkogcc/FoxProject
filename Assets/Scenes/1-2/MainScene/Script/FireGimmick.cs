@@ -41,6 +41,8 @@ public class FireGimmick : MonoBehaviour
         // パーティクル再生.
         _particleSystem.Play();
 
+        _debugEnemyObject.transform.position += new Vector3(0.0f, 0.12f, 0.0f);
+
         if( _burningCount < _burningMaxCount )
         {
             _burningCount++;
@@ -50,6 +52,7 @@ public class FireGimmick : MonoBehaviour
         if(_burningCount >= _burningMaxCount)
         {
             _particleSystem.Stop();
+            _gimmickManager._solve[3] = false;
         }
 
         // デバッグ用Enemy消去
