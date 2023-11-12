@@ -55,14 +55,14 @@ public class Gimmck1_2_4_SetActiveManager : MonoBehaviour
                 _countDown.SetActive(false);
             }
         }
-        // ステージ1をクリアしていなくて
-        if (!_stageOne.GetComponent<Gimick1_2_4_Manager1Mk2>().GetResult())
-        {
-            // カウントダウンをしない場合
-            if (_stageOne.GetComponent<Gimick1_2_4_Manager1Mk2>().IsCountDown())
-            {
-                _countDown.SetActive(false);
-            }
-        }
+        //// ステージ1をクリアしていなくて
+        //if (!_stageOne.GetComponent<Gimick1_2_4_Manager1Mk2>().GetResult())
+        //{
+        //    // カウントダウンをしない場合
+        //    if (_stageOne.GetComponent<Gimick1_2_4_Manager1Mk2>().IsCountDown())
+        //    {
+        //        _countDown.SetActive(false);
+        //    }
+        //}
     }
 }
