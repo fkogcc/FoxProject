@@ -8,12 +8,12 @@ public class PlayerAnim2D : MonoBehaviour
 {
     private float _horizontal = 0;
     private Player2DMove _player;
-    private FadeSceneTransition _flag;
+    private Fade2DSceneTransition _flag;
 
     private void Start()
     {
         _player = GetComponent<Player2DMove>();
-        _flag = GameObject.Find("Fade").GetComponent<FadeSceneTransition>();
+        _flag = GameObject.Find("Fade").GetComponent<Fade2DSceneTransition>();
     }
 
     private void Update()

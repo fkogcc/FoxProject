@@ -8,6 +8,8 @@ public class Player3DMove : MonoBehaviour
     // カメラ.
     private GameObject _camera;
 
+    private GateFlag _transitionScene;
+
     private PlayerAnim3D _anim3D;
     private Animator _animator;
     private Rigidbody _rigidbody;
@@ -57,6 +59,8 @@ public class Player3DMove : MonoBehaviour
     float currentGravity = -0.1f;
     void Start()
     {
+        _transitionScene = GameObject.Find("3DPlayer").GetComponent<GateFlag>();
+
         _camera = GameObject.Find("Camera");
         _anim3D = GetComponent<PlayerAnim3D>();
         _animator = GetComponent<Animator>();
@@ -70,6 +74,14 @@ public class Player3DMove : MonoBehaviour
     void Update()
     {
         //print(_isGround);
+
+        if(Input.GetKeyDown("joystick button 3"))
+        {
+            // ゲートの前にいないときはスキップ.
+            if (!_transitionScene.SetGateFlag()) return;
+
+            _isController = false;
+        }
 
         if (!_isController) return;
         MoveDirection();
@@ -200,4 +212,7 @@ public class Player3DMove : MonoBehaviour
         _animator.SetBool("Jump", _anim3D.Jump());
         _animator.SetBool("isDead", _anim3D.GameOver());
     }
+
+    // 操作できるかどうか.
+    public bool GetIsMoveActive() { return _isController; }
 }

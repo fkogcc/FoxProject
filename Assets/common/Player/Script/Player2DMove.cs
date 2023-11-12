@@ -15,7 +15,7 @@ public class Player2DMove : MonoBehaviour
     // プレイヤーのアニメーション.
     private Animator _animator;
 
-    private FadeSceneTransition _flag;
+    private Fade2DSceneTransition _flag;
 
     // プレイヤーの体力.
     private int _hp = 5;
@@ -43,7 +43,7 @@ public class Player2DMove : MonoBehaviour
         _boxCollider = GetComponent<BoxCollider>();
         _animator = GetComponent<Animator>();
 
-        _flag = GameObject.Find("Fade").GetComponent<FadeSceneTransition>();
+        _flag = GameObject.Find("Fade").GetComponent<Fade2DSceneTransition>();
 
         _hp = 5;
         _isDirection = false;
@@ -55,7 +55,7 @@ public class Player2DMove : MonoBehaviour
         if (Input.GetKeyDown("joystick button 3"))
         {
             // ゲートの前にいないときはスキップ.
-            if (!SetGateFlag()) return;
+            if (!_transitionScene.SetGateFlag()) return;
 
             _isMoveActive = false;
         }
@@ -211,24 +211,6 @@ public class Player2DMove : MonoBehaviour
             if (_isJumpNow) return;
             _isDirection = false;
         }
-    }
-
-    // ゲートの前にいるかの状態.
-    private bool SetGateFlag()
-    {
-        return _transitionScene._isGateGimmick1_1 ||
-            _transitionScene._isGateGimmick1_2 ||
-            _transitionScene._isGateGimmick2_1 ||
-            _transitionScene._isGateGimmick2_2 ||
-            _transitionScene._isGateGimmick2_3 ||
-            _transitionScene._isGateGimmick2_4 ||
-            _transitionScene._isGateGimmick3_1 ||
-            _transitionScene._isGateGimmick3_2 ||
-            _transitionScene._isGateGimmick3_3 ||
-            _transitionScene._isGateGimmick3_4 ||
-            _transitionScene._isGoal1_1 ||
-            _transitionScene._isGoal1_2 ||
-            _transitionScene._isGoal1_3;
     }
 
     // 落下デバッグ用
