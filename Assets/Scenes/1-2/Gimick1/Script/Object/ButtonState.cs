@@ -24,6 +24,7 @@ public class ButtonState : MonoBehaviour
     private string[] _objNameTest;
     private const string _buttonNameTest = "FrontButton";
 
+    private bool _isGameClear = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -110,6 +111,8 @@ public class ButtonState : MonoBehaviour
                     break;
                 }
             }
+            Debug.Log("クリア");
+            _isGameClear = true;
         }
     }
     // 取得したオブジェクト(ボタン)の情報を初期化する.
@@ -139,5 +142,9 @@ public class ButtonState : MonoBehaviour
             }
         }
         return true;
+    }
+    public bool GetResult()
+    {
+        return _isGameClear;
     }
 }
