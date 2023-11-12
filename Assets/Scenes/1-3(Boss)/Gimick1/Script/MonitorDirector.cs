@@ -28,7 +28,6 @@ public class MonitorDirector : MonoBehaviour
             // Aボタンを押したら
             if (Input.GetKeyDown("joystick button 1"))
             {
-                Debug.Log("押した　そして頑張る");
                 // ボタンのフラグをオンにする(カメラON).
                 _gameObject.GetComponent<MonitorCamera131>().SetPushFlag(false);
 
