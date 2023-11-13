@@ -2,14 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BoxClear6 : MonoBehaviour
+public class Stage2_Green_Container : MonoBehaviour
 {
     // Start is called before the first frame update
     void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.name == "pCube58")
+        if (other.gameObject.name == "stage2_kontena_green")
         {
-            Debug.Log("クリア4");
+            ContainerDirector._count++;
+            Debug.Log("クリア6");
         }
     }
 }
