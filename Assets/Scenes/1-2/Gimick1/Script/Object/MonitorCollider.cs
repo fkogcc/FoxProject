@@ -45,17 +45,19 @@ public class MonitorCollider : MonoBehaviour
                 // ボタンのフラグをオンにする(カメラON).
                 _isPushButton = true;
                 _name = this.transform.name;
-
+                _gameObject.GetComponent<ObjectManagement>().PlayerHandGenerate(_name);
             }
             // Xボタンを押したら
-            else if (Input.GetKeyDown("joystick button 3"))
+            else if (Input.GetKeyDown("joystick button 0"))
             {
                 // ボタンのフラグをオフにする(カメラOFF).
                 _isPushButton = false;
+                _name = null;
+                _gameObject.GetComponent<ObjectManagement>().PlayerHandDestory();
 
             }
             _monitorObject.GetComponent<Test>().SetCameraName(_name);
-            _gameObject.GetComponent<MonitorCamera>().SetPushFlag(_isPushButton);
+            _gameObject.GetComponent<ObjectManagement>().SetPushFlag(_isPushButton);
         }
     }
 

@@ -34,8 +34,7 @@ public class ButtonState : MonoBehaviour
         _num = 0;
         _max = 5;
         _isTestNameCheck = false;
-        // オブジェクトを取得.
-        _playerObject = GameObject.Find("FoxHand");
+
         // 配列の最大数を定義.
         _objNameTest = new string[_max];
         _button = new GimickButton[_max];
@@ -47,7 +46,11 @@ public class ButtonState : MonoBehaviour
         _objNameTest[4] = _buttonNameTest + "3";
 
     }
-
+    public void GetPlayerObject(GameObject handobj)
+    {
+        // オブジェクトを取得.
+        _playerObject = handobj;
+    }
     public void ButtonAcquisition()
     {
         // ボタンが押されたかどうかを取得する.
@@ -112,7 +115,7 @@ public class ButtonState : MonoBehaviour
                 }
             }
             Debug.Log("クリア");
-            _isGameClear = true;
+            //_isGameClear = true;
         }
     }
     // 取得したオブジェクト(ボタン)の情報を初期化する.

@@ -8,25 +8,26 @@ public class EffectPlay : MonoBehaviour
     private GameObject _handObject;
     private void Start()
     {
-        _handObject = GameObject.Find("FoxHand");
+        _handObject = null;
     }
 
-    private void Update()
+    public void GetPlayerObject(GameObject handobj)
     {
-        //タップ時
-        CheckTap();
+        // オブジェクトを取得.
+        _handObject = handobj;
     }
 
-    private void CheckTap()
+    public void CheckTap()
     {
         if (_handObject.GetComponent<PlayerHand>().IsGetButtonState())
         {
-            NewTapEffect(_handObject.GetComponent<PlayerHand>().PlayerHandPos());
+            NewTapEffect();
         }
     }
     //タップエフェクトを出す
-    private void NewTapEffect(Vector3 pos)
+    private void NewTapEffect()
     {
-        Object.Instantiate(_tapEffect, pos, Quaternion.identity, transform);
+        // 手の位置と回転率をそのままいれて手の位置からエフェクトを生成.
+        Object.Instantiate(_tapEffect, _handObject.transform.position, _handObject.transform.localRotation, transform);
     }
 }
