@@ -4,12 +4,15 @@ using UnityEngine;
 
 public class BoxDirector : MonoBehaviour
 {
-    // 次のシーンの名前.
-    public string NextStageName;
     // ギミックの最大数.
     public int GimmickNum = 0;
 
     private GameObject _nowObj;
+
+    // 次のステージに移るのかMainに戻るのか
+    // true : Mainに戻る
+    // false: 次のステージに
+    public bool IsMain;
 
     // クリア数カウント.
     private int _clearCount;
@@ -111,6 +114,6 @@ public class BoxDirector : MonoBehaviour
 
     public bool GetResult()
     {
-        return _isAllClear;
+        return IsMain && _isAllClear;
     }
 }
