@@ -5,14 +5,6 @@ using UnityEngine;
 
 public class SlideGimmickDirector : MonoBehaviour
 {
-    /* スティック情報 */
-    // 垂直方向.
-    private float _vertical;
-    // 水平方向.
-    private float _horizontal;
-    // プレイヤーの動く量.
-    private const float kSpeed = 0.125f;
-
     // 縦・横に並んでいるブロックの数.
     private const int kRaw = 4;
     private const int kCol = 4;
@@ -31,8 +23,6 @@ public class SlideGimmickDirector : MonoBehaviour
     private const int kDirDown = kRaw;
     private const int kDirLeft = -1;
     private const int kDirRight = 1;
-    //private const int kDirLeft = 1;
-    //private const int kDirRight = -1;
     // 上下左右の方向の数.
     private const int kDirNum = 4;
 
@@ -81,11 +71,15 @@ public class SlideGimmickDirector : MonoBehaviour
     Color _color;
     int _lightEleLog = 0;
 
+    // Reset, OneBackのテキストを入れるよう
+    public GameObject ResetText;
+    public GameObject OneBackText;
+    // Canvasを入れるよう
+    public GameObject Canvas;
+
     private void Start()
     {
         // 初期化
-        _vertical = 0.0f;
-        _horizontal = 0.0f;
         _playerHand = new GameObject();
 
         _gimmickObj = new GameObject[kBlockNum];
@@ -123,20 +117,21 @@ public class SlideGimmickDirector : MonoBehaviour
         _parentObj = GameObject.Find("Box");
         for (int i = 0; i < kClearBlockNo; i += kRaw)
         {
-            // 子オブジェを探す.
-            if (i < kClearBlockNo - kRaw)
+            for (int j = 0; j < kRaw; j++)
             {
-                _gimmickObj[i] = _parentObj.transform.GetChild(i + 3).gameObject;
-                _gimmickObj[i + 1] = _parentObj.transform.GetChild(i + 2).gameObject;
-                _gimmickObj[i + 2] = _parentObj.transform.GetChild(i + 1).gameObject;
-                _gimmickObj[i + 3] = _parentObj.transform.GetChild(i).gameObject;
-            }
-            else
-            {
-                _gimmickObj[i] = _parentObj.transform.GetChild(i + 2).gameObject;
-                _gimmickObj[i + 1] = _parentObj.transform.GetChild(i + 1).gameObject;
-                _gimmickObj[i + 2] = _parentObj.transform.GetChild(i).gameObject;
-                _gimmickObj[i + 3] = _parentObj.transform.GetChild(kNoneBlockNo).gameObject;
+                // 子オブジェを探す.
+                if (i < kClearBlockNo - kRaw)
+                {
+                    _gimmickObj[i + j] = _parentObj.transform.GetChild(i + (kRaw - j - 1)).gameObject;
+                }
+                else
+                {
+                    _gimmickObj[i + j] = _parentObj.transform.GetChild(i + (kRaw - j - 2)).gameObject;
+                    if(j + i >= kNoneBlockNo)
+                    {
+                        _gimmickObj[i + j] = _parentObj.transform.GetChild(kNoneBlockNo).gameObject;
+                    }
+                }
             }
         }
 
@@ -183,28 +178,34 @@ public class SlideGimmickDirector : MonoBehaviour
         // 手がアクティブでない場合は処理を行わない
         if (!_playerHand.activeSelf) return;
 
-        // 垂直方向.
-        _horizontal = Input.GetAxis("Horizontal");
-        // 水平方向.
-        _vertical = Input.GetAxis("Vertical");
+        _playerHand.GetComponent<GimmickHand>().HandUpdate();
+        //// 垂直方向.
+        //_horizontal = Input.GetAxis("Horizontal");
+        //// 水平方向.
+        //_vertical = Input.GetAxis("Vertical");
 
-        // プレイヤーの移動処理.
-        if (0.0f < _horizontal)
-        {
-            _playerHand.transform.position += Vector3.right * kSpeed;
-        }
-        if (_horizontal < 0.0f)
-        {
-            _playerHand.transform.position += Vector3.left * kSpeed;
-        }
-        if (0.0f < _vertical)
-        {
-            _playerHand.transform.position += Vector3.up * kSpeed;
-        }
-        if (_vertical < 0.0f)
-        {
-            _playerHand.transform.position += Vector3.down * kSpeed;
-        }
+        //// プレイヤーの移動処理.
+        //if (0.0f < _horizontal)
+        //{
+        //    _playerHand.transform.position += Vector3.right * kSpeed;
+        //    if (_playerHand.transform.position.x > 9.0f)
+        //    {
+        //        _playerHand.transform.position = 
+        //            new Vector3(9.0f, _playerHand.transform.position.y, _playerHand.transform.position.y);
+        //    }
+        //}
+        //if (_horizontal < 0.0f)
+        //{
+        //    _playerHand.transform.position += Vector3.left * kSpeed;
+        //}
+        //if (0.0f < _vertical)
+        //{
+        //    _playerHand.transform.position += Vector3.up * kSpeed;
+        //}
+        //if (_vertical < 0.0f)
+        //{
+        //    _playerHand.transform.position += Vector3.down * kSpeed;
+        //}
 
         // クリアしていたら移動以外処理しない.
         if (_isCreal) return;
@@ -291,6 +292,10 @@ public class SlideGimmickDirector : MonoBehaviour
 
         _nowEle = _endEle1.Pop();
         ChangeTrs(_endEle2.Pop(), false);
+
+        // OneBackしたことをテキストで表示
+        GameObject clone = Instantiate(OneBackText);
+        clone.transform.SetParent(Canvas.transform, false);
     }
 
     // はじめの状態に戻す
@@ -319,6 +324,10 @@ public class SlideGimmickDirector : MonoBehaviour
         // 1つ前に戻したという情報を全て消去
         _endEle1.Clear();
         _endEle2.Clear();
+
+        // Resetしたことをテキストで表示
+        GameObject clone = Instantiate(ResetText);
+        clone.transform.SetParent(Canvas.transform, false);
     }
 
     private void EleCheck()
@@ -368,16 +377,6 @@ public class SlideGimmickDirector : MonoBehaviour
         {
             return false;
         }
-        //if (dir == kDirLeft &&
-        //    (_nowEle % kRaw) == (kRaw-1))
-        //{
-        //    return false;
-        //}
-        //if (dir == kDirRight &&
-        //    (_nowEle % kRaw) == 0)
-        //{
-        //    return false;
-        //}
 
         // シャッフルの場合.
         if (isShuffle)
@@ -428,13 +427,6 @@ public class SlideGimmickDirector : MonoBehaviour
         _tempEle = _eles[_nowEle];
         _eles[_nowEle] = _eles[ele];
         _eles[ele] = _tempEle;
-
-        // デバッグ
-        Debug.Log("*************************");
-        for (int i = 0; i < 4; i++)
-        {
-            Debug.Log(_eles[i * 4] + ", " + _eles[i * 4 + 1] + ", " + _eles[i * 4 + 2] + ", " + _eles[i * 4 + 3] + ", ");
-        }
     }
 
     void MoveEfeStart(int ele)
@@ -454,7 +446,6 @@ public class SlideGimmickDirector : MonoBehaviour
 
     public void ChangeNowSelectLight(int num)
     {
-        // todo : 光らせる位置を調整する
         // 配列範囲外が送られてきた場合は以下の処理はしないようにする
         if (num < 0) return;
         if (num >= kClearBlockNo) return;
