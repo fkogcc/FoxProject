@@ -17,9 +17,10 @@ public class SlideGimmickDirector : MonoBehaviour
     private const int kRaw = 4;
     private const int kCol = 4;
     // ブロックの総数.
-    private const int kBlockNum = kRaw * kCol;
+    private const int kBlockNum = kRaw * kCol + 1;
     // 最後のブロックを空白とする.
-    private const int kNoneBlockNo = kBlockNum - 1;
+    private const int kNoneBlockNo = kBlockNum - 2;
+    private const int kClearBlockNo = kBlockNum - 1;
     // -1をひとつ前に戻るボタンとしておく
     private const int kBackOneStepNo = -1;
     // -2をリセットボタンとしておく
@@ -30,6 +31,8 @@ public class SlideGimmickDirector : MonoBehaviour
     private const int kDirDown = kRaw;
     private const int kDirLeft = -1;
     private const int kDirRight = 1;
+    //private const int kDirLeft = 1;
+    //private const int kDirRight = -1;
     // 上下左右の方向の数.
     private const int kDirNum = 4;
 
@@ -109,22 +112,44 @@ public class SlideGimmickDirector : MonoBehaviour
         _playerHand = GameObject.Find("FoxHand");
 
         // 親オブジェクトを探す(光るやつ).
-        GameObject _parentObj = GameObject.Find("LightBox");
+        GameObject _parentObj = GameObject.Find("PieceLightBox");
         _lightGimmick = new MeshRenderer[kBlockNum];
-        for (int i = 0; i < kBlockNum; i++)
+        for (int i = 0; i < kClearBlockNo; i++)
         {
             _lightGimmick[i] = _parentObj.transform.GetChild(i).GetComponent<MeshRenderer>();
         }
 
         // 親オブジェを探す(ピース).
         _parentObj = GameObject.Find("Box");
-        for (int i = 0; i < kBlockNum; i++)
+        for (int i = 0; i < kClearBlockNo; i += kRaw)
         {
             // 子オブジェを探す.
-            _gimmickObj[i] = _parentObj.transform.GetChild(i).gameObject;
-            // 要素番号の代入.
+            if (i < kClearBlockNo - kRaw)
+            {
+                _gimmickObj[i] = _parentObj.transform.GetChild(i + 3).gameObject;
+                _gimmickObj[i + 1] = _parentObj.transform.GetChild(i + 2).gameObject;
+                _gimmickObj[i + 2] = _parentObj.transform.GetChild(i + 1).gameObject;
+                _gimmickObj[i + 3] = _parentObj.transform.GetChild(i).gameObject;
+            }
+            else
+            {
+                _gimmickObj[i] = _parentObj.transform.GetChild(i + 2).gameObject;
+                _gimmickObj[i + 1] = _parentObj.transform.GetChild(i + 1).gameObject;
+                _gimmickObj[i + 2] = _parentObj.transform.GetChild(i).gameObject;
+                _gimmickObj[i + 3] = _parentObj.transform.GetChild(kNoneBlockNo).gameObject;
+            }
+        }
+
+        _gimmickObj[kClearBlockNo] = _parentObj.transform.GetChild(kClearBlockNo).gameObject;
+        _gimmickObj[kClearBlockNo].SetActive(false);
+
+
+        // 要素番号の代入.
+        for (int i = 0; i < kClearBlockNo; i++)
+        {
             _eles[i] = i;
         }
+
 
         int[] _dirNum = { kDirDown, kDirUp, kDirLeft, kDirRight };
         int _changeDir;
@@ -246,7 +271,7 @@ public class SlideGimmickDirector : MonoBehaviour
         }
 
         // 要素が番号通りに並んでいるか確認.
-        for (int i = 0; i < kBlockNum; i++)
+        for (int i = 0; i < kClearBlockNo; i++)
         {
             // 要素番号通りでないならここでの処理終了.
             if (_eles[i] != i) return;
@@ -254,6 +279,7 @@ public class SlideGimmickDirector : MonoBehaviour
 
         // ここまで来たらクリアしているので完了とする.
         _isCreal = true;
+        _gimmickObj[kClearBlockNo].SetActive(true);
         Debug.Log("クリア");
     }
 
@@ -327,7 +353,7 @@ public class SlideGimmickDirector : MonoBehaviour
     {
         // 要素数ないにいなければ確認しない.
         if ((_nowEle + dir) < 0 ||
-            kBlockNum <= (_nowEle + dir))
+            kClearBlockNo <= (_nowEle + dir))
         {
             return false;
         }
@@ -342,6 +368,16 @@ public class SlideGimmickDirector : MonoBehaviour
         {
             return false;
         }
+        //if (dir == kDirLeft &&
+        //    (_nowEle % kRaw) == (kRaw-1))
+        //{
+        //    return false;
+        //}
+        //if (dir == kDirRight &&
+        //    (_nowEle % kRaw) == 0)
+        //{
+        //    return false;
+        //}
 
         // シャッフルの場合.
         if (isShuffle)
@@ -392,6 +428,13 @@ public class SlideGimmickDirector : MonoBehaviour
         _tempEle = _eles[_nowEle];
         _eles[_nowEle] = _eles[ele];
         _eles[ele] = _tempEle;
+
+        // デバッグ
+        Debug.Log("*************************");
+        for (int i = 0; i < 4; i++)
+        {
+            Debug.Log(_eles[i * 4] + ", " + _eles[i * 4 + 1] + ", " + _eles[i * 4 + 2] + ", " + _eles[i * 4 + 3] + ", ");
+        }
     }
 
     void MoveEfeStart(int ele)
@@ -414,7 +457,7 @@ public class SlideGimmickDirector : MonoBehaviour
         // todo : 光らせる位置を調整する
         // 配列範囲外が送られてきた場合は以下の処理はしないようにする
         if (num < 0) return;
-        if (num >= kBlockNum) return;
+        if (num >= kClearBlockNo) return;
 
         // 元々光らせていたら光らせないようにする
         _lightGimmick[_lightEleLog].material.EnableKeyword("_EMISSION");
