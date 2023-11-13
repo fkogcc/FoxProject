@@ -6,6 +6,7 @@ public class GimickButton : MonoBehaviour
 {
     // ボタンの状態を渡すためにオブジェクトを取得.
     private GameObject _playerObject;
+    private GameObject _gameManager;
     // プレイヤーが触れいているボタンの名前をいれるための変数.
     private string _name;
     // マテリアルの配列の番号
@@ -14,14 +15,19 @@ public class GimickButton : MonoBehaviour
     void Start()
     {
         // オブジェクトを取得.
-        _playerObject = GameObject.Find("FoxHand");
+        _gameManager = GameObject.Find("GameManager");
+        _playerObject = null;
         _materialNum = 1;
     }
 
     // Update is called once per frame
     void Update()
     {
-        ButtonChengeColor();
+        if (_gameManager.GetComponent<Gimick1_2_1Manager>().SetHandObject() != null)
+        {
+            _playerObject = _gameManager.GetComponent<Gimick1_2_1Manager>().SetHandObject();
+            ButtonChengeColor();
+        }
     }
     public void ButtonChengeColor()
     {

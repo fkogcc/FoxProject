@@ -5,8 +5,14 @@ using Cinemachine;
 using System;
 
 // HACK カメラの管理のスクリプトいろいろなおす
+// オブジェクトの生成スクリプト
 public class Test : MonoBehaviour
 {
+    //// Hack 毎回新しいのを作る
+    //[SerializeField] private GameObject PlayerHand = default;
+    //private GameObject _handObject;
+
+
     // 追従対象情報
     [Serializable]
     public struct TargetInfo
@@ -15,8 +21,10 @@ public class Test : MonoBehaviour
         public Transform follow;
         // 照準を合わせる対象
         public Transform lookAt;
-        // おためし
+        // カメラの角度
         public float rota;
+        // Test
+        public Transform hand;
     }
 
     private CinemachineVirtualCamera _vCamera;
@@ -38,13 +46,15 @@ public class Test : MonoBehaviour
 
         _cameraName = null;
         //_vCamera.transform.rotation = info.rota;
+
+        //_handObject = Instantiate(PlayerHand,
+        //    this.transform.position,
+        //    Quaternion.identity) as GameObject;
     }
 
-    // Update is called once per frame
-    void Update()
+    public void CameraUpdate()
     {
-
-        for(int count = 0; count < _targetList.Length;count++)
+        for (int count = 0; count < _targetList.Length; count++)
         {
             if (_targetList[count].follow.name == _cameraName)
             {
