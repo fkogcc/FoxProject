@@ -210,6 +210,7 @@ public class Player3DMove : MonoBehaviour
     {
         _animator.SetBool("Run", _anim3D.Run());
         _animator.SetBool("Jump", _anim3D.Jump());
+        _animator.SetBool("Push", _anim3D.Push());
         _animator.SetBool("isDead", _anim3D.GameOver());
     }
 

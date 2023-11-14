@@ -32,7 +32,7 @@ public class Player2DMove : MonoBehaviour
     // 動けるように処理を通すかどうか.
     // true :動ける
     // false;動けない
-    private bool _isMoveActive = true;
+    public bool _isMoveActive = true;
 
     void Start()
     {
@@ -69,31 +69,33 @@ public class Player2DMove : MonoBehaviour
 
     private void FixedUpdate()
     {
+        
+
         FallDebug();
         Anim();
 
         // ゴールした時に正面を向くようにする.
-        if (_flag._isGoal)
-        {
-            //transform.localEulerAngles = new Vector3(0.0f,180.0f, 0.0f);
+        //if (_flag._isGoal)
+        //{
+        //    //transform.localEulerAngles = new Vector3(0.0f,180.0f, 0.0f);
 
-            transform.forward = Vector3.Slerp(transform.forward, new Vector3(0.0f, 0.0f, 0.0f), Time.deltaTime * 10.0f);
+        //    transform.forward = Vector3.Slerp(transform.forward, new Vector3(0.0f, 0.0f, 0.0f), Time.deltaTime * 10.0f);
 
-            //if (transform.localEulerAngles.y >= 185.0f && transform.localEulerAngles.y <= 175.0f)
-            //{
-            //    Debug.Log("通った");
-            //    if (!_isDirection)
-            //    {
-            //        transform.Rotate(0f, 5f, 0f);
-            //    }
-            //    else
-            //    {
-            //        transform.Rotate(0f, -5f, 0f);
-            //    }
-            //}
-        }
+        //    //if (transform.localEulerAngles.y >= 185.0f && transform.localEulerAngles.y <= 175.0f)
+        //    //{
+        //    //    Debug.Log("通った");
+        //    //    if (!_isDirection)
+        //    //    {
+        //    //        transform.Rotate(0f, 5f, 0f);
+        //    //    }
+        //    //    else
+        //    //    {
+        //    //        transform.Rotate(0f, -5f, 0f);
+        //    //    }
+        //    //}
+        //}
 
-        if (!_flag._isGoal) return;
+        //if (!_flag._isGoal) return;
 
         // 右を向く.
         if (!_isDirection)
