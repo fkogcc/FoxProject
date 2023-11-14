@@ -22,12 +22,13 @@ public class ContainerDirector : MonoBehaviour
     {
         if(_count == _Maxcount)
         {
-            _isAllClear = true;
+            GetResult();
         }
     }
 
     public bool GetResult()
     {
+        Debug.Log("クリア");
         return _isAllClear;
     }
 }
