@@ -25,17 +25,20 @@ public class Reset_Button : MonoBehaviour
         _stage2_Yellow_InitialPosition = _stage2_Yellow_Container.transform.position;
     }
 
-    void OnCollisionEnter(Collision collision)
+    void OnCollisionStay(Collision collision)
     {
         if (collision.gameObject.name == "3DPlayer")
         {
             if (Input.GetKeyDown("joystick button 2"))
             {
-                Debug.Log("OK");
                 _stage2_Blue_Container.transform.position = _stage2_Blue_InitialPosition;
+                Debug.Log("Blue");
                 _stage2_Red_Container.transform.position = _stage2_Red_InitialPosition;
+                Debug.Log("Red");
                 _stage2_Green_Container.transform.position = _stage2_Green_InitialPosition;
+                Debug.Log("Green");
                 _stage2_Yellow_Container.transform.position = _stage2_Yellow_InitialPosition;
+                Debug.Log("Yellow");
             }
         }
     }
