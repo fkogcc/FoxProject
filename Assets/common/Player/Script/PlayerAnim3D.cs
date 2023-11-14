@@ -8,6 +8,8 @@ public class PlayerAnim3D : MonoBehaviour
 {
     private Player3DMove _player;
 
+    public bool _isPushing = false;
+
     //-------------------------------------------
     // アニメーション再生.
     // true: 再生.
@@ -45,6 +47,17 @@ public class PlayerAnim3D : MonoBehaviour
         {
             return true;
         }
+        return false;
+    }
+
+    // 押しているアニメーション.
+    public bool Push()
+    {
+        if (_isPushing)
+        {
+            return true;
+        }
+
         return false;
     }
 
