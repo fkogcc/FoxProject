@@ -11,8 +11,8 @@ public class SoundManager : MonoBehaviour
     {
         [Header("サウンドデータだよ！")]
         public AudioClip sound;// データ.
-        public string name;  // 名前.
-        public float volume; // 音量.
+        public string name;    // 名前.
+        public float volume;   // 音量.
     }
 
     // サウンド再生リソースを取得する.
@@ -31,7 +31,7 @@ public class SoundManager : MonoBehaviour
     [SerializeField, Header("「 B G M 」専用データ")]
     public SoundData[] _bgmData;
 
-    // デフォルト音量
+    // デフォルト音量.
     private float[] _seDefaultVolume;
     private float[] _bgmDefaultVolume;
 
@@ -50,7 +50,7 @@ public class SoundManager : MonoBehaviour
         DontDestroyOnLoad(_sePlayObject);
         DontDestroyOnLoad(_bgmPlayObject);
 
-        // 配列を増やす
+        // 配列を増やす.
         Array.Resize(ref _seDefaultVolume, _seData.Length);
         Array.Resize(ref _bgmDefaultVolume, _bgmData.Length);
 

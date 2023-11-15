@@ -71,9 +71,51 @@ MonoBehaviour:
   - sound: {fileID: 8300000, guid: 604954d51efdbfa418b728019addcdfc, type: 3}
     name: 1_3_1_Reset
     volume: 1
+  - sound: {fileID: 8300000, guid: 5cb34a3b67c45bf4d8e5857e41be3504, type: 3}
+    name: 1_1_0_StrongWind
+    volume: 1
+  - sound: {fileID: 8300000, guid: 638d5145542c70b498d714ea697d029b, type: 3}
+    name: 1_1_0_WeakkWind
+    volume: 1
+  - sound: {fileID: 8300000, guid: 0632355008bc2a44983ccce798565aa7, type: 3}
+    name: 1_2_0_BeltConbeyor
+    volume: 1
+  - sound: {fileID: 8300000, guid: a9754b322bda327489d1b98954060be1, type: 3}
+    name: 1_2_0_Bomb
+    volume: 1
+  - sound: {fileID: 8300000, guid: bc0d75311e5b8864cb5519f64f4f98bc, type: 3}
+    name: 1_2_0_IronDoor
+    volume: 1
+  - sound: {fileID: 8300000, guid: d5aea8b8e5707a3459b3607d846a285a, type: 3}
+    name: Damage
+    volume: 1
+  - sound: {fileID: 8300000, guid: 13fc386ead9e33542a77ed20aa690d53, type: 3}
+    name: Fottsteps
+    volume: 1
+  - sound: {fileID: 8300000, guid: 27863740c3f652b418510d0f5709e990, type: 3}
+    name: Jump
+    volume: 1
+  - sound: {fileID: 8300000, guid: 5504bacb1a49c3349b4bd453f799f77a, type: 3}
+    name: Warp
+    volume: 1
+  - sound: {fileID: 8300000, guid: 6c0e047861c8d6447a0df72696f602a8, type: 3}
+    name: GameOver
+    volume: 1
+  - sound: {fileID: 8300000, guid: 38fbf2c368a22554a9b1d92686dd6126, type: 3}
+    name: GoalLanding
+    volume: 1
+  - sound: {fileID: 8300000, guid: a46b6797baffce644aab6b2c2999614c, type: 3}
+    name: 1_2_1_Button
+    volume: 1
   _bgmData:
+  - sound: {fileID: 8300000, guid: 7b2d57059c59d384290773303504d320, type: 3}
+    name: 1_1_0_BGM
+    volume: 1
   - sound: {fileID: 8300000, guid: 9aa568a125e548244ae4bb8e589094e4, type: 3}
     name: 1_1_1_BGM
+    volume: 1
+  - sound: {fileID: 8300000, guid: a13ece8178b7a004c86e4ae3fcebe3ce, type: 3}
+    name: 1_1_2_BGM
     volume: 1
   - sound: {fileID: 8300000, guid: e247119b66fe6bc48a6043fbae9b01e7, type: 3}
     name: 1_2_0_BGM
@@ -92,6 +134,9 @@ MonoBehaviour:
     volume: 1
   - sound: {fileID: 8300000, guid: 2cc5df01a0dd9334b8a795d9657af419, type: 3}
     name: 1_3_3_BGM
+    volume: 1
+  - sound: {fileID: 8300000, guid: 1ee4972e56cc57d45aa62a22ca2e3838, type: 3}
+    name: 1_2_1_BGM
     volume: 1
   _playSeTest: 0000000000000000
   _playBgmTest: 00000000000000
