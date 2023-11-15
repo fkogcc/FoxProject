@@ -115,6 +115,7 @@ public class Gimick1_2_4_Manager : MonoBehaviour
 
     void Update()
     {
+        _countDown.SetTimeCount(true);
         for (int i = 0; i < _objRotaMaxNum; i++)
         {
             // オブジェクトにあたっていたら.
@@ -156,7 +157,7 @@ public class Gimick1_2_4_Manager : MonoBehaviour
 
     private void FixedUpdate()
     {
-
+        // 時間がなくなった場合
         if (_countDown.IsCount())
         {
             // ゲームオーバーになるとカウントする
@@ -175,7 +176,7 @@ public class Gimick1_2_4_Manager : MonoBehaviour
                 _warpFirst.GetComponent<Gimick1_2_4_PlayerWarp>().NextStagePos();
 
                 // カウントダウンをとめる
-                _countDown.SetTimeCount(true);
+                _countDown.SetTimeCount(false);
 
                 // 角度を初期化
                 for (int i = 0; i < _objRotaMaxNum; i++)
@@ -195,8 +196,7 @@ public class Gimick1_2_4_Manager : MonoBehaviour
             }
 
             _isCountDown = true;
-            // カウントダウンを見えなくする
-        //    _count.SetActive(false);
+
             // カウントダウンをとめる.
             _countDown.SetTimeCount(false);
 
@@ -211,7 +211,6 @@ public class Gimick1_2_4_Manager : MonoBehaviour
             _camera.Follow = _cameraPos;
             _camera.GetCinemachineComponent(CinemachineCore.Stage.Aim).GetComponent<CinemachinePOV>().m_VerticalAxis.Value   = _clearCameraRotaY;
             _camera.GetCinemachineComponent(CinemachineCore.Stage.Aim).GetComponent<CinemachinePOV>().m_HorizontalAxis.Value = _clearCameraRotaX;
-
             // 一定数カウントが値を御超えると.
             if (_clearFrameCount > ClearCountMaxFrame)
             {
@@ -227,7 +226,7 @@ public class Gimick1_2_4_Manager : MonoBehaviour
                 _light.SetActive(false);
 
                 // カメラのターゲット位置と角度を変更.
-                _camera.Follow = GameObject.Find("3DPlayer").transform;
+                //    _camera.Follow = GameObject.Find("3DPlayer").transform;
                 _camera.GetCinemachineComponent(CinemachineCore.Stage.Aim).GetComponent<CinemachinePOV>().m_VerticalAxis.Value 　= 0.0f;
                 _camera.GetCinemachineComponent(CinemachineCore.Stage.Aim).GetComponent<CinemachinePOV>().m_HorizontalAxis.Value = 0.0f;
             }
@@ -253,8 +252,11 @@ public class Gimick1_2_4_Manager : MonoBehaviour
         }
         else
         {
-            // カメラのターゲット位置と角度を変更.
-            _camera.Follow = GameObject.Find("3DPlayer").transform;
+            if(!IsCountDown())
+            {
+                // カメラのターゲット位置と角度を変更.
+                _camera.Follow = GameObject.Find("3DPlayer").transform;
+            }
         }
     }
 
