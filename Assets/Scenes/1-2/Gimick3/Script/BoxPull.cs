@@ -17,6 +17,9 @@ public class BoxPull : MonoBehaviour
     // プレイヤーの位置情報.
     private Transform _player;
 
+    // サウンド用
+    public SoundManager Sound;
+
     // ギミックの色.
     public string Color;
     // ギミックオブジェ.
@@ -86,6 +89,7 @@ public class BoxPull : MonoBehaviour
 
         if ((Input.GetKeyDown("joystick button 1") || Input.GetKeyDown(KeyCode.F)) && _isPullRange)
         {
+            Sound.PlaySE("1_2_3_Pull");
             // 引っ張り始めた位置の保存.
             _startPlayerPos = _player.position;
 
@@ -102,6 +106,7 @@ public class BoxPull : MonoBehaviour
 
         if ((Input.GetKeyUp("joystick button 1") || Input.GetKeyUp(KeyCode.F)) && _isPull)
         {
+            Sound.PlaySE("1_2_3_Push");
             // オブジェクトを削除する
             foreach (var temp in _gimmicks)
             {
@@ -197,6 +202,8 @@ public class BoxPull : MonoBehaviour
 
     void FixedUpdate()
     {
+        Sound.PlayBGM("1_2_3_BGM");
+
         // ギミックをクリアしていたら処理をしない.
         if (_isClear) return;
 

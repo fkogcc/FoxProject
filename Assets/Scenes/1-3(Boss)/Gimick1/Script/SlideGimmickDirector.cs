@@ -34,6 +34,8 @@ public class SlideGimmickDirector : MonoBehaviour
 
     // プレイヤーの手.
     private GameObject _playerHand;
+    // 音用変数
+    public SoundManager Sound;
     
     // ギミック子オブジェ.
     private GameObject[] _gimmickObj;
@@ -179,33 +181,6 @@ public class SlideGimmickDirector : MonoBehaviour
         if (!_playerHand.activeSelf) return;
 
         _playerHand.GetComponent<GimmickHand>().HandUpdate();
-        //// 垂直方向.
-        //_horizontal = Input.GetAxis("Horizontal");
-        //// 水平方向.
-        //_vertical = Input.GetAxis("Vertical");
-
-        //// プレイヤーの移動処理.
-        //if (0.0f < _horizontal)
-        //{
-        //    _playerHand.transform.position += Vector3.right * kSpeed;
-        //    if (_playerHand.transform.position.x > 9.0f)
-        //    {
-        //        _playerHand.transform.position = 
-        //            new Vector3(9.0f, _playerHand.transform.position.y, _playerHand.transform.position.y);
-        //    }
-        //}
-        //if (_horizontal < 0.0f)
-        //{
-        //    _playerHand.transform.position += Vector3.left * kSpeed;
-        //}
-        //if (0.0f < _vertical)
-        //{
-        //    _playerHand.transform.position += Vector3.up * kSpeed;
-        //}
-        //if (_vertical < 0.0f)
-        //{
-        //    _playerHand.transform.position += Vector3.down * kSpeed;
-        //}
 
         // クリアしていたら移動以外処理しない.
         if (_isCreal) return;
@@ -222,15 +197,17 @@ public class SlideGimmickDirector : MonoBehaviour
 
             if (_nowEle == kBackOneStepNo)
             {
-                Debug.Log("ひとつ前に戻る");
+                Sound.PlaySE("1_3_1_OneBack");
                 BackOneStep();
             }
             else if (_nowEle == kResetNo)
             {
+                Sound.PlaySE("1_3_1_Reset");
                 ResetBlock();
             }
             else
             {
+                Sound.PlaySE("1_3_1_Push");
                 // 動かせるかどうかの判定をしていく.
                 EleCheck();
             }
@@ -239,6 +216,8 @@ public class SlideGimmickDirector : MonoBehaviour
 
     private void FixedUpdate()
     {
+        Sound.PlayBGM("1_3_1_BGM");
+
         // クリアしていたら光らせる処理のみする.
         if (_isCreal)
         {

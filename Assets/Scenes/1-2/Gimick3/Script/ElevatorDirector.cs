@@ -1,5 +1,7 @@
-﻿using System.Collections;
+﻿using Palmmedia.ReportGenerator.Core.Reporting.Builders;
+using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class ElevatorDirector : MonoBehaviour
@@ -12,7 +14,9 @@ public class ElevatorDirector : MonoBehaviour
     private const float kDownHeight = 6.8f;
 
     // 上がるときにプレイヤーも一緒に上げるよう.
-    GameObject _player;
+    private GameObject _player;
+    // サウンド用
+    public SoundManager Sound;
 
     // 移動量.
     private Vector3 _vec;
@@ -49,6 +53,7 @@ public class ElevatorDirector : MonoBehaviour
             // 一定時間たったら上がるようにする.
             if (kChangeFrame <= _count)
             {
+                Sound.PlaySE("1_2_3_Elevetor");
                 _isUp = true;
                 _isDown = false;
             }
@@ -59,6 +64,7 @@ public class ElevatorDirector : MonoBehaviour
             // 一定時間たったら下がるようにする.
             if (kChangeFrame <= _count)
             {
+                Sound.PlaySE("1_2_3_Elevetor");
                 _isDown = true;
                 _isUp = false;
             }
