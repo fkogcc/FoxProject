@@ -15,6 +15,7 @@ public class Gimick1_2_4_Manager1Mk2 : MonoBehaviour
 
     // ワープするための変数
     private Gimick1_2_4_PlayerWarp _warp;
+    private Gimick1_2_4_PlayerWarp _warpFirst;
 
     // 回転用.
     [SerializeField] GameObject[] _rota;
@@ -61,7 +62,7 @@ public class Gimick1_2_4_Manager1Mk2 : MonoBehaviour
 
     // カウントダウンを確認
     public GameObject _count;
-    private Gimmick1_2_4_CountDown _countDown;
+    private Gimmick1_2_4_CountDown2 _countDown;
 
     // 時間制限内にクリアできなかった場合
     private int _gameOverFrameCount = 0;
@@ -83,6 +84,9 @@ public class Gimick1_2_4_Manager1Mk2 : MonoBehaviour
             _rotaGraph[i] = _rota[i].GetComponent<TurnGraph>();
         }
 
+        // 現在のステージのワープ先
+        _warpFirst = GameObject.Find("Warp1").GetComponent<Gimick1_2_4_PlayerWarp>();
+
         // カメラ関連
         {
             // カメラオブジェクトを取得
@@ -97,15 +101,16 @@ public class Gimick1_2_4_Manager1Mk2 : MonoBehaviour
         _audioSource = GameObject.Find("Sound").GetComponent<AudioSource>();
 
         // カウントダウンをするクラスを取得
-        _countDown = _count.GetComponent<Gimmick1_2_4_CountDown>();
+        _countDown = _count.GetComponent<Gimmick1_2_4_CountDown2>();
     }
 
     void Update()
     {
+        _countDown.SetTimeCount(true);
         // ゲームクリアした場合ライトが光るので
         // 光ってない場合はプレイヤーを追跡する
         // 光ってる場合はカメラはクリア用の位置に行く
-        if(!_isLight)
+        if (!_isLight)
         {
             _camera.Follow = GameObject.Find("3DPlayer").transform;
         }
@@ -162,7 +167,6 @@ public class Gimick1_2_4_Manager1Mk2 : MonoBehaviour
         {
             // ゲームオーバーになるとカウントする
             _gameOverFrameCount++;
-
             // 
             if (_gameOverFrameCount > GameOverCountMaxFrame)
             {
@@ -172,8 +176,8 @@ public class Gimick1_2_4_Manager1Mk2 : MonoBehaviour
                 // カウントダウンを初期化する
                 _countDown.SstResetCount();
 
-                // カウントダウンをとめる
-                _countDown.SetTimeCount(true);
+                // 次のギミックの場所にワープする.
+                _warpFirst.GetComponent<Gimick1_2_4_PlayerWarp>().NextStagePos();
 
                 // 角度を初期化
                 for (int i = 0; i < _objRotaMaxNum; i++)
@@ -193,11 +197,6 @@ public class Gimick1_2_4_Manager1Mk2 : MonoBehaviour
             }
 
             _isCountDown = true;
-            // カウントダウンを見えなくする
-         //   _count.SetActive(false);
-
-            // カウントダウンをとめる.
-            _countDown.SetTimeCount(false);
 
             // クリア後少し間を開ける為のカウント.
             _clearFrameCount++;
@@ -209,7 +208,6 @@ public class Gimick1_2_4_Manager1Mk2 : MonoBehaviour
             _camera.Follow = _cameraPos;
             _camera.GetCinemachineComponent(CinemachineCore.Stage.Aim).GetComponent<CinemachinePOV>().m_VerticalAxis.Value = _clearCameraRotaY;
             _camera.GetCinemachineComponent(CinemachineCore.Stage.Aim).GetComponent<CinemachinePOV>().m_HorizontalAxis.Value = _clearCameraRotaX;
-
 
             // 一定数カウントが値を御超えると.
             if (_clearFrameCount > ClearCountMaxFrame)
@@ -239,8 +237,11 @@ public class Gimick1_2_4_Manager1Mk2 : MonoBehaviour
         }
         else
         {
-            // カメラのターゲット位置と角度を変更.
-            _camera.Follow = GameObject.Find("3DPlayer").transform;
+            if (!IsCountDown())
+            {
+                // カメラのターゲット位置と角度を変更.
+                _camera.Follow = GameObject.Find("3DPlayer").transform;
+            }
         }
     }
 

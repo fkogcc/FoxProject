@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Gimmick1_2_4_Fade : MonoBehaviour
+public class Gimmick1_2_4_Fade1 : MonoBehaviour
 {
     // オブジェクトを取得.
     public GameObject _timeCountDown;
     // タイムクラスを取得.
-    private Gimmick1_2_4_CountDown _time;
+    private Gimmick1_2_4_CountDown2 _time;
     // 画像クラス
     private Image _image;
     // カラー用構造体を宣言.
@@ -16,7 +16,7 @@ public class Gimmick1_2_4_Fade : MonoBehaviour
     void Start()
     {
         // クラスを取得.
-        _time = _timeCountDown.GetComponent<Gimmick1_2_4_CountDown>();
+        _time = _timeCountDown.GetComponent<Gimmick1_2_4_CountDown2>();
         // 画像クラスを取得.
         _image = GetComponent<Image>();
 

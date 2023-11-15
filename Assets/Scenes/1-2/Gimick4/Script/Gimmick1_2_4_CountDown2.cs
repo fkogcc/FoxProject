@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-public class Gimmick1_2_4_CountDown : MonoBehaviour
+public class Gimmick1_2_4_CountDown2 : MonoBehaviour
 {
 
     // 制限時間.
@@ -89,6 +89,7 @@ public class Gimmick1_2_4_CountDown : MonoBehaviour
     {
         while (_isCountDown)
         {
+            Debug.Log("かうんとダウン");
             // 時間をカウントダウンする.
             _countTime -= Time.deltaTime;
 
