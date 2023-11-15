@@ -12,6 +12,7 @@ public class MonitorCamera131 : MonoBehaviour
     public CinemachineVirtualCamera _monitorCameraObject;
     public GameObject _handObject;
     public GameObject _resetButtonObj;
+    public GameObject _changeImage;
 
     // Start is called before the first frame update
     void Start()
@@ -29,6 +30,7 @@ public class MonitorCamera131 : MonoBehaviour
             // 絵合わせ状態での動作関係をNonActiveに
             _handObject.gameObject.SetActive(false);
             _resetButtonObj.gameObject.SetActive(false);
+            _changeImage.SetActive(false);
             // カメラを動かす
             _monitorCameraObject.Priority = 3;
         }
@@ -39,6 +41,7 @@ public class MonitorCamera131 : MonoBehaviour
             // 絵合わせ状態での動作関係をActiveに
             _handObject.gameObject.SetActive(true);
             _resetButtonObj.gameObject.SetActive(true);
+            _changeImage.SetActive(true);
             // カメラを動かす
             _monitorCameraObject.Priority = 15;
         }
