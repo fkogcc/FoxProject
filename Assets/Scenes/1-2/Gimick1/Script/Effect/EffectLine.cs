@@ -18,16 +18,29 @@ public class EffectLine : MonoBehaviour
     }
     private void LineInit()
     {
-        // とりあえず 今の位置に生成！
-
         // 初期化処理
         _effectLine = Instantiate(Line,this.transform.position,
                                     Quaternion.identity);
         // LineRenderer取得
         _lineRenderer = _effectLine.GetComponent<LineRenderer>();
         
-        _pointList.Add(this.transform.position);
+    }
 
+    // Update is called once per frame
+    void Update()
+    {
+        //Generate();
+
+        if (Input.GetKey(KeyCode.Z))
+        {
+            LineDestroy();
+        }
+
+    }
+    // ラインエフェクトの生成
+    public void LineGenerate(Vector3 pos)
+    {
+        _pointList.Add(pos);
         _lineRenderer.positionCount = _pointList.Count;
 
         // 各頂点の座標設定
@@ -36,10 +49,25 @@ public class EffectLine : MonoBehaviour
             _lineRenderer.SetPosition(iCnt, _pointList[iCnt]);
         }
     }
-
-    // Update is called once per frame
-    void Update()
+    public void LineClearGenerete()
     {
-        
+        Vector3 pos = new Vector3(0,0,0);
+        _pointList.Add(_pointList[0]);
+        _lineRenderer.positionCount = _pointList.Count;
+
+        // 各頂点の座標設定
+        for (int iCnt = 0; iCnt < _pointList.Count; iCnt++)
+        {
+            _lineRenderer.SetPosition(iCnt, _pointList[iCnt]);
+        }
+    }
+    public void LineDestroy()
+    {
+        _pointList.Clear();
+        Destroy(_effectLine);
+        Destroy(_lineRenderer);
+
+        LineInit();
+
     }
 }
