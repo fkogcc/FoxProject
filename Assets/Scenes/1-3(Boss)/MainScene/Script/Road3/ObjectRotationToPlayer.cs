@@ -6,45 +6,27 @@ public class ObjectRotationToPlayer : MonoBehaviour
 {
     public GameObject _player;
     private bool _isHit = false;
-   
-    void Update()
+
+    private void FixedUpdate()
     {
-        if(_isHit)
+        if (_isHit)
         {
-            //_player.transform.parent = gameObject.transform;
             _player.transform.SetParent(gameObject.transform);
             _isHit = false;
-
         }
-        else
+
+        if(Input.anyKey)
         {
             _player.transform.parent = null;
         }
-
-        Debug.Log(_isHit);
+        
     }
 
-    void OnCollisionStay(Collision collision)
+    private void OnCollisionStay(Collision collision)
     {
         if (collision.gameObject.tag == "Player")
         {
-            _isHit = true;  
+            _isHit = true;
         }
     }
-
-    //private void OnCollisionEnter(Collision collision)
-    //{
-    //    if (collision.gameObject.tag == "Player")
-    //    {
-    //        _isHit = true;
-    //    }
-    //}
-
-    //private void OnCollisionExit(Collision collision)
-    //{
-    //    if (collision.gameObject.tag == "Player")
-    //    {
-    //        _isHit = false;
-    //    }
-    //}
 }
