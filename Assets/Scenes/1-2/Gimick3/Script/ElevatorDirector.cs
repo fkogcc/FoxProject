@@ -17,6 +17,8 @@ public class ElevatorDirector : MonoBehaviour
     private GameObject _player;
     // サウンド用
     public SoundManager Sound;
+    // 前鳴らした情報用
+    private bool _isPlaySound;
 
     // 移動量.
     private Vector3 _vec;
@@ -43,6 +45,8 @@ public class ElevatorDirector : MonoBehaviour
         _isUp = false;
         _isDown = false;
 
+        // 初めはならないように鳴らしたということにしておく
+        _isPlaySound = true;
     }
 
     private void FixedUpdate()
@@ -53,7 +57,6 @@ public class ElevatorDirector : MonoBehaviour
             // 一定時間たったら上がるようにする.
             if (kChangeFrame <= _count)
             {
-                Sound.PlaySE("1_2_3_Elevetor");
                 _isUp = true;
                 _isDown = false;
             }
@@ -64,7 +67,6 @@ public class ElevatorDirector : MonoBehaviour
             // 一定時間たったら下がるようにする.
             if (kChangeFrame <= _count)
             {
-                Sound.PlaySE("1_2_3_Elevetor");
                 _isDown = true;
                 _isUp = false;
             }
@@ -79,6 +81,12 @@ public class ElevatorDirector : MonoBehaviour
                 // をなくすようにする.
                 _player.transform.position += _vec;
                 this.transform.position += _vec;
+
+                if (!_isPlaySound)
+                {
+                    Sound.PlaySE("1_2_3_Elevator");
+                    _isPlaySound = true;
+                }
             }
         }
         // 降りる処理.
@@ -87,6 +95,12 @@ public class ElevatorDirector : MonoBehaviour
             if (kDownHeight < this.transform.position.y)
             {
                 this.transform.position -= _vec;
+
+                if (!_isPlaySound)
+                {
+                    Sound.PlaySE("1_2_3_Elevator");
+                    _isPlaySound = true;
+                }
             }
         }
     }
@@ -94,12 +108,14 @@ public class ElevatorDirector : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         _isStay = true;
+        _isPlaySound = false;
         _count = 0;
     }
 
     private void OnTriggerExit(Collider other)
     {
         _isStay = false;
+        _isPlaySound = false;
         _count = 0;
     }
 }
