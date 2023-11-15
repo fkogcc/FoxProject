@@ -15,7 +15,7 @@ public class ButtonState : MonoBehaviour
     // 配列の最大値.
     private int _max;
     // 名前をチェックするために用意.
-    private bool _isTestNameCheck = false;
+    private bool _isNameCheck = false;
     // ボタンの状態を渡すためにオブジェクトを取得.
     private GameObject _playerObject;
     // .
@@ -24,6 +24,7 @@ public class ButtonState : MonoBehaviour
     private string[] _objNameTest;
     private const string _buttonNameTest = "FrontButton";
 
+    private bool _isEffectResetFlag = false;
     private bool _isGameClear = false;
     // Start is called before the first frame update
     void Start()
@@ -33,7 +34,7 @@ public class ButtonState : MonoBehaviour
         _isButtonState = false;
         _num = 0;
         _max = 5;
-        _isTestNameCheck = false;
+        _isNameCheck = false;
 
         // 配列の最大数を定義.
         _objNameTest = new string[_max];
@@ -53,6 +54,8 @@ public class ButtonState : MonoBehaviour
     }
     public void ButtonAcquisition()
     {
+        _isEffectResetFlag = false;
+
         // ボタンが押されたかどうかを取得する.
         _isButtonState = _playerObject.GetComponent<PlayerHand>().IsGetButtonState();
         // ボタンが押されていたら.
@@ -66,17 +69,17 @@ public class ButtonState : MonoBehaviour
             {
                 // 0番目に保存.
                 _objGet[_num] = GameObject.Find(_buttonName);
-                // 要素を追加.
-                _num++;
+                _isNameCheck = true;
             }
             // for文で処理を回す.
             for (int obj = 0; obj < _num; obj++)
             {
+                Debug.Log(obj);
                 // 取得したボタンの名前と今保存しているボタンの名前が一緒だったら.
                 if (_objGet[obj].gameObject.name == _buttonName)
                 {
                     // もう取得したボタンなので保存しないフラグを立てる.
-                    _isTestNameCheck = false;
+                    _isNameCheck = false;
                     // for文も止める.
                     break;
                 }
@@ -84,11 +87,11 @@ public class ButtonState : MonoBehaviour
                 else
                 {
                     // 保存するフラグを立てる.
-                    _isTestNameCheck = true;
+                    _isNameCheck = true;
                 }
             }
             //　保存するフラグがたっていたら.
-            if (_isTestNameCheck)
+            if (_isNameCheck)
             {
                 // _num番目に要素を保存.
                 _objGet[_num] = GameObject.Find(_buttonName);
@@ -98,6 +101,7 @@ public class ButtonState : MonoBehaviour
         else
         {
             _isButtonState = false;
+            _isNameCheck = false ;
         }
 
         // 答えと違ったら違うという表示を出す.
@@ -111,11 +115,17 @@ public class ButtonState : MonoBehaviour
                     // 取得したボタンを初期化する.
                     ObjGetInit();
                     _num = 0;
+                    _isEffectResetFlag = true;
                     break;
                 }
+                // 最後まで間違いがなかった場合
+                else if(obj == _max - 1)
+                {
+                    Debug.Log("クリア");
+                    //_isGameClear = true;
+                }
             }
-            Debug.Log("クリア");
-            //_isGameClear = true;
+
         }
     }
     // 取得したオブジェクト(ボタン)の情報を初期化する.
@@ -145,6 +155,15 @@ public class ButtonState : MonoBehaviour
             }
         }
         return true;
+    }
+    public bool isCheckButton()
+    {
+        Debug.Log(_isNameCheck);
+        return _isNameCheck;
+    }
+    public bool IsResetFlag()
+    {
+        return _isEffectResetFlag;
     }
     public bool GetResult()
     {

@@ -30,13 +30,15 @@ public class Gimick1_2_1Manager : MonoBehaviour
             if (_handObject.activeInHierarchy)
             {
                 _handObject.GetComponent<PlayerHand>().ButtonPush();
+                
             }
             this.GetComponent<ButtonState>().GetPlayerObject(_handObject);
             // ボタンの状態
             this.GetComponent<ButtonState>().ButtonAcquisition();
 
             _effect.GetComponent<EffectPlay>().GetPlayerObject(_handObject);
-            _effect.GetComponent<EffectPlay>().CheckTap();
+            _effect.GetComponent<EffectPlay>().CheckTap(this.GetComponent<ButtonState>().isCheckButton());
+            _effect.GetComponent<EffectPlay>().EffectDestory(GetComponent<ButtonState>().IsResetFlag());
         }
     }
     void FixedUpdate()

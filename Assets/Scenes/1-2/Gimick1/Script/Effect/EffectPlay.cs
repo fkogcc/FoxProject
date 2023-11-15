@@ -6,6 +6,7 @@ public class EffectPlay : MonoBehaviour
 {
     public GameObject _tapEffect;
     private GameObject _handObject;
+    private GameObject _line;
     private void Start()
     {
         _handObject = null;
@@ -17,9 +18,9 @@ public class EffectPlay : MonoBehaviour
         _handObject = handobj;
     }
 
-    public void CheckTap()
+    public void CheckTap(bool buttonFlag)
     {
-        if (_handObject.GetComponent<PlayerHand>().IsGetButtonState())
+        if (buttonFlag)
         {
             NewTapEffect();
         }
@@ -29,5 +30,14 @@ public class EffectPlay : MonoBehaviour
     {
         // 手の位置と回転率をそのままいれて手の位置からエフェクトを生成.
         Object.Instantiate(_tapEffect, _handObject.transform.position, _handObject.transform.localRotation, transform);
+        GetComponent<EffectLine>().LineGenerate(_handObject.transform.position);
+    }
+    public void EffectDestory(bool destory)
+    {
+        if (destory)
+        {
+            GetComponent<EffectLine>().LineDestroy();
+
+        }
     }
 }
