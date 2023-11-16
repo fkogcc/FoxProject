@@ -5,13 +5,13 @@ public class Gimick1_2_1Manager : MonoBehaviour
     private GameObject _handObject;
     private PlayerHand _playerHand;
     private GameObject _cameraObject;
-    private Test test;
+    private Test _test;
     private ObjectManagement _objectManagement;
 
     [SerializeField] private GameObject[] _panelObject;
     private ButtonState[] _buttonState;
     private GameObject _effect;
-    private EffectPlay effectPlay;
+    private EffectPlay _effectPlay;
 
     private string _prevFrameName = null;
     private string _nowFrameName = null;
@@ -20,7 +20,7 @@ public class Gimick1_2_1Manager : MonoBehaviour
     {
         _cameraObject = GameObject.Find("MonitorCamera");
 
-        test = _cameraObject.GetComponent<Test>();
+        _test = _cameraObject.GetComponent<Test>();
         _objectManagement = GetComponent<ObjectManagement>();
 
         _buttonState = new ButtonState[_panelObject.Length];
@@ -29,8 +29,8 @@ public class Gimick1_2_1Manager : MonoBehaviour
             _buttonState[i] = _panelObject[i].GetComponent<ButtonState>();
         }
         _effect = GameObject.Find("EffectCreate");
-        effectPlay = _effect.GetComponent<EffectPlay>();
-        effectPlay.EffectInit();
+        _effectPlay = _effect.GetComponent<EffectPlay>();
+        _effectPlay.EffectInit();
     }
 
     // Update is called once per frame
@@ -40,7 +40,7 @@ public class Gimick1_2_1Manager : MonoBehaviour
         // モニターを変えるかどうかをチェックしている
         _objectManagement.MonitorChenge();
         // カメラのUpdate
-        test.CameraUpdate();
+        _test.CameraUpdate();
         if (_handObject != null)
         {
             // プレイヤーの手がボタンを押したかどうか
@@ -49,27 +49,27 @@ public class Gimick1_2_1Manager : MonoBehaviour
                 _handObject.GetComponent<PlayerHand>().ButtonPush();
                 
             }
-            _nowFrameName = test.GetCameraName();
+            _nowFrameName = _test.GetCameraName();
             //foreach (GameObject panel in _panelObject)
             foreach (ButtonState button in _buttonState)
             {
-                if (button.name == test.GetCameraName())
+                if (button.name == _test.GetCameraName())
                 {
                     //_buttonState = panel.GetComponent<ButtonState>();
                     button.GetPlayerObject(_handObject);
                     // ボタンの状態
                     button.ButtonAcquisition();
 
-                    effectPlay.GetPanelName(button.transform.name);
-                    effectPlay.GetPlayerObject(_handObject);
-                    effectPlay.CheckTap(button.isCheckButton());
-                    effectPlay.EffectClearGenerete(button.IsGimckClear());
-                    effectPlay.EffectDestory(button.IsResetFlag());
+                    _effectPlay.GetPanelName(button.transform.name);
+                    _effectPlay.GetPlayerObject(_handObject);
+                    _effectPlay.CheckTap(button.isCheckButton());
+                    _effectPlay.EffectClearGenerete(button.IsGimckClear());
+                    _effectPlay.EffectDestory(button.IsResetFlag());
                 }
                 if (_prevFrameName != _nowFrameName)
                 {
                     button.ButtnReset();
-                    effectPlay.EffectPosReset();
+                    _effectPlay.EffectPosReset();
                 }
             }
             _prevFrameName = _nowFrameName;
