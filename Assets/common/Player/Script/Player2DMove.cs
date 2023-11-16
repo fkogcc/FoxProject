@@ -17,6 +17,8 @@ public class Player2DMove : MonoBehaviour
 
     private Fade2DSceneTransition _flag;
 
+    [SerializeField] private ParticleSystem _particle;
+
     // プレイヤーの体力.
     private int _hp = 5;
     // ジャンプ力.
@@ -75,27 +77,27 @@ public class Player2DMove : MonoBehaviour
         Anim();
 
         // ゴールした時に正面を向くようにする.
-        //if (_flag._isGoal)
-        //{
-        //    //transform.localEulerAngles = new Vector3(0.0f,180.0f, 0.0f);
+        if (_flag._isGoal)
+        {
+            //transform.localEulerAngles = new Vector3(0.0f,180.0f, 0.0f);
 
-        //    transform.forward = Vector3.Slerp(transform.forward, new Vector3(0.0f, 0.0f, 0.0f), Time.deltaTime * 10.0f);
+            //transform. = Vector3.Slerp(transform.forward, new Vector3(0.0f, 0.0f, 0.0f), Time.deltaTime * 10.0f);
 
-        //    //if (transform.localEulerAngles.y >= 185.0f && transform.localEulerAngles.y <= 175.0f)
-        //    //{
-        //    //    Debug.Log("通った");
-        //    //    if (!_isDirection)
-        //    //    {
-        //    //        transform.Rotate(0f, 5f, 0f);
-        //    //    }
-        //    //    else
-        //    //    {
-        //    //        transform.Rotate(0f, -5f, 0f);
-        //    //    }
-        //    //}
-        //}
+            //if (transform.localEulerAngles.y >= 185.0f && transform.localEulerAngles.y <= 175.0f)
+            //{
+            //    Debug.Log("通った");
+            //    if (!_isDirection)
+            //    {
+            //        transform.Rotate(0f, 5f, 0f);
+            //    }
+            //    else
+            //    {
+            //        transform.Rotate(0f, -5f, 0f);
+            //    }
+            //}
+        }
 
-        //if (!_flag._isGoal) return;
+        if (!_flag._isGoal) return;
 
         // 右を向く.
         if (!_isDirection)
@@ -125,6 +127,7 @@ public class Player2DMove : MonoBehaviour
             if (_isJumpNow)
             {
                 _isJumpNow = false;
+                _particle.Play();
             }
         }
     }
@@ -150,6 +153,7 @@ public class Player2DMove : MonoBehaviour
             if (!_isJumpNow)
             {
                 _isJumpNow = true;
+                _particle.Stop();
             }
         }
     }

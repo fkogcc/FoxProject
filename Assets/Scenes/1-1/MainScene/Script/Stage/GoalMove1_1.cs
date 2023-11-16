@@ -36,27 +36,46 @@ public class GoalMove1_1 : MonoBehaviour
 
     private float _testTime;
 
+    // 接地された時のパーティクル
+    [SerializeField] private ParticleSystem _particle;
+
+    // パーティクル再生時間
+    private int _playParticleTime;
+
     // Start is called before the first frame update
     void Start()
     {
-
+        _particle.Stop();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (!_eventFlag) return;
-
-        _testTime+=0.01f;
-
-        SlerpMove();
+        Debug.Log(_playParticleTime);
     }
 
     private void FixedUpdate()
     {
-        //if (!_eventFlag) return;
+        if (_playParticleTime > 20)
+        {
+            _particle.Stop();
+            return;
+        }
+            
+            
 
-        //SlerpMove();
+        if(transform.position.x == 160)
+        {
+            _particle.Play();
+            _playParticleTime++;
+        }
+
+
+        if (!_eventFlag) return;
+
+        _testTime += 0.01f;
+
+        SlerpMove();
     }
 
     private void SlerpMove()
