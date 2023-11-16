@@ -188,7 +188,7 @@ public class Player3DMove : MonoBehaviour
 
     // Rayが接地するかどうか.
     // 円
-    private bool IsGroundShpere()
+    public bool IsGroundShpere()
     {
         Ray ray = new(origin: transform.position + Vector3.up * _rayOffset, direction: Vector3.down);
 

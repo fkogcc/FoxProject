@@ -23,12 +23,18 @@ public class GoalMove1_1 : MonoBehaviour
     private Vector3 _start;
     // 最終的にたどり着く座標
     private Vector3 _end;
+    // ゴールの円運動の中心座標
+    private Vector3 _center;
+    // 中心点だけずらした位置を戻す
+    private Vector3 _slerpPos;
 
     // ゴールを動かすときの真偽
     public bool _eventFlag = false;
 
     // 補間位置の計算の値
     float _interpolationPosition;
+
+    private float _testTime;
 
     // Start is called before the first frame update
     void Start()
@@ -39,38 +45,42 @@ public class GoalMove1_1 : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        _start = _StartPos.transform.position;
-        _end = _EndPos.transform.position;
+        if (!_eventFlag) return;
 
-        // 補間位置計算
-        _interpolationPosition = Time.time / _moveTime;
+        _testTime+=0.01f;
 
-        // 円運動の中心点取得
-        var center = _sphereCenter.transform.position;
-
-        // 円運動させる前に中心点が原点に来るように始点・終点を移動
-        _start -= center;
-        _end -= center;
-
-        // 原点中心で円運動
-        var slerpPos = Vector3.Slerp(_start, _end, _interpolationPosition);
-
-        // 中心点だけずらした位置を戻す
-        slerpPos += center;
-
-        // 補間位置を反映
-        transform.position = slerpPos;
+        SlerpMove();
     }
 
     private void FixedUpdate()
     {
-        if (!_eventFlag) return;
+        //if (!_eventFlag) return;
 
-
+        //SlerpMove();
     }
 
     private void SlerpMove()
     {
+        _start = _StartPos.transform.position;
+        _end = _EndPos.transform.position;
 
+        // 補間位置計算
+        _interpolationPosition = _testTime / _moveTime;
+
+        // 円運動の中心点取得
+        _center = _sphereCenter.transform.position;
+
+        // 円運動させる前に中心点が原点に来るように始点・終点を移動
+        _start -= _center;
+        _end -= _center;
+
+        // 原点中心で円運動
+        _slerpPos = Vector3.Slerp(_start, _end, _interpolationPosition);
+
+        // 中心点だけずらした位置を戻す
+        _slerpPos += _center;
+
+        // 補間位置を反映
+        transform.position = _slerpPos;
     }
 }

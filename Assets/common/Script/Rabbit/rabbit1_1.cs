@@ -10,6 +10,7 @@ public class rabbit1_1 : MonoBehaviour
     [SerializeField] private GameObject _player;
 
     private Player2DMove _move;
+    private GoalMove1_1 _goal;
 
     // アニメーション.
     private bool _jumping = false;
@@ -29,13 +30,12 @@ public class rabbit1_1 : MonoBehaviour
     {
         _animator = GetComponent<Animator>();
         _move = _player.GetComponent<Player2DMove>();
+        _goal = GameObject.Find("goal_02").GetComponent<GoalMove1_1>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        
-
         Anim();
 
         if(_player.transform.position.x >= 145.0f && time <= 190)
@@ -43,6 +43,7 @@ public class rabbit1_1 : MonoBehaviour
             _move._isMoveActive = false;
             _jumping = true;
             time++;
+            
         }
         else if(time >= 190)
         {
@@ -77,6 +78,7 @@ public class rabbit1_1 : MonoBehaviour
         if(transform.position.x >= 170)
         {
             _move._isMoveActive = true;
+            _goal._eventFlag = true;
         }
 
         if(transform.position.x >= 200)
