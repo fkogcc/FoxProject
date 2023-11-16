@@ -6,9 +6,9 @@ using UnityEngine;
 public class Gimick1_2_4_Manager : MonoBehaviour
 {
     // クリア後のフレームカウントの最大数.
-    static readonly int ClearCountMaxFrame = 60 * 3;
+    private static readonly int ClearCountMaxFrame = 60 * 3;
     // ゲームのリセット用カウント
-    static readonly int GameOverCountMaxFrame = 60;
+    private static readonly int GameOverCountMaxFrame = 60;
 
     // ボタン操作.
     private GameObject _botton;
