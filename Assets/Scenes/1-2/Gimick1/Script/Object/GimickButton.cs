@@ -63,7 +63,7 @@ public class GimickButton : MonoBehaviour
         if(ischange)
         {
             // しろ色を変える.
-            this.GetComponent<Renderer>().materials[_materialNum].color = Color.white;
+            GetComponent<Renderer>().materials[_materialNum].color = Color.white;
         }
     }
 }

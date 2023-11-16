@@ -21,11 +21,10 @@ public class ButtonState : MonoBehaviour
     // .
     private GimickButton[] _button;
     // HACK ほんとにこれはテスト、あとでぜったい変えます、ほんとにまずい.
-    private string[] _objNameTest;
-    private const string _buttonNameTest = "FrontButton";
+    [SerializeField] private GameObject[] _objNameTest;
 
     private bool _isEffectResetFlag = false;
-    private bool _isGameClear = false;
+    private bool _isGimmickClear = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -37,14 +36,8 @@ public class ButtonState : MonoBehaviour
         _isNameCheck = false;
 
         // 配列の最大数を定義.
-        _objNameTest = new string[_max];
         _button = new GimickButton[_max];
-        // テスト.
-        _objNameTest[0] = _buttonNameTest + "5";
-        _objNameTest[1] = _buttonNameTest + "2";
-        _objNameTest[2] = _buttonNameTest + "4";
-        _objNameTest[3] = _buttonNameTest + "1";
-        _objNameTest[4] = _buttonNameTest + "3";
+
 
     }
     public void GetPlayerObject(GameObject handobj)
@@ -74,7 +67,6 @@ public class ButtonState : MonoBehaviour
             // for文で処理を回す.
             for (int obj = 0; obj < _num; obj++)
             {
-                Debug.Log(obj);
                 // 取得したボタンの名前と今保存しているボタンの名前が一緒だったら.
                 if (_objGet[obj].gameObject.name == _buttonName)
                 {
@@ -110,11 +102,10 @@ public class ButtonState : MonoBehaviour
         {
             for (int obj = 0; obj < _max; obj++)
             {
-                if (_objGet[obj].name != _objNameTest[obj])
+                if (_objGet[obj].name != _objNameTest[obj].name)
                 {
                     // 取得したボタンを初期化する.
                     ObjGetInit();
-                    _num = 0;
                     _isEffectResetFlag = true;
                     break;
                 }
@@ -122,24 +113,33 @@ public class ButtonState : MonoBehaviour
                 else if(obj == _max - 1)
                 {
                     Debug.Log("クリア");
-                    //_isGameClear = true;
+                    _isGimmickClear = true;
                 }
             }
-
         }
+        //ObjGetInit();
+    }
+    public void ButtnReset()
+    {
+        ObjGetInit();
     }
     // 取得したオブジェクト(ボタン)の情報を初期化する.
     private void ObjGetInit()
     {
-        for (int obj = 0; obj < _max; obj++)
+        for (int obj = 0; obj < _button.Length; obj++)
         {
-            // 初期化する際に色も元に戻す.
-            _button[obj].ChengeColor(true);
-            // None(何も入っていない状態)にする.
-            _objGet[obj] = GameObject.Find("");
-            // ここのフラグをfalseにしておかないとずっと白色のままになってしまう.
-            _button[obj].ChengeColor(false);
+            if (_objGet[obj] != null)
+            {
+                _button[obj] = _objGet[obj].GetComponent<GimickButton>();
+                // 初期化する際に色も元に戻す.
+                _button[obj].ChengeColor(true);
+                // None(何も入っていない状態)にする.
+                _objGet[obj] = GameObject.Find("");
+                // ここのフラグをfalseにしておかないとずっと白色のままになってしまう.
+                _button[obj].ChengeColor(false);
+            }
         }
+        _num = 0;
     }
     // ボタンの色チェック
     private bool isCheckColor()
@@ -158,15 +158,14 @@ public class ButtonState : MonoBehaviour
     }
     public bool isCheckButton()
     {
-        Debug.Log(_isNameCheck);
         return _isNameCheck;
     }
     public bool IsResetFlag()
     {
         return _isEffectResetFlag;
     }
-    public bool GetResult()
+    public bool IsGimckClear()
     {
-        return _isGameClear;
+        return _isGimmickClear;
     }
 }

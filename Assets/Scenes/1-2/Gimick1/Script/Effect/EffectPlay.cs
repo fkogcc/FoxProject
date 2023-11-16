@@ -6,12 +6,20 @@ public class EffectPlay : MonoBehaviour
 {
     public GameObject _tapEffect;
     private GameObject _handObject;
-    private GameObject _line;
+    private string _panelName;
     private void Start()
     {
         _handObject = null;
     }
+    public void EffectInit()
+    {
+        GetComponent<EffectLine>().LineInit();
+    }
 
+    public void GetPanelName(string name)
+    {
+        _panelName = name;
+    }
     public void GetPlayerObject(GameObject handobj)
     {
         // オブジェクトを取得.
@@ -29,15 +37,25 @@ public class EffectPlay : MonoBehaviour
     private void NewTapEffect()
     {
         // 手の位置と回転率をそのままいれて手の位置からエフェクトを生成.
-        Object.Instantiate(_tapEffect, _handObject.transform.position, _handObject.transform.localRotation, transform);
-        GetComponent<EffectLine>().LineGenerate(_handObject.transform.position);
+        Instantiate(_tapEffect, _handObject.transform.position, _handObject.transform.localRotation, transform);
+        GetComponent<EffectLine>().LineGenerate(_handObject.transform.position, _panelName);
+    }
+    public void EffectClearGenerete(bool generete)
+    {
+        if (generete)
+        {
+            GetComponent<EffectLine>().LineClearGenerete(_panelName);
+        }
     }
     public void EffectDestory(bool destory)
     {
         if (destory)
         {
-            GetComponent<EffectLine>().LineDestroy();
-
+            GetComponent<EffectLine>().LineDestroy(_panelName);
         }
+    }
+    public void EffectPosReset()
+    {
+        GetComponent<EffectLine>().PosAllErase(_panelName);
     }
 }

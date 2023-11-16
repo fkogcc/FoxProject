@@ -70,4 +70,9 @@ public class Test : MonoBehaviour
     {
         _cameraName = name;
     }
+
+    public string GetCameraName()
+    {
+        return _cameraName;
+    }
 }
