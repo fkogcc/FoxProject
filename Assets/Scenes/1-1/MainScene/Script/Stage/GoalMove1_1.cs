@@ -51,7 +51,6 @@ public class GoalMove1_1 : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log(_playParticleTime);
     }
 
     private void FixedUpdate()

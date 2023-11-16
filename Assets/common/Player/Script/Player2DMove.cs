@@ -19,6 +19,8 @@ public class Player2DMove : MonoBehaviour
 
     [SerializeField] private ParticleSystem _particle;
 
+    private SolveGimmickManager _gimmickManager;
+
     // プレイヤーの体力.
     private int _hp = 5;
     // ジャンプ力.
@@ -47,12 +49,18 @@ public class Player2DMove : MonoBehaviour
 
         _flag = GameObject.Find("Fade").GetComponent<Fade2DSceneTransition>();
 
+        _gimmickManager = GameObject.FindWithTag("GimmickManager").GetComponent<SolveGimmickManager>();
+
         _hp = 5;
         _isDirection = false;
     }
     
     void Update()
     {
+        Debug.Log(_isMoveActive);
+
+
+
         // ボタン押したら(ボタン配置は仮).
         if (Input.GetKeyDown("joystick button 3"))
         {
@@ -62,19 +70,26 @@ public class Player2DMove : MonoBehaviour
             _isMoveActive = false;
         }
 
-        if (_hp > 0 || !_isMoveActive)
+        if (_hp > 0 && _isMoveActive)
         {
             // プレイヤーの移動処理.
             Move();
+            // アニメーション.
+            Anim();
+
+            
+        }
+        else
+        {
+            _rigid.velocity = Vector3.zero;
         }
     }
 
     private void FixedUpdate()
     {
-        
-
+        // デバッグ用の処理.
         FallDebug();
-        Anim();
+        
 
         // ゴールした時に正面を向くようにする.
         if (_flag._isGoal)
@@ -82,6 +97,10 @@ public class Player2DMove : MonoBehaviour
             //transform.localEulerAngles = new Vector3(0.0f,180.0f, 0.0f);
 
             //transform. = Vector3.Slerp(transform.forward, new Vector3(0.0f, 0.0f, 0.0f), Time.deltaTime * 10.0f);
+
+            Quaternion rotation = Quaternion.LookRotation(new Vector3(0.0f, 0.0f, -180.0f), Vector3.up);
+
+            transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime * 5);
 
             //if (transform.localEulerAngles.y >= 185.0f && transform.localEulerAngles.y <= 175.0f)
             //{
@@ -97,7 +116,7 @@ public class Player2DMove : MonoBehaviour
             //}
         }
 
-        if (!_flag._isGoal) return;
+        if (_flag._isGoal) return;
 
         // 右を向く.
         if (!_isDirection)
