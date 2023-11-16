@@ -4,29 +4,25 @@ using UnityEngine;
 
 public class ObjectRotationToPlayer : MonoBehaviour
 {
+    // プレイヤーオブジェクト.
     public GameObject _player;
-    private bool _isHit = false;
-
-    private void FixedUpdate()
-    {
-        if (_isHit)
-        {
-            _player.transform.SetParent(gameObject.transform);
-            _isHit = false;
-        }
-
-        if(Input.anyKey)
-        {
-            _player.transform.parent = null;
-        }
-        
-    }
+    // 子オブジェクトにするかどうか.
+    public bool _isHitPrent;
 
     private void OnCollisionStay(Collision collision)
     {
+        // プレイヤーだったら.
         if (collision.gameObject.tag == "Player")
         {
-            _isHit = true;
+            // 子オブジェクトにするなら.
+            if(_isHitPrent)
+            {
+                _player.transform.SetParent(gameObject.transform);
+            }
+            else
+            {
+                _player.transform.parent = null;
+            }
         }
     }
 }
