@@ -5,7 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class SceneTransition1_2_1 : MonoBehaviour
 {
-    private ButtonState _buttonState;
+    private GameObject _effeect;
+    private EffectLine _effectLine;
 
     private FadeScene _fade;
 
@@ -15,21 +16,22 @@ public class SceneTransition1_2_1 : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        _buttonState = GetComponent<ButtonState>();
+        _effeect = GameObject.Find("EffectCreate");
+        _effectLine = _effeect.GetComponent<EffectLine>();
         _fade = GameObject.FindWithTag("Fade").GetComponent<FadeScene>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (_buttonState.GetResult())
+        if (_effectLine.GetResult())
         {
             _fade._isFadeOut = true;
         }
 
         if (_fade.GetAlphColor() >= 0.9f && _fade._isFadeOut)
         {
-            _active = _buttonState.GetResult();
+            _active = _effectLine.GetResult();
             SceneManager.sceneLoaded += GameSceneLoaded;
             SceneManager.LoadScene("MainScene1-2");
         }
