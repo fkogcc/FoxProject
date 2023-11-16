@@ -1,30 +1,86 @@
-﻿using System.Collections;
+﻿
+using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class GoalMove1_1 : MonoBehaviour
 {
-    private GameObject _EndPos;
-    private GameObject _StartPos;
+    // 球面線形補間
+    [Header("始点")]
+    [SerializeField] private GameObject _StartPos;
 
-    [SerializeField] private float _speed = 1;
+    [Header("終点")]
+    [SerializeField] private GameObject _EndPos;
 
-    // 二点間の距離
-    private float _distance;
+    [Header("移動時間")]
+    [SerializeField] private float _moveTime = 1;
+
+    [Header("円運動の中心点")]
+    [SerializeField] private GameObject _sphereCenter;
+
+    // ゴールが最初にいる場所の座標
+    private Vector3 _start;
+    // 最終的にたどり着く座標
+    private Vector3 _end;
+    // ゴールの円運動の中心座標
+    private Vector3 _center;
+    // 中心点だけずらした位置を戻す
+    private Vector3 _slerpPos;
+
+    // ゴールを動かすときの真偽
+    public bool _eventFlag = false;
+
+    // 補間位置の計算の値
+    float _interpolationPosition;
+
+    private float _testTime;
 
     // Start is called before the first frame update
     void Start()
     {
-        _EndPos = GameObject.Find("EndGoalPos");
-        _StartPos = GameObject.Find("StartGoalPos");
-        _distance = Vector3.Distance(_StartPos.transform.position, _EndPos.transform.position);
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        float presetLocation = (Time.time * _speed) / _distance;
+        if (!_eventFlag) return;
 
-        transform.position = Vector3.Slerp(_StartPos.transform.position, _EndPos.transform.position, presetLocation);
+        _testTime+=0.01f;
+
+        SlerpMove();
+    }
+
+    private void FixedUpdate()
+    {
+        //if (!_eventFlag) return;
+
+        //SlerpMove();
+    }
+
+    private void SlerpMove()
+    {
+        _start = _StartPos.transform.position;
+        _end = _EndPos.transform.position;
+
+        // 補間位置計算
+        _interpolationPosition = _testTime / _moveTime;
+
+        // 円運動の中心点取得
+        _center = _sphereCenter.transform.position;
+
+        // 円運動させる前に中心点が原点に来るように始点・終点を移動
+        _start -= _center;
+        _end -= _center;
+
+        // 原点中心で円運動
+        _slerpPos = Vector3.Slerp(_start, _end, _interpolationPosition);
+
+        // 中心点だけずらした位置を戻す
+        _slerpPos += _center;
+
+        // 補間位置を反映
+        transform.position = _slerpPos;
     }
 }
