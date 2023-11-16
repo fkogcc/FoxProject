@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class BoxDirector : MonoBehaviour
 {
@@ -10,12 +11,14 @@ public class BoxDirector : MonoBehaviour
     private GameObject _nowObj;
 
     // 次のステージに移るのかMainに戻るのか
-    // true : Mainに戻る
-    // false: 次のステージに
-    public bool IsMain;
+    // true: 次のステージに
+    // false : Mainに戻る
+    public bool IsNext;
+    // フェード用
+    private FadeScene _fade;
 
     // クリア数カウント.
-    private int _clearCount;
+    public int _clearCount;
     // 置けるかのフラグ.
     private bool _isSetFlag;
     // 引き始めた時の色.
@@ -34,6 +37,12 @@ public class BoxDirector : MonoBehaviour
     void Start()
     {
         _nowObj = new GameObject();
+
+        // Mainに戻らない場合フェードのを取りに行く
+        if (IsNext)
+        {
+            _fade = GameObject.Find("Fade").GetComponent<FadeScene>();
+        }
 
         _clearCount = 0;
         _isSetFlag = false;
@@ -56,7 +65,18 @@ public class BoxDirector : MonoBehaviour
             _lineObj.Add("Orange", GameObject.Find("OrangeLine"));
         }
     }
-    
+
+    private void FixedUpdate()
+    {
+        if (IsNext)
+        {
+            if (_isAllClear && _fade.GetAlphColor() >= 1.0f)
+            {
+                SceneManager.LoadScene("Gimmick1_2_3_2");
+            }
+        }
+    }
+
     // 引き始めた色の取得
     public void SetGimmickOut(string color)
     {
@@ -106,6 +126,11 @@ public class BoxDirector : MonoBehaviour
                 Debug.Log("[BoxGimmick]クリアしました");
 
                 _isAllClear = true;
+
+                if (IsNext)
+                {
+                    _fade._isFadeOut = true;
+                }
             }
             return true;
         }
@@ -114,6 +139,6 @@ public class BoxDirector : MonoBehaviour
 
     public bool GetResult()
     {
-        return IsMain && _isAllClear;
+        return _isAllClear;
     }
 }

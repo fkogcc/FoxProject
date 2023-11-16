@@ -30,7 +30,11 @@ public class SlideGimmickDirector : MonoBehaviour
     private const int kMoveFrame = 10;
 
     // 光る用の値
-    private const float kAlpha = 0.02f;
+    private const float kAlpha = 0.008f;
+    private const float kMaxAlpha = 0.4f;
+
+    // クリア後の待機時間
+    private const int kWaitClearFrame = 50 * 2;
 
     // プレイヤーの手.
     private GameObject _playerHand;
@@ -65,7 +69,10 @@ public class SlideGimmickDirector : MonoBehaviour
     private bool _isChange;
 
     // クリアしているかしていないか.
-    private bool _isCreal;
+    private bool _isClear;
+
+    // クリア後の待機時間(絵を見せるよう)
+    private int _waitClearFrame;
 
     // 光る用のブロック
     private MeshRenderer[] _lightGimmick;
@@ -102,7 +109,8 @@ public class SlideGimmickDirector : MonoBehaviour
         _moveEle = 0;
         _isChange = false;
 
-        _isCreal = false;
+        _isClear = false;
+        _waitClearFrame = 0;
 
         // プレイヤーを探す
         _playerHand = GameObject.Find("FoxHand");
@@ -171,7 +179,7 @@ public class SlideGimmickDirector : MonoBehaviour
         {
             _startEles[i] = _eles[i];
         }
-        _alpha = kAlpha;
+        _alpha = 0;
         _color = Color.black;
     }
 
@@ -183,7 +191,7 @@ public class SlideGimmickDirector : MonoBehaviour
         _playerHand.GetComponent<GimmickHand>().HandUpdate();
 
         // クリアしていたら移動以外処理しない.
-        if (_isCreal) return;
+        if (_isClear) return;
 
         // 入れ替えしていたら処理しない.
         if (_isChange) return;
@@ -219,9 +227,9 @@ public class SlideGimmickDirector : MonoBehaviour
         Sound.PlayBGM("1_3_1_BGM");
 
         // クリアしていたら光らせる処理のみする.
-        if (_isCreal)
+        if (_isClear)
         {
-            if (0.264f <= _color.r) _alpha = -kAlpha;
+            if (kMaxAlpha <= _color.r) _alpha = -kAlpha;
             if (_color.r <= 0.0f) _alpha = kAlpha;
 
             _color.r += _alpha;
@@ -233,6 +241,11 @@ public class SlideGimmickDirector : MonoBehaviour
                 _gimmickObj[i].GetComponent<MeshRenderer>().material.EnableKeyword("_EMISSION");
                 _gimmickObj[i].GetComponent<MeshRenderer>().material.SetColor("_EmissionColor", _color);
             }
+            _gimmickObj[kClearBlockNo].GetComponent<MeshRenderer>().material.EnableKeyword("_EMISSION");
+            _gimmickObj[kClearBlockNo].GetComponent<MeshRenderer>().material.SetColor("_EmissionColor", _color);
+
+            _waitClearFrame++;
+
             return;
         }
 
@@ -258,9 +271,14 @@ public class SlideGimmickDirector : MonoBehaviour
         }
 
         // ここまで来たらクリアしているので完了とする.
-        _isCreal = true;
+        _isClear = true;
         _gimmickObj[kClearBlockNo].SetActive(true);
-        Debug.Log("クリア");
+
+        // 手の位置を光らせるブロックを削除する
+        foreach(var obj in _lightGimmick)
+        {
+            Destroy(obj);
+        }
     }
 
     // 1つ前の情報に戻す
@@ -425,6 +443,9 @@ public class SlideGimmickDirector : MonoBehaviour
 
     public void ChangeNowSelectLight(int num)
     {
+        // クリアしている時は処理を行わない
+        if (_isClear) return;
+
         // 配列範囲外が送られてきた場合は以下の処理はしないようにする
         if (num < 0) return;
         if (num >= kClearBlockNo) return;
@@ -440,6 +461,6 @@ public class SlideGimmickDirector : MonoBehaviour
 
     public bool GetResult()
     {
-        return _isCreal;
+        return _waitClearFrame > kWaitClearFrame;
     }
 }
