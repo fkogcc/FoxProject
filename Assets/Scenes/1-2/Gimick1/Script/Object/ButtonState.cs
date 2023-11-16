@@ -112,7 +112,6 @@ public class ButtonState : MonoBehaviour
                 // 最後まで間違いがなかった場合
                 else if(obj == _max - 1)
                 {
-                    Debug.Log("クリア");
                     _isGimmickClear = true;
                 }
             }

@@ -28,6 +28,7 @@ public class EffectPlay : MonoBehaviour
 
     public void CheckTap(bool buttonFlag)
     {
+        GetComponent<EffectLine>().LineEndDraw();
         if (buttonFlag)
         {
             NewTapEffect();

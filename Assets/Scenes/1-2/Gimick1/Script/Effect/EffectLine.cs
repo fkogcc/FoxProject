@@ -95,17 +95,17 @@ public class EffectLine : MonoBehaviour
         LineDestroy(name);
     }
     // ラインを最後まで引いたかどうか
-    private void LineEndDraw()
+    public void LineEndDraw()
     {
         int endCount = 0;
         for (int i = 0; i < _lineName.Length; i++)
         {
-            if (_lineRenderer[i].positionCount <= 5)
+            if (_lineRenderer[i].positionCount == 6)
             {
                 endCount++;
             }
         }
-        if(endCount < _lineRenderer.Length)
+        if(endCount == _lineRenderer.Length)
         {
             _isGameClear  = true;
         }
