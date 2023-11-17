@@ -20,7 +20,7 @@ public class PlayerAnim2D : MonoBehaviour
     {
         _horizontal = Input.GetAxis("Horizontal");
 
-        Debug.Log(_flag._isGoal);
+        //Debug.Log(_flag._isGoal);
     }
 
     //-------------------------------------------

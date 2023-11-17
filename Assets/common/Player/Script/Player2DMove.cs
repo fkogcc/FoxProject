@@ -5,7 +5,9 @@ using UnityEngine;
 
 public class Player2DMove : MonoBehaviour
 {
+    // アニメーション.
     private PlayerAnim2D _anim;
+    // ゲートの判定.
     private GateFlag _transitionScene;
 
     // プレイヤーのリジットボディ.
@@ -21,7 +23,7 @@ public class Player2DMove : MonoBehaviour
     // ギミックを解いたかどうか.
     private SolveGimmickManager _gimmickManager;
 
-    // ワープの座標
+    // ワープの座標.
     private Vector3 _warpPosition;
 
     // プレイヤーの体力.
@@ -44,15 +46,16 @@ public class Player2DMove : MonoBehaviour
     void Start()
     {
         // 初期化処理.
-        _anim = GetComponent<PlayerAnim2D>();
-        _transitionScene = GameObject.Find("Foxidle").GetComponent<GateFlag>();
+        _anim = this.GetComponent<PlayerAnim2D>();
+        _transitionScene = GameObject.FindWithTag("Player").GetComponent<GateFlag>();
         _rigid = GetComponent<Rigidbody>();
         _boxCollider = GetComponent<BoxCollider>();
-        _animator = GetComponent<Animator>();
+        _animator = GameObject.FindWithTag("Player").GetComponent<Animator>();
 
         _flag = GameObject.Find("Fade").GetComponent<Fade2DSceneTransition>();
 
         _gimmickManager = GameObject.FindWithTag("GimmickManager").GetComponent<SolveGimmickManager>();
+
 
         _hp = 5;
         _isDirection = false;
@@ -89,10 +92,10 @@ public class Player2DMove : MonoBehaviour
             }
             else
             {
-                GoalAnim(); 
+                GoalAnim();
             }
         }
-        // ワープするときの演出
+        // ワープするときの演出.
         if(!_isMoveActive && !_flag._isGoal)
         {
             transform.position = new Vector3(_warpPosition.x, _warpPosition.y, transform.position.z);
@@ -103,7 +106,7 @@ public class Player2DMove : MonoBehaviour
     private void FixedUpdate()
     {
         // ワープ座標.
-        Debug.Log(_warpPosition);
+        //Debug.Log(_warpPosition);
 
         // デバッグ用の処理.
         FallDebug();
@@ -208,10 +211,10 @@ public class Player2DMove : MonoBehaviour
     // アニメーション制御.
     private void Anim()
     {
-        _animator.SetBool("Idle", _anim.Idle());
-        _animator.SetBool("Run", _anim.Run());
-        _animator.SetBool("Jump", _anim.Jump());
-        _animator.SetBool("GameOver", _anim.GameOver());
+        //_animator.SetBool("Idle", _anim.Idle());
+        //_animator.SetBool("Run", _anim.Run());
+        //_animator.SetBool("Jump", _anim.Jump());
+        //_animator.SetBool("GameOver", _anim.GameOver());
     }
 
     // アニメーションを強制的にアイドル状態にする

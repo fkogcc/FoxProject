@@ -1,5 +1,4 @@
 ﻿// ゲートの当たり判定.
-// TODO:ファイル名がデバッグ用なので後で変える
 
 using System.Collections;
 using System.Collections.Generic;
