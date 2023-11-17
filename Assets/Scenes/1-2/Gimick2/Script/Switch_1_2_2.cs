@@ -4,6 +4,9 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
+/// <summary>
+/// レバー関連の動きを調整.
+/// </summary>
 public class Switch_1_2_2 : MonoBehaviour
 {
 
