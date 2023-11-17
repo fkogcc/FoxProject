@@ -1,26 +1,26 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class hurikoGyaku : MonoBehaviour
+public class pisuton : MonoBehaviour
 {
-    // •b”‚ğ”‚¦‚éƒJƒEƒ“ƒg.
+    // ç§’æ•°ã‚’æ•°ãˆã‚‹ã‚«ã‚¦ãƒ³ãƒˆ.
     private int _count;
-    //Transform‚ğæ“¾.
+    //Transformã‚’å–å¾—.
     private Transform _myTransform;
-    // À•W‚ğæ“¾.
+    // åº§æ¨™ã‚’å–å¾—.
     private Vector3 _pos;
-    // 5•b‚ÌŠÔ.
+    // 5ç§’ã®æ™‚é–“.
     private int _time;
-    // ƒMƒ~ƒbƒN‚ÌˆÚ“®—Ê
+    // ã‚®ãƒŸãƒƒã‚¯ã®ç§»å‹•é‡
     private float _moveX;
     void Start()
     {
         _count = 0;
         _myTransform = this.transform;
         _pos = _myTransform.position;
-        _time  = 60;
-        _moveX = 0.02f;
+        _time = 60;
+        _moveX = 0.08f;
     }
 
     // Update is called once per frame
@@ -28,26 +28,26 @@ public class hurikoGyaku : MonoBehaviour
     {
         _count++;
 
-        //5•bŒo‚Á‚½‚ç.
+        // 5ç§’çµŒã£ãŸã‚‰.
         if (_count < _time)
         {
-            // zÀ•W‚Ö0.01Œ¸Z.
-            _pos.x += _moveX;
-            // À•W‚ğİ’è.
+            // zåº§æ¨™ã¸0.08æ¸›ç®—.
+            _pos.x -= _moveX;
+            // åº§æ¨™ã‚’è¨­å®š.
             _myTransform.position = _pos;
         }
-        //10•bŒo‚Á‚½‚ç.
+        //10ç§’çµŒã£ãŸã‚‰.
         else if (_count < _time * 2)
         {
-            // zÀ•W‚Ö0.01‰ÁZ.
-            _pos.x -= _moveX;
-            // À•W‚ğİ’è.
+            // zåº§æ¨™ã¸0.08åŠ ç®—.
+            _pos.x += _moveX;
+            // åº§æ¨™ã‚’è¨­å®š.
             _myTransform.position = _pos;
         }
-        //‚»‚êˆÈã‚É‚È‚Á‚½‚ç.
+        //ãã‚Œä»¥ä¸Šã«ãªã£ãŸã‚‰.
         else
         {
-            //ƒJƒEƒ“ƒg‚ğ‰Šú‰»‚·‚é.
+            //ã‚«ã‚¦ãƒ³ãƒˆã‚’åˆæœŸåŒ–ã™ã‚‹.
             _count = 0;
         }
     }
