@@ -16,9 +16,6 @@ public class rabbit1_1 : MonoBehaviour
     private bool _jumping = false;
     private bool _jumpMoving = false;
 
-    // イベント
-    [SerializeField] private bool _isEvent;
-
     private Animator _animator;
 
     private int time = 0;

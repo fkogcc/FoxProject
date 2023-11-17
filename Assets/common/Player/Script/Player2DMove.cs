@@ -43,14 +43,17 @@ public class Player2DMove : MonoBehaviour
     // false;動けない.
     public bool _isMoveActive = true;
 
+    // イベントが発生する座標
+    [SerializeField] private float _eventPos;
+
     void Start()
     {
         // 初期化処理.
         _anim = this.GetComponent<PlayerAnim2D>();
-        _transitionScene = GameObject.FindWithTag("Player").GetComponent<GateFlag>();
+        _transitionScene = GetComponent<GateFlag>();
         _rigid = GetComponent<Rigidbody>();
         _boxCollider = GetComponent<BoxCollider>();
-        _animator = GameObject.FindWithTag("Player").GetComponent<Animator>();
+        _animator = GetComponent<Animator>();
 
         _flag = GameObject.Find("Fade").GetComponent<Fade2DSceneTransition>();
 
@@ -96,9 +99,15 @@ public class Player2DMove : MonoBehaviour
             }
         }
         // ワープするときの演出.
-        if(!_isMoveActive && !_flag._isGoal)
+        if(!_isMoveActive && !_flag._isGoal && transform.position.x <= _eventPos)
         {
+            Debug.Log("通る");
+
+
+
             transform.position = new Vector3(_warpPosition.x, _warpPosition.y, transform.position.z);
+
+            transform.rotation = Quaternion.Euler(0.0f,0.0f,1.0f);
         }
         
     }
@@ -211,10 +220,10 @@ public class Player2DMove : MonoBehaviour
     // アニメーション制御.
     private void Anim()
     {
-        //_animator.SetBool("Idle", _anim.Idle());
-        //_animator.SetBool("Run", _anim.Run());
-        //_animator.SetBool("Jump", _anim.Jump());
-        //_animator.SetBool("GameOver", _anim.GameOver());
+        _animator.SetBool("Idle", _anim.Idle());
+        _animator.SetBool("Run", _anim.Run());
+        _animator.SetBool("Jump", _anim.Jump());
+        _animator.SetBool("GameOver", _anim.GameOver());
     }
 
     // アニメーションを強制的にアイドル状態にする
