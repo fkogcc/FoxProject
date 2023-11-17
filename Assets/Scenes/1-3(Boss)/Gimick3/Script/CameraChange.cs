@@ -21,15 +21,14 @@ public class CameraChange : MonoBehaviour
         // ボタンの状態によって分岐させる.
         if (_isPushFlag)
         {            
-            // カメラを動かす
+            // カメラを動かす.
             _monitorCameraObject.Priority = 3;
         }
         else
         {            
-            // カメラを動かす
+            // カメラを動かす.
             _monitorCameraObject.Priority = 15;
         }
-
         if (Input.GetKeyDown("joystick button 2"))
         {
             _isPushFlag = !_isPushFlag;
