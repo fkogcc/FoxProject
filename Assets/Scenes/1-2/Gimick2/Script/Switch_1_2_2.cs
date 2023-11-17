@@ -7,6 +7,9 @@ using UnityEngine.EventSystems;
 public class Switch_1_2_2 : MonoBehaviour
 {
 
+    // プレイヤーがオブジェクトに当たったかどうか.
+    private bool _isHit = false;
+
     // レバーを倒すかどうか.
     private bool _isLabor = false;
 
@@ -27,8 +30,17 @@ public class Switch_1_2_2 : MonoBehaviour
 
     void Start()
     {
-        // オブジェクト取得.
+        // オブジェクト取得. 
         _LaborRota = GameObject.Find("stage03_lever_02/locator1");
+    }
+
+    private void Update()
+    {
+        // ボタンを押したら.
+        if (Input.GetKeyDown("joystick button 1") && _isHit)
+        {
+            _isLabor = true;
+        }
     }
 
     private void FixedUpdate()
@@ -64,16 +76,23 @@ public class Switch_1_2_2 : MonoBehaviour
         }
     }
 
-    private void OnCollisionStay(Collision collision)
+    private void OnTriggerStay(Collider other)
     {
         // プレイヤーだったら.
-        if (collision.gameObject.tag == "Player")
+        if (other.gameObject.tag == "Player")
         {
-            // ボタンを押したら.
-            if (Input.GetKeyDown("joystick button 1"))
-            {
-                _isLabor = true;
-            }
+            _isHit = true;
+            return;            
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        // プレイヤーだったら.
+        if (other.gameObject.tag == "Player")
+        {
+            _isHit = false;
+            return;
         }
     }
 
