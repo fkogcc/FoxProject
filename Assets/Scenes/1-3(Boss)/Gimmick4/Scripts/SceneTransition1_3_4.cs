@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class SceneTransition1_3_4 : MonoBehaviour
 {
-    private SlideGimmickDirector _slideGimmickDirector;
+    private MoveWall _wall;
 
     private FadeScene _fade;
 
@@ -15,14 +15,14 @@ public class SceneTransition1_3_4 : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        _slideGimmickDirector = GetComponent<SlideGimmickDirector>();
+        _wall = GameObject.Find("MoveWallDir").GetComponent<MoveWall>();
         _fade = GameObject.FindWithTag("Fade").GetComponent<FadeScene>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (_slideGimmickDirector.GetResult())
+        if (_wall.GetResult())
         {
             //Debug.Log("a");
             _fade._isFadeOut = true;
@@ -30,7 +30,7 @@ public class SceneTransition1_3_4 : MonoBehaviour
 
         if (_fade.GetAlphColor() >= 0.9f && _fade._isFadeOut)
         {
-            _active = _slideGimmickDirector.GetResult();
+            _active = _wall.GetResult();
             SceneManager.sceneLoaded += GameSceneLoaded;
             SceneManager.LoadScene("MainScene1-3");
         }

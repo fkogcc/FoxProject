@@ -5,11 +5,12 @@ using UnityEngine;
 public class PullRope : MonoBehaviour
 {
     // ギミックブロックの長さ
-    private const float kGimmickLength = 0.75f;
+    private readonly float kGimmickLength = 0.75f;
     // プレイヤーの位置情報.
     private Transform _player;
     // ギミックオブジェ.
-    public GameObject _gimmick;
+    [SerializeField] private GameObject _gimmick;
+    // 増やす分のギミックをリストで管理する
     private List<GameObject> _gimmicks;
     // ブロックを追加する距離
     private float _longDis;
@@ -17,8 +18,10 @@ public class PullRope : MonoBehaviour
     private float _shortDis;
     // 引っ張っているか.
     private bool _isPull;
-    // 引っ張り始めた位置.
-    private Vector3 _startPos;
+    // 引っ張り始めたギミック位置.
+    private Vector3 _startGimmickPos;
+    // 引っ張り始めたプレイヤーの位置
+    private Vector3 _startPlayerPos;
     // 移動ベクトル.
     private Vector3 _moveVec;
     // 移動ベクトルを距離に変換
@@ -27,10 +30,20 @@ public class PullRope : MonoBehaviour
     private float _angle = 0.0f;
     // 引っ張れる範囲にいるか
     private bool _isFlag;
-
+    // 角度を入れる用.
+    // 横
+    private float _angleSide = 0.0f;
+    // 縦
+    private float _angleCenter = 0.0f;
+    // 軸用.
+    // 横
+    private Vector3 _axisSide;
+    // 縦
+    private Vector3 _axisCenter;
     // Start is called before the first frame update
     void Start()
     {
+        // 初期化処理
         _player = GameObject.Find("3DPlayer").GetComponent<Transform>();
 
         _gimmicks = new List<GameObject>();
@@ -40,18 +53,27 @@ public class PullRope : MonoBehaviour
         _shortDis = 0.0f;
         _isPull = false;
         _isFlag = false;
-        _startPos = new Vector3();
         _moveVec = new Vector3();
+
+        _startGimmickPos = new Vector3();
+        _startPlayerPos = new Vector3();
+        _moveVec = new Vector3();
+
+        _axisSide = new Vector3(0.0f, 1.0f, 0.0f);
+        _axisCenter = new Vector3();
     }
 
     // Update is called once per frame
     void Update()
     {
+        // プレイヤーがひもを引っ張っていた時の処理
         if ((Input.GetKeyDown("joystick button 1") || Input.GetKeyDown(KeyCode.F)) && _isFlag)
         {
             // 引っ張り始めた位置の保存.
-            _startPos = _player.position;
+            _startPlayerPos = _player.position;
 
+            // 初めに二つ追加する.
+            _gimmicks.Add(Instantiate(_gimmick, this.transform.position, Quaternion.identity));
             _gimmicks.Add(Instantiate(_gimmick, this.transform.position, Quaternion.identity));
             _shortDis = 0;
             _longDis = kGimmickLength;
@@ -77,25 +99,27 @@ public class PullRope : MonoBehaviour
             ObjPlacement();
         }
     }
+    // 今の長さを取得する.
     public float GetNowLength() { return _nowLength; }
 
+    // オブジェクトの配置位置の調整
     void ObjPlacement()
     {
-        // 現在までのベクトルを計算.
-        _moveVec = _player.position - _startPos;
-
+        VectorAngleCal(_player.position, _startPlayerPos);
         _nowLength = _moveVec.magnitude;
+
         // 距離が伸びたら追加する.
-        if (_longDis <= _nowLength)
+        if (_longDis <= _moveVec.magnitude)
         {
             // 判定距離の更新.
             _longDis += kGimmickLength;
             _shortDis += kGimmickLength;
+
             // ブロックの追加.
             _gimmicks.Add(Instantiate(_gimmick, this.transform.position, Quaternion.identity));
         }
         // 距離が減ったら削除する.
-        else if (_nowLength < _shortDis)
+        else if (_moveVec.magnitude < _shortDis)
         {
             // 判定距離の更新.
             _longDis -= kGimmickLength;
@@ -106,25 +130,37 @@ public class PullRope : MonoBehaviour
             _gimmicks.RemoveAt(_gimmicks.Count - 1);
         }
 
-        // 角度を求める.
-        _angle = Mathf.Atan2(_moveVec.z, _moveVec.x) * Mathf.Rad2Deg * -1;
-
         // 出すオブジェクトの量で割る.
-        _moveVec /= _gimmicks.Count;
+        _moveVec /= _gimmicks.Count - 1;
 
         for (int i = 0; i < _gimmicks.Count; i++)
         {
-            _gimmicks[i].transform.position = this.transform.position + _moveVec * (i + 1);
-            _gimmicks[i].transform.rotation = Quaternion.AngleAxis(_angle, new Vector3(0.0f, 1.0f, 0.0f));
+            _gimmicks[i].transform.position = this.transform.position + _moveVec * (i);
+            _gimmicks[i].transform.rotation = Quaternion.AngleAxis(_angleCenter, _axisCenter) * Quaternion.AngleAxis(_angleSide, _axisSide);
         }
     }
+
+    void VectorAngleCal(Vector3 pos1, Vector3 pos2)
+    {
+        // 現在までのベクトルを計算.
+        _moveVec = pos1 - pos2;
+
+        // 角度を求める.
+        _angleSide = Mathf.Atan2(_moveVec.z, _moveVec.x) * Mathf.Rad2Deg * -1;
+        // 縦に動いた角度を求める.
+        _angleCenter = Mathf.Atan2(_moveVec.y, Mathf.Sqrt(_moveVec.x * _moveVec.x + _moveVec.z * _moveVec.z)) * Mathf.Rad2Deg * -1;
+        // 側面の法線ベクトルを軸とする. 
+        _axisCenter.x = _moveVec.z;
+        _axisCenter.z = -_moveVec.x;
+    }
+    // プレイヤーが判定内にいるかどうか
     void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Player"))
         {
-
+            // プレイヤーが引っ張った初めの位置を取得する
+            _startGimmickPos = this.transform.position;
             _isFlag = true;
         }
     }
-
 }

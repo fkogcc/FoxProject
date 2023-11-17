@@ -15,6 +15,7 @@ public class LavaCol : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
+            Debug.Log("あつい");
             _rb = other.GetComponent<Rigidbody>();
             _rb.velocity = kjumpForce;
  //           _rb.AddForce(kjumpForce,ForceMode.Impulse);
