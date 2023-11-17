@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class PlaneBool : MonoBehaviour 
 {
+    // 初期化
     private bool _isMoving = false;
     private int _tempMoveAngle = 4;
 
