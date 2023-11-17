@@ -103,7 +103,7 @@ public class Player2DMove : MonoBehaviour
         {
             Debug.Log("通る");
 
-
+            _rigid.
 
             transform.position = new Vector3(_warpPosition.x, _warpPosition.y, transform.position.z);
 
