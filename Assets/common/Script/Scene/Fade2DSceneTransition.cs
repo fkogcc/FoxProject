@@ -89,9 +89,6 @@ public class Fade2DSceneTransition : MonoBehaviour
         // 共通フラグ
         bool transitionFlagCommon = _color.a >= 0.9f && !_player.GetIsMoveActive();
 
-        //Debug.Log(transitionFlagCommon);
-        //Debug.Log(_transitionScene._isGoal1_1);
-
         // シーン遷移.
         if (_transitionScene._isGateGimmick1_1 && transitionFlagCommon)
         {
@@ -151,7 +148,6 @@ public class Fade2DSceneTransition : MonoBehaviour
         }
         else if(_transitionScene._isGoal1_1 && transitionFlagCommon)
         {
-            //Debug.Log("通る");
             _sceneTransitionManager.MainScene1_2();
         }
         else if (_transitionScene._isGoal1_2 && transitionFlagCommon)

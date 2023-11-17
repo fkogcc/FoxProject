@@ -14,28 +14,31 @@ public class Player2DMove : MonoBehaviour
     private BoxCollider _boxCollider;
     // プレイヤーのアニメーション.
     private Animator _animator;
-
+    // フェードシーン遷移.
     private Fade2DSceneTransition _flag;
-
+    // 足から出てくるパーティクル.
     [SerializeField] private ParticleSystem _particle;
-
+    // ギミックを解いたかどうか.
     private SolveGimmickManager _gimmickManager;
+
+    // ワープの座標
+    private Vector3 _warpPosition;
 
     // プレイヤーの体力.
     private int _hp = 5;
     // ジャンプ力.
     private float _jumpPower = 30.0f;
     // ジャンプしているかどうか.
-    // true :している
-    // false:していない
+    // true :している.
+    // false:していない.
     private bool _isJumpNow;
     // どの向きを向いているか.
-    // true :右
-    // false:左
+    // true :右.
+    // false:左.
     private bool _isDirection;
     // 動けるように処理を通すかどうか.
-    // true :動ける
-    // false;動けない
+    // true :動ける.
+    // false;動けない.
     public bool _isMoveActive = true;
 
     void Start()
@@ -57,36 +60,51 @@ public class Player2DMove : MonoBehaviour
     
     void Update()
     {
-        Debug.Log(_isMoveActive);
-
-
-
         // ボタン押したら(ボタン配置は仮).
         if (Input.GetKeyDown("joystick button 3"))
         {
             // ゲートの前にいないときはスキップ.
             if (!_transitionScene.SetGateFlag()) return;
-
             _isMoveActive = false;
         }
 
-        if (_hp > 0 && _isMoveActive)
+        if (_hp > 0 && _isMoveActive && !_gimmickManager.GetSolve())
         {
             // プレイヤーの移動処理.
             Move();
+
             // アニメーション.
             Anim();
 
-            
         }
         else
         {
-            _rigid.velocity = Vector3.zero;
+            // 重力以外の力をなくす.
+            _rigid.velocity = new Vector3(0.0f,_rigid.velocity.y, 0.0f);
+
+            // ゴールしていないときとしている時とでアニメーションを変更.
+            if(!_flag._isGoal)
+            {
+                ForciblyIdle();
+            }
+            else
+            {
+                GoalAnim(); 
+            }
         }
+        // ワープするときの演出
+        if(!_isMoveActive && !_flag._isGoal)
+        {
+            transform.position = new Vector3(_warpPosition.x, _warpPosition.y, transform.position.z);
+        }
+        
     }
 
     private void FixedUpdate()
     {
+        // ワープ座標.
+        Debug.Log(_warpPosition);
+
         // デバッグ用の処理.
         FallDebug();
         
@@ -177,6 +195,16 @@ public class Player2DMove : MonoBehaviour
         }
     }
 
+    private void OnTriggerEnter(Collider other)
+    {
+        _warpPosition = other.transform.position;
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        _warpPosition = Vector3.zero;
+    }
+
     // アニメーション制御.
     private void Anim()
     {
@@ -184,6 +212,19 @@ public class Player2DMove : MonoBehaviour
         _animator.SetBool("Run", _anim.Run());
         _animator.SetBool("Jump", _anim.Jump());
         _animator.SetBool("GameOver", _anim.GameOver());
+    }
+
+    // アニメーションを強制的にアイドル状態にする
+    private void ForciblyIdle()
+    {
+        _animator.SetBool("Idle", true);
+        _animator.SetBool("Run", false);
+        _animator.SetBool("Jump", false);
+    }
+
+    // ゴールした時のアニメーション
+    private void GoalAnim()
+    {
         _animator.SetBool("Goal", _anim.Goal());
     }
 
@@ -238,7 +279,7 @@ public class Player2DMove : MonoBehaviour
         }
     }
 
-    // 落下デバッグ用
+    // 落下デバッグ用.
     private void FallDebug()
     {
         // 落ちたら初期位置に戻す.
