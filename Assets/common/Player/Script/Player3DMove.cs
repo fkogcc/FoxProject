@@ -38,6 +38,8 @@ public class Player3DMove : MonoBehaviour
 
     // 操作可能かどうか.
     public bool _isController = true;
+    // ジャンプ可能かどうか.
+    public bool _isJumpController = true;
 
 
     [Header("身体にめり込ませるRayの長さ")]
@@ -85,7 +87,10 @@ public class Player3DMove : MonoBehaviour
 
         if (!_isController) return;
         MoveDirection();
-        Jump();
+        if(_isJumpController)
+        {
+            Jump();
+        }
         Anim();
         FallDebug();
     }
