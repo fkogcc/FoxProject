@@ -19,7 +19,7 @@ public class Switch_1_2_2 : MonoBehaviour
     // レーバーの角度記録.
     private bool _isMinusRota = false;
 
-    // 画像クラスを取得.
+    // 画像のクラスを取得.
     public Image _meter;
 
     // メーターの速度.
