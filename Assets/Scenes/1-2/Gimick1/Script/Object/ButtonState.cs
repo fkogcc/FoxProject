@@ -120,7 +120,10 @@ public class ButtonState : MonoBehaviour
     }
     public void ButtnReset()
     {
-        ObjGetInit();
+        if (_objGet[_objGet.Length - 1] == null)
+        {
+            ObjGetInit();
+        }
     }
     // 取得したオブジェクト(ボタン)の情報を初期化する.
     private void ObjGetInit()
