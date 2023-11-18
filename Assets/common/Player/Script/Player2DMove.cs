@@ -1,6 +1,7 @@
 ﻿// 2Dプレイヤーの処理.
 using System.Collections;
 using System.Collections.Generic;
+using System.Net.Sockets;
 using UnityEngine;
 
 public class Player2DMove : MonoBehaviour
@@ -103,11 +104,29 @@ public class Player2DMove : MonoBehaviour
         {
             Debug.Log("通る");
 
-            _rigid.
+            //_rigid.constraints = RigidbodyConstraints.None;
 
             transform.position = new Vector3(_warpPosition.x, _warpPosition.y, transform.position.z);
 
-            transform.rotation = Quaternion.Euler(0.0f,0.0f,1.0f);
+            Vector3 warpPos = new Vector3(_warpPosition.x, _warpPosition.y, 0.0f);
+            Vector3 velocity = Vector3.zero;
+
+            _rigid.useGravity = false;
+
+            transform.position = Vector3.SmoothDamp(transform.position, _warpPosition, ref velocity, 0.1f);
+
+            transform.localScale -= new Vector3(0.001f, 0.001f, 0.001f);
+
+            if (transform.localScale.x < 0.05f && transform.localScale.y < 0.05f && transform.localScale.z < 0.05f)
+            {
+                transform.localScale = new Vector3(0.05f,0.05f, 0.05f);
+            }
+
+            //transform.rotation = Quaternion.Euler(0.0f,0.0f,1.0f);
+
+            transform.Rotate(0, 0, 1);
+
+            Debug.Log(_warpPosition);
         }
         
     }

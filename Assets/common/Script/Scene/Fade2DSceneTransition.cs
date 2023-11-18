@@ -65,12 +65,12 @@ public class Fade2DSceneTransition : MonoBehaviour
         // フェードイン.
         if (!_isPush)
         {
-            _color.a -= 0.01f;
+            _color.a -= 0.001f;
             gameObject.GetComponent<Image>().color = _color;
         }
         else// フェードアウト.
         {
-            _color.a += 0.01f;
+            _color.a += 0.001f;
             gameObject.GetComponent<Image>().color = _color;
         }
     }
