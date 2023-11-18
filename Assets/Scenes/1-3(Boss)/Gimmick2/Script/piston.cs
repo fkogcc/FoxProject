@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class pisuton : MonoBehaviour
+public class piston : MonoBehaviour
 {
     // 秒数を数えるカウント.
     private int _count;
@@ -12,7 +12,7 @@ public class pisuton : MonoBehaviour
     private Vector3 _pos;
     // 5秒の時間.
     private int _time;
-    // ギミックの移動量
+    // ギミックの移動量.
     private float _moveX;
     void Start()
     {

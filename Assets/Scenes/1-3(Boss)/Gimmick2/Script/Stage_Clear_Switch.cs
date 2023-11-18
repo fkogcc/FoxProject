@@ -12,7 +12,7 @@ public class Stage_Clear_Switch : MonoBehaviour
             //Xボタンを押したら.
             if (Input.GetKeyDown("joystick button 2"))
             {
-                //ステージクリアの関数を呼ぶ
+                //ステージクリアの関数を呼ぶ.
                 GetResult();
             }
         }
