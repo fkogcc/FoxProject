@@ -18,7 +18,7 @@ public class BoxDirector : MonoBehaviour
     private FadeScene _fade;
 
     // クリア数カウント.
-    public int _clearCount;
+    private int _clearCount;
     // 置けるかのフラグ.
     private bool _isSetFlag;
     // 引き始めた時の色.
@@ -30,6 +30,10 @@ public class BoxDirector : MonoBehaviour
 
     // 全てクリアしているかのフラグ.
     private bool _isAllClear;
+    // クリアのテキスト.
+    public GameObject ClearText;
+    // Canvasを入れるよう
+    public GameObject Canvas;
 
     Dictionary<string, GameObject> _lineObj;
 
@@ -123,13 +127,16 @@ public class BoxDirector : MonoBehaviour
 
             if (GimmickNum <= _clearCount)
             {
-                Debug.Log("[BoxGimmick]クリアしました");
-
                 _isAllClear = true;
 
                 if (IsNext)
                 {
                     _fade._isFadeOut = true;
+                }
+                else
+                {
+                    GameObject clone = Instantiate(ClearText);
+                    clone.transform.SetParent(Canvas.transform, false);
                 }
             }
             return true;

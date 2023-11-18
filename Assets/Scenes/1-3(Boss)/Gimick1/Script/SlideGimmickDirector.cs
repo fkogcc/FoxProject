@@ -29,6 +29,9 @@ public class SlideGimmickDirector : MonoBehaviour
     // 入れ替えにかけるフレーム数.
     private const int kMoveFrame = 10;
 
+    // リセット反映させるまでのフレーム数.
+    private const int kResetFrame = 50;
+
     // 光る用の値
     private const float kAlpha = 0.008f;
     private const float kMaxAlpha = 0.4f;
@@ -67,6 +70,11 @@ public class SlideGimmickDirector : MonoBehaviour
     private int _moveEle;
     // 入れ替えをしているか.
     private bool _isChange;
+
+    // リセットの反映カウント用.
+    private int _resetCount;
+    // リセット反映するかのフラグ
+    private bool _isResetCheck;
 
     // クリアしているかしていないか.
     private bool _isClear;
@@ -210,8 +218,8 @@ public class SlideGimmickDirector : MonoBehaviour
             }
             else if (_nowEle == kResetNo)
             {
-                Sound.PlaySE("1_3_1_Reset");
-                ResetBlock();
+                _isResetCheck = true;
+                _resetCount = 0;
             }
             else
             {
@@ -219,6 +227,11 @@ public class SlideGimmickDirector : MonoBehaviour
                 // 動かせるかどうかの判定をしていく.
                 EleCheck();
             }
+        }
+
+        if (Input.GetKeyUp("joystick button 1"))
+        {
+            _isResetCheck = false;
         }
     }
 
@@ -247,6 +260,19 @@ public class SlideGimmickDirector : MonoBehaviour
             _waitClearFrame++;
 
             return;
+        }
+
+        if (_isResetCheck)
+        {
+            _resetCount++;
+            
+            if (_resetCount > kResetFrame)
+            {
+                _isResetCheck = false;
+
+                Sound.PlaySE("1_3_1_Reset");
+                ResetBlock();
+            }
         }
 
         if (_isChange)
