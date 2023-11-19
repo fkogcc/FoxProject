@@ -438,7 +438,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: c96a3e66104451f439175e00234e1937, type: 3}
       propertyPath: m_RootOrder
-      value: 7
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: c96a3e66104451f439175e00234e1937, type: 3}
       propertyPath: m_LocalScale.x
@@ -10849,6 +10849,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2698344479787284193, guid: efd49aba95bbbb648975da0474da9c3a, type: 3}
+      propertyPath: _eventPos
+      value: 400
+      objectReference: {fileID: 0}
     - target: {fileID: 3004775973324384907, guid: efd49aba95bbbb648975da0474da9c3a, type: 3}
       propertyPath: m_Name
       value: Foxidle
@@ -12237,6 +12241,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 8cd3298430dd57a47bf606367c010b8e, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -2377678898046858952, guid: 8cd3298430dd57a47bf606367c010b8e, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -840777845830954692, guid: 8cd3298430dd57a47bf606367c010b8e, type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 8cd3298430dd57a47bf606367c010b8e, type: 3}
