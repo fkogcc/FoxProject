@@ -33,11 +33,6 @@ public class SceneTransition1_2_4 : MonoBehaviour
             SceneManager.sceneLoaded += GameSceneLoaded;
             SceneManager.LoadScene("MainScene1-2");
         }
-
-        //Debug.Log(_fade.GetAlphColor() >= 0.9f && _fade._isFadeOut);
-        Debug.Log("color" + _fade.GetAlphColor());
-        Debug.Log("fade" + _fade._isFadeOut);
-
     }
 
     // シーン切り替え時に呼ぶ.
@@ -49,7 +44,7 @@ public class SceneTransition1_2_4 : MonoBehaviour
 
         // ギミックを解いたかのデータを渡す.
         solveGimmickManager._solve[3] = _active;
-        player2D.transform.position = new Vector3(22.0f, 0.0f, 0.0f);
+        player2D.transform.position = new Vector3(310.0f, 0.0f, 0.0f);
 
         // 削除
         SceneManager.sceneLoaded -= GameSceneLoaded;

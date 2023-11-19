@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 public class SceneTransition1_2_2 : MonoBehaviour
 {
     private FadeScene _fade;
+    private Switch_1_2_2 _switch;
 
     // 解いたかどうか.
     private bool _active = false;
@@ -13,13 +14,13 @@ public class SceneTransition1_2_2 : MonoBehaviour
     void Start()
     {
         _fade = GameObject.FindWithTag("Fade").GetComponent<FadeScene>();
+        _switch = GameObject.Find("stage03_lever_02").GetComponent<Switch_1_2_2>();
     }
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (_switch.GetResult())
         {
-            Debug.Log("a");
             _fade._isFadeOut = true;
         }
         if (_fade.GetAlphColor() >= 0.9f && _fade._isFadeOut)
@@ -38,7 +39,7 @@ public class SceneTransition1_2_2 : MonoBehaviour
 
             // ギミックを解いたかのデータを渡す.
             solveGimmickManager._solve[1] = _active;
-            player2D.transform.position = new Vector3(140.0f, 0.0f, 0.0f);
+            player2D.transform.position = new Vector3(145.0f, 0.0f, 0.0f);
 
             // 削除
             SceneManager.sceneLoaded -= GameSceneLoaded;
