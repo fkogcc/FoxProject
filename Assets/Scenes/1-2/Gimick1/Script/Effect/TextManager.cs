@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class TextManager : MonoBehaviour
 {
     // 32フレームで消えるように.
-    const float kAlpha = 0.03125f;
+    readonly float kAlpha = 0.03f;
 
     // 色を入れるよう.
     private Color _color;

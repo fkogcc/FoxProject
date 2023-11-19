@@ -2,40 +2,65 @@
 
 public class Gimick1_2_1Manager : MonoBehaviour
 {
+    // オブジェクトの取得
+    // プレイヤーの手
+
     private GameObject _handObject;
     private PlayerHand _playerHand;
+    // モニター前カメラ
     private GameObject _cameraObject;
+    // モニター前カメラのテスト用
     private Test _test;
+    // オブジェクトの管理しているマネージャー
     private ObjectManagement _objectManagement;
 
+    // ギミックのパネル（モニター）の取得
     [SerializeField] private GameObject[] _panelObject;
+    // ボタンの状態を管理するスクリプトクラス
     private ButtonState[] _buttonState;
+    // エフェクトの取得
     private GameObject _effect;
     private EffectPlay _effectPlay;
-
+    // 前フレームにいたモニターの場所の取得
     private string _prevFrameName = null;
+    // 今のフレームにいるモニターの場所の取得
     private string _nowFrameName = null;
-    // Start is called before the first frame update
+
+    // clearテキストをいれる
+    [SerializeField] private GameObject ClearText;
+    // Canvasを入れるよう
+    [SerializeField] private GameObject Canvas;
+    private GameObject _effeect;
+    private EffectLine _effectLine;
+    // 初期化処理
     void Start()
     {
+        // カメラの取得
         _cameraObject = GameObject.Find("MonitorCamera");
-
         _test = _cameraObject.GetComponent<Test>();
+        // オブジェクトのマネージャー取得
         _objectManagement = GetComponent<ObjectManagement>();
-
+        // ボタンの状態を取得
         _buttonState = new ButtonState[_panelObject.Length];
         for (int i = 0; i < _buttonState.Length; i++)
         {
             _buttonState[i] = _panelObject[i].GetComponent<ButtonState>();
         }
+        // エフェクトの取得
         _effect = GameObject.Find("EffectCreate");
         _effectPlay = _effect.GetComponent<EffectPlay>();
+        // エフェクトの初期化処理
         _effectPlay.EffectInit();
+
+        // Test テスト実装演出
+        _effeect = GameObject.Find("EffectCreate");
+        _effectLine = _effeect.GetComponent<EffectLine>();
     }
 
     // Update is called once per frame
     void Update()
     {
+        // HACK さすがに長すぎるし乱雑なので関数化するなりきれいに書き直すなりしましょう
         _handObject = GameObject.Find("FoxHand(Clone)");
         // モニターを変えるかどうかをチェックしている
         _objectManagement.MonitorChenge();
@@ -82,10 +107,21 @@ public class Gimick1_2_1Manager : MonoBehaviour
             // プレイヤーの手の移動処理
             _handObject.GetComponent<PlayerHand>().MovePlayerHand();
         }
+        GenaretaText();
     }
     public GameObject SetHandObject()
     {
         return _handObject;
     }
-
+    // クリアしたらテキストを生成する
+    private void GenaretaText()
+    {
+        // Test 眠すぎて適当なので後で書き直す！！！！！！！！！！！！！！！！！！
+        // クリアしたことをテキストで表示
+        if (_effectLine.GetResult())
+        {
+            GameObject clone = Instantiate(ClearText);
+            clone.transform.SetParent(Canvas.transform, false);
+        }
+    }
 }
