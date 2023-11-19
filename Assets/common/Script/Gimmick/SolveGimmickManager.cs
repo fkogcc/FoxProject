@@ -11,4 +11,10 @@ public class SolveGimmickManager : MonoBehaviour
     {
         return _solve[0] || _solve[1] || _solve[2] || _solve[3];
     }
+
+    // 全ギミッククリア
+    public bool GetAllClear()
+    {
+        return _solve[0] && _solve[1] && _solve[2] && _solve[3];
+    }
 }

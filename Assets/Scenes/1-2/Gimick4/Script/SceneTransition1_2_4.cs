@@ -44,7 +44,7 @@ public class SceneTransition1_2_4 : MonoBehaviour
 
         // ギミックを解いたかのデータを渡す.
         solveGimmickManager._solve[3] = _active;
-        player2D.transform.position = new Vector3(22.0f, 0.0f, 0.0f);
+        player2D.transform.position = new Vector3(310.0f, 0.0f, 0.0f);
 
         // 削除
         SceneManager.sceneLoaded -= GameSceneLoaded;

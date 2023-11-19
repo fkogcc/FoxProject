@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class SceneTransition1_3_2 : MonoBehaviour
 {
-    private SlideGimmickDirector _slideGimmickDirector;
+    private Stage_Clear_Switch _slideGimmickDirector;
 
     private FadeScene _fade;
 
@@ -15,7 +15,7 @@ public class SceneTransition1_3_2 : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        _slideGimmickDirector = GetComponent<SlideGimmickDirector>();
+        _slideGimmickDirector = GetComponent<Stage_Clear_Switch>();
         _fade = GameObject.FindWithTag("Fade").GetComponent<FadeScene>();
     }
 

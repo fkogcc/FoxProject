@@ -53,7 +53,7 @@ public class Gimmck1_2_4_SetActiveManager : MonoBehaviour
         // ステージ2をクリアしている場合.
         if (_stageTwo.GetComponent<Gimick1_2_4_Manager1Mk2>().GetResult())
         {
-            _stageTwo.SetActive(false);
+            //_stageTwo.SetActive(false);
         }
 
         // ステージ1をクリアしていなくて

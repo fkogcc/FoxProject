@@ -3783,6 +3783,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Fade (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 5084730003539476859, guid: 41316c13ae15329419fc57a282178b42, type: 3}
+      propertyPath: m_TagString
+      value: Fade
+      objectReference: {fileID: 0}
     - target: {fileID: 9034812296506455704, guid: 41316c13ae15329419fc57a282178b42, type: 3}
       propertyPath: m_Color.a
       value: 1
@@ -6025,6 +6029,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Fade
       objectReference: {fileID: 0}
+    - target: {fileID: 5084730003539476859, guid: 41316c13ae15329419fc57a282178b42, type: 3}
+      propertyPath: m_TagString
+      value: Untagged
+      objectReference: {fileID: 0}
     - target: {fileID: 9034812296506455704, guid: 41316c13ae15329419fc57a282178b42, type: 3}
       propertyPath: m_Color.a
       value: 1
@@ -6442,6 +6450,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _timeCountDown: {fileID: 2052325167}
+--- !u!114 &1146682104
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1146682087}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 088b3a56207e16a4188c6546ffdf919e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _isFadeIn: 0
+  _isFadeOut: 0
 --- !u!1001 &1158639336
 PrefabInstance:
   m_ObjectHideFlags: 0
