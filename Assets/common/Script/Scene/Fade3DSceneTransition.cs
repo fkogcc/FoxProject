@@ -18,7 +18,7 @@ public class Fade3DSceneTransition : MonoBehaviour
     // 色.
     public Color _color;
     // ゲートのボタンを押したかどうか.
-    private bool _isPush;
+    public bool _isPush;
 
     // Start is called before the first frame update
     void Start()
@@ -156,6 +156,7 @@ public class Fade3DSceneTransition : MonoBehaviour
         }
         else if (_transitionScene._isGoal1_3 && transitionFlagCommon)
         {
+
             _sceneTransitionManager.EndScene();
         }
 

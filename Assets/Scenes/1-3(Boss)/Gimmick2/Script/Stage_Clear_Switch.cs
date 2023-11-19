@@ -4,6 +4,11 @@ using UnityEngine;
 
 public class Stage_Clear_Switch : MonoBehaviour
 {
+    private void Update()
+    {
+        Debug.Log($"{name}");
+    }
+
     void OnCollisionStay(Collision collision)
     {
         //プレイヤーが触れたとき.
