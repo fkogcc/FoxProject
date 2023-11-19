@@ -89,7 +89,7 @@ public class Gimmick1_2_4_CountDown2 : MonoBehaviour
     {
         while (_isCountDown)
         {
-            Debug.Log("かうんとダウン");
+            //Debug.Log("かうんとダウン");
             // 時間をカウントダウンする.
             _countTime -= Time.deltaTime;
 

@@ -33,6 +33,11 @@ public class SceneTransition1_2_4 : MonoBehaviour
             SceneManager.sceneLoaded += GameSceneLoaded;
             SceneManager.LoadScene("MainScene1-2");
         }
+
+        //Debug.Log(_fade.GetAlphColor() >= 0.9f && _fade._isFadeOut);
+        Debug.Log("color" + _fade.GetAlphColor());
+        Debug.Log("fade" + _fade._isFadeOut);
+
     }
 
     // シーン切り替え時に呼ぶ.
