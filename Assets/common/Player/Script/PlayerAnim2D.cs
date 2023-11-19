@@ -19,6 +19,8 @@ public class PlayerAnim2D : MonoBehaviour
     private void Update()
     {
         _horizontal = Input.GetAxis("Horizontal");
+
+        //Debug.Log(_flag._isGoal);
     }
 
     //-------------------------------------------

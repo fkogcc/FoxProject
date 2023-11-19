@@ -16,9 +16,6 @@ public class rabbit1_1 : MonoBehaviour
     private bool _jumping = false;
     private bool _jumpMoving = false;
 
-    // イベント
-    [SerializeField] private bool _isEvent;
-
     private Animator _animator;
 
     private int time = 0;
@@ -75,13 +72,13 @@ public class rabbit1_1 : MonoBehaviour
             }
         }
 
-        if(transform.position.x >= 170)
+        if(transform.position.x >= 180)
         {
             _move._isMoveActive = true;
             _goal._eventFlag = true;
         }
 
-        if(transform.position.x >= 200)
+        if(transform.position.x >= 180)
         {
             Destroy(gameObject);
         }
