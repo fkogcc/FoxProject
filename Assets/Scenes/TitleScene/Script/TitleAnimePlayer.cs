@@ -45,7 +45,15 @@ public class TitleAnimePlayer : MonoBehaviour
         _rotStart = Quaternion.AngleAxis(angle, new Vector3(0, 1.0f, 0));
     }
 
-    public void Update()
+    public void PlayStart()
+    {
+        _anim._isDead = false;
+        _anim._run = true;
+
+        transform.position += -_move;
+    }
+
+    public void AnimUpdate()
     {
         _frame++;
 
