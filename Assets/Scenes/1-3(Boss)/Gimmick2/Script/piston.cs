@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class pisuton : MonoBehaviour
+public class piston : MonoBehaviour
 {
     // 秒数を数えるカウント.
     private int _count;
