@@ -874,15 +874,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e6279f0aac667ec48803e863d592f701, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _hp: 5
   _isGround: 0
   _speed: 5
   _jumpPower: 25
   _isController: 1
+  _isJumpController: 1
   _rayOffset: 0
   _raySphereLength: 0.49
   _SphereCastRegulationY: 0.5
   _distanceGround: 0.5
   _testmove: 50
+  _particleSystem: {fileID: 8489292017671519357}
 --- !u!136 &3498901213022387698
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -4431,6 +4434,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 410562474518b6545902a5d4158ebc47, type: 3}
+--- !u!198 &8489292017671519357 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 8814106180333129762, guid: 410562474518b6545902a5d4158ebc47, type: 3}
+  m_PrefabInstance: {fileID: 1117447701391895647}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &8489292017671519359 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8814106180333129760, guid: 410562474518b6545902a5d4158ebc47, type: 3}

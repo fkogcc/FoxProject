@@ -64,10 +64,10 @@ public class PlayerAnim3D : MonoBehaviour
     // ゲームオーバーアニメーション.
     public bool GameOver()
     {
-        //if (Player2DMove._instance._hp <= 0)
-        //{
-        //    return true;
-        //}
+        if (_player._hp <= 0)
+        {
+            return true;
+        }
         return false;
     }
 

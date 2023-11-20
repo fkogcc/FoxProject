@@ -7,8 +7,8 @@ public class SceneTransition1_2_1 : MonoBehaviour
 {
     private GameObject _effeect;
     private EffectLine _effectLine;
-
     private FadeScene _fade;
+    private Player3DMove _Player3D;
 
     // 解いたかどうか.
     private bool _active = false;
@@ -19,6 +19,7 @@ public class SceneTransition1_2_1 : MonoBehaviour
         _effeect = GameObject.Find("EffectCreate");
         _effectLine = _effeect.GetComponent<EffectLine>();
         _fade = GameObject.FindWithTag("Fade").GetComponent<FadeScene>();
+        _Player3D = GameObject.FindWithTag("Player").GetComponent<Player3DMove>();
     }
 
     // Update is called once per frame
@@ -47,6 +48,7 @@ public class SceneTransition1_2_1 : MonoBehaviour
         // ギミックを解いたかのデータを渡す.
         solveGimmickManager._solve[0] = _active;
         player2D.transform.position = new Vector3(60.0f, 0.0f, 0.0f);
+        player2D._hp = _Player3D._hp + 1;
 
         // 削除
         SceneManager.sceneLoaded -= GameSceneLoaded;

@@ -8,19 +8,22 @@ public class BeltConveyorGimmick : MonoBehaviour
 {
     private SolveGimmickManager _manager;
 
-    // マテリアルの保持
-    private Material _material;
-    // シェーダー
-    private Shader _shader;
+    // アニメーション.
+    private Animator _animator;
 
-    // ベルトコンベアが物体を動かす向き
+    // マテリアルの取得.
+    public Material _material;
+    // テクスチャのスピード
+    public Vector2 _textureSpeed = Vector2.zero;
+
+    // ベルトコンベアが物体を動かす向き.
     [SerializeField] private Vector3 _moveDirection = Vector3.forward;
-    // ベルトコンベアの速度
+    // ベルトコンベアの速度.
     [SerializeField] private float _ConveyorSpeed;
-    // コンベアに載っている物体の加速度
+    // コンベアに載っている物体の加速度.
     [SerializeField] private float _forcePower;
 
-    // ベルトコンベアの現在の速度
+    // ベルトコンベアの現在の速度.
     [SerializeField] private float _CurrentSpeed { get { return _currentSpeed; } }
 
     private float _currentSpeed = 0;
@@ -32,19 +35,29 @@ public class BeltConveyorGimmick : MonoBehaviour
     void Start()
     {
         _manager = GameObject.FindWithTag("GimmickManager").GetComponent<SolveGimmickManager>();
+
         // 方向を正規化する.
         _moveDirection = _moveDirection.normalized;
 
-        _material = GameObject.Find("BeltMesh").GetComponent<Material>();
-        _shader = GameObject.Find("BeltMesh").GetComponent<Shader>();
+        _animator = GetComponent<Animator>();
     }
 
     private void FixedUpdate()
     {
+        _material.SetTextureScale("_MainTex", _textureSpeed);
+        
+
         if (_manager._solve[1])
         {
             UpdateBeltConveyor();
             _operatingTime++;
+            _animator.SetFloat("AnimSpeed", 1.0f);
+            _textureSpeed = new Vector2(5.0f, 0.0f);
+        }
+        else
+        {
+            _animator.SetFloat("AnimSpeed", 0.0f);
+            _textureSpeed = new Vector2(0.0f, 0.0f);
         }
 
         if(_operatingTime >= 90)
@@ -52,8 +65,6 @@ public class BeltConveyorGimmick : MonoBehaviour
             _manager._solve[1] = false;
             _operatingTime = 0;
         }
-
-        //_shader.
     }
 
     private void OnCollisionEnter(Collision collision)
