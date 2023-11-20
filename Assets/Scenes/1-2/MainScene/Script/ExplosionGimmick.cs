@@ -1,4 +1,6 @@
-﻿using System.Collections;
+﻿// 爆発ギミックの処理
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,7 +9,9 @@ public class ExplosionGimmick : MonoBehaviour
     private SolveGimmickManager _manager;
 
     [Header("火花のパーティクルオブジェクト")]
-    [SerializeField] ParticleSystem _particleSystem;
+    [SerializeField] ParticleSystem _sparkParticle;
+    [Header("爆風のパーティクルオブジェクト")]
+    [SerializeField] ParticleSystem _blastParticle;
 
     [Header("爆発オブジェクト")]
     [SerializeField] GameObject _bombObject;
@@ -24,6 +28,9 @@ public class ExplosionGimmick : MonoBehaviour
     [Header("パーティクルの最大再生時間")]
     [SerializeField] private float _particleMaxCount;
 
+    [Header("爆発するまでの時間")]
+    [SerializeField] private int _blastTime;
+
     // パーティクル再生時間
     private float _particleCount;
 
@@ -32,22 +39,32 @@ public class ExplosionGimmick : MonoBehaviour
 
     // 作動時間.
     private int _operatingTime = 0;
+    // 作動終了時間
+    private int _operatingFinish = 180;
+
 
     private void Start()
     {
         _manager = GameObject.FindWithTag("GimmickManager").GetComponent<SolveGimmickManager>();
         //_particleSystem.Stop();
+        _sparkParticle.Stop();
+        _blastParticle.Stop();
     }
 
     private void FixedUpdate()
     {
         if (_manager._solve[2])
         {
-            UpdateExplosion();
             _operatingTime++;
+            _sparkParticle.Play();
         }
 
-        if(_operatingTime >= 90)
+        if(_operatingTime > _blastTime)
+        {
+            UpdateExplosion();
+        }
+
+        if(_operatingTime >= _operatingFinish)
         {
             _manager._solve[2] = false;
             _operatingTime = 0;
@@ -61,9 +78,9 @@ public class ExplosionGimmick : MonoBehaviour
     public void UpdateExplosion()
     {
         // パーティクル再生.
-        _particleSystem.Play();
+        _sparkParticle.Play();
         // パーティクル座標を代入.
-        _ExplosionPosition = _particleSystem.transform.position;
+        _ExplosionPosition = transform.position;
 
         // 範囲内のRigidbodyにAddExplosionForce.
         // 後でコメント変更.
@@ -80,17 +97,20 @@ public class ExplosionGimmick : MonoBehaviour
         }
 
         // 再生している時間.
-        if(_particleCount < _particleMaxCount)
-        {
-            _particleCount++;
-        }
-        // 時間がたつとパーティクル再生終了.
-        if(_particleCount == _particleMaxCount )
-        {
-            // パーティクル再生終了.
-            _particleSystem.Stop();
-        }
+        //if(_particleCount < _particleMaxCount)
+        //{
+        //    _particleCount++;
+        //}
+        //// 時間がたつとパーティクル再生終了.
+        //if(_particleCount == _particleMaxCount )
+        //{
+        //    // パーティクル再生終了.
+        //    _sparkParticle.Stop();
+        //}
+
+
 
         _bombObject.SetActive(false);
+        //Destroy(gameObject);
     }
 }
