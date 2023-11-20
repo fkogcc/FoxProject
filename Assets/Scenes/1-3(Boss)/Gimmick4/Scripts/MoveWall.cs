@@ -30,11 +30,13 @@ public class MoveWall : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        // オブジェクト取得.
         _rope = GameObject.Find("Rope");
         _pullRope = _rope.GetComponent<PullRope>();
         _wall = GameObject.Find("Door");
         _lava = GameObject.Find("MoveLava");
-        _wallPos = _wall.transform.position;//壁のポジションを取得
+        //壁のポジションを取得.
+        _wallPos = _wall.transform.position;
         // HACK あとできれいに書き直す
         // (当たり判定を半分引いて 下げる位置を計算している)
         kclearHeight = _lava.transform.position.y - (_wall.GetComponent<BoxCollider>().bounds.size.y * 0.5f);
@@ -43,65 +45,49 @@ public class MoveWall : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //_ropeLength = _rope.GetComponent<PullRope>().GetNowLength() - 5;
-        //if (_ropeLength > 0 && _wallPos.y > kclearHeight)//壁の高さがクリアの高さよりも低くなるまで動く
-        //{
-        //    _wallPos.y =kwallHeight - _ropeLength;
-        //    _wall.transform.position = _wallPos;
-        //}
-        //if (_wallPos.y <= kclearHeight)
-        //{
-        //    _isFlag = true;
-        //}
-        //if (_isFlag)
-        //{
-        //    if (_lava.transform.position.x < kclearLavaPos)
-        //    {
-        //        _lava.transform.Translate(klavaSpeed);
-        //    }
-        //}
-
+        // 壁の更新処理.
         WallUpdate();
     }
     // 壁の計算の更新処理.
     private void WallUpdate()
     {
-        // 今のロープの長さを取得する
+        // 今のロープの長さを取得する.
         _nowRopeLength = _pullRope.GetNowLength();
-        // 今のロープの位置と前フレームのロープの位置が同じじゃなければ処理をする
+        // 今のロープの位置と前フレームのロープの位置が同じじゃなければ処理をする.
         if (_nowRopeLength != _prevRopeLength)
         {
-            // 前のフレームから引っ張った分の長さの差分を出す
+            // 前のフレームから引っ張った分の長さの差分を出す.
             var addLength = _nowRopeLength - _prevRopeLength;
-            //壁の高さがクリアの高さよりも低くなるまで動く
+            //壁の高さがクリアの高さよりも低くなるまで動く.
             if (_nowRopeLength > 0 && _wallPos.y > kclearHeight)
             {
                 _wallPos.y = _wall.transform.position.y - addLength;
                 _wall.transform.position = _wallPos;
             }
         }
-        // クリア位置まで壁が下がったら溶岩を流すフラグを立てる
+        // クリア位置まで壁が下がったら溶岩を流すフラグを立てる.
         if (_wallPos.y <= kclearHeight)
         {
             _isFlag = true;
         }
 
-        // 溶岩を流す処理
+        // 溶岩を流す処理.
         if (_isFlag)
         {
             if (_lava.transform.position.x < kclearLavaPos)
             {
                 _lava.transform.Translate(klavaSpeed);
             }
+            // 溶岩で満たされたらクリア判定にする.
             else
             {
-                //Debug.Log("くりあ");
                 _isClearFlag = true;
             }
         }
-        // ロープの位置の更新
+        // ロープの位置の更新.
         _prevRopeLength = _nowRopeLength;
     }
+    // クリア判定.
     public bool GetResult()
     {
         return _isClearFlag;

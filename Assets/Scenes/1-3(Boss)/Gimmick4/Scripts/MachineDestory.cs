@@ -1,21 +1,22 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
-using UnityEngine;
+﻿using UnityEngine;
 
+// 機械(オブジェクト)を削除するスクリプト.
 public class MachineDestory : MonoBehaviour
 {
+    // 溶岩を止めている壁の取得.
     private MoveWall _wall;
 
-    // Start is called before the first frame update
+    // 初期化処理.
     void Start()
     {
+        // 壁の取得.
         _wall = GameObject.Find("MoveWallDir").GetComponent<MoveWall>();
     }
 
     // Update is called once per frame
     void Update()
     {
+        // 溶岩で満たされていたら.
         if (_wall.GetResult())
         {
             // オブジェクトの削除

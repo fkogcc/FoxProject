@@ -56,7 +56,7 @@ public class MonitorCollider : MonoBehaviour
                 _gameObject.GetComponent<ObjectManagement>().PlayerHandDestory();
 
             }
-            _monitorObject.GetComponent<Test>().SetCameraName(_name);
+            _monitorObject.GetComponent<MonitorCamera>().SetCameraName(_name);
             _gameObject.GetComponent<ObjectManagement>().SetPushFlag(_isPushButton);
         }
     }
