@@ -10,7 +10,7 @@ public class TitleSelect : MonoBehaviour
     // GameStartとOption
     private const int kSelectNum = 2;
     // 上下の幅
-    private const float kRangeY = 164.0f;
+    private const float kRangeY = 128.0f;
 
     public TitleManager Manager;
 
@@ -33,7 +33,7 @@ public class TitleSelect : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    public void SelectUpdate()
     {
         if (Input.GetAxisRaw("Vertical") == 1)
         {
@@ -89,6 +89,6 @@ public class TitleSelect : MonoBehaviour
             _move.y = -kRangeY;
         }
 
-        _rect.position += _move;
+        _rect.localPosition += _move;
     }
 }

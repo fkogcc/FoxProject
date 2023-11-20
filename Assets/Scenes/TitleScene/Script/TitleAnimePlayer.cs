@@ -30,6 +30,8 @@ public class TitleAnimePlayer : MonoBehaviour
     private Quaternion _rotOutRage;
     private Quaternion _rotStart;
 
+    private Vector3 _lookPos;
+
     void Start()
     {
         _frame = 0;
@@ -43,6 +45,9 @@ public class TitleAnimePlayer : MonoBehaviour
         _rotOutRage = Quaternion.AngleAxis(angle, new Vector3(0, 1.0f, 0));
         angle = 150f / (kRotStartFrame - kMoveFrontFrame);
         _rotStart = Quaternion.AngleAxis(angle, new Vector3(0, 1.0f, 0));
+
+        _lookPos = transform.position;
+        _lookPos.x = -20;
     }
 
     public void PlayStart()
@@ -50,6 +55,7 @@ public class TitleAnimePlayer : MonoBehaviour
         _anim._isDead = false;
         _anim._run = true;
 
+        this.transform.LookAt(_lookPos);
         transform.position += -_move;
     }
 

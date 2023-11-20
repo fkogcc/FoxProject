@@ -12,7 +12,7 @@ public class TitleWindow : MonoBehaviour
         _rotateSpeed = 0.5f;
     }
 
-    private void FixedUpdate()
+    public void WindowUpdate()
     {
         transform.Rotate(_rotateSpeed, 0.0f, 0.0f);
     }
