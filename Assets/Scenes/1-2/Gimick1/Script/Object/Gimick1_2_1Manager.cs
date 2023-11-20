@@ -3,14 +3,14 @@
 public class Gimick1_2_1Manager : MonoBehaviour
 {
     // オブジェクトの取得
-    // プレイヤーの手
 
+    // プレイヤーの手
     private GameObject _handObject;
     private PlayerHand _playerHand;
     // モニター前カメラ
     private GameObject _cameraObject;
     // モニター前カメラのテスト用
-    private Test _test;
+    private MonitorCamera _camera;
     // オブジェクトの管理しているマネージャー
     private ObjectManagement _objectManagement;
 
@@ -21,23 +21,21 @@ public class Gimick1_2_1Manager : MonoBehaviour
     // エフェクトの取得
     private GameObject _effect;
     private EffectPlay _effectPlay;
+    // サウンドの取得
+    //[SerializeField] private SoundManager _sound; 
+    public SoundManager _sound; 
     // 前フレームにいたモニターの場所の取得
     private string _prevFrameName = null;
     // 今のフレームにいるモニターの場所の取得
     private string _nowFrameName = null;
 
-    // clearテキストをいれる
-    [SerializeField] private GameObject ClearText;
-    // Canvasを入れるよう
-    [SerializeField] private GameObject Canvas;
-    private GameObject _effeect;
-    private EffectLine _effectLine;
+
     // 初期化処理
     void Start()
     {
         // カメラの取得
         _cameraObject = GameObject.Find("MonitorCamera");
-        _test = _cameraObject.GetComponent<Test>();
+        _camera = _cameraObject.GetComponent<MonitorCamera>();
         // オブジェクトのマネージャー取得
         _objectManagement = GetComponent<ObjectManagement>();
         // ボタンの状態を取得
@@ -51,10 +49,8 @@ public class Gimick1_2_1Manager : MonoBehaviour
         _effectPlay = _effect.GetComponent<EffectPlay>();
         // エフェクトの初期化処理
         _effectPlay.EffectInit();
+        _sound.PlayBGM("1_2_1_BGM");
 
-        // Test テスト実装演出
-        _effeect = GameObject.Find("EffectCreate");
-        _effectLine = _effeect.GetComponent<EffectLine>();
     }
 
     // Update is called once per frame
@@ -65,7 +61,7 @@ public class Gimick1_2_1Manager : MonoBehaviour
         // モニターを変えるかどうかをチェックしている
         _objectManagement.MonitorChenge();
         // カメラのUpdate
-        _test.CameraUpdate();
+        _camera.CameraUpdate();
         if (_handObject != null)
         {
             // プレイヤーの手がボタンを押したかどうか
@@ -74,11 +70,11 @@ public class Gimick1_2_1Manager : MonoBehaviour
                 _handObject.GetComponent<PlayerHand>().ButtonPush();
                 
             }
-            _nowFrameName = _test.GetCameraName();
+            _nowFrameName = _camera.GetCameraName();
             //foreach (GameObject panel in _panelObject)
             foreach (ButtonState button in _buttonState)
             {
-                if (button.name == _test.GetCameraName())
+                if (button.name == _camera.GetCameraName())
                 {
                     //_buttonState = panel.GetComponent<ButtonState>();
                     button.GetPlayerObject(_handObject);
@@ -86,6 +82,7 @@ public class Gimick1_2_1Manager : MonoBehaviour
                     button.ButtonAcquisition();
 
                     _effectPlay.GetPanelName(button.transform.name);
+                    _effectPlay.GetSoundData(_sound);
                     _effectPlay.GetPlayerObject(_handObject);
                     _effectPlay.CheckTap(button.isCheckButton());
                     _effectPlay.EffectClearGenerete(button.IsGimckClear());
@@ -98,6 +95,9 @@ public class Gimick1_2_1Manager : MonoBehaviour
                 }
             }
             _prevFrameName = _nowFrameName;
+            _effectPlay.GenaretaText();
+
+
         }
     }
     void FixedUpdate()
@@ -107,21 +107,10 @@ public class Gimick1_2_1Manager : MonoBehaviour
             // プレイヤーの手の移動処理
             _handObject.GetComponent<PlayerHand>().MovePlayerHand();
         }
-        GenaretaText();
     }
     public GameObject SetHandObject()
     {
         return _handObject;
     }
-    // クリアしたらテキストを生成する
-    private void GenaretaText()
-    {
-        // Test 眠すぎて適当なので後で書き直す！！！！！！！！！！！！！！！！！！
-        // クリアしたことをテキストで表示
-        if (_effectLine.GetResult())
-        {
-            GameObject clone = Instantiate(ClearText);
-            clone.transform.SetParent(Canvas.transform, false);
-        }
-    }
+
 }

@@ -6,7 +6,7 @@ using System;
 
 // HACK カメラの管理のスクリプトいろいろなおす
 // オブジェクトの生成スクリプト
-public class Test : MonoBehaviour
+public class MonitorCamera : MonoBehaviour
 {
     //// Hack 毎回新しいのを作る
     //[SerializeField] private GameObject PlayerHand = default;

@@ -1,60 +1,78 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
+// 時間で落下する床の処理.
 public class FallBlock : MonoBehaviour
 {
-    bool _isFlag;//プレイヤーがブロックに乗ったか判断する
-    Vector3 _position;//ブロックの最初のポジション
-    Vector3 _moveVec;//ブロックの動く位置
-    Vector3 kfallVel = new Vector3(0, -0.1f, 0);//ブロックの落ちる速度
-    float kspeed = 0.1f;
-    int kfallTime = 50;//板が落ちる時間
-    int _frameCount;
-
+    //プレイヤーがブロックに乗ったか判断する.
+    private bool _isPlayerColl;
+    //ブロックの最初のポジション.
+    private Vector3 _blockPos;
+    //ブロックの動く位置.
+    private Vector3 _blockMoveVec;
+    //ブロックの落ちる速度.
+    private Vector3 kfallVel = new Vector3(0, -0.1f, 0);
+    private float kfallSpeed = 0.1f;
+    //板が落ちる時間.
+    private int kfallTime = 50;
+    private int _frameCount;
+    // ブロックが落下する最大値
+    readonly int _blockFallMax = -3;
     // Start is called before the first frame update
     void Start()
     {
+        // 初期化処理.
         _frameCount = 0;
-        _isFlag = false;
-        _position = this.transform.position;
-        _moveVec.y = kspeed;
+        _isPlayerColl = false;
+        _blockPos = this.transform.position;
+        _blockMoveVec.y = kfallSpeed;
     }
 
-    // Update is called once per frame
     void FixedUpdate()
     {
-        if (_isFlag)
-        {
-            _frameCount++;
-            //            _moveVec = _position;
+        // ブロックを落とす処理の更新処理.
+        BlockFall();
+    }
 
-            if (transform.position.y > _position.y + 0.05f)
+    // ブロックを落とす処理.
+    private void BlockFall()
+    {
+        // プレイヤーが判定内にいたら.
+        if (_isPlayerColl)
+        {
+            // フレームをカウントする.
+            _frameCount++;
+            // 触れたブロックを揺らす処理.
+            if (transform.position.y > _blockPos.y + 0.05f)
             {
-                _moveVec.y = -kspeed;
+                _blockMoveVec.y = -kfallSpeed;
             }
-            else if (transform.position.y < _position.y -0.05f)
+            else if (transform.position.y < _blockPos.y - 0.05f)
             {
-                _moveVec.y = kspeed;
+                _blockMoveVec.y = kfallSpeed;
             }
-                this.transform.Translate(_moveVec);
+            this.transform.Translate(_blockMoveVec);
         }
+        // フレームカウントが設定した時間より大きくなったら.
         if (_frameCount > kfallTime)
         {
-            _isFlag = false;
+            _isPlayerColl = false;
+            // ブロックを落とす.
             transform.Translate(kfallVel);
         }
-        if (this.transform.position.y < -3)
+        // ブロックが設定した位置より低く落下したら.
+        if (this.transform.position.y < _blockFallMax)
         {
+            // ブロックを削除する.
             Destroy(this.gameObject);
         }
     }
+    // プレイヤーが判定内にいるかどうか.
     void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Player"))
         {
-
-            _isFlag = true;
+            // プレイヤーが判定内にいるフラグを立てる.
+            _isPlayerColl = true;
         }
     }
 }

@@ -1,45 +1,46 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
-using UnityEngine;
-using static UnityEngine.ParticleSystem;
+﻿using UnityEngine;
 
+// 爆発エフェクトの生成
 public class BourstEffectPlay : MonoBehaviour
 {
-    [SerializeField] private GameObject _bourst = default;
+    // 爆発エフェクトの取得.
+    [SerializeField, Header("爆発エフェクト")] private GameObject _bourst = default;
+    // 扉の取得.
     private MoveWall _wall;
+    // エフェクトの再生.
     private GameObject _effectBurst;
-    // エフェクトの再生が終わったかどうか
+    // エフェクトの再生が終わったかどうか.
     private bool _isEffectNowPlay = false;
-    // Start is called before the first frame update
+
+    // 初期化処理.
     void Start()
     {
         _wall = GameObject.Find("MoveWallDir").GetComponent<MoveWall>();
-        //// エフェクトを生成
-        //_effectBurst = Instantiate(_bourst, this.transform.position,
-        //                                        Quaternion.identity); // 初期化処理
-
     }
 
-    // Update is called once per frame
     void Update()
     {
+        BourstEffectCreate();
+    }
+    private void BourstEffectCreate()
+    {
+        // 壁がすべて降りて溶岩で満たしていたら.
         if (_wall.GetResult())
         {
             if (_effectBurst == null)
             {
-                // エフェクトを生成
+                // エフェクトを生成.
                 _effectBurst = Instantiate(_bourst, this.transform.position,
-                                                        Quaternion.identity); // 初期化処理
+                                                        Quaternion.identity);
             }
             else
             {
-                //  エフェクトの再生が終わっていたらclear判定にする
+                //  エフェクトの再生が終わっていたらclear判定にする.
                 if (!_effectBurst.GetComponent<ParticleSystem>().isPlaying)
                 {
                     // エフェクトの中身を全部消す.
                     Destroy(_effectBurst);
-                    _isEffectNowPlay= true;
+                    _isEffectNowPlay = true;
                 }
             }
         }
