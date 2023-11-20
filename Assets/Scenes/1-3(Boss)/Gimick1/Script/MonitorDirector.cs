@@ -44,7 +44,6 @@ public class MonitorDirector : MonoBehaviour
     // 当たり判定の処理
     void OnTriggerEnter(Collider other)
     {
-        //Debug.Log(this.transform.name);
         if (other.tag == "Player")
         {
             // プレイヤーがコライダーに入ったとき.

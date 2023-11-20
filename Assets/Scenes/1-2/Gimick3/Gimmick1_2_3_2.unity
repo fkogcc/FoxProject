@@ -10703,8 +10703,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 807410702}
   m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 0.37, y: 2.702, z: -10.21}
-  m_LocalScale: {x: 4.604269, y: 0.125, z: 12.360649}
+  m_LocalPosition: {x: 0.35, y: 2.702, z: -10.41}
+  m_LocalScale: {x: 5, y: 0.125, z: 12.360649}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1563705253}
@@ -11507,7 +11507,7 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: cbf46fc47feaba143896e6913c3a693c, type: 2}
     - target: {fileID: 919132149155446097, guid: 10e789aaa49f38945adcdbc1dad0b766, type: 3}
       propertyPath: m_Name
-      value: gimmick2_3
+      value: Room
       objectReference: {fileID: 0}
     - target: {fileID: 1304652081999331816, guid: 10e789aaa49f38945adcdbc1dad0b766, type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -11830,8 +11830,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1208139536}
   m_LocalRotation: {x: -0, y: 0, z: -0, w: 1}
-  m_LocalPosition: {x: -8.6, y: 2.702, z: -0.26}
-  m_LocalScale: {x: 4.726773, y: 0.125, z: 15.330483}
+  m_LocalPosition: {x: -8.38, y: 2.702, z: -0.17}
+  m_LocalScale: {x: 5.2, y: 0.125, z: 15.5}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1563705253}
@@ -17319,11 +17319,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8079699746641938999, guid: 10e789aaa49f38945adcdbc1dad0b766, type: 3}
       propertyPath: m_LocalScale.y
-      value: 1.5
+      value: 1.6
       objectReference: {fileID: 0}
     - target: {fileID: -8079699746641938999, guid: 10e789aaa49f38945adcdbc1dad0b766, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 7
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: -7614054280983958505, guid: 10e789aaa49f38945adcdbc1dad0b766, type: 3}
       propertyPath: m_LocalPosition.x
@@ -17423,11 +17423,11 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: cbf46fc47feaba143896e6913c3a693c, type: 2}
     - target: {fileID: -4501590515038854322, guid: 10e789aaa49f38945adcdbc1dad0b766, type: 3}
       propertyPath: m_LocalScale.y
-      value: 1.5
+      value: 1.6
       objectReference: {fileID: 0}
     - target: {fileID: -4501590515038854322, guid: 10e789aaa49f38945adcdbc1dad0b766, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 7
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: -3673072736689995739, guid: 10e789aaa49f38945adcdbc1dad0b766, type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -17471,15 +17471,15 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: c601c64642540764187874c99d8848e7, type: 2}
     - target: {fileID: 585408016936823674, guid: 10e789aaa49f38945adcdbc1dad0b766, type: 3}
       propertyPath: m_LocalScale.y
-      value: 1.5
+      value: 1.6
       objectReference: {fileID: 0}
     - target: {fileID: 585408016936823674, guid: 10e789aaa49f38945adcdbc1dad0b766, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 7
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 10e789aaa49f38945adcdbc1dad0b766, type: 3}
       propertyPath: m_Name
-      value: gimmick2_3 (1)
+      value: Room2
       objectReference: {fileID: 0}
     - target: {fileID: 1304652081999331816, guid: 10e789aaa49f38945adcdbc1dad0b766, type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -17539,11 +17539,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5960603501489595319, guid: 10e789aaa49f38945adcdbc1dad0b766, type: 3}
       propertyPath: m_LocalScale.y
-      value: 1.5
+      value: 1.6
       objectReference: {fileID: 0}
     - target: {fileID: 5960603501489595319, guid: 10e789aaa49f38945adcdbc1dad0b766, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 7
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 6334720147936289087, guid: 10e789aaa49f38945adcdbc1dad0b766, type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -23158,6 +23158,10 @@ PrefabInstance:
     - target: {fileID: 5084730003539476855, guid: 41316c13ae15329419fc57a282178b42, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5084730003539476857, guid: 41316c13ae15329419fc57a282178b42, type: 3}
+      propertyPath: m_UiScaleMode
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5084730003539476859, guid: 41316c13ae15329419fc57a282178b42, type: 3}
       propertyPath: m_Name
@@ -43092,7 +43096,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   GimmickNum: 8
   IsNext: 0
-  _clearCount: 0
+  ClearText: {fileID: 5641072741966609662, guid: 24e5f477bb0a48347ac33df6c1bbc434, type: 3}
+  Canvas: {fileID: 1067714035}
 --- !u!4 &2124426015
 Transform:
   m_ObjectHideFlags: 0
