@@ -113,6 +113,15 @@ MonoBehaviour:
   - sound: {fileID: 8300000, guid: e8de3c2216d94064492840f712692b70, type: 3}
     name: 1_2_1_Miss
     volume: 1
+  - sound: {fileID: 8300000, guid: bcea88c651c37c24e84021c9cbe0440b, type: 3}
+    name: 1_3_4_Bourst
+    volume: 1
+  - sound: {fileID: 8300000, guid: 56db0397d9d5b1348b1556f9c2698dbe, type: 3}
+    name: 1_3_4_Door
+    volume: 1
+  - sound: {fileID: 8300000, guid: 1e0cbe28f4cb02c4590321a3f254f4de, type: 3}
+    name: 1_3_4_Fall
+    volume: 1
   _bgmData:
   - sound: {fileID: 8300000, guid: 7b2d57059c59d384290773303504d320, type: 3}
     name: 1_1_0_BGM
@@ -143,6 +152,9 @@ MonoBehaviour:
     volume: 1
   - sound: {fileID: 8300000, guid: 1ee4972e56cc57d45aa62a22ca2e3838, type: 3}
     name: 1_2_1_BGM
+    volume: 1
+  - sound: {fileID: 8300000, guid: ece5a56524a8cbb4e931083dec4a61a9, type: 3}
+    name: 1_3_4_BGM
     volume: 1
   _playSeTest: 0000000000000000000000000000000000000000
   _playBgmTest: 00000000000000000000
