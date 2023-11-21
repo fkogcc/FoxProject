@@ -142,38 +142,6 @@ public class SoundManager : MonoBehaviour
     }
 
     /// <summary>
-    /// サウンドの番号を知る.
-    /// </summary>
-    /// <param name="isCheck">SEかBGM.</param>
-    /// <returns>サウンドの番号、もしサウンドが存在しない場合は-1を返す.</returns>
-    private int SoundCheck(bool isCheck, string name)
-    {
-        // SEの場合
-        if (isCheck)
-        {
-            for (int i = 0; i < _seData.Length; i++)
-            {
-                if (name == _seData[i].name)
-                {
-                    return i;
-                }
-            }
-        }
-        // BGMの場合
-        else
-        {
-            for (int i = 0; i < _bgmData.Length; i++)
-            {
-                if (name == _bgmData[i].name)
-                {
-                    return i;
-                }
-            }
-        }
-        return -1;
-    }
-
-    /// <summary>
     /// SEの音量を変更します.
     /// </summary>
     /// <param name="name">名前.</param>
@@ -193,6 +161,24 @@ public class SoundManager : MonoBehaviour
     {
         _bgmData[SoundCheck(false, name)].volume = volume;
         _bgmSource.volume = _bgmData[SoundCheck(false, name)].volume;
+    }
+
+    /// <summary>
+    /// 全体のSEの音量を変更します.
+    /// </summary>
+    /// <param name="volume">ボリュームを指定してください、0.0f～1.0fを指定してください.</param>
+    public void MasterVolumeChangeSe(float volume)
+    {
+        _seSource.volume += volume;
+    }
+
+    /// <summary>
+    /// 全体のBGMの音量を変更します.
+    /// </summary>
+    /// <param name="volume">ボリュームを指定してください、0.0f～1.0fを指定してください.</param>
+    public void MasterVolumeChangeBgm(float volume)
+    {
+        _bgmSource.volume += volume;
     }
 
     /// <summary>
@@ -247,5 +233,37 @@ public class SoundManager : MonoBehaviour
     public void StopBgm()
     {
         _bgmSource.Stop();
+    }
+
+    /// <summary>
+    /// サウンドの番号を知る.
+    /// </summary>
+    /// <param name="isCheck">SEかBGM.</param>
+    /// <returns>サウンドの番号、もしサウンドが存在しない場合は-1を返す.</returns>
+    private int SoundCheck(bool isCheck, string name)
+    {
+        // SEの場合
+        if (isCheck)
+        {
+            for (int i = 0; i < _seData.Length; i++)
+            {
+                if (name == _seData[i].name)
+                {
+                    return i;
+                }
+            }
+        }
+        // BGMの場合
+        else
+        {
+            for (int i = 0; i < _bgmData.Length; i++)
+            {
+                if (name == _bgmData[i].name)
+                {
+                    return i;
+                }
+            }
+        }
+        return -1;
     }
 }
