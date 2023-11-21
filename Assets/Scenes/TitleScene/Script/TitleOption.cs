@@ -5,10 +5,16 @@ using UnityEngine.UI;
 
 public class TitleOption : MonoBehaviour
 {
-    public GameObject OptionCas;
-    public Slider SoundSlider;
+    // ボリュームの変更量
+    private const float kValumNum = 0.02f;
 
-    private GameObject _slider;
+    public GameObject OptionCas;
+    public Slider BgmSlider;
+    public Slider SeSlider;
+
+    private SoundManager _soundManager;
+
+    private bool _isSelect;
 
     float _alpha;
     // フェードインアウトの真偽.
@@ -18,8 +24,9 @@ public class TitleOption : MonoBehaviour
     void Start()
     {
         OptionCas.SetActive(false);
-        _slider = GameObject.Find("SoundSlider");
+        _soundManager = GameObject.Find("SoundManager").GetComponent<SoundManager>();
 
+        _isSelect = false;
         _isFadeIn = false;
         _isFadeOut = false;
         _alpha = 0.0f;
@@ -40,12 +47,20 @@ public class TitleOption : MonoBehaviour
 
         if (Input.GetAxisRaw("Horizontal") > 0.5f)
         {
-            SoundSlider.value += 0.02f;
+            _soundManager.MasterVolumeChangeBgm(kValumNum);
+            _soundManager.MasterVolumeChangeSe(kValumNum);
         }
         if (Input.GetAxisRaw("Horizontal") < -0.5f)
         {
-            SoundSlider.value -= 0.02f;
+            _soundManager.MasterVolumeChangeBgm(-kValumNum);
+            _soundManager.MasterVolumeChangeSe(-kValumNum);
         }
+    }
+
+    public void ChangeVulm()
+    {
+        BgmSlider.value = _soundManager.GetVolumeBgm();
+        BgmSlider.value = _soundManager.GetVolumeSe();
     }
 
     // フェード処理.
