@@ -7,10 +7,25 @@ public class TitleAnimDirector : MonoBehaviour
     // プレイヤーのアニメ
     public TitleAnimePlayer PlayerAnim;
 
+    // 
+    private bool _isStart;
 
     // Update is called once per frame
-    void FixedUpdate()
+    private void FixedUpdate()
     {
-        PlayerAnim.Update();
+        if (_isStart)
+        {
+            PlayerAnim.PlayStart();
+        }
+        else
+        {
+            PlayerAnim.AnimUpdate();
+        }
+    }
+
+    // スタートボタンを押したらtrueにする
+    public void SetStart()
+    {
+        _isStart = true;
     }
 }

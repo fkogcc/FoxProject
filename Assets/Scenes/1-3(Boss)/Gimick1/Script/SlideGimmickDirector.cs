@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class SlideGimmickDirector : MonoBehaviour
 {
@@ -93,6 +94,8 @@ public class SlideGimmickDirector : MonoBehaviour
     public GameObject OneBackText;
     // Canvasを入れるよう
     public GameObject Canvas;
+    // ゲージ入れるよう
+    public GameObject Gauge;
 
     private void Start()
     {
@@ -218,6 +221,8 @@ public class SlideGimmickDirector : MonoBehaviour
             }
             else if (_nowEle == kResetNo)
             {
+                Gauge.SetActive(true);
+                Gauge.transform.GetChild(0).GetComponent<Image>().fillAmount = 0;
                 _isResetCheck = true;
                 _resetCount = 0;
             }
@@ -231,6 +236,7 @@ public class SlideGimmickDirector : MonoBehaviour
 
         if (Input.GetKeyUp("joystick button 1"))
         {
+            Gauge.SetActive(false);
             _isResetCheck = false;
         }
     }
@@ -265,7 +271,8 @@ public class SlideGimmickDirector : MonoBehaviour
         if (_isResetCheck)
         {
             _resetCount++;
-            
+            Gauge.transform.GetChild(0).GetComponent<Image>().fillAmount = (float)_resetCount / (float)kResetFrame;
+
             if (_resetCount > kResetFrame)
             {
                 _isResetCheck = false;
