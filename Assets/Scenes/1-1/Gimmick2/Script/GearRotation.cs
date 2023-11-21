@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class GearRotation : MonoBehaviour
 {
+    // サウンドの取得
+    [SerializeField] private SoundManager _sound;
     // オブジェクトのRigidbodyを取得.
     private Rigidbody _rigidbody;
     // 回転度合.
@@ -56,7 +58,7 @@ public class GearRotation : MonoBehaviour
 
         // てすと
         _prevRotation = transform.rotation;
-
+        _sound.PlayBGM("1_1_2_BGM");
     }
 
     // 60フレームに一回の更新処理.
@@ -199,6 +201,10 @@ public class GearRotation : MonoBehaviour
     // シーン移行するための関数.
     public bool GetResult()
     {
+        if(_isTimeFlag)
+        {
+            _sound.StopBgm();
+        }
         return _isTimeFlag;
     }
 }
