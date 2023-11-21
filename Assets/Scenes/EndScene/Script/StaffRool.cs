@@ -5,8 +5,13 @@ using UnityEngine.UI;
 
 public class StaffRool : MonoBehaviour
 {
+    // エンドが真ん中あたりにいるフレーム
+    private const int kframe = 3750;
+
     public GameObject _credits;
     Vector3 _vec;
+
+    int _frame = 0;
 
     private void Start()
     {
@@ -16,5 +21,7 @@ public class StaffRool : MonoBehaviour
     private void FixedUpdate()
     {
         _credits.GetComponent<RectTransform>().localPosition += _vec;
+        _frame++;
+        Debug.Log(_frame);
     }
 }

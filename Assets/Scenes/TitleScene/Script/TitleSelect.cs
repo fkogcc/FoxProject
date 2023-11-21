@@ -11,8 +11,10 @@ public class TitleSelect : MonoBehaviour
     private const int kSelectNum = 2;
     // 上下の幅
     private const float kRangeY = 128.0f;
+    // Mainなら追加の分
+    private const float kAddRage = 64f;
 
-    public TitleManager Manager;
+    public bool IsMain;
 
     private int _index;
     private bool _isUpPush;
@@ -64,18 +66,6 @@ public class TitleSelect : MonoBehaviour
         {
             _isDownPush = false;
         }
-
-        if (Input.GetKeyDown("joystick button 1"))
-        {
-            if (_index == 0)
-            {
-                Manager.OnStart();
-            }
-            else
-            {
-                Manager.OnOption();
-            }
-        }
     }
 
     private void MoveFrame()
@@ -83,12 +73,25 @@ public class TitleSelect : MonoBehaviour
         if (_index == 0)
         {
             _move.y = kRangeY;
+            if (IsMain)
+            {
+                _move.y += kAddRage;
+            }
         }
         else
         {
             _move.y = -kRangeY;
+            if (IsMain)
+            {
+                _move.y -= kAddRage;
+            }
         }
 
         _rect.localPosition += _move;
+    }
+
+    public int GetIndex() 
+    {
+        return _index; 
     }
 }
