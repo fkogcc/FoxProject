@@ -21,6 +21,11 @@ public class Fade2DSceneTransition : MonoBehaviour
     // ゲートのボタンを押したかどうか.
     private bool _isPush;
 
+    // 次のシーンへ行く時のカウント
+    private int _nextSceneCount = 0;
+    // カウント開始しているかどうか
+    private bool _isCount = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -76,7 +81,7 @@ public class Fade2DSceneTransition : MonoBehaviour
         }
         else// フェードアウト.
         {
-            _color.a += 0.01f;
+            _color.a += 0.005f;
             gameObject.GetComponent<Image>().color = _color;
         }
     }
@@ -91,8 +96,21 @@ public class Fade2DSceneTransition : MonoBehaviour
             if (!_transitionScene.SetGateFlag()) return;
 
             // デバッグ用スキップ.
-            if (_transitionScene._isGoal1_2) return;
+            if (_transitionScene._isGoal1_2)
+            {
+                _nextSceneCount = 120;
+                _isCount = true;
+            }
+            
+        }
 
+        if(_isCount)
+        {
+            _nextSceneCount--;
+        }
+
+        if (_nextSceneCount <= 0 && _isCount)
+        {
             _isPush = true;
         }
 

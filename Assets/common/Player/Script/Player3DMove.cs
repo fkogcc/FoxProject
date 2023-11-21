@@ -80,7 +80,7 @@ public class Player3DMove : MonoBehaviour
     {
         //print(_isGround);
 
-        Debug.Log(_hp);
+        //Debug.Log(_hp);
 
         if(Input.GetKeyDown("joystick button 3"))
         {
