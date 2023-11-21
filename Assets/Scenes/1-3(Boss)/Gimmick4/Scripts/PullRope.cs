@@ -27,7 +27,7 @@ public class PullRope : MonoBehaviour
     // 移動ベクトルを距離に変換
     private float _nowLength;
     // 角度を入れるよう
-    private float _angle = 0.0f;
+    //sprivate float _angle = 0.0f;
     // 引っ張れる範囲にいるか
     private bool _isFlag;
     // 角度を入れる用.
@@ -62,9 +62,7 @@ public class PullRope : MonoBehaviour
         _axisSide = new Vector3(0.0f, 1.0f, 0.0f);
         _axisCenter = new Vector3();
     }
-
-    // Update is called once per frame
-    void Update()
+    public void PullRopeUpdate()
     {
         // プレイヤーがひもを引っ張っていた時の処理
         if ((Input.GetKeyDown("joystick button 1") || Input.GetKeyDown(KeyCode.F)) && _isFlag)
@@ -91,8 +89,7 @@ public class PullRope : MonoBehaviour
             _isPull = false;
         }
     }
-
-    private void FixedUpdate()
+    public void PlacementUpdate()
     {
         if (_isPull)
         {
@@ -103,7 +100,7 @@ public class PullRope : MonoBehaviour
     public float GetNowLength() { return _nowLength; }
 
     // オブジェクトの配置位置の調整
-    void ObjPlacement()
+    private void ObjPlacement()
     {
         VectorAngleCal(_player.position, _startPlayerPos);
         _nowLength = _moveVec.magnitude;
@@ -140,7 +137,7 @@ public class PullRope : MonoBehaviour
         }
     }
 
-    void VectorAngleCal(Vector3 pos1, Vector3 pos2)
+    private void VectorAngleCal(Vector3 pos1, Vector3 pos2)
     {
         // 現在までのベクトルを計算.
         _moveVec = pos1 - pos2;
@@ -154,7 +151,7 @@ public class PullRope : MonoBehaviour
         _axisCenter.z = -_moveVec.x;
     }
     // プレイヤーが判定内にいるかどうか
-    void OnTriggerEnter(Collider other)
+    private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Player"))
         {

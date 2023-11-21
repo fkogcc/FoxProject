@@ -3,6 +3,9 @@
 // 時間で落下する床の処理.
 public class FallBlock : MonoBehaviour
 {
+    // サウンドの取得
+    private GameObject _gameObject;
+    private Gimick1_3_4Manager _manager;
     //プレイヤーがブロックに乗ったか判断する.
     private bool _isPlayerColl;
     //ブロックの最初のポジション.
@@ -21,6 +24,8 @@ public class FallBlock : MonoBehaviour
     void Start()
     {
         // 初期化処理.
+        _gameObject = GameObject.Find("GameObject");
+        _manager = _gameObject.GetComponent<Gimick1_3_4Manager>();
         _frameCount = 0;
         _isPlayerColl = false;
         _blockPos = this.transform.position;
@@ -67,10 +72,12 @@ public class FallBlock : MonoBehaviour
         }
     }
     // プレイヤーが判定内にいるかどうか.
-    void OnTriggerEnter(Collider other)
+    private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Player"))
         {
+            // 落ちるときのSEを流す
+            _manager.FallSEPlay();
             // プレイヤーが判定内にいるフラグを立てる.
             _isPlayerColl = true;
         }

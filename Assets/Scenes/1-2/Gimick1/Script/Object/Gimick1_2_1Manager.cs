@@ -22,8 +22,8 @@ public class Gimick1_2_1Manager : MonoBehaviour
     private GameObject _effect;
     private EffectPlay _effectPlay;
     // サウンドの取得
-    //[SerializeField] private SoundManager _sound; 
-    public SoundManager _sound; 
+    [SerializeField] private SoundManager _sound; 
+    //public SoundManager _sound; 
     // 前フレームにいたモニターの場所の取得
     private string _prevFrameName = null;
     // 今のフレームにいるモニターの場所の取得
