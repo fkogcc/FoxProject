@@ -8,10 +8,15 @@ public class ExplosionGimmick : MonoBehaviour
 {
     private SolveGimmickManager _manager;
 
+    [Header("着火のパーティクルオブジェクト")]
+    [SerializeField] ParticleSystem _ignitionParticle;
     [Header("火花のパーティクルオブジェクト")]
     [SerializeField] ParticleSystem _sparkParticle;
     [Header("爆風のパーティクルオブジェクト")]
     [SerializeField] ParticleSystem _blastParticle;
+
+    [Header("銅線オブジェクト")]
+    [SerializeField] GameObject _CopperWireObject;
 
     [Header("爆発オブジェクト")]
     [SerializeField] GameObject _bombObject;
@@ -40,13 +45,19 @@ public class ExplosionGimmick : MonoBehaviour
     // 作動時間.
     private int _operatingTime = 0;
     // 作動終了時間
-    private int _operatingFinish = 180;
+    private int _operatingFinish = 240;
+
+    // ボムの存在の有無
+    private bool _isBombExist = true;
+
+    Vector3 velocity = Vector3.zero;
 
 
     private void Start()
     {
         _manager = GameObject.FindWithTag("GimmickManager").GetComponent<SolveGimmickManager>();
         //_particleSystem.Stop();
+        _ignitionParticle.Stop();
         _sparkParticle.Stop();
         _blastParticle.Stop();
     }
@@ -55,13 +66,29 @@ public class ExplosionGimmick : MonoBehaviour
     {
         if (_manager._solve[2])
         {
+            IgnitionUpdate();
+
+            
+
             _operatingTime++;
-            _sparkParticle.Play();
+            //_sparkParticle.Play();
+            _blastParticle.Play();
+            if(_operatingTime == 1)
+            {
+                _ignitionParticle.Play();
+            }
         }
 
         if(_operatingTime > _blastTime)
         {
             UpdateExplosion();
+        }
+
+        if(_operatingTime > 70)
+        {
+            _sparkParticle.Play();
+            _CopperWireObject.transform.position += new Vector3(0.0f, -0.01f, 0.0f);
+            _sparkParticle.transform.position += new Vector3(0.0f, -0.01f, 0.0f);
         }
 
         if(_operatingTime >= _operatingFinish)
@@ -71,6 +98,14 @@ public class ExplosionGimmick : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// 着火パーティクルの処理
+    /// </summary>
+    private void IgnitionUpdate()
+    {
+        _ignitionParticle.transform.position = Vector3.SmoothDamp(_ignitionParticle.transform.position, _sparkParticle.transform.position, ref velocity, 0.5f);
+    }
+
 
     /// <summary>
     /// 爆発処理
@@ -78,9 +113,14 @@ public class ExplosionGimmick : MonoBehaviour
     public void UpdateExplosion()
     {
         // パーティクル再生.
-        _sparkParticle.Play();
-        // パーティクル座標を代入.
-        _ExplosionPosition = transform.position;
+        //_sparkParticle.Play();
+        if(_isBombExist)
+        {
+            Instantiate(_blastParticle, _bombObject.transform.position, Quaternion.identity);
+        }
+
+        // ボム座標を代入.
+        _ExplosionPosition = _bombObject.transform.position;
 
         // 範囲内のRigidbodyにAddExplosionForce.
         // 後でコメント変更.
@@ -108,9 +148,10 @@ public class ExplosionGimmick : MonoBehaviour
         //    _sparkParticle.Stop();
         //}
 
+        _isBombExist = false;
 
 
-        _bombObject.SetActive(false);
+        _bombObject.SetActive(_isBombExist);
         //Destroy(gameObject);
     }
 }

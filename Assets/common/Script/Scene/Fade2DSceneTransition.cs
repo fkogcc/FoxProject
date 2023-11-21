@@ -46,6 +46,11 @@ public class Fade2DSceneTransition : MonoBehaviour
         // シーン遷移関数.
         SceneTransition();
         //Debug.Log($"{name}");
+
+        if ((_transitionScene._isGoal1_1 || _transitionScene._isGoal1_2) && Input.GetKeyDown("joystick button 3"))
+        {
+            _isGoal = true;
+        }
     }
 
     // フェード処理.
@@ -84,6 +89,10 @@ public class Fade2DSceneTransition : MonoBehaviour
         {
             // ゲートの前にいないときはスキップ.
             if (!_transitionScene.SetGateFlag()) return;
+
+            // デバッグ用スキップ.
+            if (_transitionScene._isGoal1_2) return;
+
             _isPush = true;
         }
 
@@ -165,10 +174,7 @@ public class Fade2DSceneTransition : MonoBehaviour
             _sceneTransitionManager.EndScene();
         }
 
-        if ((_transitionScene._isGoal1_1 || _transitionScene._isGoal1_2) && Input.GetKeyDown("joystick button 3"))
-        {
-            _isGoal = true;
-        }
+        
 
     }
 

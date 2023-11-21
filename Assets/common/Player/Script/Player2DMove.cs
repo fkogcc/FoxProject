@@ -228,6 +228,11 @@ public class Player2DMove : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         _warpPosition = other.transform.position;
+
+        if(other.gameObject.tag == "BossEat")
+        {
+            gameObject.SetActive(false);
+        }
     }
 
     private void OnTriggerExit(Collider other)

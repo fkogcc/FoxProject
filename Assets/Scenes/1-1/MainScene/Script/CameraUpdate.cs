@@ -108,7 +108,7 @@ public class CameraUpdate : MonoBehaviour
     // ギミックの作動中のときのカメラの挙動.
     private void OperationGimmickCamera(int num)
     {
-        transform.position = Vector3.SmoothDamp(transform.position, _operationGimmickCameraPosition[num].transform.position, ref _velocity, _time);
+        transform.position = Vector3.SmoothDamp(transform.position, _operationGimmickCameraPosition[num].transform.position, ref _velocity, _time + 0.4f);
     }
 
     /// <summary>
