@@ -7,16 +7,19 @@ public class Player3DMove : MonoBehaviour
 {
     // カメラ.
     private GameObject _camera;
-
+    // ゲートにあったっているかのフラグ.
     private GateFlag _transitionScene;
-
+    // 3Dプレイヤーのアニメーション.
     private PlayerAnim3D _anim3D;
     private Animator _animator;
     private Rigidbody _rigidbody;
-
+    // transformをキャッシュ.
     private Transform _transform;
-
+    // 当たり判定.
     private BoxCollider _collider;
+
+    // 体力.
+    public int _hp = 5;
 
     // 着地しているかどうか.
     public bool _isGround;
@@ -31,10 +34,10 @@ public class Player3DMove : MonoBehaviour
     private Vector3 _moveDirection = Vector3.zero;
     Vector3 vector = Vector3.zero;
 
-    private Ray ray; // 飛ばすレイ
-    private float distance = 0.5f; // レイを飛ばす距離
-    private RaycastHit hit; // レイが何かに当たった時の情報
-    private Vector3 rayPosition; // レイを発射する位置
+    private Ray ray; // 飛ばすレイ.
+    private float distance = 0.5f; // レイを飛ばす距離.
+    private RaycastHit hit; // レイが何かに当たった時の情報.
+    private Vector3 rayPosition; // レイを発射する位置.
 
     // 操作可能かどうか.
     public bool _isController = true;
@@ -56,7 +59,7 @@ public class Player3DMove : MonoBehaviour
 
     [SerializeField] private float _distanceGround;
 
-    [SerializeField] private float _testmove;
+    [SerializeField] private ParticleSystem _particleSystem;
     
     float currentGravity = -0.1f;
     void Start()
@@ -77,12 +80,20 @@ public class Player3DMove : MonoBehaviour
     {
         //print(_isGround);
 
+        //Debug.Log(_hp);
+
         if(Input.GetKeyDown("joystick button 3"))
         {
             // ゲートの前にいないときはスキップ.
             if (!_transitionScene.SetGateFlag()) return;
 
             _isController = false;
+        }
+
+        if(_anim3D.GameOver())
+        {
+            _isController = false;
+            _animator.SetBool("isDead", _anim3D.GameOver());
         }
 
         if (!_isController) return;
@@ -93,20 +104,31 @@ public class Player3DMove : MonoBehaviour
         }
         Anim();
         FallDebug();
+
+        // 土煙のエフェクトを着地している間に再生.
+        if(IsGroundShpere())
+        {
+            _particleSystem.Play();
+        }
+        else
+        {
+            _particleSystem.Stop();
+        }
     }
 
     private void FixedUpdate()
     {
         _SphereCastCenterPosition = 
-            new Vector3(transform.position.x, 
-            transform.position.y + _SphereCastRegulationY, 
-            transform.position.z);
+            new Vector3(_transform.position.x,
+            _transform.position.y + _SphereCastRegulationY,
+            _transform.position.z);
 
         _isGround = IsGroundShpere();
 
         if(_rigidbody.velocity.y <= -20.0f && IsGroundShpere())
         {
             Debug.Log("通った");
+            _hp -= 1;
         }
 
         //Debug.Log(IsGroundShpere());
@@ -136,9 +158,9 @@ public class Player3DMove : MonoBehaviour
     // 落下時の復帰判定
     private void FallDebug()
     {
-        if (this.transform.position.y <= -5.0f)
+        if (_transform.position.y <= -5.0f)
         {
-            this.transform.position = new Vector3(0.0f, 1.0f, 0.0f);
+            _transform.position = new Vector3(0.0f, 1.0f, 0.0f);
         }
     }
 
@@ -169,7 +191,7 @@ public class Player3DMove : MonoBehaviour
         }
 
         // プレイヤーの回転.
-        transform.forward = Vector3.Slerp(transform.forward, _moveDirection, Time.deltaTime * 10.0f);
+        _transform.forward = Vector3.Slerp(_transform.forward, _moveDirection, Time.deltaTime * 10.0f);
 
         // カメラの角度によって正面方向を変える.
         _moveDirection = _speed * (cameraRight.normalized * horizontal + cameraForward.normalized * vertical);

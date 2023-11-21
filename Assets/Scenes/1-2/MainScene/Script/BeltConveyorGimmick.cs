@@ -8,22 +8,34 @@ public class BeltConveyorGimmick : MonoBehaviour
 {
     private SolveGimmickManager _manager;
 
-    // マテリアルの保持
-    private Material _material;
-    // シェーダー
-    private Shader _shader;
+    // アニメーション.
+    private Animator _animator;
+    // アニメーション再生速度
+    private float _animSpeed = 0;
+    [Header("アニメーションの再生速度の加速")]
+    public float _animSpeedAddForce = 0;
+    // アニメーション最大再生速度
+    private float _animMaxSpeed = 1;
 
-    // ベルトコンベアが物体を動かす向き
+    // マテリアルの取得.
+    public Material _material;
+    // テクスチャのスピード
+    public Vector2 _textureSpeed = Vector2.zero;
+    // テクスチャのx方向のスピード
+    private float _textureSpeedX = 0;
+    // テクスチャのx方向の加速
+    public float _textureSpeedXAddForce = 0;
+
+    // ベルトコンベアが物体を動かす向き.
     [SerializeField] private Vector3 _moveDirection = Vector3.forward;
-    // ベルトコンベアの速度
+    // ベルトコンベアの速度.
     [SerializeField] private float _ConveyorSpeed;
-    // コンベアに載っている物体の加速度
+    // コンベアに載っている物体の加速度.
     [SerializeField] private float _forcePower;
 
-    // ベルトコンベアの現在の速度
-    [SerializeField] private float _CurrentSpeed { get { return _currentSpeed; } }
-
+    // ベルトコンベアの現在の速度.
     private float _currentSpeed = 0;
+
     private List<Rigidbody> _rigidbodies = new List<Rigidbody>();
 
     // 作動時間.
@@ -32,28 +44,61 @@ public class BeltConveyorGimmick : MonoBehaviour
     void Start()
     {
         _manager = GameObject.FindWithTag("GimmickManager").GetComponent<SolveGimmickManager>();
+
         // 方向を正規化する.
         _moveDirection = _moveDirection.normalized;
 
-        _material = GameObject.Find("BeltMesh").GetComponent<Material>();
-        _shader = GameObject.Find("BeltMesh").GetComponent<Shader>();
+        _animator = GetComponent<Animator>();
     }
 
     private void FixedUpdate()
     {
+        _material.SetTextureScale("_MainTex", _textureSpeed);
+        _animator.SetFloat("AnimSpeed", _animSpeed);
+
+        _textureSpeed = new Vector2(_textureSpeedX, 0.0f);
+
+        //Debug.Log(_textureSpeed.x);
+
         if (_manager._solve[1])
         {
             UpdateBeltConveyor();
             _operatingTime++;
+            _animSpeed += _animSpeedAddForce;
+            //_textureSpeed = new Vector2(5.0f, 0.0f);
+
+            _textureSpeedX += _textureSpeedXAddForce;
+
+            if (_animSpeed >= _animMaxSpeed)
+            {
+                _animSpeed = _animMaxSpeed;
+            }
+            if(_textureSpeedX >= 5)
+            {
+                _textureSpeedX = 5;
+            }
+        }
+        else
+        {
+            //_textureSpeed = new Vector2(0.0f, 0.0f);
+            _textureSpeedX -= _textureSpeedXAddForce;
+            _animSpeed -= _animSpeedAddForce;
+            if(_animSpeed <= 0)
+            {
+                _animSpeed = 0;
+            }
+
+            if(_textureSpeedX <= 0)
+            {
+                _textureSpeedX = 0;
+            }
         }
 
-        if(_operatingTime >= 90)
+        if(_operatingTime >= 180)
         {
             _manager._solve[1] = false;
             _operatingTime = 0;
         }
-
-        //_shader.
     }
 
     private void OnCollisionEnter(Collision collision)

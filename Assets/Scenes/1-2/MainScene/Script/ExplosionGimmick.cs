@@ -1,4 +1,6 @@
-﻿using System.Collections;
+﻿// 爆発ギミックの処理
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,8 +8,15 @@ public class ExplosionGimmick : MonoBehaviour
 {
     private SolveGimmickManager _manager;
 
+    [Header("着火のパーティクルオブジェクト")]
+    [SerializeField] ParticleSystem _ignitionParticle;
     [Header("火花のパーティクルオブジェクト")]
-    [SerializeField] ParticleSystem _particleSystem;
+    [SerializeField] ParticleSystem _sparkParticle;
+    [Header("爆風のパーティクルオブジェクト")]
+    [SerializeField] ParticleSystem _blastParticle;
+
+    [Header("銅線オブジェクト")]
+    [SerializeField] GameObject _CopperWireObject;
 
     [Header("爆発オブジェクト")]
     [SerializeField] GameObject _bombObject;
@@ -24,6 +33,9 @@ public class ExplosionGimmick : MonoBehaviour
     [Header("パーティクルの最大再生時間")]
     [SerializeField] private float _particleMaxCount;
 
+    [Header("爆発するまでの時間")]
+    [SerializeField] private int _blastTime;
+
     // パーティクル再生時間
     private float _particleCount;
 
@@ -32,26 +44,66 @@ public class ExplosionGimmick : MonoBehaviour
 
     // 作動時間.
     private int _operatingTime = 0;
+    // 作動終了時間
+    private int _operatingFinish = 240;
+
+    // ボムの存在の有無
+    private bool _isBombExist = true;
+
+    Vector3 velocity = Vector3.zero;
+
 
     private void Start()
     {
         _manager = GameObject.FindWithTag("GimmickManager").GetComponent<SolveGimmickManager>();
         //_particleSystem.Stop();
+        _ignitionParticle.Stop();
+        _sparkParticle.Stop();
+        _blastParticle.Stop();
     }
 
     private void FixedUpdate()
     {
         if (_manager._solve[2])
         {
-            UpdateExplosion();
+            IgnitionUpdate();
+
+            
+
             _operatingTime++;
+            //_sparkParticle.Play();
+            _blastParticle.Play();
+            if(_operatingTime == 1)
+            {
+                _ignitionParticle.Play();
+            }
         }
 
-        if(_operatingTime >= 90)
+        if(_operatingTime > _blastTime)
+        {
+            UpdateExplosion();
+        }
+
+        if(_operatingTime > 70)
+        {
+            _sparkParticle.Play();
+            _CopperWireObject.transform.position += new Vector3(0.0f, -0.01f, 0.0f);
+            _sparkParticle.transform.position += new Vector3(0.0f, -0.01f, 0.0f);
+        }
+
+        if(_operatingTime >= _operatingFinish)
         {
             _manager._solve[2] = false;
             _operatingTime = 0;
         }
+    }
+
+    /// <summary>
+    /// 着火パーティクルの処理
+    /// </summary>
+    private void IgnitionUpdate()
+    {
+        _ignitionParticle.transform.position = Vector3.SmoothDamp(_ignitionParticle.transform.position, _sparkParticle.transform.position, ref velocity, 0.5f);
     }
 
 
@@ -61,9 +113,14 @@ public class ExplosionGimmick : MonoBehaviour
     public void UpdateExplosion()
     {
         // パーティクル再生.
-        _particleSystem.Play();
-        // パーティクル座標を代入.
-        _ExplosionPosition = _particleSystem.transform.position;
+        //_sparkParticle.Play();
+        if(_isBombExist)
+        {
+            Instantiate(_blastParticle, _bombObject.transform.position, Quaternion.identity);
+        }
+
+        // ボム座標を代入.
+        _ExplosionPosition = _bombObject.transform.position;
 
         // 範囲内のRigidbodyにAddExplosionForce.
         // 後でコメント変更.
@@ -80,17 +137,21 @@ public class ExplosionGimmick : MonoBehaviour
         }
 
         // 再生している時間.
-        if(_particleCount < _particleMaxCount)
-        {
-            _particleCount++;
-        }
-        // 時間がたつとパーティクル再生終了.
-        if(_particleCount == _particleMaxCount )
-        {
-            // パーティクル再生終了.
-            _particleSystem.Stop();
-        }
+        //if(_particleCount < _particleMaxCount)
+        //{
+        //    _particleCount++;
+        //}
+        //// 時間がたつとパーティクル再生終了.
+        //if(_particleCount == _particleMaxCount )
+        //{
+        //    // パーティクル再生終了.
+        //    _sparkParticle.Stop();
+        //}
 
-        _bombObject.SetActive(false);
+        _isBombExist = false;
+
+
+        _bombObject.SetActive(_isBombExist);
+        //Destroy(gameObject);
     }
 }

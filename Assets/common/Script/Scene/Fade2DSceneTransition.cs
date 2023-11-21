@@ -3,6 +3,7 @@
 
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class Fade2DSceneTransition : MonoBehaviour
 {
@@ -19,6 +20,11 @@ public class Fade2DSceneTransition : MonoBehaviour
     public Color _color;
     // ゲートのボタンを押したかどうか.
     private bool _isPush;
+
+    // 次のシーンへ行く時のカウント
+    private int _nextSceneCount = 0;
+    // カウント開始しているかどうか
+    private bool _isCount = false;
 
     // Start is called before the first frame update
     void Start()
@@ -45,6 +51,11 @@ public class Fade2DSceneTransition : MonoBehaviour
         // シーン遷移関数.
         SceneTransition();
         //Debug.Log($"{name}");
+
+        if ((_transitionScene._isGoal1_1 || _transitionScene._isGoal1_2) && Input.GetKeyDown("joystick button 3"))
+        {
+            _isGoal = true;
+        }
     }
 
     // フェード処理.
@@ -65,12 +76,12 @@ public class Fade2DSceneTransition : MonoBehaviour
         // フェードイン.
         if (!_isPush)
         {
-            _color.a -= 0.001f;
+            _color.a -= 0.01f;
             gameObject.GetComponent<Image>().color = _color;
         }
         else// フェードアウト.
         {
-            _color.a += 0.001f;
+            _color.a += 0.005f;
             gameObject.GetComponent<Image>().color = _color;
         }
     }
@@ -83,11 +94,33 @@ public class Fade2DSceneTransition : MonoBehaviour
         {
             // ゲートの前にいないときはスキップ.
             if (!_transitionScene.SetGateFlag()) return;
+
+            // デバッグ用スキップ.
+            if (_transitionScene._isGoal1_2)
+            {
+                _nextSceneCount = 120;
+                _isCount = true;
+            }
+            
+        }
+
+        if(_isCount)
+        {
+            _nextSceneCount--;
+        }
+
+        if (_nextSceneCount <= 0 && _isCount)
+        {
             _isPush = true;
         }
 
         // 共通フラグ
         bool transitionFlagCommon = _color.a >= 0.9f && !_player.GetIsMoveActive();
+
+        if(!_transitionScene._isGoal1_1  && !_transitionScene._isGoal1_2 && transitionFlagCommon)
+        {
+            SceneManager.sceneLoaded += GameSceneLoaded;
+        }
 
         // シーン遷移.
         if (_transitionScene._isGateGimmick1_1 && transitionFlagCommon)
@@ -159,10 +192,20 @@ public class Fade2DSceneTransition : MonoBehaviour
             _sceneTransitionManager.EndScene();
         }
 
-        if ((_transitionScene._isGoal1_1 || _transitionScene._isGoal1_2) && Input.GetKeyDown("joystick button 3"))
-        {
-            _isGoal = true;
-        }
+        
 
+    }
+
+    // シーン切り替え時に呼ぶ.
+    private void GameSceneLoaded(Scene next, LoadSceneMode mode)
+    {
+        // 切り替え先のスクリプト取得
+        Player3DMove player3D = GameObject.FindWithTag("Player").GetComponent<Player3DMove>();
+
+        // hpの引継ぎ.
+        player3D._hp = _player.GetHp();
+
+        // 削除
+        SceneManager.sceneLoaded -= GameSceneLoaded;
     }
 }

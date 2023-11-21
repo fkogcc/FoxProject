@@ -28,7 +28,7 @@ public class Player2DMove : MonoBehaviour
     private Vector3 _warpPosition;
 
     // プレイヤーの体力.
-    private int _hp = 5;
+    public int _hp = 3;
     // ジャンプ力.
     private float _jumpPower = 30.0f;
     // ジャンプしているかどうか.
@@ -47,6 +47,9 @@ public class Player2DMove : MonoBehaviour
     // イベントが発生する座標
     [SerializeField] private float _eventPos;
 
+    // 回転速度
+    
+
     void Start()
     {
         // 初期化処理.
@@ -61,7 +64,7 @@ public class Player2DMove : MonoBehaviour
         _gimmickManager = GameObject.FindWithTag("GimmickManager").GetComponent<SolveGimmickManager>();
 
 
-        _hp = 5;
+        //_hp = 5;
         _isDirection = false;
     }
     
@@ -102,11 +105,7 @@ public class Player2DMove : MonoBehaviour
         // ワープするときの演出.
         if(!_isMoveActive && !_flag._isGoal && transform.position.x <= _eventPos)
         {
-            Debug.Log("通る");
-
-            //_rigid.constraints = RigidbodyConstraints.None;
-
-            transform.position = new Vector3(_warpPosition.x, _warpPosition.y, transform.position.z);
+            transform.position = new Vector3(_warpPosition.x + 0.0f, _warpPosition.y, transform.position.z);
 
             Vector3 warpPos = new Vector3(_warpPosition.x, _warpPosition.y, 0.0f);
             Vector3 velocity = Vector3.zero;
@@ -115,7 +114,7 @@ public class Player2DMove : MonoBehaviour
 
             transform.position = Vector3.SmoothDamp(transform.position, _warpPosition, ref velocity, 0.1f);
 
-            transform.localScale -= new Vector3(0.001f, 0.001f, 0.001f);
+            transform.localScale -= new Vector3(0.01f, 0.01f, 0.01f);
 
             if (transform.localScale.x < 0.05f && transform.localScale.y < 0.05f && transform.localScale.z < 0.05f)
             {
@@ -124,11 +123,11 @@ public class Player2DMove : MonoBehaviour
 
             //transform.rotation = Quaternion.Euler(0.0f,0.0f,1.0f);
 
-            transform.Rotate(0, 0, 1);
+            //transform.Rotate(0, 0, 10);
 
-            Debug.Log(_warpPosition);
+            transform.RotateAround(_warpPosition, -Vector3.forward, 500 * Time.deltaTime);
+            //transform.Translate(0.01f, 0, 0);
         }
-        
     }
 
     private void FixedUpdate()
@@ -229,6 +228,11 @@ public class Player2DMove : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         _warpPosition = other.transform.position;
+
+        if(other.gameObject.tag == "BossEat")
+        {
+            gameObject.SetActive(false);
+        }
     }
 
     private void OnTriggerExit(Collider other)

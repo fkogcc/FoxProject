@@ -1,13 +1,13 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1102 &-6889522175371059475
+--- !u!1102 &-3373195949219246623
 AnimatorState:
   serializedVersion: 6
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: GearRotate
+  m_Name: Eat
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions: []
@@ -20,13 +20,13 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 1827226128182048838, guid: 8f3f7a8688f0f1445a4fabefaf56293a, type: 3}
+  m_Motion: {fileID: 1827226128182048838, guid: 8cd3298430dd57a47bf606367c010b8e, type: 3}
   m_Tag: 
-  m_SpeedParameter: AnimSpeed
+  m_SpeedParameter: Eat
   m_MirrorParameter: 
   m_CycleOffsetParameter: 
   m_TimeParameter: 
---- !u!1107 &-3264431625229702317
+--- !u!1107 &-2146122142578380363
 AnimatorStateMachine:
   serializedVersion: 6
   m_ObjectHideFlags: 1
@@ -36,8 +36,8 @@ AnimatorStateMachine:
   m_Name: Base Layer
   m_ChildStates:
   - serializedVersion: 1
-    m_State: {fileID: -6889522175371059475}
-    m_Position: {x: 30, y: 240, z: 0}
+    m_State: {fileID: -3373195949219246623}
+    m_Position: {x: 202.97662, y: 251.78928, z: 0}
   m_ChildStateMachines: []
   m_AnyStateTransitions: []
   m_EntryTransitions: []
@@ -47,17 +47,17 @@ AnimatorStateMachine:
   m_EntryPosition: {x: 50, y: 120, z: 0}
   m_ExitPosition: {x: 800, y: 120, z: 0}
   m_ParentStateMachinePosition: {x: 800, y: 20, z: 0}
-  m_DefaultState: {fileID: -6889522175371059475}
+  m_DefaultState: {fileID: -3373195949219246623}
 --- !u!91 &9100000
 AnimatorController:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: BeltConbeyor
+  m_Name: Boss
   serializedVersion: 5
   m_AnimatorParameters:
-  - m_Name: AnimSpeed
+  - m_Name: Eat
     m_Type: 1
     m_DefaultFloat: 0
     m_DefaultInt: 0
@@ -66,7 +66,7 @@ AnimatorController:
   m_AnimatorLayers:
   - serializedVersion: 5
     m_Name: Base Layer
-    m_StateMachine: {fileID: -3264431625229702317}
+    m_StateMachine: {fileID: -2146122142578380363}
     m_Mask: {fileID: 0}
     m_Motions: []
     m_Behaviours: []

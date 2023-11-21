@@ -11,12 +11,12 @@ public class WallGimmick : MonoBehaviour
     // 扉が開いた時の最終位置.
     private Vector3 _targetPosition;
     private Vector3 _velocity = Vector3.zero;
-    [Header("ドアの配置をリセットするときの座標")]
-    [SerializeField] private Vector3 _resetPosition = Vector3.zero;
-    // ターゲットにたどり着く時間.
+    // ターゲット座標にたどり着く時間.
     [SerializeField] private float _time;
     // 作動時間.
     private int _operatingTime = 0;
+    // 作動を始めるまでの時間.
+    private int _operatingStartTime = 10;
 
     private void Start()
     {
@@ -26,16 +26,21 @@ public class WallGimmick : MonoBehaviour
 
     private void FixedUpdate()
     {
+        // カウント開始
         if (_manager._solve[0])
         {
-            UpdateWall();
-
             _operatingTime++;
         }
-        if(_operatingTime == 90)
+
+        if(_operatingTime == 130)
         {
             _manager._solve[0] = false;
             _operatingTime = 0;
+        }
+
+        if(_operatingTime >= 70)
+        {
+            UpdateWall();
         }
         
     }

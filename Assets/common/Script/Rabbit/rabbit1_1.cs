@@ -18,9 +18,20 @@ public class rabbit1_1 : MonoBehaviour
 
     private Animator _animator;
 
-    private int time = 0;
+    // アニメーション時間.
+    private int _animTime = 0;
+    // アニメーション最大再生時間.
+    private int _maxAnimTime = 160;
 
+    // 現在のインターバル.
     private int _moveInterval = 0;
+    // 動けるの時間.
+    private int _moveTime = 60;
+    // 動けない時間.
+    private int _dontMoveTime = 10;
+
+    private int _moveMaxtime = 75;
+
 
     // Start is called before the first frame update
     void Start()
@@ -33,23 +44,34 @@ public class rabbit1_1 : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        
+
+        //Debug.Log(time);
+        
+    }
+
+    private void FixedUpdate()
+    {
         Anim();
 
-        if(_player.transform.position.x >= 145.0f && time <= 190)
+        //Debug.Log("_moveInterval" + _moveInterval);
+
+        // プレイヤーが近づいたらアニメーション開始
+        if (_player.transform.position.x >= 145.0f && _animTime <= _maxAnimTime)
         {
             _move._isMoveActive = false;
             _jumping = true;
-            time++;
-            
+            _animTime++;
+
         }
-        else if(time >= 190)
+        else if (_animTime >= _maxAnimTime)
         {
             _jumping = false;
         }
 
-        if(time >= 190 && !_jumping)
+        if (_animTime >= _maxAnimTime && !_jumping)
         {
-            if(transform.localEulerAngles.y >= 100)
+            if (transform.localEulerAngles.y >= 100)
             {
                 transform.Rotate(0f, -10f, 0f);
             }
@@ -59,12 +81,12 @@ public class rabbit1_1 : MonoBehaviour
 
                 _moveInterval++;
 
-                if(_moveInterval < 60 && _moveInterval > 10)
+                if (_moveInterval < _moveTime && _moveInterval > _dontMoveTime)
                 {
-                    transform.position += new Vector3(0.2f, 0.0f, 0.0f);
-                    
+                    transform.position += new Vector3(0.4f, 0.0f, 0.0f);
+
                 }
-                else if(_moveInterval > 90)
+                else if (_moveInterval > _moveMaxtime)
                 {
                     _moveInterval = 0;
                 }
@@ -72,19 +94,16 @@ public class rabbit1_1 : MonoBehaviour
             }
         }
 
-        if(transform.position.x >= 180)
+        if (transform.position.x >= 170)
         {
             _move._isMoveActive = true;
             _goal._eventFlag = true;
         }
 
-        if(transform.position.x >= 180)
+        if (transform.position.x >= 180)
         {
             Destroy(gameObject);
         }
-
-        //Debug.Log(time);
-        
     }
 
     private void Anim()
