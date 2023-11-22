@@ -31,9 +31,13 @@ public class EndManager : MonoBehaviour
 
         if (Input.GetKey(KeyCode.L))
         {
-            _rool.RoolUpdate();
-            _rool.RoolUpdate();
-            _rool.RoolUpdate();
+            for (int i = 0; i < 3; i++)
+            {
+                _rool.RoolUpdate();
+                Rabbit.GetComponent<EndRabbit>().RabbitUpdate();
+                Player.GetComponent<EndPlayer>().PlayerUpdate();
+                Boss.GetComponent<EndBoss>().BossUpdate();
+            }
         }
 
 

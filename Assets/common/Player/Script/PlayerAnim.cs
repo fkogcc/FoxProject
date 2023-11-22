@@ -14,6 +14,7 @@ public class PlayerAnim : MonoBehaviour
     public bool _jump;// 飛ぶ.
     public bool _push;// 押す.
     public bool _isDead;// やられる.
+    public bool _waveHands;// 手を振る.
 
     // Start is called before the first frame update
     void Start()
@@ -28,5 +29,6 @@ public class PlayerAnim : MonoBehaviour
         _animator.SetBool("Jump", _jump);
         _animator.SetBool("Push", _push);
         _animator.SetBool("isDead", _isDead);
+        _animator.SetBool("WaveHands", _waveHands);
     }
 }

@@ -6,18 +6,22 @@ public class TitleAnimePlayer : MonoBehaviour
 {
     // 動くフレーム
     private const int kMoveFrame = 50 * 2;
+    // 回転フレーム
+    private const int kRotFrame = 50 * 1;
     // 初めのダッシュフレーム
     private const int kRunFrame = kMoveFrame;
     // 正面向かせるフレーム
-    private const int kRotFrontFrame = kRunFrame + 50 * 1;
+    private const int kRotFrontFrame = kRunFrame + kRotFrame;
     // 座り込んでる(Deadの)フレーム
-    private const int kDeadFrame = kRotFrontFrame + 50 * 10;
+    private const int kDeadFrame = kRotFrontFrame + 50 * 5;
+    // 手を振るフレーム
+    private const int kWaveHandFrame = kDeadFrame + 50 * 3;
     // 戻る方向向くフレーム
-    private const int kRotOutRageFrame = kDeadFrame + 50 * 1;
+    private const int kRotOutRageFrame = kWaveHandFrame + kRotFrame;
     // まえに進むフレーム
     private const int kMoveFrontFrame = kRotOutRageFrame + kMoveFrame;
     // 画面内にダッシュするほうを向くフレーム
-    private const int kRotStartFrame = kMoveFrontFrame + 50 * 1;
+    private const int kRotStartFrame = kMoveFrontFrame + kRotFrame;
     // プレイヤーの待機時間
     private const int kWaitFrame = kRotStartFrame + 50 * 10;
 
@@ -39,11 +43,11 @@ public class TitleAnimePlayer : MonoBehaviour
 
         _move = new Vector3(20f / kMoveFrame, 0, 0);
 
-        float angle = -60.0f / (kRotFrontFrame - kRunFrame);
+        float angle = -60.0f / kRotFrame;
         _rotFront = Quaternion.AngleAxis(angle, new Vector3(0, 1.0f, 0)); ;
-        angle = -90.0f / (kRotOutRageFrame - kDeadFrame);
+        angle = -90.0f / kRotFrame;
         _rotOutRage = Quaternion.AngleAxis(angle, new Vector3(0, 1.0f, 0));
-        angle = 150f / (kRotStartFrame - kMoveFrontFrame);
+        angle = 150f / kRotFrame;
         _rotStart = Quaternion.AngleAxis(angle, new Vector3(0, 1.0f, 0));
 
         _lookPos = transform.position;
@@ -53,6 +57,7 @@ public class TitleAnimePlayer : MonoBehaviour
     public void PlayStart()
     {
         _anim._isDead = false;
+        _anim._waveHands = false;
         _anim._run = true;
 
         this.transform.LookAt(_lookPos);
@@ -80,10 +85,16 @@ public class TitleAnimePlayer : MonoBehaviour
         {
             _anim._isDead = true;
         }
+        // 手を振る
+        else if (_frame < kWaveHandFrame)
+        {
+            _anim._isDead = false;
+            _anim._waveHands = true;
+        }
         // 画面外に向かせる
         else if (_frame < kRotOutRageFrame)
         {
-            _anim._isDead = false;
+            _anim._waveHands = false;
             this.transform.rotation = this.transform.rotation * _rotOutRage;
         }
         // 画面外にダッシュ
