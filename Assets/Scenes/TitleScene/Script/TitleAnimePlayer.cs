@@ -37,7 +37,7 @@ public class TitleAnimePlayer : MonoBehaviour
         _frame = 0;
         _anim = GetComponent<PlayerAnim>();
 
-        _move = new Vector3(15f / kMoveFrame, 0, 0);
+        _move = new Vector3(20f / kMoveFrame, 0, 0);
 
         float angle = -60.0f / (kRotFrontFrame - kRunFrame);
         _rotFront = Quaternion.AngleAxis(angle, new Vector3(0, 1.0f, 0)); ;

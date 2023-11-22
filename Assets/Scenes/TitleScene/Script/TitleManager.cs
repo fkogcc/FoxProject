@@ -5,34 +5,48 @@ using UnityEngine.SceneManagement;
 
 public class TitleManager : MonoBehaviour
 {
-    // スタートボタン押したらシーン切り替え動くよう.
-    private bool _start;
-
     public TitleAnimDirector AnimDirector;
     public FadeScene FadeSrc;
     private TitleWindow _window;
     private TitleSelect _select;
     private TitleOption _option;
+    private MoveBackGround _bg;
 
     private void Start()
     {
-        _start = false;
-
         _window = GameObject.Find("windmill:windmill:polySurface132").GetComponent<TitleWindow>();
         _select = GameObject.Find("SeelctFrame").GetComponent<TitleSelect>();
         _option = GetComponent<TitleOption>();
+        _bg = GetComponent<MoveBackGround>();
     }
 
     private void Update()
     {
-        _select.SelectUpdate();
+        if (!GetComponent<TitleOption>().GetIsActive())
+        {
+            _select.SelectUpdate();
+        }
         _option.OptionUpdate();
+
+        if (Input.GetKeyDown("joystick button 1"))
+        {
+            if (_select.GetIndex() == 0)
+            {
+                OnStart();
+            }
+            else
+            {
+                OnOption();
+            }
+        }
     }
 
     private void FixedUpdate()
     {
         _window.WindowUpdate();
         _option.FadeUpdate();
+        _option.ChangeValue();
+        _bg.BgMove();
 
         if (FadeSrc._isFadeOut && FadeSrc.GetAlphColor() > 1.0f)
         {
@@ -43,7 +57,6 @@ public class TitleManager : MonoBehaviour
     // スタートする処理.
     public void OnStart()
     {
-        _start = true;
         AnimDirector.SetStart();
         FadeSrc._isFadeOut = true;
     }
@@ -51,7 +64,6 @@ public class TitleManager : MonoBehaviour
     // オプション開く処理.
     public void OnOption()
     {
-        Debug.Log("オプション開きます");
         _option.Indicate();
     }
 }
