@@ -32,7 +32,7 @@ public class StaffRool : MonoBehaviour
     public void RoolUpdate()
     {
         _frame++;
-        Debug.Log(_frame);
+        
         if (_frame < kRoolFrame)
         {
             _credits.GetComponent<RectTransform>().localPosition += _vec;
