@@ -6,6 +6,9 @@ using UnityEngine.SceneManagement;
 public class EndManager : MonoBehaviour
 {
     public TitleWindow Window;
+    public GameObject Rabbit;
+    public GameObject Player;
+    public GameObject Boss;
     private MoveBackGround _bg;
     private StaffRool _rool;
     private FadeScene _fade;
@@ -22,6 +25,9 @@ public class EndManager : MonoBehaviour
         Window.WindowUpdate();
         _bg.BgMove();
         _rool.RoolUpdate();
+        Rabbit.GetComponent<EndRabbit>().RabbitUpdate();
+        Player.GetComponent<EndPlayer>().PlayerUpdate();
+        Boss.GetComponent<EndBoss>().BossUpdate();
 
         if (Input.GetKey(KeyCode.L))
         {

@@ -9,10 +9,10 @@ public class TitleSelect : MonoBehaviour
 {
     // GameStartとOption
     private const int kSelectNum = 2;
-    // 上下の幅
-    private const float kRangeY = 128.0f;
-    // Mainなら追加の分
-    private const float kAddRage = 64f;
+    // 上下の幅(Main)
+    private const float kMainRangeY = -192.0f;
+    // 上下の幅(Option)
+    private const float KOptionRangeY = 160f;
 
     public bool IsMain;
 
@@ -72,18 +72,24 @@ public class TitleSelect : MonoBehaviour
     {
         if (_index == 0)
         {
-            _move.y = kRangeY;
             if (IsMain)
             {
-                _move.y += kAddRage;
+                _move.y = kMainRangeY;
+            }
+            else
+            {
+                _move.y = KOptionRangeY;
             }
         }
         else
         {
-            _move.y = -kRangeY;
             if (IsMain)
             {
-                _move.y -= kAddRage;
+                _move.y = -kMainRangeY;
+            }
+            else
+            {
+                _move.y = -KOptionRangeY;
             }
         }
 

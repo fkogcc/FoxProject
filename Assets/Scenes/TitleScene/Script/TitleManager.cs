@@ -1,11 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 public class TitleManager : MonoBehaviour
 {
     public TitleAnimDirector AnimDirector;
+    public GameObject Canvas;
     public FadeScene FadeSrc;
     private TitleWindow _window;
     private TitleSelect _select;
@@ -22,6 +24,9 @@ public class TitleManager : MonoBehaviour
 
     private void Update()
     {
+        // フェード処理に移行したら変更しない
+        if (FadeSrc._isFadeOut) return;
+        
         if (!GetComponent<TitleOption>().GetIsActive())
         {
             _select.SelectUpdate();
@@ -44,13 +49,26 @@ public class TitleManager : MonoBehaviour
     private void FixedUpdate()
     {
         _window.WindowUpdate();
-        _option.FadeUpdate();
-        _option.ChangeValue();
         _bg.BgMove();
 
-        if (FadeSrc._isFadeOut && FadeSrc.GetAlphColor() > 1.0f)
+        if (FadeSrc._isFadeIn)
         {
-            SceneManager.LoadScene("MainScene1-1");
+            Canvas.GetComponent<CanvasGroup>().alpha = 1.0f - FadeSrc.GetAlphColor();
+        }
+
+        if (FadeSrc._isFadeOut)
+        {
+            Canvas.GetComponent<CanvasGroup>().alpha = 1.0f - FadeSrc.GetAlphColor();
+
+            if (FadeSrc.GetAlphColor() > 1.0f)
+            {
+                SceneManager.LoadScene("MainScene1-1");
+            }
+        }
+        else
+        {
+            _option.FadeUpdate();
+            _option.ChangeValue();
         }
     }
 
