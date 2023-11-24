@@ -1521,7 +1521,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e914d0c9e6d847a458131a89c3b9c643, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _coraFilm: []
+  _cora:
+  - {fileID: 1462343772}
+  - {fileID: 1582607993}
+  - {fileID: 1339349367}
+  - {fileID: 250681375}
+  _coraFilm:
+  - {fileID: 1500540529}
+  - {fileID: 1585395523}
+  - {fileID: 1446441937}
+  - {fileID: 1677896813}
 --- !u!1001 &1237436437
 PrefabInstance:
   m_ObjectHideFlags: 0
