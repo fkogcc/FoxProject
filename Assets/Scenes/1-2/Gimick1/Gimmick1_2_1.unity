@@ -234,7 +234,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96e9e4f9dcc546d42b09a97e9255f929, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _tapEffect: {fileID: 7344318857011547990, guid: ea349c7917fca454c8afad9740cb8fd6, type: 3}
+  TapEffect: {fileID: 7344318857011547990, guid: ea349c7917fca454c8afad9740cb8fd6, type: 3}
   ClearText: {fileID: 4210638753670171578, guid: 7452b74f8d9e5ee4a90bab1420467870, type: 3}
   Canvas: {fileID: 1570195979}
 --- !u!224 &274762343
@@ -718,7 +718,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5084730003539476855, guid: 41316c13ae15329419fc57a282178b42, type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 5084730003539476855, guid: 41316c13ae15329419fc57a282178b42, type: 3}
       propertyPath: m_AnchorMax.x
@@ -908,7 +908,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2547387253882364434, guid: 546fe8400816cf942bbf47e67a845ed9, type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 2547387253882364434, guid: 546fe8400816cf942bbf47e67a845ed9, type: 3}
       propertyPath: m_LocalPosition.x

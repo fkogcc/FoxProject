@@ -1,8 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.Rendering;
-
+﻿using UnityEngine;
+// モニターの更新スクリプト.
 public class MonitorCollider : MonoBehaviour
 {
     // プレイヤーが範囲内にいるかどうか.
@@ -10,13 +7,12 @@ public class MonitorCollider : MonoBehaviour
     // ボタンを押されたかどうか.
     private bool _isPushButton;
     // ボタンの状態を渡すためにオブジェクトを取得.
-    private GameObject _gameObject;
+    private ObjectManagement _gameManager;
 
-    private GameObject _monitorObject;
+    private MonitorCamera _monitorObject;
     // どこのモニターを見ているかを保存する変数.
     private string _name;
 
-    // Start is called before the first frame update
     void Start()
     {
         // 初期化処理.
@@ -24,11 +20,10 @@ public class MonitorCollider : MonoBehaviour
         _isPushButton = false;
 
         // オブジェクトを取得.
-        _gameObject = GameObject.Find("GameManager");
-        _monitorObject = GameObject.Find("MonitorCamera");
+        _gameManager = GameObject.Find("GameManager").GetComponent<ObjectManagement>();
+        _monitorObject = GameObject.Find("MonitorCamera").GetComponent<MonitorCamera>();
     }
 
-    // Update is called once per frame
     void Update()
     {
         CameraFlag();
@@ -39,32 +34,31 @@ public class MonitorCollider : MonoBehaviour
         // プレイヤーが判定内にいるとき.
         if (_isPlayerCollider)
         {
-            // Aボタンを押したら
+            // Aボタンを押したら.
             if (Input.GetKeyDown("joystick button 1"))
             {
                 // ボタンのフラグをオンにする(カメラON).
                 _isPushButton = true;
                 _name = this.transform.name;
-                _gameObject.GetComponent<ObjectManagement>().PlayerHandGenerate(_name);
+                _gameManager.PlayerHandGenerate(_name);
             }
-            // Xボタンを押したら
+            // Xボタンを押したら.
             else if (Input.GetKeyDown("joystick button 0"))
             {
                 // ボタンのフラグをオフにする(カメラOFF).
                 _isPushButton = false;
                 _name = null;
-                _gameObject.GetComponent<ObjectManagement>().PlayerHandDestory();
+                _gameManager.PlayerHandDestory();
 
             }
-            _monitorObject.GetComponent<MonitorCamera>().SetCameraName(_name);
-            _gameObject.GetComponent<ObjectManagement>().SetPushFlag(_isPushButton);
+            _monitorObject.SetCameraName(_name);
+            _gameManager.SetPushFlag(_isPushButton);
         }
     }
 
     // 当たり判定の処理
     void OnTriggerEnter(Collider other)
     {
-        //Debug.Log(this.transform.name);
         if (other.tag == "Player")
         {
             // プレイヤーがコライダーに入ったとき.

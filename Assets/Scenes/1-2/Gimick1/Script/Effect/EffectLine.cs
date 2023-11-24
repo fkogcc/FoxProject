@@ -1,18 +1,23 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
+// 線のエフェクトを管理するスクリプト.
 public class EffectLine : MonoBehaviour
 {
+    // オブジェクトの取得.
     [SerializeField] private GameObject Line = default;
-
-    private GameObject[] _effectLine = new GameObject[3];
     [SerializeField] private GameObject[] _lineName;
-
+    // エフェクト.
+    private GameObject[] _effectLine = new GameObject[3];
+    // LineRendererの取得.
     private LineRenderer[] _lineRenderer = new LineRenderer[3];
-
+    // ポジションを覚えておく配列.
     private List<Vector3>_pointList = new List<Vector3>();
+    // ゲームクリアのフラグ.
     private bool _isGameClear = false;
+    // 線の最大値.
+    private int _lineMax = 5;
+    // エフェクトの初期化.
     public void LineInit()
     {
         for (int i = 0; i < _lineName.Length; i++)
@@ -24,6 +29,7 @@ public class EffectLine : MonoBehaviour
             _lineRenderer[i] = _effectLine[i].GetComponent<LineRenderer>();
         }
     }
+    // エフェクトを再生成する処理.
     private void Regeneration(string name)
     {
         for (int i = 0; i < _lineName.Length; i++)
@@ -36,6 +42,7 @@ public class EffectLine : MonoBehaviour
             _lineRenderer[i] = _effectLine[i].GetComponent<LineRenderer>();
         }
     }
+    // 線のポジションを加えていく処理.
     private void LinePosAdd(Vector3 pos,int linenum)
     {
         _pointList.Add(pos);
@@ -47,7 +54,7 @@ public class EffectLine : MonoBehaviour
             _lineRenderer[linenum].SetPosition(iCnt, _pointList[iCnt]);
         }
     }
-    // ラインエフェクトの生成
+    // ラインエフェクトの生成.
     public void LineGenerate(Vector3 pos,string name)
     {
         for (int i = 0; i < _lineName.Length; i++)
@@ -58,13 +65,14 @@ public class EffectLine : MonoBehaviour
             }
         }
     }
+    // クリアしたときに出す六番目の線の生成.
     public void LineClearGenerete(string name)
     {
         for (int i = 0; i < _lineName.Length; i++)
         {
             if (name == _lineName[i].name)
             {
-                if (_lineRenderer[i].positionCount <= 5)
+                if (_lineRenderer[i].positionCount <= _lineMax)
                 {
                     LinePosAdd(_pointList[0], i);
                     _pointList.Clear();
@@ -73,6 +81,7 @@ public class EffectLine : MonoBehaviour
             }
         }
     }
+    // 線をすべて壊す.
     public void LineDestroy(string name)
     {
         for (int i = 0; i < _lineName.Length; i++)
@@ -80,21 +89,23 @@ public class EffectLine : MonoBehaviour
             if (name == _lineName[i].name)
             {
                 // 完成していたら消さない
-                if (_lineRenderer[i].positionCount <= 5)
+                if (_lineRenderer[i].positionCount <= _lineMax)
                 {
                     _pointList.Clear();
                     Destroy(_effectLine[i]);
                     Destroy(_lineRenderer[i]);
+                    // 再生成する.
                     Regeneration(name);
                 }
             }
         }
     }
+    // 記憶しているポジションをすべて消す.
     public void PosAllErase(string name)
     {
         LineDestroy(name);
     }
-    // ラインを最後まで引いたかどうか
+    // ラインを最後まで引いたかどうか.
     public void LineEndDraw()
     {
         int endCount = 0;
@@ -110,6 +121,7 @@ public class EffectLine : MonoBehaviour
             _isGameClear  = true;
         }
     }
+    // ゲームをクリアしたかのフラグ.
     public bool GetResult()
     {
         return _isGameClear;

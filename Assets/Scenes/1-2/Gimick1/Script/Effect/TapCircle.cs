@@ -1,16 +1,15 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class TapCircle : MonoBehaviour
 {
-    SpriteRenderer _spriteRenderer;
+    // SpriteRendererの取得.
+    private SpriteRenderer _spriteRenderer;
 
     private void Awake()
     {
         _spriteRenderer = this.transform.GetComponent<SpriteRenderer>();
     }
-
+    // 初期化処理.
     private void Start()
     {
         _spriteRenderer.material.SetFloat("_StartTime", Time.time);
