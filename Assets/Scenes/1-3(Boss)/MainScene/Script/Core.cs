@@ -54,7 +54,7 @@ public class Core : MonoBehaviour
 
         //Destroy(_coraFilm[coraNum]);
 
-        //_coraFilm[coraNum].gameObject.SetActive(false);
+        _coraFilm[coraNum].gameObject.SetActive(false);
 
 
         if (_cora[coraNum].transform.position.y > 0)
