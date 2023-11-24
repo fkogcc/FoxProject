@@ -67,7 +67,7 @@ public class SceneTransitionManager : MonoBehaviour
     // 1-3-1ギミックへの道
     public void GimmickRoad3_1()
     {
-        Debug.Log("通る");
+        //Debug.Log("通る");
         SceneManager.LoadScene("GimmickRoad3_1");
     }
 

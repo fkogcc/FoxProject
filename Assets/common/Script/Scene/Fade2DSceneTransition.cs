@@ -102,7 +102,6 @@ public class Fade2DSceneTransition : MonoBehaviour
                 _nextSceneCount = 120;
             }
             _isCount = true;
-            
         }
 
         if(_isCount)

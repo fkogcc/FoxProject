@@ -52,7 +52,11 @@ public class Core : MonoBehaviour
     {
         if (!_gimmickManager._solve[coraNum] ) return;
 
-        Destroy(_coraFilm[coraNum]);
+        //Destroy(_coraFilm[coraNum]);
+
+        //_coraFilm[coraNum].gameObject.SetActive(false);
+
+
         if (_cora[coraNum].transform.position.y > 0)
         {
             _cora[coraNum].transform.position += new Vector3(0.0f, -0.05f, 0.0f);
