@@ -69,7 +69,5 @@ public class OwlMove : MonoBehaviour
         {
             _rigidbody.velocity = new Vector3(0.0f, -1.0f, 0.0f);
         }
-
-        Debug.Log(_currentTime);
     }
 }

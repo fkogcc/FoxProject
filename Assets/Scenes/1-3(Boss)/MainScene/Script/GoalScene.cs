@@ -26,6 +26,7 @@ public class GoalScene : MonoBehaviour
 
     private void FixedUpdate()
     {
+        // 全てのギミックをクリアしたら. 
         if(_manager.GetAllClear())
         {
             _sceneTransition._isPush = true;
