@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class ButtonState : MonoBehaviour
 {
@@ -17,8 +15,8 @@ public class ButtonState : MonoBehaviour
     // 名前をチェックするために用意.
     private bool _isNameCheck = false;
     // ボタンの状態を渡すためにオブジェクトを取得.
-    private GameObject _playerObject;
-    // .
+    private PlayerHand _playerObject;
+    // ボタンの取得
     private GimickButton[] _button;
     // HACK ほんとにこれはテスト、あとでぜったい変えます、ほんとにまずい.
     [SerializeField] private GameObject[] _objNameTest;
@@ -43,19 +41,19 @@ public class ButtonState : MonoBehaviour
     public void GetPlayerObject(GameObject handobj)
     {
         // オブジェクトを取得.
-        _playerObject = handobj;
+        _playerObject = handobj.GetComponent<PlayerHand>();
     }
     public void ButtonAcquisition()
     {
         _isEffectResetFlag = false;
 
         // ボタンが押されたかどうかを取得する.
-        _isButtonState = _playerObject.GetComponent<PlayerHand>().IsGetButtonState();
+        _isButtonState = _playerObject.IsGetButtonState();
         // ボタンが押されていたら.
         if (_isButtonState)
         {
             // ボタンの名前を取得する.
-            _buttonName = _playerObject.GetComponent<PlayerHand>().IsGetButtonName();
+            _buttonName = _playerObject.IsGetButtonName();
             // _numが0だったら.
             // (for文だと0のままだと回らないために0番目のみ処理).
             if (_num == 0)
@@ -116,7 +114,6 @@ public class ButtonState : MonoBehaviour
                 }
             }
         }
-        //ObjGetInit();
     }
     public void ButtnReset()
     {

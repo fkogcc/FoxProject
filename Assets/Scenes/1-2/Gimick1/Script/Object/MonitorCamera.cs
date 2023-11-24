@@ -1,57 +1,44 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using Cinemachine;
 using System;
 
-// HACK カメラの管理のスクリプトいろいろなおす
 // オブジェクトの生成スクリプト
 public class MonitorCamera : MonoBehaviour
 {
-    //// Hack 毎回新しいのを作る
-    //[SerializeField] private GameObject PlayerHand = default;
-    //private GameObject _handObject;
-
-
-    // 追従対象情報
+    // 追従対象情報.
     [Serializable]
     public struct TargetInfo
     {
-        // 追従対象
+        // 追従対象.
         public Transform follow;
-        // 照準を合わせる対象
+        // 照準を合わせる対象.
         public Transform lookAt;
-        // カメラの角度
+        // カメラの角度.
         public float rota;
-        // Test
+        // プレイヤーの手も取得する.
         public Transform hand;
     }
-
+    // カメラ関係.
     private CinemachineVirtualCamera _vCamera;
-    //private CinemachinePOV _cameraPov;
-
-    // 追従対象リスト
+    private CinemachineComponentBase _vBase;
+    private CinemachinePOV _vPOV;
+    // 追従対象リスト.
     [SerializeField] private TargetInfo[] _targetList;
-
-    private int _count = 0;
+    // カメラの名前.
     private string _cameraName;
-    // Start is called before the first frame update
+    // 初期化処理.
     void Start()
     {
         _vCamera = this.GetComponent<CinemachineVirtualCamera>();
-        //_cameraPov = this.GetComponent<CinemachinePOV>();
-        var info = _targetList[_count];
+        _vBase = _vCamera.GetCinemachineComponent(CinemachineCore.Stage.Aim);
+        _vPOV = _vBase.GetComponent<CinemachinePOV>();
+        var info = _targetList[0];
         _vCamera.Follow = info.follow;
         _vCamera.LookAt = info.lookAt;
 
         _cameraName = null;
-        //_vCamera.transform.rotation = info.rota;
-
-        //_handObject = Instantiate(PlayerHand,
-        //    this.transform.position,
-        //    Quaternion.identity) as GameObject;
     }
-
+    // カメラの更新処理.
     public void CameraUpdate()
     {
         for (int count = 0; count < _targetList.Length; count++)
@@ -61,16 +48,16 @@ public class MonitorCamera : MonoBehaviour
                 var info = _targetList[count];
                 _vCamera.Follow = info.follow;
                 _vCamera.LookAt = info.lookAt;
-                _vCamera.GetCinemachineComponent(CinemachineCore.Stage.Aim).GetComponent<CinemachinePOV>().m_HorizontalAxis.Value = info.rota;
+                _vPOV.m_HorizontalAxis.Value = info.rota;
             }
         }
     }
-
+    // カメラの名前をもらってくる.
     public void SetCameraName(string name)
     {
         _cameraName = name;
     }
-
+    // カメラの名前を返す.
     public string GetCameraName()
     {
         return _cameraName;
