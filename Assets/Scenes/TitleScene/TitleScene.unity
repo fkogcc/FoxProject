@@ -2296,6 +2296,7 @@ MonoBehaviour:
   AnimDirector: {fileID: 2075021728}
   Canvas: {fileID: 94246379}
   FadeSrc: {fileID: 989031670}
+  _sndManager: {fileID: 1805925647}
 --- !u!114 &1136660970
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3228,6 +3229,17 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1604503525}
   m_CullTransparentMesh: 1
+--- !u!114 &1805925647 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6916387122602811121, guid: 976dfdaafcbf24c4e8892b7b35b08a4f, type: 3}
+  m_PrefabInstance: {fileID: 1935724681}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 786a0f39b3412c648ae57e95e79d247b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!82 &1881130016 stripped
 AudioSource:
   m_CorrespondingSourceObject: {fileID: 6655909493599414899, guid: de32d17c4635f994d89dd158e4799214, type: 3}
@@ -3369,12 +3381,40 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1136428851}
     - target: {fileID: 6916387122602811121, guid: 976dfdaafcbf24c4e8892b7b35b08a4f, type: 3}
+      propertyPath: _bgmData.Array.size
+      value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: 6916387122602811121, guid: 976dfdaafcbf24c4e8892b7b35b08a4f, type: 3}
       propertyPath: _playSeTest.Array.size
       value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 6916387122602811121, guid: 976dfdaafcbf24c4e8892b7b35b08a4f, type: 3}
       propertyPath: _playBgmTest.Array.size
-      value: 11
+      value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: 6916387122602811121, guid: 976dfdaafcbf24c4e8892b7b35b08a4f, type: 3}
+      propertyPath: _bgmData.Array.data[11].name
+      value: TitleScene_BGM
+      objectReference: {fileID: 0}
+    - target: {fileID: 6916387122602811121, guid: 976dfdaafcbf24c4e8892b7b35b08a4f, type: 3}
+      propertyPath: _bgmData.Array.data[12].name
+      value: EndScene_BGM
+      objectReference: {fileID: 0}
+    - target: {fileID: 6916387122602811121, guid: 976dfdaafcbf24c4e8892b7b35b08a4f, type: 3}
+      propertyPath: _bgmData.Array.data[11].sound
+      value: 
+      objectReference: {fileID: 8300000, guid: 9f407be1fc525ca4ea1e83c9c401abf6, type: 3}
+    - target: {fileID: 6916387122602811121, guid: 976dfdaafcbf24c4e8892b7b35b08a4f, type: 3}
+      propertyPath: _bgmData.Array.data[12].sound
+      value: 
+      objectReference: {fileID: 8300000, guid: d4fea914adf0c9b4db3a1725f8576ca2, type: 3}
+    - target: {fileID: 6916387122602811121, guid: 976dfdaafcbf24c4e8892b7b35b08a4f, type: 3}
+      propertyPath: _bgmData.Array.data[11].volume
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6916387122602811121, guid: 976dfdaafcbf24c4e8892b7b35b08a4f, type: 3}
+      propertyPath: _bgmData.Array.data[12].volume
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6916387122602811122, guid: 976dfdaafcbf24c4e8892b7b35b08a4f, type: 3}
       propertyPath: m_Name

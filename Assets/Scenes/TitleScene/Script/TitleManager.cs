@@ -9,6 +9,7 @@ public class TitleManager : MonoBehaviour
     public TitleAnimDirector AnimDirector;
     public GameObject Canvas;
     public FadeScene FadeSrc;
+    public SoundManager SndManager;
     private TitleWindow _window;
     private TitleSelect _select;
     private TitleOption _option;
@@ -48,6 +49,7 @@ public class TitleManager : MonoBehaviour
 
     private void FixedUpdate()
     {
+        SndManager.PlayBGM("TitleScene_BGM");
         _window.WindowUpdate();
         _bg.BgMove();
 
