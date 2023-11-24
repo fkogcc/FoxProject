@@ -8,6 +8,7 @@ public class EndPlayer : MonoBehaviour
 {
     private const int kMoveFrame = 50 * 12;
     private const int kWaitFrame = kMoveFrame * 3;
+    private const int kLastMoveFrame = kMoveFrame / 2;
     private const int kLapsNo = 2;
 
     private Vector3 _startPos;
@@ -19,6 +20,8 @@ public class EndPlayer : MonoBehaviour
     private Quaternion _rot;
     int _rotFrame;
 
+    bool _isLast;
+
 
     private void Start()
     {
@@ -28,35 +31,31 @@ public class EndPlayer : MonoBehaviour
         _lapsNum = 0;
         GetComponent<PlayerAnim>()._run = true;
 
-        float angle = -90.0f / 50.0f;
-        _rot = Quaternion.AngleAxis(angle, new Vector3(0, 1, 0));
+        _rot = Quaternion.AngleAxis(-90.0f / 50.0f, new Vector3(0, 1, 0));
         _rotFrame = 0;
+
+        _isLast = false;
     }
 
     public void PlayerUpdate()
     {
         _frame++;
 
+        if (_isLast)
+        {
+            LastUpdate();
+        }
+        else
+        {
+            NormalUpdate();
+        }
+    }
+
+    private void NormalUpdate()
+    {
         if (_frame < kMoveFrame)
         {
-            if (_lapsNum >= kLapsNo && _frame > kMoveFrame * 0.5f)
-            {
-                _frame--;
-
-                GetComponent<PlayerAnim>()._run = false;
-                GetComponent<PlayerAnim>()._waveHands = true;
-
-                if (_rotFrame < 50)
-                {
-                    _rotFrame++;
-
-                    transform.rotation = transform.rotation * _rot;
-                }
-            }
-            else
-            {
-                transform.position += _move;
-            }
+            transform.position += _move;
         }
         else if (_frame < kWaitFrame)
         {
@@ -67,6 +66,32 @@ public class EndPlayer : MonoBehaviour
             _lapsNum++;
             _frame = 0;
             transform.position = _startPos;
+
+            if (_lapsNum >= kLapsNo)
+            {
+                _isLast = true;
+
+                _rotFrame = 0;
+            }
+        }
+    }
+
+    private void LastUpdate()
+    {
+        if (_frame < kLastMoveFrame)
+        {
+            transform.position += _move;
+        }
+        else if (_rotFrame < 50)
+        {
+            _rotFrame++;
+
+            transform.rotation = transform.rotation * _rot;
+        }
+        else
+        {
+            GetComponent<PlayerAnim>()._run = false;
+            GetComponent<PlayerAnim>()._waveHands = true;
         }
     }
 }
