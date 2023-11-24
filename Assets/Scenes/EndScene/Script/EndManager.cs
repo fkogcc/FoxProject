@@ -9,6 +9,7 @@ public class EndManager : MonoBehaviour
     public GameObject Rabbit;
     public GameObject Player;
     public GameObject Boss;
+    public SoundManager SndManager;
     private MoveBackGround _bg;
     private StaffRool _rool;
     private FadeScene _fade;
@@ -22,6 +23,7 @@ public class EndManager : MonoBehaviour
 
     private void FixedUpdate()
     {
+        SndManager.PlayBGM("EndScene_BGM");
         Window.WindowUpdate();
         _bg.BgMove();
         _rool.RoolUpdate();

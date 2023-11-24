@@ -156,5 +156,11 @@ MonoBehaviour:
   - sound: {fileID: 8300000, guid: ece5a56524a8cbb4e931083dec4a61a9, type: 3}
     name: 1_3_4_BGM
     volume: 1
-  _playSeTest: 0000000000000000000000000000000000000000
-  _playBgmTest: 00000000000000000000
+  - sound: {fileID: 8300000, guid: 9f407be1fc525ca4ea1e83c9c401abf6, type: 3}
+    name: TitleScene_BGM
+    volume: 1
+  - sound: {fileID: 8300000, guid: d4fea914adf0c9b4db3a1725f8576ca2, type: 3}
+    name: EndScene_BGM
+    volume: 1
+  _playSeTest: 00000000000000000000000000000000000000000000000000
+  _playBgmTest: 00000000000000000000000000
