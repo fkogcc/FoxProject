@@ -1,4 +1,4 @@
-// 風の力処理.
+﻿// 風の力処理.
 
 using System.Collections;
 using System.Collections.Generic;
@@ -28,6 +28,8 @@ public class MoveWind : MonoBehaviour
         {
             // 相手のrigidbodyに力を加える.
             rigidbody.AddForce(_windX, _windY, _windZ, ForceMode.Force);
+
+            rigidbody.constraints = RigidbodyConstraints.None;
         }
     }
 }
