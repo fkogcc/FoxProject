@@ -12,6 +12,7 @@ public class TitleOption : MonoBehaviour
     public Slider BgmSlider;
     public Slider SeSlider;
     public TitleSelect SelectFrame;
+    public SoundManager SndManager;
 
     public GameObject BgmHandle;
     public GameObject SeHandle;
@@ -47,6 +48,8 @@ public class TitleOption : MonoBehaviour
         // Bボタン押したら終了
         if (Input.GetKeyDown("joystick button 0"))
         {
+            SndManager.PlaySE("1_3_1_OneBack");
+
             _isFadeIn = false;
             _isFadeOut = true;
         }
@@ -54,6 +57,8 @@ public class TitleOption : MonoBehaviour
         // Aボタン押したら変更開始
         if (Input.GetKeyDown("joystick button 1"))
         {
+            SndManager.PlaySE("1_3_1_Push");
+
             _index = SelectFrame.GetIndex();
 
             if (_isSelect)

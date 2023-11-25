@@ -28,14 +28,18 @@ public class TitleManager : MonoBehaviour
         // フェード処理に移行したら変更しない
         if (FadeSrc._isFadeOut) return;
         
-        if (!GetComponent<TitleOption>().GetIsActive())
+        if (GetComponent<TitleOption>().GetIsActive())
         {
-            _select.SelectUpdate();
-        }
-        _option.OptionUpdate();
+            _option.OptionUpdate();
 
+            return;
+        }
+
+        _select.SelectUpdate();
         if (Input.GetKeyDown("joystick button 1"))
         {
+            SndManager.PlaySE("1_3_1_Push");
+
             if (_select.GetIndex() == 0)
             {
                 OnStart();
