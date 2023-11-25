@@ -9,6 +9,9 @@ public class GoalScene : MonoBehaviour
     private Fade3DSceneTransition _sceneTransition;
     private Player3DMove _player;
 
+    // 次のシーンへ行くタイミング.
+    private int _nextSceneTime;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -16,6 +19,7 @@ public class GoalScene : MonoBehaviour
         _flag = GameObject.Find("3DPlayer").GetComponent<GateFlag>();
         _sceneTransition = GameObject.Find("Fade").GetComponent<Fade3DSceneTransition>();
         _player = GameObject.FindWithTag("Player").GetComponent<Player3DMove>();
+        _nextSceneTime = 0;
     }
 
     // Update is called once per frame
@@ -26,11 +30,18 @@ public class GoalScene : MonoBehaviour
 
     private void FixedUpdate()
     {
+        // 全てのギミックをクリアしたら. 
         if(_manager.GetAllClear())
         {
+            _nextSceneTime++;
             _sceneTransition._isPush = true;
-            _flag._isGoal1_3 = true;
+            //_flag._isGoal1_3 = true;
             _player._isController = false;
+
+            if(_nextSceneTime > 120)
+            {
+                _flag._isGoal1_3 = true;
+            }
         }
     }
 }

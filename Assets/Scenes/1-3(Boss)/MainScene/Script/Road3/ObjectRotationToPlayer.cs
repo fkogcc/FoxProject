@@ -25,4 +25,13 @@ public class ObjectRotationToPlayer : MonoBehaviour
             }
         }
     }
+
+    private void OnCollisionExit(Collision collision)
+    {
+        // プレイヤーだったら.
+        if (collision.gameObject.tag == "Player")
+        {
+            _player.transform.parent = null;
+        }
+    }
 }

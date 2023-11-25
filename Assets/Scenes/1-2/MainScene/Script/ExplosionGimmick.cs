@@ -133,6 +133,8 @@ public class ExplosionGimmick : MonoBehaviour
             if(rigidbody)
             {
                 rigidbody.AddExplosionForce(_force, _ExplosionPosition, _radius, _upwardsPower, ForceMode.Impulse);
+                rigidbody.constraints = RigidbodyConstraints.None;
+                rigidbody.useGravity = true;
             }
         }
 
