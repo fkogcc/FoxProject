@@ -43,6 +43,10 @@ public class PlaneManager : MonoBehaviour
     public bool _isWall;
     // 角度を代入.
     MoveAngle _moveAngle;
+    //音声マネージャ
+    public SoundManager _sound;
+    //音が鳴ったかのフラッグ
+    private bool _isPlaySound;
 
     private void Start()
     {
@@ -56,7 +60,9 @@ public class PlaneManager : MonoBehaviour
         _moveAngle.up = 0;
         _moveAngle.right = 90;
         _moveAngle.down = 180;
-        _moveAngle.left = 270;
+        _moveAngle.left = 270; 
+
+        _isPlaySound = false;
     }
 
     private void Update()
@@ -80,6 +86,8 @@ public class PlaneManager : MonoBehaviour
         {
             // ユーザーがプレイヤーを動かせなくする.
             _player.GetComponent<Player3DMove>()._isController = false;
+            //床に乗った際の音を鳴らす
+            _isPlaySound = true;
             // プレイヤーの移動パターンを見て.
             // 自動で移動を開始.
             if (_planeManager.GetComponent<PlaneBool>().GetAngle() == (int)MoveNum.up)
@@ -105,6 +113,11 @@ public class PlaneManager : MonoBehaviour
             _player.GetComponent<Player3DMove>()._isController = true;
             // 角度を初期化する.
             _planeManager.GetComponent<PlaneBool>().SetAngle((int)MoveNum.empty);
+        }
+        if(_isPlaySound)
+        {
+            _sound.PlaySE("1_2_2_Plane");
+            _isPlaySound = false;
         }
     }
     private void OnTriggerStay(Collider other)

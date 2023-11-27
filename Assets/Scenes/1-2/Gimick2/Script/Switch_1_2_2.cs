@@ -25,6 +25,9 @@ public class Switch_1_2_2 : MonoBehaviour
     // メーターの速度.
     public float _meterSpeed;
 
+    //効果音
+    public SoundManager _sound;
+
     // ギミックをクリアしたかどうか.
     private bool _isResult = false;
 
@@ -40,6 +43,8 @@ public class Switch_1_2_2 : MonoBehaviour
         if (Input.GetKeyDown("joystick button 1") && _isHit)
         {
             _isLabor = true;
+            //効果音を鳴らす
+            _sound.PlaySE("1_2_2_Lever")
         }
     }
 
