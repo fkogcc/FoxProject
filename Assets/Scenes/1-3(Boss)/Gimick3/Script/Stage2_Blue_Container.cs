@@ -4,12 +4,22 @@ using UnityEngine;
 
 public class Stage2_Blue_Container : MonoBehaviour
 {
+    [SerializeField] private ParticleSystem _particleRed;
+    [SerializeField] private ParticleSystem _particleGreen;
+    [SerializeField] private ParticleSystem _particlePurple;
     void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.name == "stage2_kontena_blue")
         {
             ContainerDirector._count++;
-            Debug.Log("クリア5");
+            EffectPlay();
         }
+    }
+
+    private void EffectPlay()
+    {
+        _particleRed.Play();
+        _particleGreen.Play();
+        _particlePurple.Play();
     }
 }

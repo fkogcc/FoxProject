@@ -4,13 +4,23 @@ using UnityEngine;
 
 public class Stage2_Green_Container : MonoBehaviour
 {
+    [SerializeField] private ParticleSystem _particleRed;
+    [SerializeField] private ParticleSystem _particleGreen;
+    [SerializeField] private ParticleSystem _particlePurple;
     // Start is called before the first frame update
     void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.name == "stage2_kontena_green")
         {
             ContainerDirector._count++;
-            Debug.Log("クリア6");
+            EffectPlay();
         }
+    }
+
+    private void EffectPlay()
+    {
+        _particleRed.Play();
+        _particleGreen.Play();
+        _particlePurple.Play();
     }
 }
