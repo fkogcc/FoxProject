@@ -44,7 +44,7 @@ public class Switch_1_2_2 : MonoBehaviour
         {
             _isLabor = true;
             //効果音を鳴らす
-            _sound.PlaySE("1_2_2_Lever")
+            _sound.PlaySE("1_2_2_Lever");
         }
     }
 
