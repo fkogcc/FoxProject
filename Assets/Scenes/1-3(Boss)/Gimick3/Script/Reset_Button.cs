@@ -45,6 +45,6 @@ public class Reset_Button : MonoBehaviour
 
     private void Move()
     {
-        this.gameObject.transform.position += ;
+        //this.gameObject.transform.position += ;
     }
 }
