@@ -30,7 +30,7 @@ public class Reset_Button : MonoBehaviour
         //このオブジェクトがプレイヤーに触れているとき.
         if (collision.gameObject.name == "3DPlayer")
         {
-            //Aボタンを押したら
+            //Aボタンを押したら.
             if (Input.GetKeyDown("joystick button 2"))
             {
                 //それぞれのオブジェクトを初期位置へ移動.

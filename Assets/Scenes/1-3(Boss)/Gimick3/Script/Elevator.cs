@@ -9,7 +9,7 @@ public class Elevator : MonoBehaviour
     // どの高さまで上がる処理をするか.
     private const float kUpHeight = 13.0f;
     // どの高さまで下がる処理をするか.
-    private const float kDownHeight = 13.0f;
+    private const float kDownHeight = 2.40f;
 
     // 上がるときにプレイヤーも一緒に上げるよう.
     private GameObject _player;

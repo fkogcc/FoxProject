@@ -8,6 +8,7 @@ public class CameraChange : MonoBehaviour
     // ボタンを押したかの状態.
     private bool _isPushFlag;
     public CinemachineVirtualCamera _monitorCameraObject;
+    public CinemachineVirtualCamera _stage2CameraObject;
 
 
     // Start is called before the first frame update
@@ -26,6 +27,7 @@ public class CameraChange : MonoBehaviour
         }
         else
         {            
+            if ()
             // カメラを動かす.
             _monitorCameraObject.Priority = 15;
         }

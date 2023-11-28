@@ -81672,17 +81672,6 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
     vectorLabel1_3: W
---- !u!114 &1404153590 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 696570846842317325, guid: ae51a9c9d59f03d48abcef2fa943b945, type: 3}
-  m_PrefabInstance: {fileID: 219352137}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 45e653bab7fb20e499bda25e1b646fea, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1405339382 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5242644381045314590, guid: 2310f9e0c599cd7438412c0316bf05b8, type: 3}
@@ -122171,7 +122160,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2129783716}
-  - component: {fileID: 2129783715}
   - component: {fileID: 2129783717}
   m_Layer: 0
   m_Name: GameManager
@@ -122180,18 +122168,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &2129783715
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2129783714}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fbc4f635f5d74394e9f14fbdbf813042, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &2129783716
 Transform:
   m_ObjectHideFlags: 0
@@ -122219,7 +122195,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f6f323e699bf19247935c4a5dcb2ef3e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _monitorCameraObject: {fileID: 1404153590}
+  _monitorCameraObject: {fileID: 0}
+  _stage2CameraObject: {fileID: 0}
 --- !u!4 &2133811240 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5646336740854910331, guid: 87135a7b29ed43d409d00c63e3ae00d0, type: 3}
