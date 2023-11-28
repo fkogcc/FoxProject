@@ -1,10 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Unity.PlasticSCM.Editor.WebApi;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class BoxDirector : MonoBehaviour
 {
+    public SoundManager SndManager;
+
     // ギミックの最大数.
     public int GimmickNum = 0;
 
@@ -42,11 +46,7 @@ public class BoxDirector : MonoBehaviour
     {
         _nowObj = new GameObject();
 
-        // Mainに戻らない場合フェードのを取りに行く
-        if (IsNext)
-        {
-            _fade = GameObject.Find("Fade").GetComponent<FadeScene>();
-        }
+        _fade = GameObject.Find("Fade").GetComponent<FadeScene>();
 
         _clearCount = 0;
         _isSetFlag = false;
@@ -72,9 +72,12 @@ public class BoxDirector : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (IsNext)
+        SndManager.PlayBGM("1_2_3_BGM");
+        if (_isAllClear && _fade.GetAlphColor() >= 0.85f)
         {
-            if (_isAllClear && _fade.GetAlphColor() >= 1.0f)
+            SndManager.StopBgm();
+
+            if (IsNext)
             {
                 SceneManager.LoadScene("Gimmick1_2_3_2");
             }

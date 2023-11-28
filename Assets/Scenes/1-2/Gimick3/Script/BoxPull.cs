@@ -202,8 +202,6 @@ public class BoxPull : MonoBehaviour
 
     void FixedUpdate()
     {
-        Sound.PlayBGM("1_2_3_BGM");
-
         // ギミックをクリアしていたら処理をしない.
         if (_isClear) return;
 

@@ -50,6 +50,7 @@ public class EndManager : MonoBehaviour
 
         if (_rool.GetIsEnd() && _fade.GetAlphColor() >= 0.98f)
         {
+            SndManager.StopBgm();
             SceneManager.LoadScene("TitleScene");
         }
     }

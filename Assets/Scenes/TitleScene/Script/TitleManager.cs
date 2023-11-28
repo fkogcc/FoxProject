@@ -68,6 +68,7 @@ public class TitleManager : MonoBehaviour
 
             if (FadeSrc.GetAlphColor() > 1.0f)
             {
+                SndManager.StopBgm();
                 SceneManager.LoadScene("MainScene1-1");
             }
         }

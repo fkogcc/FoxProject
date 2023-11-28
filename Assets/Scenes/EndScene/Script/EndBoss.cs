@@ -15,12 +15,16 @@ public class EndBoss : MonoBehaviour
 
     int _lapsNum;
 
+    private ParticleSystem _partic;
+
     private void Start()
     {
         _startPos = transform.position;
         _move = new Vector3(-0.1f, 0, 0);
         _frame = kMoveFrame;
         _lapsNum = 0;
+
+        _partic = GetComponent<ParticleSystem>();
     }
 
     public void BossUpdate()
@@ -36,6 +40,7 @@ public class EndBoss : MonoBehaviour
         }
         else if (_frame < kWaitFrame)
         {
+            _partic.Stop();
             // 何もしない    
         }
         else
@@ -43,6 +48,7 @@ public class EndBoss : MonoBehaviour
             _lapsNum++;
             _frame = 0;
             transform.position = _startPos;
+            _partic.Play();
         }
     }
 }
