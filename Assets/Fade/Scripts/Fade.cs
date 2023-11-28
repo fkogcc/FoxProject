@@ -34,6 +34,7 @@ public class Fade : MonoBehaviour
 		fade.Range = cutoutRange;
 	}
 
+	[SerializeField, Range(0, 1)]
 	float cutoutRange;
 
 	void Init ()
