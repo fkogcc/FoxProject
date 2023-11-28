@@ -2,7 +2,7 @@
 using UnityEngine.UI;
 
 // テキストのフェードをさせるスクリプト.
-public class TextManager : MonoBehaviour
+public class ImageManager : MonoBehaviour
 {
     // 32フレームで消えるように.
     readonly float kAlpha = 0.03f;
@@ -12,7 +12,7 @@ public class TextManager : MonoBehaviour
 
     private void Start()
     {
-        _color = gameObject.GetComponent<Text>().color;
+        _color = gameObject.GetComponent<Image>().color;
         _color.a = 1.0f;
     }
 
@@ -20,7 +20,7 @@ public class TextManager : MonoBehaviour
     {
         // 現在のアルファ値から引いていく.
         _color.a -= kAlpha;
-        gameObject.GetComponent<Text>().color = _color;
+        gameObject.GetComponent<Image>().color = _color;
 
         if (_color.a < 0.0f)
         {
