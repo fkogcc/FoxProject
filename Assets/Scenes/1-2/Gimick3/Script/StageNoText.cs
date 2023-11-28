@@ -5,10 +5,6 @@ using UnityEngine.UI;
 
 public class StageNoText : MonoBehaviour
 {
-    // 表示する文字を入れる.
-    [Header("表示させる文字")]
-    public string StageName;
-
     private int kStayFrame = 50;
     private float kAlpha = 0.0625f;
 
@@ -17,8 +13,7 @@ public class StageNoText : MonoBehaviour
 
     private void Start()
     {
-        _color = GetComponent<Text>().color;
-        GetComponent<Text>().text = StageName;
+        _color = GetComponent<Image>().color;
         _stayFrame = kStayFrame;
     }
 
@@ -28,7 +23,7 @@ public class StageNoText : MonoBehaviour
         if (_stayFrame < 0)
         {
             _color.a -= kAlpha;
-            GetComponent<Text>().color = _color;
+            GetComponent<Image>().color = _color;
             if (_color.a < 0.0f)
             {
                 Destroy(gameObject);
