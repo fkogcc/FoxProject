@@ -4,9 +4,11 @@ using UnityEngine;
 
 public class Stage_Clear_Switch : MonoBehaviour
 {
-    private void Update()
+    private bool _isClear;
+
+    private void Start()
     {
-        Debug.Log($"{name}");
+        _isClear = false;
     }
 
     void OnCollisionStay(Collision collision)
@@ -18,7 +20,7 @@ public class Stage_Clear_Switch : MonoBehaviour
             if (Input.GetKeyDown("joystick button 2"))
             {
                 //ステージクリアの関数を呼ぶ
-                GetResult();
+                _isClear= true;
             }
         }
     }
@@ -26,7 +28,6 @@ public class Stage_Clear_Switch : MonoBehaviour
     //ステージクリアの関数
     public bool GetResult()
     {
-        Debug.Log("クリア");
-        return true;
+        return _isClear;
     }
 }

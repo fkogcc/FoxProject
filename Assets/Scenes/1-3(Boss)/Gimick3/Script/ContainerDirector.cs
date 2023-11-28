@@ -20,6 +20,7 @@ public class ContainerDirector : MonoBehaviour
     {
         _count = 0;
         _Barricade = GameObject.Find("Barricade");
+        _isAllClear= false;
     }
 
     // Update is called once per frame
@@ -32,13 +33,12 @@ public class ContainerDirector : MonoBehaviour
 
         if (_count == _Maxcount)
         {
-            GetResult();
+            _isAllClear= true;
         }
     }
 
     public bool GetResult()
     {
-        Debug.Log("クリア");
         return _isAllClear;
     }
 }
