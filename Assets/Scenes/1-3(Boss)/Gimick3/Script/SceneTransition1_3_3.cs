@@ -15,7 +15,7 @@ public class SceneTransition1_3_3 : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        _containerDirector = GameObject.Find("Container Director").GetComponent<ContainerDirector>();
+        _containerDirector = GetComponent<ContainerDirector>();
         _fade = GameObject.FindWithTag("Fade").GetComponent<FadeScene>();
     }
 
