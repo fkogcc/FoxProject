@@ -48,14 +48,6 @@ public class FadeImage : UnityEngine.UI.Graphic , IFade
 		UpdateMaskTexture (maskTexture);
 	}
 
-    private void FixedUpdate()
-    {
-
-		
-
-		
-    }
-
     private void UpdateMaskCutout (float range)
 	{
 		enabled = true;
@@ -69,9 +61,7 @@ public class FadeImage : UnityEngine.UI.Graphic , IFade
 	public void UpdateMaskTexture (Texture texture)
 	{
 		material.SetTexture ("_MaskTex", texture);
-		color += new Color(-0.001f, 0.0f, 0.0f, 0.0f);
 		material.SetColor ("_Color", color);
-		Debug.Log(color);
 	}
 
 	#if UNITY_EDITOR
