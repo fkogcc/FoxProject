@@ -17,6 +17,7 @@ public class EffectLine : MonoBehaviour
     private bool _isGameClear = false;
     // 線の最大値.
     private int _lineMax = 5;
+    private float _time = 0;
     // エフェクトの初期化.
     public void LineInit()
     {
@@ -124,6 +125,22 @@ public class EffectLine : MonoBehaviour
     // ゲームをクリアしたかのフラグ.
     public bool GetResult()
     {
+        return IsTimeCount();
+    }
+    public bool GetClearFlag()
+    {
         return _isGameClear;
+    }
+    private bool IsTimeCount()
+    {
+        if (_isGameClear)
+        {
+            _time++;
+        }
+        if(_time > 60*1.5)
+        {
+            return true;
+        }
+        return false;
     }
 }

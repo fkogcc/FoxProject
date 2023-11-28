@@ -5,7 +5,7 @@ using UnityEngine.UI;
 public class ImageManager : MonoBehaviour
 {
     // 32フレームで消えるように.
-    readonly float kAlpha = 0.03f;
+    private readonly float kAlpha = 0.01f;
 
     // 色を入れるよう.
     private Color _color;
@@ -13,18 +13,17 @@ public class ImageManager : MonoBehaviour
     private void Start()
     {
         _color = gameObject.GetComponent<Image>().color;
-        _color.a = 1.0f;
+        _color.a = 0.0f;
     }
 
     private void FixedUpdate()
     {
-        // 現在のアルファ値から引いていく.
-        _color.a -= kAlpha;
+        // 現在のアルファ値からたしていく.
+        _color.a += kAlpha;
         gameObject.GetComponent<Image>().color = _color;
-
-        if (_color.a < 0.0f)
+        if (_color.a > 1.0f)
         {
-            Destroy(gameObject);
+            _color.a = 1.0f;
         }
     }
 }

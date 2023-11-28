@@ -5,10 +5,6 @@ public class EffectPlay : MonoBehaviour
 {
     // 波紋のエフェクトの取得.
     [SerializeField] private GameObject TapEffect;
-    // clearテキストをいれる.
-    [SerializeField, Header("クリアテキスト")] private GameObject ClearText;
-    // Canvasを入れるよう.
-    [SerializeField] private GameObject Canvas;
     // プレイヤーの手の取得.
     private GameObject _handObject = null;
     // 線のエフェクトの取得.
@@ -17,8 +13,8 @@ public class EffectPlay : MonoBehaviour
     private string _panelName = null;
     // サウンドの取得(SEを鳴らすために使用).
     private SoundManager _soundManager = null;
-    // テキストの生成.
-    private GameObject _text = null;
+    // クリアしたときにclearの画像を表示させる.
+    [SerializeField] private GenerateImg _img;
     private bool _isSePlaying = false;
     // エフェクトの初期化処理.
     public void EffectInit()
@@ -102,16 +98,12 @@ public class EffectPlay : MonoBehaviour
     public void GenaretaText()
     {
         // クリアしたことをテキストで表示.
-        if (_effectLine.GetResult())
+        if (_effectLine.GetClearFlag())
         {
             // BGMをとめる.
             _soundManager.StopBgm();
-            // 一回だけテキストを生成する.
-            if (_text == null)
-            {
-                _text = Instantiate(ClearText);
-                _text.transform.SetParent(Canvas.transform, false);
-            }
+            // 一回だけ画像を生成する.
+            _img.GenerateImage();
         }
     }
 }
