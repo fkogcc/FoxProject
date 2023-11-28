@@ -4,8 +4,7 @@ using UnityEngine;
 
 public class GearRotation : MonoBehaviour
 {
-    // サウンドの取得.
-    [SerializeField] private SoundManager _sound;
+
     // オブジェクトのRigidbodyを取得.
     private Rigidbody _rigidbody;
     // 回転度合.
@@ -24,10 +23,7 @@ public class GearRotation : MonoBehaviour
     private int _prevAngle;
     // 回転率.
     private int _angle;
-    // 一回転したら時間を計測するためのタイマー.
-    private int _coutnTime;
-    // タイマーが指定した時間に達したかのフラグ.
-    private bool _isTimeFlag;
+
 
     // インスタンスの作成.
     void Start()
@@ -42,30 +38,22 @@ public class GearRotation : MonoBehaviour
         _nowAngel = (int)this.transform.localEulerAngles.y % 360;
         _prevAngle = (int)this.transform.localEulerAngles.y % 360;
         _angle = 360;
-        _coutnTime = 60 * 2;
-
-        _sound.PlayBGM("1_1_2_BGM");
     }
 
-    // 60フレームに一回の更新処理.
-    void FixedUpdate()
+
+    public void GearRotate()
     {
         // プレイヤーが持ち手を持って一回転したら.
         if (_playerRotation)
         {
-            _coutnTime--;
             // 回転度合をかけて足す(ずっと回転させる).
             this.transform.rotation = _rotation * this.transform.rotation;
-            if(_coutnTime < 0)
-            {
-                _isTimeFlag = true;
-            }
         }
-
     }
 
-    // 更新処理.
-    void Update()
+
+
+    public void PlayerColRange()
     {
         // 判定内にいたら.
         if (_colRange)
@@ -74,7 +62,6 @@ public class GearRotation : MonoBehaviour
             CheckRotation();
         }
     }
-
 
     // 回転を調べる処理.
     private void CheckRotation()
@@ -130,6 +117,10 @@ public class GearRotation : MonoBehaviour
             }
         }
     }
+    public bool IsGearRotated()
+    {
+        return _playerRotation;
+    }
     // プレイヤーがコライダー内にいるとき.
     void OnTriggerEnter(Collider other)
     {
@@ -147,13 +138,5 @@ public class GearRotation : MonoBehaviour
             _rigidbody.freezeRotation = true;
         }
     }
-    // シーン移行するための関数.
-    public bool GetResult()
-    {
-        if(_isTimeFlag)
-        {
-            _sound.StopBgm();
-        }
-        return _isTimeFlag;
-    }
+
 }

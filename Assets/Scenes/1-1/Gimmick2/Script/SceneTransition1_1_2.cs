@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 
 public class SceneTransition1_1_2 : MonoBehaviour
 {
-    private GearRotation _Gimmick1_1_2;
+    private Gimick1_1_2_Manager _Gimmick1_1_2;
     private FadeScene _fade;
     private Player3DMove _Player3D;
 
@@ -17,7 +17,7 @@ public class SceneTransition1_1_2 : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        _Gimmick1_1_2 = GameObject.Find("GearHandle").GetComponent<GearRotation>();
+        _Gimmick1_1_2 = GetComponent<Gimick1_1_2_Manager>();
         _fade = GameObject.FindWithTag("Fade").GetComponent<FadeScene>();
         _Player3D = GameObject.FindWithTag("Player").GetComponent<Player3DMove>();
     }
