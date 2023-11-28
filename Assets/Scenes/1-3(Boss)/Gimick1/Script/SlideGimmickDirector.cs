@@ -96,6 +96,8 @@ public class SlideGimmickDirector : MonoBehaviour
     public GameObject Canvas;
     // ゲージ入れるよう
     public GameObject Gauge;
+    // フェード
+    private FadeScene _fade;
 
     private void Start()
     {
@@ -192,6 +194,8 @@ public class SlideGimmickDirector : MonoBehaviour
         }
         _alpha = 0;
         _color = Color.black;
+
+        _fade = GameObject.Find("Fade").GetComponent<FadeScene>();
     }
 
     private void Update()
@@ -264,6 +268,11 @@ public class SlideGimmickDirector : MonoBehaviour
             _gimmickObj[kClearBlockNo].GetComponent<MeshRenderer>().material.SetColor("_EmissionColor", _color);
 
             _waitClearFrame++;
+
+            if (_fade.GetAlphColor() >= 0.85f)
+            {
+                Sound.StopBgm();
+            }
 
             return;
         }
