@@ -8,12 +8,12 @@ public class MonitorCollider : MonoBehaviour
     private bool _isPushButton;
     // ボタンの状態を渡すためにオブジェクトを取得.
     private ObjectManagement _gameManager;
-
+    // モニターのカメラオブジェクトの取得.
     private MonitorCamera _monitorObject;
     // どこのモニターを見ているかを保存する変数.
     private string _name;
 
-    void Start()
+    private void Start()
     {
         // 初期化処理.
         _isPlayerCollider = false;
@@ -24,7 +24,7 @@ public class MonitorCollider : MonoBehaviour
         _monitorObject = GameObject.Find("MonitorCamera").GetComponent<MonitorCamera>();
     }
 
-    void Update()
+    private void Update()
     {
         CameraFlag();
     }
@@ -34,25 +34,34 @@ public class MonitorCollider : MonoBehaviour
         // プレイヤーが判定内にいるとき.
         if (_isPlayerCollider)
         {
-            // Aボタンを押したら.
-            if (Input.GetKeyDown("joystick button 1"))
-            {
-                // ボタンのフラグをオンにする(カメラON).
-                _isPushButton = true;
-                _name = this.transform.name;
-                _gameManager.PlayerHandGenerate(_name);
-            }
-            // Xボタンを押したら.
-            else if (Input.GetKeyDown("joystick button 0"))
-            {
-                // ボタンのフラグをオフにする(カメラOFF).
-                _isPushButton = false;
-                _name = null;
-                _gameManager.PlayerHandDestory();
-
-            }
+            // ボタンが押されたかどうかの処理をする.
+            BottonPush();
+            // プレイヤーが範囲内にいたらカメラの名前をセットする.
             _monitorObject.SetCameraName(_name);
+            // ボタンが押されたかの状態を渡す.
             _gameManager.SetPushFlag(_isPushButton);
+        }
+    }
+    // ボタンが押されたかどうかの処理.
+    private void BottonPush()
+    {
+        // Aボタンを押したら.
+        if (Input.GetKeyDown("joystick button 1"))
+        {
+            // ボタンのフラグをオンにする(カメラON).
+            _isPushButton = true;
+            _name = this.transform.name;
+            // プレイヤーの手を生成する.
+            _gameManager.PlayerHandGenerate(_name);
+        }
+        // Xボタンを押したら.
+        else if (Input.GetKeyDown("joystick button 0"))
+        {
+            // ボタンのフラグをオフにする(カメラOFF).
+            _isPushButton = false;
+            _name = null;
+            // プレイヤーの手を破壊する.
+            _gameManager.PlayerHandDestory();
         }
     }
 
@@ -74,7 +83,6 @@ public class MonitorCollider : MonoBehaviour
             _isPlayerCollider = false;
             // おされた場所のモニターがどこかを保存する.
             _name = null;
-
         }
     }
 }

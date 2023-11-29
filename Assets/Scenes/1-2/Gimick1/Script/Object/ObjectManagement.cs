@@ -1,10 +1,10 @@
 ﻿using UnityEngine;
 using Cinemachine;
 using System;
-
+// カメラのオンオフの切り替え&手の生成.
 public class ObjectManagement : MonoBehaviour
 {
-    // Hack 毎回新しいのを作る
+    // プレイヤーの手の生成に使用.
     [SerializeField] private GameObject PlayerHand = default;
     // ボタンを押したかの状態.
     private bool _isPushFlag;
@@ -14,63 +14,54 @@ public class ObjectManagement : MonoBehaviour
     private GameObject _handObject;
     public CinemachineVirtualCamera _vcamera;
 
-    // 追従対象情報
-    [Serializable]
-    public struct TargetInfo
+    // ターゲットのリストの管理.
+    [Serializable] public struct TargetInfo
     {
-        // 追従対象
+        // モニターの名前.
         public Transform name;
-        // Test
+        // 手の生成位置.
         public Transform hand;
     }
 
     // 追従対象リスト
     [SerializeField] private TargetInfo[] _targetList;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        //PlayerHandGenerate();
-        //_handObject = PlayerHand;
-    }
-
-    public void MonitorChenge()
+    // カメラをチェンジさせる.
+    public void CameraChenge()
     {
         // ボタンの状態によって分岐させる.
         if (_isPushFlag)
         {
-            // モニター前のカメラをオンにする
+            // モニター前のカメラをオンにする(値が大きいほうがメインカメラになるので大きい値を代入).
             _vcamera.Priority = 15;
             // プレイヤーを非表示にする
             _playerObject.gameObject.SetActive(false);
-            // プレイヤーの手を表示する
-            //_handObject.gameObject.SetActive(true);
         }
         else
         {
-            // モニター前のカメラをオフにする
+            // モニター前のカメラをオフにする(値が小さいほうがメインカメラにならないので小さい値を代入).
             _vcamera.Priority = 5;
             _playerObject.gameObject.SetActive(true);
-            //_handObject.gameObject.SetActive(false);
         }
     }
+    // プレイヤーの手の生成.
     public void PlayerHandGenerate(string name)
     {
         if (_handObject == null)
         {
-            // HACK とりあえず動きはするけどめっちゃ乱雑コードの出来上がり
             for (int i = 0; i < _targetList.Length; i++)
             {
+                // リストの中身と名前が一致していたら手を生成する.
                 if (_targetList[i].name.name == name)
                 {
                     var info = _targetList[i];
                     _handObject = Instantiate(PlayerHand,
                         info.hand.transform.position,
-                        info.hand.transform.rotation) as GameObject;
+                        info.hand.transform.rotation);
                 }
             }
         }
     }
+    // プレイヤーの手を削除する.
     public void PlayerHandDestory()
     {
         if (_handObject != null)
@@ -78,6 +69,7 @@ public class ObjectManagement : MonoBehaviour
             Destroy(_handObject);
         }
     }
+    // ボタンが押されたかのフラグを取得する.
     public void SetPushFlag(bool ispush)
     {
         _isPushFlag = ispush;  
