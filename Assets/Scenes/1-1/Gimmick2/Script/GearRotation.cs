@@ -1,10 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
+﻿using UnityEngine;
+// ギミックの回転を管理するスクリプト.
 public class GearRotation : MonoBehaviour
 {
-
     // オブジェクトのRigidbodyを取得.
     private Rigidbody _rigidbody;
     // 回転度合.
@@ -23,7 +20,7 @@ public class GearRotation : MonoBehaviour
     private int _prevAngle;
     // 回転率.
     private int _angle;
-
+    private float _localAngle = 0;
 
     // インスタンスの作成.
     void Start()
@@ -35,12 +32,13 @@ public class GearRotation : MonoBehaviour
         _colRange = false;
         _rigidbody = GetComponent<Rigidbody>();
         _gearRote = 1.5f;
-        _nowAngel = (int)this.transform.localEulerAngles.y % 360;
-        _prevAngle = (int)this.transform.localEulerAngles.y % 360;
+        _localAngle = this.transform.localEulerAngles.y % 360;
+        _nowAngel = (int)_localAngle;
+        _prevAngle = (int)_localAngle;
         _angle = 360;
     }
 
-
+    // オブジェクトを回転させる.
     public void GearRotate()
     {
         // プレイヤーが持ち手を持って一回転したら.
@@ -51,8 +49,7 @@ public class GearRotation : MonoBehaviour
         }
     }
 
-
-
+    // プレイヤーが範囲内にいた時の処理.
     public void PlayerColRange()
     {
         // 判定内にいたら.
@@ -93,11 +90,13 @@ public class GearRotation : MonoBehaviour
     // ギミックの回転率を調べる処理.
     private void GearRotaRete()
     {
+        // 今のアングルを取得.
+        _localAngle = this.transform.localEulerAngles.y % 360;
         // 回転させる計算.
         // 前のフレームの回転率.
         _prevAngle = _nowAngel;
         // 現在の回転率.
-        _nowAngel = (int)this.transform.localEulerAngles.y % 360;
+        _nowAngel = (int)_localAngle;
 
         // 現在のフレームより前のフレームが小さければ.
         // 指定した方向と逆回転しているので処理をしない.
@@ -117,6 +116,7 @@ public class GearRotation : MonoBehaviour
             }
         }
     }
+    // オブジェクト(ギア)が一回転したかどうか.
     public bool IsGearRotated()
     {
         return _playerRotation;

@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-
+// 画像の生成.
 public class GenerateImg : MonoBehaviour
 {
     // clearテキストをいれる.
