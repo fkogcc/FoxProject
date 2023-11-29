@@ -175,11 +175,12 @@ public class Player2DMove : MonoBehaviour
         // 敵と当たった時の処理.
         HitEnemy();
 
+        RendererDisplay();
+
         if(_isDamage)
         {
             DamageBlinking();
         }
-        
 
         // ゴールした時に正面を向くようにする.
         if (_flag._isGoal)
@@ -229,6 +230,8 @@ public class Player2DMove : MonoBehaviour
         // 敵に当たったら体力を1減らす.
         if (collision.gameObject.tag == "Enemy")
         {
+            if (_invincibleTime > 0 && _invincibleTime < 120) return;
+
             _isHitEnemy = true;
             // 自身と敵の距離と方向の正規化.
             _enemyDirection = (transform.position - collision.transform.position).normalized;
@@ -322,7 +325,7 @@ public class Player2DMove : MonoBehaviour
             _boxCollider.material.dynamicFriction = 1.0f;
         }
 
-        // 方向返還.
+        // 方向変更.
         if (hori < 0)
         {
             if (hori == 0) return;
@@ -343,6 +346,8 @@ public class Player2DMove : MonoBehaviour
         if(!_isHitEnemy) return;
         _isHitEnemy = false;
         _isDamage = true;
+
+        Debug.Log("通る");
 
         Damage();
         KnockBack();
@@ -377,15 +382,21 @@ public class Player2DMove : MonoBehaviour
             _isRendererDisplay = true;
         }
 
-        for (int rendererNum = 0; rendererNum < _renderer.Length; rendererNum++)
-        {
-            _renderer[rendererNum].enabled = _isRendererDisplay;
-        }
-
         if (_invincibleTime >= _invincibleMaxTime)
         {
             _invincibleTime = 0;
             _isDamage = false;
+            _isRendererDisplay = true;
+        }
+
+    }
+
+    // Rendererの表示非表示.
+    private void RendererDisplay()
+    {
+        for (int rendererNum = 0; rendererNum < _renderer.Length; rendererNum++)
+        {
+            _renderer[rendererNum].enabled = _isRendererDisplay;
         }
     }
 
