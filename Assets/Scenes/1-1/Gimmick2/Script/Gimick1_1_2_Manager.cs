@@ -1,7 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
+﻿using UnityEngine;
+// 1-1-2のゲームシーンのマネージャースクリプト.
 public class Gimick1_1_2_Manager : MonoBehaviour
 {
     // 回転させるオブジェクトの取得.
@@ -11,8 +9,8 @@ public class Gimick1_1_2_Manager : MonoBehaviour
     // クリアしたときにclearの画像を表示させる.
     [SerializeField] private GenerateImg _img;
     // 一回転したら時間を計測するためのタイマー.
-    private int _coutnTime;
-    private float _timer = 0;
+    private int _maxTime;
+    private float _countTime;
     // タイマーが指定した時間に達したかのフラグ.
     private bool _isTimeFlag;
     // 一回転したかどうかのフラグ.
@@ -20,9 +18,11 @@ public class Gimick1_1_2_Manager : MonoBehaviour
     private void Start()
     {
         _gear = GameObject.Find("GearHandle").GetComponent<GearRotation>();
-        //_img = GetComponent<GenerateImg>();
         _sound.PlayBGM("1_1_2_BGM");
-        _coutnTime = 60 * 2;
+        // 計測する時間の最大値.
+        _maxTime = 60 * 2;
+        // 実際にカウントする時間.
+        _countTime = 0;
 
     }
 
@@ -47,9 +47,9 @@ public class Gimick1_1_2_Manager : MonoBehaviour
         if (_isRotaFlag)
         {
             // タイマーをカウントさせる.
-            _timer++;
+            _countTime++;
 
-            if (_timer > _coutnTime)
+            if (_countTime > _maxTime)
             {
                 _isTimeFlag = true;
             }
