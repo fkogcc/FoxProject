@@ -25,12 +25,27 @@ public class Player2DMove : MonoBehaviour
     private SolveGimmickManager _gimmickManager;
 
     // ワープの座標.
-    private Vector3 _warpPosition;
+    private Vector3 _warpPosition = Vector3.zero;
+    // 当たったエネミーの距離と方向.
+    private Vector3 _enemyDirection = Vector3.zero;
+
+    // マテリアル.
+    public Renderer[] _renderer;
+    // マテリアルの色.
+    private Color[] _color;
 
     // プレイヤーの体力.
     public int _hp = 3;
+
+    // ダメージを受けた後の無敵時間.
+    private int _invincibleTime;
+    // ダメージを受けた後の最大無敵時間.
+    public int _invincibleMaxTime = 120;
+
     // ジャンプ力.
     private float _jumpPower = 30.0f;
+    // ノックバック力.
+    public float _knockBackPower = 1.0f;
     // ジャンプしているかどうか.
     // true :している.
     // false:していない.
@@ -43,11 +58,21 @@ public class Player2DMove : MonoBehaviour
     // true :動ける.
     // false;動けない.
     public bool _isMoveActive = true;
+    // 敵に当たったかどうか.
+    // true :当たった.
+    // false;当たってない.
+    public bool _isHitEnemy = false;
+    // ダメージを受けたかどうか
+    // true :受けた.
+    // false;受けてない.
+    private bool _isDamage = false;
+    // Rendererの表示、非表示.
+    // true :表示.
+    // false;非表示.
+    private bool _isRendererDisplay = true;
 
-    // イベントが発生する座標
+    // イベントが発生する座標.
     [SerializeField] private float _eventPos;
-
-    // 回転速度
     
 
     void Start()
@@ -63,6 +88,7 @@ public class Player2DMove : MonoBehaviour
 
         _gimmickManager = GameObject.FindWithTag("GimmickManager").GetComponent<SolveGimmickManager>();
 
+        
 
         //_hp = 5;
         _isDirection = false;
@@ -146,6 +172,13 @@ public class Player2DMove : MonoBehaviour
 
         // デバッグ用の処理.
         FallDebug();
+        // 敵と当たった時の処理.
+        HitEnemy();
+
+        if(_isDamage)
+        {
+            DamageBlinking();
+        }
         
 
         // ゴールした時に正面を向くようにする.
@@ -196,11 +229,9 @@ public class Player2DMove : MonoBehaviour
         // 敵に当たったら体力を1減らす.
         if (collision.gameObject.tag == "Enemy")
         {
-            _hp -= 1;
-            if( _hp <= 0)
-            {
-                _hp = 0;
-            }
+            _isHitEnemy = true;
+            // 自身と敵の距離と方向の正規化.
+            _enemyDirection = (transform.position - collision.transform.position).normalized;
         }
     }
 
@@ -303,6 +334,58 @@ public class Player2DMove : MonoBehaviour
             if (hori == 0) return;
             if (_isJumpNow) return;
             _isDirection = false;
+        }
+    }
+
+    // 敵に当たった時の処理.
+    private void HitEnemy()
+    {
+        if(!_isHitEnemy) return;
+        _isHitEnemy = false;
+        _isDamage = true;
+
+        Damage();
+        KnockBack();
+    }
+
+    // ダメージを受けた時の処理.
+    private void Damage()
+    {
+        _hp -= 1;
+        if (_hp <= 0)
+        {
+            _hp = 0;
+        }
+    }
+
+    // 敵に当たった時のノックバック.
+    private void KnockBack()
+    {
+        _rigid.AddForce(_enemyDirection * _knockBackPower, ForceMode.Impulse);
+    }
+
+    // ダメージを受けた時の点滅処理.
+    private void DamageBlinking()
+    {
+        _invincibleTime++;
+        if (_invincibleTime % 5 == 0)
+        {
+            _isRendererDisplay = false;
+        }
+        else
+        {
+            _isRendererDisplay = true;
+        }
+
+        for (int rendererNum = 0; rendererNum < _renderer.Length; rendererNum++)
+        {
+            _renderer[rendererNum].enabled = _isRendererDisplay;
+        }
+
+        if (_invincibleTime >= _invincibleMaxTime)
+        {
+            _invincibleTime = 0;
+            _isDamage = false;
         }
     }
 

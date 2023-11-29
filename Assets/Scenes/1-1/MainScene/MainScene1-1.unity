@@ -25637,7 +25637,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2519987739933323313, guid: efd49aba95bbbb648975da0474da9c3a, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 2519987739933323313, guid: efd49aba95bbbb648975da0474da9c3a, type: 3}
       propertyPath: m_LocalPosition.y
@@ -25678,6 +25678,10 @@ PrefabInstance:
     - target: {fileID: 2698344479787284193, guid: efd49aba95bbbb648975da0474da9c3a, type: 3}
       propertyPath: _eventPos
       value: 140
+      objectReference: {fileID: 0}
+    - target: {fileID: 2698344479787284193, guid: efd49aba95bbbb648975da0474da9c3a, type: 3}
+      propertyPath: _knockBackPower
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 3004775973324384907, guid: efd49aba95bbbb648975da0474da9c3a, type: 3}
       propertyPath: m_Name
@@ -26498,7 +26502,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _particle: {fileID: 1326622973}
   _hp: 3
+  _knockBackPower: 0
   _isMoveActive: 1
+  _isHitEnemy: 0
   _eventPos: 0
 --- !u!65 &2088384614
 BoxCollider:
@@ -26656,6 +26662,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2339642802180627171, guid: fde9e6c80e9ee6c4e8bc52ba319f8770, type: 3}
       propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2339642802180627171, guid: fde9e6c80e9ee6c4e8bc52ba319f8770, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2339642802180627171, guid: fde9e6c80e9ee6c4e8bc52ba319f8770, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2339642802180627171, guid: fde9e6c80e9ee6c4e8bc52ba319f8770, type: 3}
+      propertyPath: m_LocalScale.z
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2339642802180627171, guid: fde9e6c80e9ee6c4e8bc52ba319f8770, type: 3}
