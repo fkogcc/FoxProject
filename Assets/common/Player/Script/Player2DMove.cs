@@ -97,13 +97,22 @@ public class Player2DMove : MonoBehaviour
             {
                 ForciblyIdle();
             }
-            else
+            else if(_flag._isGoal)
             {
                 GoalAnim();
             }
+            
         }
+
+        // やられた時の処理
+        if (_hp <= 0)
+        {
+            //_isMoveActive = false;
+            _animator.SetBool("GameOver", _anim.GameOver());
+        }
+
         // ワープするときの演出.
-        if(!_isMoveActive && !_flag._isGoal && transform.position.x <= _eventPos)
+        if (!_isMoveActive && !_flag._isGoal && transform.position.x <= _eventPos)
         {
             transform.position = new Vector3(_warpPosition.x + 0.0f, _warpPosition.y, transform.position.z);
 
@@ -142,26 +151,9 @@ public class Player2DMove : MonoBehaviour
         // ゴールした時に正面を向くようにする.
         if (_flag._isGoal)
         {
-            //transform.localEulerAngles = new Vector3(0.0f,180.0f, 0.0f);
-
-            //transform. = Vector3.Slerp(transform.forward, new Vector3(0.0f, 0.0f, 0.0f), Time.deltaTime * 10.0f);
-
             Quaternion rotation = Quaternion.LookRotation(new Vector3(0.0f, 0.0f, -180.0f), Vector3.up);
 
             transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime * 5);
-
-            //if (transform.localEulerAngles.y >= 185.0f && transform.localEulerAngles.y <= 175.0f)
-            //{
-            //    Debug.Log("通った");
-            //    if (!_isDirection)
-            //    {
-            //        transform.Rotate(0f, 5f, 0f);
-            //    }
-            //    else
-            //    {
-            //        transform.Rotate(0f, -5f, 0f);
-            //    }
-            //}
         }
 
         if (_flag._isGoal) return;
