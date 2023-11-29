@@ -1,15 +1,13 @@
 ﻿using UnityEngine;
 using Cinemachine;
 using System;
-
 // オブジェクトの生成スクリプト
 public class MonitorCamera : MonoBehaviour
 {
-    // 追従対象情報.
-    [Serializable]
-    public struct TargetInfo
+    // カメラの位置情報.
+    [Serializable] public struct TargetInfo
     {
-        // 追従対象.
+        // カメラのがとらえる対象.
         public Transform follow;
         // 照準を合わせる対象.
         public Transform lookAt;
@@ -43,6 +41,7 @@ public class MonitorCamera : MonoBehaviour
     {
         for (int count = 0; count < _targetList.Length; count++)
         {
+            // リストの中身で一致する情報を入れる.
             if (_targetList[count].follow.name == _cameraName)
             {
                 var info = _targetList[count];
