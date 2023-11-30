@@ -1,15 +1,14 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
-
+// 引っ張る処理.
 public class BoxPull : MonoBehaviour
 {
-    // ギミックブロックの長さ
-    private const float kGimmickLength = 0.7f;
+    // ギミックブロックの長さ.
+    private readonly static float kGimmickLength = 0.7f;
 
-    // ブロックを追加する距離
+    // ブロックを追加する距離.
     private float _longDis;
-    // ブロックを減らす距離
+    // ブロックを減らす距離.
     private float _shortDis;
 
     // ディレクター.
@@ -18,7 +17,7 @@ public class BoxPull : MonoBehaviour
     private Transform _player;
 
     // サウンド用
-    public SoundManager Sound;
+    [SerializeField] private SoundManager Sound;
 
     // ギミックの色.
     public string Color;
@@ -52,7 +51,8 @@ public class BoxPull : MonoBehaviour
     private Vector3 _axisSide;
     private Vector3 _axisCenter;
 
-    void Start()
+    // 初期化処理.
+    private void Start()
     {
         _director = GameObject.Find("GimmickDirector").GetComponent<BoxDirector>();
 
@@ -82,7 +82,7 @@ public class BoxPull : MonoBehaviour
 }
 
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
         // ギミックをクリアしていたら処理をしない.
         if (_isClear) return;
@@ -126,10 +126,10 @@ public class BoxPull : MonoBehaviour
 
             VectorAngleCal(_director.GetGimmickPos(), _startGimmickPos);
 
-            // スケールを入れる用の変数
+            // スケールを入れる用の変数.
             Vector3 scale = new Vector3(0.8f, 0.8f, 0.8f);
 
-            // 形をきれいに見せるように球体を作成
+            // 形をきれいに見せるように球体を作成.
             GameObject instance = Instantiate(_gimmickSpher, _startGimmickPos, Quaternion.identity);
             instance.transform.localScale = scale;
 
@@ -144,16 +144,16 @@ public class BoxPull : MonoBehaviour
             // 1階2階で繋がっている.
             else
             {
-                // 合成クオータニオン
+                // 合成クオータニオン.
                 Quaternion compositeAngle = Quaternion.AngleAxis(90, _axisCenter) * Quaternion.AngleAxis(_angleSide, _axisSide);
 
                 // 初めに移動量を1/4に
                 _moveVec *= 0.25f;
 
-                // 1つ目のブロック
-                // 移動量を入れる
+                // 1つ目のブロック.
+                // 移動量を入れる.
                 Vector3 tempPos = _moveVec;
-                // 高さの移動は無しとする
+                // 高さの移動は無しとする.
                 tempPos.y = 0;
 
                 float scaleY = tempPos.magnitude;
@@ -162,30 +162,30 @@ public class BoxPull : MonoBehaviour
                 scale.y = scaleY;
                 instance.transform.localScale = scale;
 
-                // 2つ目
-                // 高さそのままでx,zを元の2倍
+                // 2つ目.
+                // 高さそのままでx,zを元の2倍.
                 tempPos *= 2f;
                 instance = Instantiate(_gimmickSpher, this.transform.position + tempPos, Quaternion.identity);
                 scale.y = 0.8f;
                 instance.transform.localScale = scale;
 
-                // 3つ目
-                // x,zそのままで高さを半分の地点に
+                // 3つ目.
+                // x,zそのままで高さを半分の地点に.
                 tempPos = _moveVec * 2f;
                 instance = Instantiate(_gimmickClear, this.transform.position + tempPos, Quaternion.AngleAxis(_angleSide, _axisSide));
                 scale.y = 4f;
                 instance.transform.localScale = scale;
 
-                // 4つ目
-                // x, yそのままで高さを一番下or一番上にする
+                // 4つ目.
+                // x, yそのままで高さを一番下or一番上にする.
                 tempPos.y = _moveVec.y * 4f;
                 instance = Instantiate(_gimmickSpher, this.transform.position + tempPos, Quaternion.identity);
                 scale.y = 0.8f;
                 instance.transform.localScale = scale;
 
-                // 5つ目
-                // 高さそのままでx, yを元の3倍
-                // 移動量の3倍を入れる
+                // 5つ目.
+                // 高さそのままでx, yを元の3倍.
+                // 移動量の3倍を入れる.
                 tempPos = _moveVec * 3f;
                 tempPos.y = _moveVec.y * 4f;
                 instance = Instantiate(_gimmickClear, this.transform.position + tempPos, compositeAngle);
