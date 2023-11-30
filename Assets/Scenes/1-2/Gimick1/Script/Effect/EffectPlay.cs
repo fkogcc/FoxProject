@@ -95,7 +95,7 @@ public class EffectPlay : MonoBehaviour
         _effectLine.PosAllErase(_panelName);
     }
     // クリアしたらテキストを生成する.
-    public void GenaretaText()
+    public void GenaretaImg()
     {
         // クリアしたことをテキストで表示.
         if (_effectLine.GetClearFlag())

@@ -13,14 +13,14 @@ public class SlideGimmickText : MonoBehaviour
 
     private void Start()
     {
-        _color = gameObject.GetComponent<Text>().color;
+        _color = gameObject.GetComponent<Image>().color;
         _color.a = 1f;
     }
 
     private void FixedUpdate()
     {
         _color.a -= kAlpha;
-        gameObject.GetComponent<Text>().color = _color;
+        gameObject.GetComponent<Image>().color = _color;
 
         if(_color.a < 0.0f)
         {
