@@ -127,7 +127,6 @@ public class Player3DMove : MonoBehaviour
 
         if(_rigidbody.velocity.y <= -20.0f && IsGroundShpere())
         {
-            Debug.Log("通った");
             _hp -= 1;
         }
 

@@ -884,7 +884,6 @@ MonoBehaviour:
   _raySphereLength: 0.49
   _SphereCastRegulationY: 0.5
   _distanceGround: 0.5
-  _testmove: 50
   _particleSystem: {fileID: 8489292017671519357}
 --- !u!136 &3498901213022387698
 CapsuleCollider:
@@ -4431,6 +4430,22 @@ PrefabInstance:
     - target: {fileID: 8814106180333129761, guid: 410562474518b6545902a5d4158ebc47, type: 3}
       propertyPath: m_Name
       value: FootDustCloud2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8814106180333129762, guid: 410562474518b6545902a5d4158ebc47, type: 3}
+      propertyPath: ShapeModule.angle
+      value: 16.88
+      objectReference: {fileID: 0}
+    - target: {fileID: 8814106180333129762, guid: 410562474518b6545902a5d4158ebc47, type: 3}
+      propertyPath: startDelay.scalar
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8814106180333129762, guid: 410562474518b6545902a5d4158ebc47, type: 3}
+      propertyPath: ShapeModule.radius.value
+      value: 0.15
+      objectReference: {fileID: 0}
+    - target: {fileID: 8814106180333129762, guid: 410562474518b6545902a5d4158ebc47, type: 3}
+      propertyPath: InitialModule.startSpeed.scalar
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 410562474518b6545902a5d4158ebc47, type: 3}

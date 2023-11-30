@@ -101,7 +101,6 @@ public class Fade2DSceneTransition : MonoBehaviour
         // ボタン押したら(ボタン配置は仮).
         if (Input.GetKeyDown("joystick button 3"))
         {
-            Debug.Log("ボタン");
             // ゲートの前にいないときはスキップ.
             if (!_transitionScene.SetGateFlag()) return;
 
