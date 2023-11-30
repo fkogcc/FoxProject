@@ -19,27 +19,27 @@ public class GoalMove1_1 : MonoBehaviour
     [Header("円運動の中心点")]
     [SerializeField] private GameObject _sphereCenter;
 
-    // ゴールが最初にいる場所の座標
+    // ゴールが最初にいる場所の座標.
     private Vector3 _start;
-    // 最終的にたどり着く座標
+    // 最終的にたどり着く座標.
     private Vector3 _end;
-    // ゴールの円運動の中心座標
+    // ゴールの円運動の中心座標.
     private Vector3 _center;
-    // 中心点だけずらした位置を戻す
+    // 中心点だけずらした位置を戻す.
     private Vector3 _slerpPos;
 
-    // ゴールを動かすときの真偽
+    // ゴールを動かすときの真偽.
     public bool _eventFlag = false;
 
-    // 補間位置の計算の値
+    // 補間位置の計算の値.
     float _interpolationPosition;
+    // 現在の移動時間.
+    private float _currentMoveTime;
 
-    private float _testTime;
-
-    // 接地された時のパーティクル
+    // 接地された時のパーティクル.
     [SerializeField] private ParticleSystem _particle;
 
-    // パーティクル再生時間
+    // パーティクル再生時間.
     private int _playParticleTime;
 
     // Start is called before the first frame update
@@ -72,7 +72,7 @@ public class GoalMove1_1 : MonoBehaviour
 
         if (!_eventFlag) return;
 
-        _testTime += 0.01f;
+        _currentMoveTime += 0.01f;
 
         SlerpMove();
     }
@@ -82,23 +82,23 @@ public class GoalMove1_1 : MonoBehaviour
         _start = _StartPos.transform.position;
         _end = _EndPos.transform.position;
 
-        // 補間位置計算
-        _interpolationPosition = _testTime / _moveTime;
+        // 補間位置計算.
+        _interpolationPosition = _currentMoveTime / _moveTime;
 
-        // 円運動の中心点取得
+        // 円運動の中心点取得.
         _center = _sphereCenter.transform.position;
 
-        // 円運動させる前に中心点が原点に来るように始点・終点を移動
+        // 円運動させる前に中心点が原点に来るように始点・終点を移動.
         _start -= _center;
         _end -= _center;
 
-        // 原点中心で円運動
+        // 原点中心で円運動.
         _slerpPos = Vector3.Slerp(_start, _end, _interpolationPosition);
 
-        // 中心点だけずらした位置を戻す
+        // 中心点だけずらした位置を戻す.
         _slerpPos += _center;
 
-        // 補間位置を反映
+        // 補間位置を反映.
         transform.position = _slerpPos;
     }
 }

@@ -113,6 +113,12 @@ public class SceneTransitionManager : MonoBehaviour
         SceneManager.LoadScene("Gimick1_3_4");
     }
 
+    // 1-3のクリアシーン
+    public void ClearScene()
+    {
+        SceneManager.LoadScene("ClearScene1-3");
+    }
+
     // エンドシーン.
     public void EndScene()
     {

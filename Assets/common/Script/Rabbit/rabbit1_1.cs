@@ -64,11 +64,13 @@ public class rabbit1_1 : MonoBehaviour
             _animTime++;
 
         }
+        // その場でジャンプ.
         else if (_animTime >= _maxAnimTime)
         {
             _jumping = false;
         }
 
+        // ジャンプアニメーションをしながら移動.
         if (_animTime >= _maxAnimTime && !_jumping)
         {
             if (transform.localEulerAngles.y >= 100)
@@ -106,6 +108,7 @@ public class rabbit1_1 : MonoBehaviour
         }
     }
 
+    // アニメーション.
     private void Anim()
     {
         _animator.SetBool("Jump", _jumping);
