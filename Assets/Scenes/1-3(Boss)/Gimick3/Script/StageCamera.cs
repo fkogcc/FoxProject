@@ -10,8 +10,6 @@ public class StageCamera : MonoBehaviour
     {
         // カメラのがとらえる対象.
         public Transform follow;
-        // 照準を合わせる対象.
-        public Transform lookAt;
         // カメラの角度.
         public float rota;
     }
@@ -32,14 +30,12 @@ public class StageCamera : MonoBehaviour
         _vPOV = _vBase.GetComponent<CinemachinePOV>();
         var info = _targetList[0];
         _vCamera.Follow = info.follow;
-        _vCamera.LookAt = info.lookAt;
 
         _cameraName = null;
     }
     private void Update()
     {
         _test++;
-        Debug.Log(_test);
         if (_test > 60)
         {
             _test = 0;
@@ -56,7 +52,6 @@ public class StageCamera : MonoBehaviour
             {
                 var info = _targetList[count];
                 _vCamera.Follow = info.follow;
-                _vCamera.LookAt = info.lookAt;
                 _vPOV.m_HorizontalAxis.Value = info.rota;
             }
         }
