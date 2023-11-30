@@ -1620,8 +1620,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _particle: {fileID: 2094695863288293224}
-  _rotateAxis: {fileID: 0}
+  _renderer:
+  - {fileID: 8260998911185409739}
+  - {fileID: 659255712563217542}
+  - {fileID: 944842708850384147}
+  - {fileID: 7356736820545082952}
+  - {fileID: 4144561023747039655}
+  - {fileID: 287024821286276258}
+  - {fileID: 8114055063878116908}
+  - {fileID: 6699777295294048197}
+  - {fileID: 9108605624811227832}
+  - {fileID: 7196980495471460090}
+  _hp: 3
+  _invincibleMaxTime: 120
+  _knockBackPower: 1
   _isMoveActive: 1
+  _isHitEnemy: 0
+  _eventPos: 0
 --- !u!114 &6518691929001983071
 MonoBehaviour:
   m_ObjectHideFlags: 0
