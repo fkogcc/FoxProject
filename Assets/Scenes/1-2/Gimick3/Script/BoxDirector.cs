@@ -1,10 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using Unity.PlasticSCM.Editor.WebApi;
-using Unity.VisualScripting;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-
+// Boxの情報(ギミック).
 public class BoxDirector : MonoBehaviour
 {
     public SoundManager SndManager;
@@ -42,7 +39,7 @@ public class BoxDirector : MonoBehaviour
     Dictionary<string, GameObject> _lineObj;
 
     // 初期化処理
-    void Start()
+    private void Start()
     {
         _nowObj = new GameObject();
 

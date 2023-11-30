@@ -341,7 +341,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fdead86db66335e4a885272002a5d6a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Color: Pink
+  _color: Pink
 --- !u!199 &295246754
 ParticleSystemRenderer:
   serializedVersion: 6
@@ -5397,7 +5397,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fdead86db66335e4a885272002a5d6a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Color: Bule
+  _color: Bule
 --- !u!135 &646184780
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -11761,7 +11761,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fdead86db66335e4a885272002a5d6a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Color: SkyBule
+  _color: Sky
 --- !u!135 &1284562174
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -17063,7 +17063,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fdead86db66335e4a885272002a5d6a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Color: Yellow
+  _color: Yellow
 --- !u!135 &1335661388
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -22341,7 +22341,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fdead86db66335e4a885272002a5d6a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Color: YellowGreen
+  _color: YellowGreen
 --- !u!135 &1687093743
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -27200,7 +27200,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fdead86db66335e4a885272002a5d6a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Color: Orange
+  _color: Orange
 --- !u!135 &1734913560
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -32041,7 +32041,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fdead86db66335e4a885272002a5d6a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Color: Red
+  _color: Red
 --- !u!135 &1779105579
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -36918,7 +36918,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fdead86db66335e4a885272002a5d6a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Color: Green
+  _color: Green
 --- !u!135 &1813087054
 SphereCollider:
   m_ObjectHideFlags: 0

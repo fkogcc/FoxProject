@@ -222,7 +222,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fdead86db66335e4a885272002a5d6a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Color: Bule
+  _color: Bule
 --- !u!135 &202297365
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -5167,7 +5167,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fdead86db66335e4a885272002a5d6a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Color: Red
+  _color: Red
 --- !u!199 &360291473
 ParticleSystemRenderer:
   serializedVersion: 6
@@ -10035,7 +10035,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fdead86db66335e4a885272002a5d6a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Color: Pink
+  _color: Pink
 --- !u!135 &703238513
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -16038,7 +16038,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fdead86db66335e4a885272002a5d6a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Color: Green
+  _color: Green
 --- !u!199 &1909867593
 ParticleSystemRenderer:
   serializedVersion: 6
