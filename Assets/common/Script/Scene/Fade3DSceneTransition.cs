@@ -48,6 +48,8 @@ public class Fade3DSceneTransition : MonoBehaviour
         FadeUpdate();
         // シーン遷移関数.
         SceneTransition();
+
+        GameOverSceneTransition();
     }
 
     // フェード処理.
