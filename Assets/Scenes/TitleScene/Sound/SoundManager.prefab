@@ -122,6 +122,12 @@ MonoBehaviour:
   - sound: {fileID: 8300000, guid: 1e0cbe28f4cb02c4590321a3f254f4de, type: 3}
     name: 1_3_4_Fall
     volume: 1
+  - sound: {fileID: 8300000, guid: 84a7d4d6dc2b5ae42adc9aab288f6fce, type: 3}
+    name: 1_2_2lever
+    volume: 1
+  - sound: {fileID: 8300000, guid: 88064f9cfd676af488d9fb06cc4c4d5c, type: 3}
+    name: 1_2_2plane
+    volume: 1
   _bgmData:
   - sound: {fileID: 8300000, guid: 7b2d57059c59d384290773303504d320, type: 3}
     name: 1_1_0_BGM
@@ -162,5 +168,8 @@ MonoBehaviour:
   - sound: {fileID: 8300000, guid: d4fea914adf0c9b4db3a1725f8576ca2, type: 3}
     name: EndScene_BGM
     volume: 1
-  _playSeTest: 00000000000000000000000000000000000000000000000000
-  _playBgmTest: 00000000000000000000000000
+  - sound: {fileID: 8300000, guid: df16ab2013386ac4880cf9ace97a3b6d, type: 3}
+    name: 1_2_2BGM
+    volume: 1
+  _playSeTest: 000000000000000000000000000000000000000000000000000000
+  _playBgmTest: 0000000000000000000000000000

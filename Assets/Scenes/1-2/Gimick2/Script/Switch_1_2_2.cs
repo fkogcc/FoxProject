@@ -11,10 +11,10 @@ public class Switch_1_2_2 : MonoBehaviour
     private bool _isHit = false;
 
     // レバーを倒すかどうか.
-    private bool _isLabor = false;
+    private bool _isLever = false;
 
     // レーバー取得用.
-    private GameObject _LaborRota;
+    private GameObject _leverRota;
 
     // レーバーの角度記録.
     private bool _isMinusRota = false;
@@ -26,15 +26,16 @@ public class Switch_1_2_2 : MonoBehaviour
     public float _meterSpeed;
 
     //効果音
-    public SoundManager _sound;
+    public Sound_1_2_2 _sound;
 
     // ギミックをクリアしたかどうか.
     private bool _isResult = false;
 
     void Start()
     {
+        //_sound
         // オブジェクト取得. 
-        _LaborRota = GameObject.Find("stage03_lever_02/locator1");
+        _leverRota = GameObject.Find("stage03_lever_02/locator1");
     }
 
     private void Update()
@@ -42,20 +43,20 @@ public class Switch_1_2_2 : MonoBehaviour
         // ボタンを押したら.
         if (Input.GetKeyDown("joystick button 1") && _isHit)
         {
-            _isLabor = true;
-            //効果音を鳴らす
-            _sound.PlaySE("1_2_2_Lever");
+            _isLever = true;
+            _sound._isLeverFlag = true;
+            
         }
     }
 
     private void FixedUpdate()
     {
-        if (_isLabor)
+        if (_isLever)
         {
             // レーバーの角度を調整.
-            if(_LaborRota.transform.localEulerAngles.x >= 310.0f)
+            if(_leverRota.transform.localEulerAngles.x >= 310.0f)
             {
-                _LaborRota.transform.Rotate(1.0f,0.0f, 0.0f); 
+                _leverRota.transform.Rotate(1.0f,0.0f, 0.0f); 
             }
             else
             {
@@ -66,9 +67,9 @@ public class Switch_1_2_2 : MonoBehaviour
             // レーバーの角度を調整.
             if (_isMinusRota)
             {
-                if (_LaborRota.transform.localEulerAngles.x < 50.0f)
+                if (_leverRota.transform.localEulerAngles.x < 50.0f)
                 {
-                    _LaborRota.transform.Rotate(1.0f, 0.0f, 0.0f);
+                    _leverRota.transform.Rotate(1.0f, 0.0f, 0.0f);
                 }
                 else
                 {
