@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -11,10 +11,10 @@ public class MoveScaffold : MonoBehaviour
 
     List<Rigidbody> _rigidBodies = new();
 
-    // Ü‚è•Ô‚·‚Æ‚«‚ÌÅ‘åƒtƒŒ[ƒ€”
+    // æŠ˜ã‚Šè¿”ã™ã¨ãã®æœ€å¤§ãƒ•ãƒ¬ãƒ¼ãƒ æ•°
     [SerializeField] private int _TurningMaxFrame = 0;
 
-    // ˆÚ“®‚µ‚Ä‚¢‚éƒtƒŒ[ƒ€”
+    // ç§»å‹•ã—ã¦ã„ã‚‹ãƒ•ãƒ¬ãƒ¼ãƒ æ•°
     private int _DirectionChangeFrame = 0;
 
     // Start is called before the first frame update
@@ -48,7 +48,7 @@ public class MoveScaffold : MonoBehaviour
 
     }
 
-    // ’n–Ê‚ÌˆÚ“®
+    // åœ°é¢ã®ç§»å‹•
     private void MoveObject()
     {
         _rigidBody.MovePosition(transform.position + Time.fixedDeltaTime * _speed);
@@ -60,7 +60,7 @@ public class MoveScaffold : MonoBehaviour
         }
     }
 
-    // ã‚ÉÚ‚Á‚½ƒIƒuƒWƒFƒNƒg‚ÌˆÚ“®
+    // ä¸Šã«è¼‰ã£ãŸã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®ç§»å‹•
     private void AddVelocity()
     {
         if(_rigidBody.velocity.sqrMagnitude <=0.01f)

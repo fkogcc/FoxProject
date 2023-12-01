@@ -19,12 +19,12 @@ public class ClearSceneManager : MonoBehaviour
     {
         _currentTime++;
 
-        if(_currentTime >= 500)
+        if(_currentTime >= 400)
         {
             _fade._isFadeOut = true;
         }
 
-        if(_fade._color.a >= 0.9f && _currentTime >= 500)
+        if(_fade._color.a >= 0.9f && _currentTime >= 400)
         {
             SceneManager.LoadScene("EndScene");
         }
