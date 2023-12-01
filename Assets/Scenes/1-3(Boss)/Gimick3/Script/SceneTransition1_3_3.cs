@@ -46,7 +46,7 @@ public class SceneTransition1_3_3 : MonoBehaviour
         SolveGimmickManager solveGimmickManager = GameObject.FindWithTag("GimmickManager").GetComponent<SolveGimmickManager>();
 
         // ギミックを解いたかのデータを渡す.
-        solveGimmickManager._solve[0] = _active;
+        solveGimmickManager._solve[2] = _active;
 
         // 削除
         SceneManager.sceneLoaded -= GameSceneLoaded;
