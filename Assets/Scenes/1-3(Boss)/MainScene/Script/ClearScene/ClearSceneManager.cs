@@ -19,11 +19,8 @@ public class ClearSceneManager : MonoBehaviour
     {
         _currentTime++;
 
-        Debug.Log(_currentTime);
-
         if(_currentTime >= 500)
         {
-            Debug.Log("通る");
             _fade._isFadeOut = true;
         }
 
