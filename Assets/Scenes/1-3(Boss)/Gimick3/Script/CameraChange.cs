@@ -7,7 +7,8 @@ public class CameraChange : MonoBehaviour
 {
     // ボタンを押したかの状態.
     private bool _isPushFlag;
-    public CinemachineVirtualCamera _monitorCameraObject;
+    [SerializeField] private CinemachineVirtualCamera _minMapCameraObject;
+    [SerializeField] private CinemachineVirtualCamera _wallCameraObject;
 
 
     // Start is called before the first frame update
@@ -16,18 +17,18 @@ public class CameraChange : MonoBehaviour
         _isPushFlag = true;
     }
 
-    private void Update()
+    public void ChengeCameraUpdate()
     {
         // ボタンの状態によって分岐させる.
         if (_isPushFlag)
-        {            
+        {
             // カメラを動かす.
-            _monitorCameraObject.Priority = 3;
+            _minMapCameraObject.Priority = 3;
         }
         else
-        {            
+        {
             // カメラを動かす.
-            _monitorCameraObject.Priority = 15;
+            _minMapCameraObject.Priority = 15;
         }
         if (Input.GetKeyDown("joystick button 2"))
         {

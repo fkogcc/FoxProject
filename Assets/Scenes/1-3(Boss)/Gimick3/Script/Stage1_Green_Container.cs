@@ -11,11 +11,21 @@ public class Stage1_Green_Container : MonoBehaviour
     {
         if (collision.gameObject.name == "stage1_kontena_green")
         {
-            ContainerDirector._count++;
+            ContainerDirector._getName = collision.gameObject.name;
+            ContainerDirector._isColl = true;
             EffectPlay();
         }
     }
-    private void EffectPlay()
+    private void OnCollisionExit(Collision collision)
+    {
+        if (collision.gameObject.name == "stage1_kontena_green")
+        {
+            ContainerDirector._getName = collision.gameObject.name;
+            ContainerDirector._isColl = false;
+        }
+    }
+
+private void EffectPlay()
     {
         _particleRed.Play();
         _particleGreen.Play();

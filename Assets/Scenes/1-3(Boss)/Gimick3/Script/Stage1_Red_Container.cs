@@ -11,8 +11,17 @@ public class Stage1_Red_Container : MonoBehaviour
     {
         if (collision.gameObject.name == "stage1_kontena_red")
         {
-            ContainerDirector._count++;
+            ContainerDirector._getName = collision.gameObject.name;
+            ContainerDirector._isColl = true;
             EffectPlay();
+        }
+    }
+    private void OnCollisionExit(Collision collision)
+    {
+        if (collision.gameObject.name == "stage1_kontena_red")
+        {
+            ContainerDirector._getName = collision.gameObject.name;
+            ContainerDirector._isColl = false;
         }
     }
 

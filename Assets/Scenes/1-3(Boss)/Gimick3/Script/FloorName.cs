@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class FlooName : MonoBehaviour
+public class FloorName : MonoBehaviour
 {
     // カメラの変更のために床の判定を取る.
     private StageCamera _camera;

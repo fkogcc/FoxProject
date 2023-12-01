@@ -5,9 +5,9 @@ public class ElevatorDirector : MonoBehaviour
     // 何フレームで動き出すようにするか.
     private readonly static int kChangeFrame = 50;
     // どの高さまで上がる処理をするか.
-    private readonly static float kUpHeight = 13.0f;
+    [SerializeField] private float _upHeight = 0.0f;
     // どの高さまで下がる処理をするか.
-    private readonly static float kDownHeight = 6.8f;
+    [SerializeField] private float _downHeight = 0.0f;
     // 上がるときにプレイヤーも一緒に上げるよう.
     private GameObject _player;
     // サウンド用.
@@ -53,7 +53,7 @@ public class ElevatorDirector : MonoBehaviour
         // 上がる処理.
         if (_isUp)
         {
-            if (this.transform.position.y < kUpHeight)
+            if (this.transform.position.y < _upHeight)
             {
                 // ここでプレイヤーも一緒に上げることでかくかくした動き(振動するような)
                 // をなくすようにする.
@@ -65,7 +65,7 @@ public class ElevatorDirector : MonoBehaviour
         // 降りる処理.
         if (_isDown)
         {
-            if (kDownHeight < this.transform.position.y)
+            if (_downHeight < this.transform.position.y)
             {
                 // エレベーターを移動させる.
                 ElevatorUpdate(-_vec);
