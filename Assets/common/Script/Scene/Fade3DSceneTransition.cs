@@ -162,7 +162,7 @@ public class Fade3DSceneTransition : MonoBehaviour
         else if (_transitionScene._isGoal1_3 && transitionFlagCommon)
         {
 
-            _sceneTransitionManager.EndScene();
+            _sceneTransitionManager.ClearScene();
         }
 
         if ((_transitionScene._isGoal1_1 || _transitionScene._isGoal1_2) && Input.GetKeyDown("joystick button 3"))
