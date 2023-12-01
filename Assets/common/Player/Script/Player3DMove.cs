@@ -19,7 +19,7 @@ public class Player3DMove : MonoBehaviour
     private BoxCollider _collider;
 
     // 体力.
-    public int _hp = 5;
+    public int _hp = 3;
 
     // 着地しているかどうか.
     public bool _isGround;
@@ -57,8 +57,9 @@ public class Player3DMove : MonoBehaviour
     // SphereCastの中心座標
     private Vector3 _SphereCastCenterPosition = Vector3.zero;
 
+    // 地面との距離.
     [SerializeField] private float _distanceGround;
-
+    // 足煙.
     [SerializeField] private ParticleSystem _particleSystem;
     
     float currentGravity = -0.1f;
@@ -160,6 +161,7 @@ public class Player3DMove : MonoBehaviour
         if (_transform.position.y <= -5.0f)
         {
             _transform.position = new Vector3(0.0f, 1.0f, 0.0f);
+            _hp -= 1;
         }
     }
 
@@ -242,4 +244,7 @@ public class Player3DMove : MonoBehaviour
 
     // 操作できるかどうか.
     public bool GetIsMoveActive() { return _isController; }
+
+    // Hp.
+    public int GetHp() { return _hp; }
 }

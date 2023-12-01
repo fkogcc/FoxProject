@@ -203,10 +203,10 @@ public class Fade2DSceneTransition : MonoBehaviour
 
     }
 
-    // 体力が0になった時の.
+    // 体力が0になった時の処理.
     private void GameOverSceneTransition()
     {
-        // 生きていたらそもそも処理を通さない.
+        // 生きていたら処理を通さない.
         if (_player._hp > 0) return;
 
         _nextSceneCount++;

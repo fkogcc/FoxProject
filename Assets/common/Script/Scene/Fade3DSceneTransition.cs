@@ -3,6 +3,7 @@
 
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class Fade3DSceneTransition : MonoBehaviour
 {
@@ -14,6 +15,9 @@ public class Fade3DSceneTransition : MonoBehaviour
 
     // ゴールしたタイミング
     public bool _isGoal;
+
+    // 次のシーンへ行く時のカウント.
+    private int _nextSceneCount = 0;
 
     // 色.
     public Color _color;
@@ -44,7 +48,6 @@ public class Fade3DSceneTransition : MonoBehaviour
         FadeUpdate();
         // シーン遷移関数.
         SceneTransition();
-        //Debug.Log($"{name}");
     }
 
     // フェード処理.
@@ -168,4 +171,31 @@ public class Fade3DSceneTransition : MonoBehaviour
         
 
     }
+
+    // 体力が0になった時の処理.
+    private void GameOverSceneTransition()
+    {
+        // 生きていたら処理を通さない.
+        if (_player.GetHp() > 0) return;
+
+        _nextSceneCount++;
+        if(_nextSceneCount >= 300)
+        {
+            _isPush = true;
+        }
+
+        // いずれかのシーンであるかないか.
+        bool isEitherScene = SceneManager.GetActiveScene().name == "GimmickRoad3_1" ||
+            SceneManager.GetActiveScene().name == "GimmickRoad3_2" ||
+            SceneManager.GetActiveScene().name == "GimmickRoad3_3" ||
+            SceneManager.GetActiveScene().name == "GimmickRoad3_4";
+
+        if (isEitherScene && _color.a >= 0.9f)
+        {
+            _sceneTransitionManager.MainScene1_3();
+        }
+        
+
+    }
+
 }

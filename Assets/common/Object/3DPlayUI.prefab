@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 2339642802180627169}
   - component: {fileID: 2339642802180627168}
   m_Layer: 5
-  m_Name: PlayUI
+  m_Name: 3DPlayUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -187,7 +187,7 @@ GameObject:
   - component: {fileID: 7071846447149090790}
   - component: {fileID: 4860333059491563632}
   - component: {fileID: 6811120545866222349}
-  - component: {fileID: 4513349266032049156}
+  - component: {fileID: 5991623763968942129}
   m_Layer: 5
   m_Name: HpNum
   m_TagString: Untagged
@@ -236,7 +236,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -257,7 +257,7 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: HP
---- !u!114 &4513349266032049156
+--- !u!114 &5991623763968942129
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -266,7 +266,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 4398989721578139459}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b5670d7b5f5759f488bd61b7f363fbba, type: 3}
+  m_Script: {fileID: 11500000, guid: e7f335af265a98e488cae07e13a4074a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &8954214439671797667
@@ -280,7 +280,7 @@ GameObject:
   - component: {fileID: 129014485641974672}
   - component: {fileID: 6459544019449777943}
   - component: {fileID: 1268646280866004962}
-  - component: {fileID: 5181474822674122926}
+  - component: {fileID: 478366528485134788}
   m_Layer: 5
   m_Name: Image
   m_TagString: Untagged
@@ -346,7 +346,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &5181474822674122926
+--- !u!114 &478366528485134788
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -355,6 +355,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 8954214439671797667}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b90be8873a95dee47831c174977851e7, type: 3}
+  m_Script: {fileID: 11500000, guid: ae8f57fb814599f4ebab857f2dc21372, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
