@@ -10,8 +10,6 @@ public class ContainerDirector : MonoBehaviour
     [SerializeField] private Dictionary<int, Dictionary<string,bool>> _gimickClear = new Dictionary<int, Dictionary<string, bool>>();
     // ギミックの名前を取得する用の配列.
     [SerializeField] private GameObject[] _gimickName = new GameObject[0];
-    //バリケードを取得.
-    GameObject _Barricade;
     //クリア数カウント.
     public static string _getName;
     public static bool _isColl; 
@@ -28,7 +26,7 @@ public class ContainerDirector : MonoBehaviour
     void Start()
     {
         //_getName = 0;
-        _Barricade = GameObject.Find("Barricade");
+
         _isAllClear= false;
         GetGimickName();
     }
@@ -48,11 +46,11 @@ public class ContainerDirector : MonoBehaviour
     {
         // 箱が置かれているかどうかチェックする.
         GimickClearCheck();
-        // ステージ2にいくときにバリケードを壊す.
-        if (_isStage1Flag)
-        {
-            Destroy(_Barricade);
-        }
+        //// ステージ2にいくときにバリケードを壊す.
+        //if (_isStage1Flag)
+        //{
+        //    Destroy(_Barricade);
+        //}
 
         // クリア判定.
         _isAllClear = IsGimickAllClear();
@@ -89,6 +87,10 @@ public class ContainerDirector : MonoBehaviour
             }
         }
         return true;
+    }
+    public bool IsStage1Clear()
+    {
+        return _isStage1Flag;
     }
     // クリア判定.
     public bool GetResult()
