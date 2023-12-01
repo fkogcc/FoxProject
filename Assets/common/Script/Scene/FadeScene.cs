@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 public class FadeScene : MonoBehaviour
 {
-    private Color _color;
+    public Color _color;
     // フェードインアウトの真偽.
     public bool _isFadeIn;
     public bool _isFadeOut;
