@@ -56,7 +56,7 @@ public class ObjectManagement : MonoBehaviour
                     var info = _targetList[i];
                     _handObject = Instantiate(PlayerHand,
                         info.hand.transform.position,
-                        info.hand.transform.rotation);
+                        info.hand.transform.rotation * PlayerHand.transform.rotation);
                 }
             }
         }

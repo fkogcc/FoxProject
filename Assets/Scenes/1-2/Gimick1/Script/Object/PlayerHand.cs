@@ -4,6 +4,7 @@ public class PlayerHand : MonoBehaviour
 {
     // 手の移動速度.
     private float _speed;
+    private Vector3 _vecAdd = Vector3.zero;
     // 移動スピード.
     private float _moveSpeed;
     // ボタンの名前を入れる用の変数.
@@ -12,11 +13,9 @@ public class PlayerHand : MonoBehaviour
     private bool _isButtonState;
     // プレイヤーの手が判定内にいるかどうかを返すフラグ.
     private bool _isCollision;
-
     // 初期化処理.
     void Start()
     {
-        // 初期化処理.
         _speed = 2.5f;
         _moveSpeed = _speed * Time.deltaTime;
         _isButtonState = false;
@@ -26,27 +25,45 @@ public class PlayerHand : MonoBehaviour
     // プレイヤーの手の移動処理.
     public void MovePlayerHand()
     {
-        // 手を動かす用の処理.
-        if (Input.GetAxis("Vertical") > 0)
+        // 垂直方向.
+        float horizontal = Input.GetAxis("Horizontal");
+        // 水平方向.
+        float vertical = Input.GetAxis("Vertical");
+
+        // プレイヤーの移動処理.
+        // 右.
+        if (0.0f < horizontal)
         {
-            // 上.
-            transform.position += transform.up * _moveSpeed;
+            _vecAdd = Vector3.right * _moveSpeed;
         }
-        if (Input.GetAxis("Vertical") < 0)
+        // 左.
+        if (horizontal < 0.0f)
         {
-            // 下.
-            transform.position -= transform.up * _moveSpeed;
+            _vecAdd = Vector3.left * _moveSpeed;
         }
-        if (Input.GetAxis("Horizontal") > 0)
+        // 上.
+        if (0.0f < vertical)
         {
-            // 右.
-            transform.position += transform.right * _moveSpeed;
+            _vecAdd = Vector3.up * _moveSpeed;
         }
-        if (Input.GetAxis("Horizontal") < 0)
+        // 下.
+        if (vertical < 0.0f)
         {
-            // 左.
-            transform.position -= transform.right * _moveSpeed;
+            _vecAdd = Vector3.down * _moveSpeed;
         }
+        if (transform.rotation.eulerAngles.y == 0)
+        {
+            transform.position += _vecAdd;
+        }
+        else if (transform.rotation.eulerAngles.y == 270)
+        {
+            transform.position += new Vector3(_vecAdd.z, _vecAdd.y,_vecAdd.x);
+        }
+        else
+        {
+            transform.position += new Vector3(_vecAdd.z, _vecAdd.y,-_vecAdd.x);
+        }
+        _vecAdd = Vector3.zero;
     }
     // ボタンを押した処理.
     public void ButtonPush()
