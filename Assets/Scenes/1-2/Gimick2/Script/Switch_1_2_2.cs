@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using UnityEditor.U2D.Common;
 
 public class Switch_1_2_2 : MonoBehaviour
 {
-
     // プレイヤーがオブジェクトに当たったかどうか.
     private bool _isHit = false;
 
@@ -22,17 +22,26 @@ public class Switch_1_2_2 : MonoBehaviour
     // 画像のクラスを取得.
     public Image _meter;
 
+    // クリアしたときにclearの画像を表示させる.
+    [SerializeField] private GenerateImg _img;
+
     // メーターの速度.
     public float _meterSpeed;
 
     //効果音
     public Sound_1_2_2 _sound;
 
+    //フェードの時間稼ぎ
+    int _fadeCount = 0;
+
+    //フェードが始まる時間
+    int _fadeTime;
     // ギミックをクリアしたかどうか.
     private bool _isResult = false;
 
     void Start()
     {
+        _fadeTime = 60 * 2;
         //_sound
         // オブジェクト取得. 
         _leverRota = GameObject.Find("stage03_lever_02/locator1");
@@ -45,7 +54,7 @@ public class Switch_1_2_2 : MonoBehaviour
         {
             _isLever = true;
             _sound._isLeverFlag = true;
-            
+
         }
     }
 
@@ -54,14 +63,14 @@ public class Switch_1_2_2 : MonoBehaviour
         if (_isLever)
         {
             // レーバーの角度を調整.
-            if(_leverRota.transform.localEulerAngles.x >= 310.0f)
+            if (_leverRota.transform.localEulerAngles.x >= 310.0f)
             {
-                _leverRota.transform.Rotate(1.0f,0.0f, 0.0f); 
+                _leverRota.transform.Rotate(1.0f, 0.0f, 0.0f);
             }
             else
             {
                 // 角度が0.0fになったら.
-                _isMinusRota =true;
+                _isMinusRota = true;
             }
 
             // レーバーの角度を調整.
@@ -73,8 +82,15 @@ public class Switch_1_2_2 : MonoBehaviour
                 }
                 else
                 {
+                    // 画像の表示.
+                    _img.GenerateImage();
                     // 角度が50.0fになったら.
-                    _isResult = true;
+                    _fadeCount++;
+                    //COMPLETEが表示されてから2秒たったらクリア判定を入れる
+                    if (_fadeTime < _fadeCount)
+                    {
+                        _isResult = true;
+                    }
                 }
             }
             // メーターを動かす.
@@ -88,7 +104,7 @@ public class Switch_1_2_2 : MonoBehaviour
         if (other.gameObject.tag == "Player")
         {
             _isHit = true;
-            return;            
+            return;
         }
     }
 
