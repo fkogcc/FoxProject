@@ -29,7 +29,7 @@ public class Player2DMove : MonoBehaviour
     // 当たったエネミーの距離と方向.
     private Vector3 _enemyDirection = Vector3.zero;
 
-    // マテリアル.
+    // レンダーマテリアル.
     public Renderer[] _renderer;
     // マテリアルの色.
     private Color[] _color;
@@ -47,28 +47,18 @@ public class Player2DMove : MonoBehaviour
     // ノックバック力.
     public float _knockBackPower = 1.0f;
     // ジャンプしているかどうか.
-    // true :している.
-    // false:していない.
     private bool _isJumpNow;
     // どの向きを向いているか.
     // true :右.
     // false:左.
     private bool _isDirection;
     // 動けるように処理を通すかどうか.
-    // true :動ける.
-    // false;動けない.
     public bool _isMoveActive = true;
     // 敵に当たったかどうか.
-    // true :当たった.
-    // false;当たってない.
     public bool _isHitEnemy = false;
     // ダメージを受けたかどうか
-    // true :受けた.
-    // false;受けてない.
     private bool _isDamage = false;
     // Rendererの表示、非表示.
-    // true :表示.
-    // false;非表示.
     private bool _isRendererDisplay = true;
 
     // イベントが発生する座標.
@@ -174,7 +164,7 @@ public class Player2DMove : MonoBehaviour
         FallDebug();
         // 敵と当たった時の処理.
         HitEnemy();
-
+        // 表示非表示.
         RendererDisplay();
 
         if(_isDamage)

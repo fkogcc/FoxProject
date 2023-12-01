@@ -3,25 +3,24 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class GameOverUi2D : MonoBehaviour
+public class GameOverUi3D : MonoBehaviour
 {
     // 2Dプレイヤー.
-    private Player2DMove _player2D;
+    private Player3DMove _player2D;
     // UIの色.
     private Color _color;
 
     void Start()
     {
-        _player2D = GameObject.FindWithTag("Player").GetComponent<Player2DMove>();
+        _player2D = GameObject.FindWithTag("Player").GetComponent<Player3DMove>();
         _color = gameObject.GetComponent<Image>().color;
-        
+
     }
 
     private void FixedUpdate()
     {
         if (_player2D.GetHp() <= 0)
         {
-            Debug.Log("通る");
             _color.a += 0.01f;
             gameObject.GetComponent<Image>().color = _color;
         }

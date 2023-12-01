@@ -7,8 +7,8 @@ using UnityEngine;
 
 public class ClearFox : MonoBehaviour
 {
-    // 現在の時間,
-    private int _currentTime = 0;
+    // クリアシーンマネージャー.
+    private ClearSceneManager _manager;
 
     // プレイヤーアニメーション.
     private PlayerAnim _anim;
@@ -42,30 +42,29 @@ public class ClearFox : MonoBehaviour
     void Start()
     {
         _anim = GetComponent<PlayerAnim>();
+        _manager = GameObject.Find("GameManager").GetComponent<ClearSceneManager>();
     }
 
     private void FixedUpdate()
     {
 
-        _currentTime++;
-
-        if(_currentTime < 200)
+        if(_manager._currentTime < 200)
         {
             
             transform.position = _startPos.transform.position;
         }
-        else if(_currentTime > 200 && _currentTime < 250)
+        else if(_manager._currentTime > 200 && _manager._currentTime < 250)
         {
             _anim._jump = true;
             SlerpMove();
         }
-        else if(_currentTime > 250 && _currentTime < 380)
+        else if(_manager._currentTime > 250 && _manager._currentTime < 380)
         {
             _anim._jump = false;
             _anim._waveHands = true;
             WaveHand();
         }
-        else if(_currentTime > 380 /*&& _currentTime < 400*/)
+        else if(_manager._currentTime > 380)
         {
 
             _anim._waveHands = false;
@@ -117,8 +116,8 @@ public class ClearFox : MonoBehaviour
         // 進行方向に回転させる.
         Quaternion rotation = Quaternion.LookRotation(new Vector3(-1.0f, 0.0f, -1.0f), Vector3.up);
 
-        transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime * 2);
+        transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime * 20);
 
-        transform.position += new Vector3(-1.0f, 0.0f, 0.0f);
+        transform.position += new Vector3(-0.5f, 0.0f, 0.0f);
     }
 }

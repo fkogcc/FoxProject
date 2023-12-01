@@ -1,5 +1,4 @@
 ﻿// ポーズ画面の処理.
-// FIXME:まだ追加したい機能があるので途中よ
 
 using UnityEngine;
 
@@ -30,8 +29,16 @@ public class UpdatePause : MonoBehaviour
 
         if (Input.GetKeyDown("joystick button 7"))
         {
-            _isPause = !_isPause;
+            _isPause = true;
         }
+        if (Input.GetKeyDown("joystick button 1"))
+        {
+            _isPause = false;
+        }
+
+        
+
+        
     }
 
     private void FixedUpdate()

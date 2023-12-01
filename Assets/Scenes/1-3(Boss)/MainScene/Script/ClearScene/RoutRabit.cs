@@ -6,15 +6,15 @@ using UnityEngine;
 
 public class RoutRabit : MonoBehaviour
 {
+    // クリアシーンマネージャー.
+    private ClearSceneManager _manager;
+
     // 初期位置.
     public GameObject _initialPosition = null;
     // アニメーション.
     private Animator _animator;
     // ジャンプモーション.
     private bool _jumpMotion = false;
-
-    // 現在の時間.
-    private int _currentTime = 0;
 
     // 現在のインターバル
     private int _currentInterval = 0;
@@ -31,18 +31,18 @@ public class RoutRabit : MonoBehaviour
     void Start()
     {
         _animator = GetComponent<Animator>();
+        _manager = GameObject.Find("GameManager").GetComponent<ClearSceneManager>();
     }
 
 
     private void FixedUpdate()
     {
-        _currentTime++;
         Anim();
-        if(_currentTime <= 120)
+        if(_manager._currentTime <= 120)
         {
             InitialPosition();
         }
-        else if(_currentTime >= 121)
+        else if(_manager._currentTime >= 121)
         {
             _jumpMotion = true;
             AnimMove();

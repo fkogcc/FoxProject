@@ -11,15 +11,25 @@ public class Player3DMove : MonoBehaviour
     private GateFlag _transitionScene;
     // 3Dプレイヤーのアニメーション.
     private PlayerAnim3D _anim3D;
+    // アニメーション.
     private Animator _animator;
+    // 物理演算.
     private Rigidbody _rigidbody;
     // transformをキャッシュ.
     private Transform _transform;
     // 当たり判定.
     private BoxCollider _collider;
 
+    // レンダーマテリアル.
+    public Renderer[] _renderer;
+
     // 体力.
-    public int _hp = 5;
+    public int _hp = 3;
+
+    // ダメージを受けた後の無敵時間.
+    private int _invincibleTime;
+    // ダメージを受けた後の最大無敵時間.
+    public int _invincibleMaxTime = 120;
 
     // 着地しているかどうか.
     public bool _isGround;
@@ -43,7 +53,8 @@ public class Player3DMove : MonoBehaviour
     public bool _isController = true;
     // ジャンプ可能かどうか.
     public bool _isJumpController = true;
-
+    // ダメージを受けたかどうか.
+    private bool _isDamage = false;
 
     [Header("身体にめり込ませるRayの長さ")]
     [SerializeField] private float _rayOffset;
@@ -57,9 +68,13 @@ public class Player3DMove : MonoBehaviour
     // SphereCastの中心座標
     private Vector3 _SphereCastCenterPosition = Vector3.zero;
 
+    // 地面との距離.
     [SerializeField] private float _distanceGround;
-
+    // 足煙.
     [SerializeField] private ParticleSystem _particleSystem;
+
+    // Rendererの表示、非表示.
+    private bool _isRendererDisplay = true;
     
     float currentGravity = -0.1f;
     void Start()
@@ -78,10 +93,6 @@ public class Player3DMove : MonoBehaviour
 
     void Update()
     {
-        //print(_isGround);
-
-        //Debug.Log(_hp);
-
         if(Input.GetKeyDown("joystick button 3"))
         {
             // ゲートの前にいないときはスキップ.
@@ -103,14 +114,14 @@ public class Player3DMove : MonoBehaviour
             Jump();
         }
         Anim();
-        FallDebug();
+        //FallDebug();
 
         // 土煙のエフェクトを着地している間に再生.
-        if(IsGroundShpere())
+        if(IsGroundShpere() && _hp > 0)
         {
             _particleSystem.Play();
         }
-        else
+        else if(!IsGroundShpere() || _hp <= 0)
         {
             _particleSystem.Stop();
         }
@@ -127,10 +138,17 @@ public class Player3DMove : MonoBehaviour
 
         if(_rigidbody.velocity.y <= -20.0f && IsGroundShpere())
         {
-            Debug.Log("通った");
-            _hp -= 1;
+            HpDown();
+            _isDamage = true;
         }
 
+        if(_isDamage)
+        {
+            DamageBlinking();
+        }
+
+
+        RendererDisplay();
         //Debug.Log(IsGroundShpere());
 
         //Debug.DrawRay(ray.origin, ray.direction * distance, Color.red); // レイを赤色で表示させる
@@ -138,10 +156,14 @@ public class Player3DMove : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        //if (collision.gameObject.tag == "Stage" && _rigidbody.velocity.y >= 20.0f)
-        //{
-        //    _isGround = true;
-        //}
+        if (collision.gameObject.tag == "DamageFloor")
+        {
+            HpDown();
+            _rigidbody.velocity = new Vector3(_rigidbody.velocity.x, 50, _rigidbody.velocity.z);
+            _isDamage = true;
+
+            //_rigidbody.AddForce(new Vector3(_rigidbody.velocity.x, 20, _rigidbody.velocity.z), ForceMode.Impulse);
+        }
     }
 
     private void OnDrawGizmos()
@@ -161,6 +183,7 @@ public class Player3DMove : MonoBehaviour
         if (_transform.position.y <= -5.0f)
         {
             _transform.position = new Vector3(0.0f, 1.0f, 0.0f);
+            HpDown();
         }
     }
 
@@ -232,6 +255,44 @@ public class Player3DMove : MonoBehaviour
         return false;
     }
 
+    // ダメージを受けた時の点滅処理.
+    private void DamageBlinking()
+    {
+        _invincibleTime++;
+        if (_invincibleTime % 5 == 0)
+        {
+            _isRendererDisplay = false;
+        }
+        else
+        {
+            _isRendererDisplay = true;
+        }
+
+        if (_invincibleTime >= _invincibleMaxTime)
+        {
+            _invincibleTime = 0;
+            _isDamage = false;
+            _isRendererDisplay = true;
+        }
+    }
+
+    // Rendererの表示非表示.
+    private void RendererDisplay()
+    {
+        for (int rendererNum = 0; rendererNum < _renderer.Length; rendererNum++)
+        {
+            _renderer[rendererNum].enabled = _isRendererDisplay;
+        }
+    }
+
+    // 体力を減らす.
+    private void HpDown()
+    {
+        if (_isDamage) return;
+
+        _hp--;
+    }
+
     // アニメーションの処理.
     private void Anim()
     {
@@ -243,4 +304,7 @@ public class Player3DMove : MonoBehaviour
 
     // 操作できるかどうか.
     public bool GetIsMoveActive() { return _isController; }
+
+    // Hp.
+    public int GetHp() { return _hp; }
 }
