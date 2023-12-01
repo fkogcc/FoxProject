@@ -19,7 +19,8 @@ public class TestBoxMove : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+		//Debug.Log("ああああ");
+		//Debug.Log(this.gameObject.name);
     }
 	void FixedUpdate()
     {

@@ -12,8 +12,17 @@ public class Stage1_Yellow_Container : MonoBehaviour
 
         if (collision.gameObject.name == "stage1_kontena_yellow")
         {
-            ContainerDirector._count++;
+            ContainerDirector._getName = collision.gameObject.name;
+            ContainerDirector._isColl = true;
             EffectPlay();
+        }
+    }
+    private void OnCollisionExit(Collision collision)
+    {
+        if (collision.gameObject.name == "stage1_kontena_yellow")
+        {
+            ContainerDirector._getName = collision.gameObject.name;
+            ContainerDirector._isColl = false;
         }
     }
     private void EffectPlay()

@@ -21,7 +21,6 @@ public class StageCamera : MonoBehaviour
     [SerializeField] private TargetInfo[] _targetList;
     // カメラの名前.
     private string _cameraName;
-    private int _test = 0;
     // 初期化処理.
     void Start()
     {
@@ -33,15 +32,7 @@ public class StageCamera : MonoBehaviour
 
         _cameraName = null;
     }
-    private void Update()
-    {
-        _test++;
-        if (_test > 60)
-        {
-            _test = 0;
-            CameraUpdate();
-        }
-    }
+    
     // カメラの更新処理.
     public void CameraUpdate()
     {

@@ -7,12 +7,21 @@ public class Stage2_Red_Container : MonoBehaviour
     [SerializeField] private ParticleSystem _particleRed;
     [SerializeField] private ParticleSystem _particleGreen;
     [SerializeField] private ParticleSystem _particlePurple;
-    void OnTriggerEnter(Collider other)
+    void OnTriggerEnter(Collider collision)
     {
-        if (other.gameObject.name == "stage2_kontena_red")
+        if (collision.gameObject.name == "stage2_kontena_red")
         {
-            ContainerDirector._count++;
+            ContainerDirector._getName = collision.gameObject.name;
+            ContainerDirector._isColl = true;
             EffectPlay();
+        }
+    }
+    private void OnCollisionExit(Collision collision)
+    {
+        if (collision.gameObject.name == "stage2_kontena_red")
+        {
+            ContainerDirector._getName = collision.gameObject.name;
+            ContainerDirector._isColl = false;
         }
     }
 
