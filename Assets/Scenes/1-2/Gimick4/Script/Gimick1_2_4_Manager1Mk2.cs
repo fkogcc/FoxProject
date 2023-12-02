@@ -52,13 +52,11 @@ public class Gimick1_2_4_Manager1Mk2 : MonoBehaviour
     public float _clearCameraRotaY;
     public float _clearCameraRotaX;
 
+    // サウンド
+    public SoundManager _sound;
+
     // ライトが光るかどうか
     private bool _isLight = false;
-
-    // サウンド関係
-    public AudioClip _sound;
-    public AudioClip _sound2;
-    AudioSource _audioSource;
 
     // カウントダウンを確認
     public GameObject _count;
@@ -97,15 +95,13 @@ public class Gimick1_2_4_Manager1Mk2 : MonoBehaviour
             _cameraPos = _cameraData.transform;
         }
 
-        // サウンドのコンポーネントを取得
-        _audioSource = GameObject.Find("Sound").GetComponent<AudioSource>();
-
         // カウントダウンをするクラスを取得
         _countDown = _count.GetComponent<Gimmick1_2_4_CountDown2>();
     }
 
     void Update()
     {
+       // _sound.PlayBGM("1_1_1_BGM");
         _countDown.SetTimeCount(true);
         // ゲームクリアした場合ライトが光るので
         // 光ってない場合はプレイヤーを追跡する
@@ -131,7 +127,7 @@ public class Gimick1_2_4_Manager1Mk2 : MonoBehaviour
                 if (_botton.GetComponent<Botton>().GetButtonB())
                 {
                     // サウンドを再生
-                    _audioSource.PlayOneShot(_sound);
+                    _sound.PlaySE("1_2_3_MetalRota");
 
                     // 回転したら.
                     _rota[i].GetComponent<TurnGraph>().Rota();
@@ -192,8 +188,7 @@ public class Gimick1_2_4_Manager1Mk2 : MonoBehaviour
         {
             if(_clearFrameCount == 0)
             {
-                // サウンドを再生
-                _audioSource.PlayOneShot(_sound);
+                _sound.PlaySE("1_2_4_Light");
             }
 
             _isCountDown = true;
@@ -216,7 +211,6 @@ public class Gimick1_2_4_Manager1Mk2 : MonoBehaviour
                 _isClear = true;
             }
         }
-        //Debug.Log(_isClear);
     }
 
     // マップ全体を見る
