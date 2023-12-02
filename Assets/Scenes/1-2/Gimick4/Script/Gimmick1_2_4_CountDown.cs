@@ -56,7 +56,6 @@ public class Gimmick1_2_4_CountDown : MonoBehaviour
 
     private void Update()
     {
-        Debug.Log($"{name}");
         // カウントが10より小さくなったら0を減らす.
         if (_countTime < 10)
         {
