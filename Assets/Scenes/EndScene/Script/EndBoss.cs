@@ -24,7 +24,7 @@ public class EndBoss : MonoBehaviour
         _frame = kMoveFrame;
         _lapsNum = 0;
 
-        _partic = GetComponent<ParticleSystem>();
+        _partic = GameObject.Find("Smoke").GetComponent<ParticleSystem>();
     }
 
     public void BossUpdate()

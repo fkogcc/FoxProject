@@ -42,6 +42,7 @@ public class SceneTransition1_1_1 : MonoBehaviour
         // 切り替え後のスクリプト取得.
         SolveGimmickManager solveGimmickManager = GameObject.FindWithTag("GimmickManager").GetComponent<SolveGimmickManager>();
         Player2DMove player2D = GameObject.FindWithTag("Player").GetComponent<Player2DMove>();
+        
 
         // ギミックを解いたかのデータを渡す.
         solveGimmickManager._solve[0] = _active;
