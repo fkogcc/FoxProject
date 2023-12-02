@@ -19,8 +19,6 @@ public class StateGimmickSolveSave : MonoBehaviour
 
         _inctanceExit = true;
 
-        Debug.Log($"{name}");
-
         DontDestroyOnLoad(gameObject);
     }
 
