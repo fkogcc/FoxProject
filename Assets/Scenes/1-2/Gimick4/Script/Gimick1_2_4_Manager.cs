@@ -1,6 +1,7 @@
 ﻿using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Gimick1_2_4_Manager : MonoBehaviour
@@ -53,10 +54,8 @@ public class Gimick1_2_4_Manager : MonoBehaviour
     public float _clearCameraRotaY;
     public float _clearCameraRotaX;
 
-    // サウンド関係
-    public AudioClip _sound;
-    public AudioClip _sound2;
-    AudioSource _audioSource;
+    // サウンド
+    public SoundManager _sound;
 
     // カウントダウンを確認
     public GameObject _count;
@@ -106,15 +105,13 @@ public class Gimick1_2_4_Manager : MonoBehaviour
             _cameraPos       = _cameraData.transform;
         }
 
-        // サウンドのコンポーネントを取得
-        _audioSource = GameObject.Find("Sound").GetComponent<AudioSource>();
-
         // カウントダウンをするクラスを取得
         _countDown = _count.GetComponent<Gimmick1_2_4_CountDown>();
     }
 
     void Update()
     {
+        //_sound.PlayBGM("1_1_1_BGM");
         _countDown.SetTimeCount(true);
         for (int i = 0; i < _objRotaMaxNum; i++)
         {
@@ -125,7 +122,7 @@ public class Gimick1_2_4_Manager : MonoBehaviour
                 if (_botton.GetComponent<Botton>().GetButtonB())
                 {
                     // サウンドを再生
-                    _audioSource.PlayOneShot(_sound);
+                    _sound.PlaySE("1_2_3_MetalRota");
                     
                     // 回転したら.
                     _rota[i].GetComponent<TurnGraph>().Rota();
@@ -192,7 +189,7 @@ public class Gimick1_2_4_Manager : MonoBehaviour
             // サウンドを再生.
             if (_clearFrameCount == 0)
             {
-                _audioSource.PlayOneShot(_sound2);
+                _sound.PlaySE("1_2_4_Light");
             }
 
             _isCountDown = true;
