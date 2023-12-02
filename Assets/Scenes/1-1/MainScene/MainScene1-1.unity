@@ -12291,7 +12291,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 30, y: 63.87, z: 47.27}
+  m_Size: {x: 40, y: 63.87, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!4 &1112045765
 Transform:
@@ -12301,7 +12301,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1112045763}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -215, y: -3.8, z: 14.876236}
+  m_LocalPosition: {x: -100, y: -3.8, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -27181,7 +27181,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2519987739933323313, guid: efd49aba95bbbb648975da0474da9c3a, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -50
+      value: -60
       objectReference: {fileID: 0}
     - target: {fileID: 2519987739933323313, guid: efd49aba95bbbb648975da0474da9c3a, type: 3}
       propertyPath: m_LocalPosition.y
@@ -29564,7 +29564,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6717521992649619771, guid: f13038ffe48ab1d438a1ebbd83154288, type: 3}
       propertyPath: _cameraFixedPositionLeft
-      value: -180
+      value: -60
       objectReference: {fileID: 0}
     - target: {fileID: 6717521992649619771, guid: f13038ffe48ab1d438a1ebbd83154288, type: 3}
       propertyPath: _cameraFixedPositionRight

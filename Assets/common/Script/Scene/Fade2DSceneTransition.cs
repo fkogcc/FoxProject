@@ -124,10 +124,16 @@ public class Fade2DSceneTransition : MonoBehaviour
 
         
 
-        if((_transitionScene._isGoal1_1 || _transitionScene._isGoal1_2) && _transitionFlagCommon)
+        //if((_transitionScene._isGoal1_1 || _transitionScene._isGoal1_2) && _transitionFlagCommon)
+        //{
+            
+        //}
+        if(_transitionFlagCommon)
         {
             SceneManager.sceneLoaded += GameSceneLoaded;
         }
+
+        
 
         // シーン遷移.
         if (_transitionScene._isGateGimmick1_1 && _transitionFlagCommon)
@@ -252,7 +258,14 @@ public class Fade2DSceneTransition : MonoBehaviour
             // hpの引継ぎ.
             player3D._hp = _player.GetHp();
         }
-        
+        else if(!_transitionScene._isGoal1_1 && !_transitionScene._isGoal1_2)
+        {
+            // 切り替え先のスクリプト取得
+            Player3DMove player3D = GameObject.FindWithTag("Player").GetComponent<Player3DMove>();
+
+            // hpの引継ぎ.
+            player3D._hp = _player.GetHp();
+        }
 
         // 削除
         SceneManager.sceneLoaded -= GameSceneLoaded;
