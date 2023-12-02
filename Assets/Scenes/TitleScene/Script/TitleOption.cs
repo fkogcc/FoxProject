@@ -1,5 +1,7 @@
-﻿using System.Collections;
+﻿using Mono.Cecil.Cil;
+using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -21,6 +23,8 @@ public class TitleOption : MonoBehaviour
 
     private bool _isSelect;
     private int _index;
+    // 音量調節傾け度合い
+    float axisPower;
 
     float _fadeAlpha;
     private Color _handleColor;
@@ -84,27 +88,24 @@ public class TitleOption : MonoBehaviour
             SelectFrame.SelectUpdate();
         }
 
-        if (_isSelect && Input.GetAxisRaw("Horizontal") == 1.0f)
+        if (_isSelect)
         {
-            if (_index == 0)
-            {
-                _soundManager.MasterVolumeChangeBgm(kValueNum);
-            }
-            else
-            {
-                _soundManager.MasterVolumeChangeSe(kValueNum);
-            }
+            // スティックによる音量調節
+            axisPower = Input.GetAxis("Horizontal");
+            ChangeVolume(kValueNum * axisPower);
         }
-        if (_isSelect && Input.GetAxisRaw("Horizontal") == -1.0f)
+    }
+
+    // 音の調整
+    private void ChangeVolume(float volume)
+    {
+        if (_index == 0)
         {
-            if (_index == 0)
-            {
-                _soundManager.MasterVolumeChangeBgm(-kValueNum);
-            }
-            else
-            {
-                _soundManager.MasterVolumeChangeSe(-kValueNum);
-            }
+            _soundManager.MasterVolumeChangeBgm(volume);
+        }
+        else
+        {
+            _soundManager.MasterVolumeChangeSe(volume);
         }
     }
 
@@ -115,7 +116,7 @@ public class TitleOption : MonoBehaviour
         SeSlider.value = _soundManager.GetVolumeSe();
     }
 
-    // 選択しているときフレームを点滅
+    // 選択しているとき色をオレンジに
     private void ChangeHandle()
     {
         if (_index == 0)
