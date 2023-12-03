@@ -42,11 +42,14 @@ public class SceneTransition1_2_4 : MonoBehaviour
         // 切り替え後のスクリプト取得.
         SolveGimmickManager solveGimmickManager = GameObject.FindWithTag("GimmickManager").GetComponent<SolveGimmickManager>();
         Player2DMove player2D = GameObject.FindWithTag("Player").GetComponent<Player2DMove>();
+        CameraUpdate camera = GameObject.Find("Camera").GetComponent<CameraUpdate>();
 
         // ギミックを解いたかのデータを渡す.
         solveGimmickManager._solve[3] = _active;
         player2D.transform.position = new Vector3(310.0f, 0.0f, 0.0f);
         player2D._hp = _Player3D._hp + 1;
+        camera.transform.position = new Vector3(player2D.transform.position.x, player2D.transform.position.y,
+                -20.0f);
 
         // 削除
         SceneManager.sceneLoaded -= GameSceneLoaded;
