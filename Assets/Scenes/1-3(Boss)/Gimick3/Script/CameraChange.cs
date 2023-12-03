@@ -35,6 +35,16 @@ public class CameraChange : MonoBehaviour
             _isPushFlag = !_isPushFlag;
         }
     }
+    public void ChangeCameraAnim()
+    {
+        _wallCameraObject.Priority = 50;
+
+    }
+    public void CameraDestory() 
+    {
+        _wallCameraObject.Priority = 1;
+        //Destroy(_wallCameraObject);
+    }
 
     public void SetPushFlag(bool ispush)
     {

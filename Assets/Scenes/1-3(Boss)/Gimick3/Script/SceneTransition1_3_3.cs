@@ -22,9 +22,6 @@ public class SceneTransition1_3_3 : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
-        Debug.Log(_containerDirector.GetResult());
-
         if (_containerDirector.GetResult())
         {
             //Debug.Log("a");

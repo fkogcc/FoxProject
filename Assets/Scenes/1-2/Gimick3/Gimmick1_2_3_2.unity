@@ -10777,6 +10777,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 088b3a56207e16a4188c6546ffdf919e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _color: {r: 0, g: 0, b: 0, a: 0}
   _isFadeIn: 0
   _isFadeOut: 0
 --- !u!224 &1067714044 stripped
@@ -42182,6 +42183,14 @@ PrefabInstance:
       propertyPath: _sound
       value: 
       objectReference: {fileID: 1667328610}
+    - target: {fileID: 5186409729966541968, guid: 1aac0c55bb9b6804aad4bdd88adf9b05, type: 3}
+      propertyPath: _upHeight
+      value: 12.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 5186409729966541968, guid: 1aac0c55bb9b6804aad4bdd88adf9b05, type: 3}
+      propertyPath: _downHeight
+      value: 6.8
+      objectReference: {fileID: 0}
     - target: {fileID: 5186409729966541981, guid: 1aac0c55bb9b6804aad4bdd88adf9b05, type: 3}
       propertyPath: m_Name
       value: Elevator
