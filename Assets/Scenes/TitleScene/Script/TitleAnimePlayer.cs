@@ -12,10 +12,10 @@ public class TitleAnimePlayer : MonoBehaviour
     private const int kRunFrame = kMoveFrame;
     // 正面向かせるフレーム
     private const int kRotFrontFrame = kRunFrame + kRotFrame;
-    // 座り込んでる(Deadの)フレーム
-    private const int kDeadFrame = kRotFrontFrame + 50 * 5;
+    // 立っているフレーム
+    private const int kStandFrame = kRotFrontFrame + 50 * 5;
     // 手を振るフレーム
-    private const int kWaveHandFrame = kDeadFrame + 50 * 3;
+    private const int kWaveHandFrame = kStandFrame + 50 * 3;
     // 戻る方向向くフレーム
     private const int kRotOutRageFrame = kWaveHandFrame + kRotFrame;
     // まえに進むフレーム
@@ -56,7 +56,6 @@ public class TitleAnimePlayer : MonoBehaviour
 
     public void PlayStart()
     {
-        _anim._isDead = false;
         _anim._waveHands = false;
         _anim._run = true;
 
@@ -80,15 +79,14 @@ public class TitleAnimePlayer : MonoBehaviour
             _anim._run = false;
             this.transform.rotation = this.transform.rotation * _rotFront;
         }
-        // 座り込む
-        else if (_frame < kDeadFrame)
+        // 立つだけ
+        else if (_frame < kStandFrame)
         {
-            _anim._isDead = true;
+
         }
         // 手を振る
         else if (_frame < kWaveHandFrame)
         {
-            _anim._isDead = false;
             _anim._waveHands = true;
         }
         // 画面外に向かせる

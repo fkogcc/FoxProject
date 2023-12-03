@@ -1,5 +1,4 @@
-﻿using Microsoft.Cci;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -87,7 +86,6 @@ public class SlideGimmickDirector : MonoBehaviour
     private MeshRenderer[] _lightGimmick;
     float _alpha;
     Color _color;
-    int _lightEleLog = 0;
 
     // Reset, OneBackのテキストを入れるよう
     public GameObject ResetText;
@@ -483,22 +481,32 @@ public class SlideGimmickDirector : MonoBehaviour
         _isChange = true;
     }
 
-    public void ChangeNowSelectLight(int num)
+    // 現在選択している場所を光らせる
+    public void OnLight(int no)
     {
         // クリアしている時は処理を行わない
         if (_isClear) return;
 
         // 配列範囲外が送られてきた場合は以下の処理はしないようにする
-        if (num < 0) return;
-        if (num >= kClearBlockNo) return;
+        if (no < 0) return;
+        if (no >= kClearBlockNo) return;
 
-        // 元々光らせていたら光らせないようにする
-        _lightGimmick[_lightEleLog].material.EnableKeyword("_EMISSION");
-        _lightGimmick[_lightEleLog].material.SetColor("_EmissionColor", Color.black);
-        _lightEleLog = num;
-        // 現在選択している場所を光らせる
-        _lightGimmick[num].material.EnableKeyword("_EMISSION");
-        _lightGimmick[num].material.SetColor("_EmissionColor", Color.white);
+        _lightGimmick[no].material.EnableKeyword("_EMISSION");
+        _lightGimmick[no].material.SetColor("_EmissionColor", Color.white);
+    }
+
+    // 元々光らせていたら光らせないようにする
+    public void OffLight(int no)
+    {
+        // クリアしている時は処理を行わない
+        if (_isClear) return;
+
+        // 配列範囲外が送られてきた場合は以下の処理はしないようにする
+        if (no < 0) return;
+        if (no >= kClearBlockNo) return;
+
+        _lightGimmick[no].material.EnableKeyword("_EMISSION");
+        _lightGimmick[no].material.SetColor("_EmissionColor", Color.black);
     }
 
     public bool GetResult()
