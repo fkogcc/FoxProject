@@ -32,11 +32,24 @@ public class GimmickHand : MonoBehaviour
         _limitPos = transform.position;
     }
 
-    void OnTriggerEnter(Collider other)
-    {
-        _hitNo = int.Parse(other.name);
+    bool _isStay = false;
 
-        _directer.GetComponent<SlideGimmickDirector>().ChangeNowSelectLight(_hitNo);
+    private void OnTriggerStay(Collider other)
+    {
+        if (!_isStay)
+        {
+            _hitNo = int.Parse(other.name);
+
+            _directer.GetComponent<SlideGimmickDirector>().OnLight(_hitNo);
+
+            _isStay = true;
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        _isStay = false;
+        _directer.GetComponent<SlideGimmickDirector>().OffLight(_hitNo);
     }
 
     public void HandUpdate()

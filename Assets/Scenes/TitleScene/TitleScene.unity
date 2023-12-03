@@ -1323,6 +1323,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 10ebc05199c24c7499747f36047ca7f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  SndManager: {fileID: 1805925647}
   IsMain: 1
 --- !u!114 &739337886
 MonoBehaviour:
@@ -1727,6 +1728,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 10ebc05199c24c7499747f36047ca7f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  SndManager: {fileID: 1805925647}
   IsMain: 0
 --- !u!114 &873618473
 MonoBehaviour:

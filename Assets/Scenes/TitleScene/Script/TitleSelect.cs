@@ -14,6 +14,8 @@ public class TitleSelect : MonoBehaviour
     // 上下の幅(Option)
     private const float KOptionRangeY = 160f;
 
+    public SoundManager SndManager;
+
     public bool IsMain;
 
     private int _index;
@@ -70,6 +72,8 @@ public class TitleSelect : MonoBehaviour
 
     private void MoveFrame()
     {
+        SndManager.GetComponent<SoundManager>().PlaySE("1_3_1_Reset");
+
         if (_index == 0)
         {
             if (IsMain)

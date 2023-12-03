@@ -19,8 +19,6 @@ public class TitleOption : MonoBehaviour
     public GameObject BgmHandle;
     public GameObject SeHandle;
 
-    private SoundManager _soundManager;
-
     private bool _isSelect;
     private int _index;
     // 音量調節傾け度合い
@@ -35,8 +33,6 @@ public class TitleOption : MonoBehaviour
     void Start()
     {
         OptionCas.SetActive(false);
-        _soundManager = GameObject.Find("SoundManager").GetComponent<SoundManager>();
-
         _isSelect = false;
         _isFadeIn = false;
         _isFadeOut = false;
@@ -101,19 +97,19 @@ public class TitleOption : MonoBehaviour
     {
         if (_index == 0)
         {
-            _soundManager.MasterVolumeChangeBgm(volume);
+            SndManager.MasterVolumeChangeBgm(volume);
         }
         else
         {
-            _soundManager.MasterVolumeChangeSe(volume);
+            SndManager.MasterVolumeChangeSe(volume);
         }
     }
 
     // スライダーの位置を変更
     public void ChangeValue()
     {
-        BgmSlider.value = _soundManager.GetVolumeBgm();
-        SeSlider.value = _soundManager.GetVolumeSe();
+        BgmSlider.value = SndManager.GetVolumeBgm();
+        SeSlider.value = SndManager.GetVolumeSe();
     }
 
     // 選択しているとき色をオレンジに
