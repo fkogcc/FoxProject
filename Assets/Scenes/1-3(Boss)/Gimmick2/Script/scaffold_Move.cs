@@ -14,6 +14,8 @@ public class scaffold_Move : MonoBehaviour
     private int _time;
     // ギミックの移動量
     private float _moveZ;
+
+    public GameObject _player;
     void Start()
     {
         _count = 0;
@@ -32,7 +34,7 @@ public class scaffold_Move : MonoBehaviour
         if (_count < _time)
         {
             // z座標へ0.08減算.
-            _pos.z -= _moveZ;
+            _pos.z += _moveZ;
             // 座標を設定.
             _myTransform.position = _pos;  
         }
@@ -40,7 +42,7 @@ public class scaffold_Move : MonoBehaviour
         else if (_count < _time * 2)
         {
             // z座標へ0.08加算.
-            _pos.z += _moveZ;
+            _pos.z -= _moveZ;
             // 座標を設定.
             _myTransform.position = _pos;  
         }
@@ -49,6 +51,24 @@ public class scaffold_Move : MonoBehaviour
         {
             //カウントを初期化する.
             _count = 0;
+        }
+    }
+
+    void OnCollisionStay(Collision collision)
+    {
+        Debug.Log("HitOutSidee");
+        if (collision.gameObject.tag == _player.tag)
+        {
+            Debug.Log("Hit");
+            _player.transform.SetParent(gameObject.transform);
+        }
+    }
+
+    void OnCollisionExit(Collision collision)
+    {
+        if (collision.gameObject.tag == _player.tag)
+        {
+            _player.transform.parent = null;
         }
     }
 }
