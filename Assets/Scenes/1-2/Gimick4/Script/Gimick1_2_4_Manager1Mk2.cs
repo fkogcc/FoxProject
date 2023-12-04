@@ -205,7 +205,7 @@ public class Gimick1_2_4_Manager1Mk2 : MonoBehaviour
             _camera.GetCinemachineComponent(CinemachineCore.Stage.Aim).GetComponent<CinemachinePOV>().m_HorizontalAxis.Value = _clearCameraRotaX;
 
             // 一定数カウントが値を御超えると.
-            if (_isLight /*_clearFrameCount > ClearCountMaxFrame*/)
+            if (_isLight  && _clearFrameCount > ClearCountMaxFrame)
             {
                 // クリアした場合のフラグを立てる
                 _isClear = true;

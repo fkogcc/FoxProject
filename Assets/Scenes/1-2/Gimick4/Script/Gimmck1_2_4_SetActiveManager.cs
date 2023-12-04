@@ -42,7 +42,10 @@ public class Gimmck1_2_4_SetActiveManager : MonoBehaviour
 
             _fade.SetActive(true);
             _countDown1.GetComponent<Gimmick1_2_4_CountDown2>().SetTimeCount(true);
+        }
 
+        if(_stageOne.GetComponent<Gimick1_2_4_Manager>().GetResult())
+        {
             // ライトを光らす場合.
             if (_stageTwo.GetComponent<Gimick1_2_4_Manager1Mk2>().IsLight())
             {

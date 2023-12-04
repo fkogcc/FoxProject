@@ -26,16 +26,36 @@ public class Gimick1_1_1Manager : MonoBehaviour
     // ステージをクリアしたかどうか
     private bool _clear = false;
 
+    // 説明を描画する
+    private TipsDrawer _tips;
+    private int _tipsDrawCount = 0;
+
     void Start()
     {
         string objName = "3DPlayer";
         _handleColl[0].GetComponent<CollsionHandle>().SetNameColl(objName);
         _handleColl[1].GetComponent<CollsionHandle>().SetNameColl(objName);
         _maxNum = 2;
+
+        _tips = GameObject.Find("Tips0").GetComponent<TipsDrawer>();
+        _tips.IsDownSlider();
+        _tipsDrawCount++;
     }
 
     private void Update()
     {
+        if(_tipsDrawCount == 1)
+        {
+            if(Input.GetKeyDown(KeyCode.JoystickButton1))
+            {
+                Debug.Log("aaftft");
+                _tips.IsUpSlider();
+                _tipsDrawCount++;
+            }
+
+        }
+
+        
         for (int i = 0; i < _maxNum; i++)
         {
             // ハンドルを入手していない場合.
