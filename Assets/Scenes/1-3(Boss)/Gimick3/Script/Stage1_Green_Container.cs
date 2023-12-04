@@ -9,6 +9,8 @@ public class Stage1_Green_Container : MonoBehaviour
     [SerializeField] private ParticleSystem _particlePurple;
     void OnCollisionEnter(Collision collision)
     {
+            Debug.Log(collision.gameObject.name);
+        Debug.Log(this.name);
         if (collision.gameObject.name == "stage1_kontena_green")
         {
             ContainerDirector._getName = collision.gameObject.name;

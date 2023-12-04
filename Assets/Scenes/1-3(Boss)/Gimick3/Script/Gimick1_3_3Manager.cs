@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Gimick1_3_3Manager : MonoBehaviour
 {
+    // サウンド用.
+    [SerializeField] private SoundManager _sound;
     // オブジェクトの取得
     private CameraChange _cameraChange;
     private StageCamera _stageCamera;
@@ -16,6 +18,8 @@ public class Gimick1_3_3Manager : MonoBehaviour
     // バリケードを消したかどうかのフラグ.
     private bool _isDestory;
     private Vector3 _effectPos;
+    // サウンドを鳴らしたかのフラグ.
+    private bool _isSound = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -28,16 +32,26 @@ public class Gimick1_3_3Manager : MonoBehaviour
         _effectPos = _barricade.transform.position;
         _effectPos.x -= -1.0f;
         _effectPos.y -= (_barricade.transform.localScale.y * 0.5f);
+        _resetButton.SoundDataSet(_sound);
+
     }
 
     // Update is called once per frame
     private void Update()
     {
+        // サウンドを鳴らす.
+        //_sound.PlayBGM("1_3_3_BGM");
         _cameraChange.ChengeCameraUpdate();
         _stageCamera.CameraUpdate();
         _resetButton.ResetPush(_containerDirector.IsStage1Clear());
+        _containerDirector.GimickClearCheck(_sound);
         if (_containerDirector.IsStage1Clear() && !_isDestory)
         {
+            if (!_isSound)
+            {
+                _isSound = true;
+                _sound.PlaySE("1_3_3_WallDown");
+            }
             // 壁に関する処理.
             WallUpdate();
         }
@@ -46,12 +60,12 @@ public class Gimick1_3_3Manager : MonoBehaviour
     private void WallUpdate()
     {
         _cameraChange.WallCameraChenge();
-        _barricade.gameObject.transform.position += new Vector3(0, -0.04f, 0);
+        _barricade.gameObject.transform.position += new Vector3(0, -0.02f, 0);
         // エフェクトの生成
         WallEffectPlay();
         // HACK ちょっと実装お試しです
         // 壁が下りたら壁とカメラを破壊する
-        if (_barricade.transform.position.y < -7)
+        if (_barricade.transform.position.y < -6.5)
         {
             _cameraChange.WallCameraOff();
             _isDestory = true;
