@@ -13,10 +13,6 @@ public class SlideGimmickDirector : MonoBehaviour
     // 最後のブロックを空白とする.
     private const int kNoneBlockNo = kBlockNum - 2;
     private const int kClearBlockNo = kBlockNum - 1;
-    // -1をひとつ前に戻るボタンとしておく
-    private const int kBackOneStepNo = -1;
-    // -2をリセットボタンとしておく
-    private const int kResetNo = -2;
 
     // 現在の手の位置からの上下左右.
     private const int kDirUp = -kRaw;
@@ -216,19 +212,19 @@ public class SlideGimmickDirector : MonoBehaviour
             // 現在プレイヤーの手がある位置を保存.
             _nowEle = _playerHand.GetComponent<GimmickHand>().HitNo;
 
-            if (_nowEle == kBackOneStepNo)
-            {
-                Sound.PlaySE("1_3_1_OneBack");
-                BackOneStep();
-            }
-            else if (_nowEle == kResetNo)
-            {
-                Gauge.SetActive(true);
-                Gauge.transform.GetChild(0).GetComponent<Image>().fillAmount = 0;
-                _isResetCheck = true;
-                _resetCount = 0;
-            }
-            else
+            //if (_nowEle == kBackOneStepNo)
+            //{
+            //    Sound.PlaySE("1_3_1_OneBack");
+            //    BackOneStep();
+            //}
+            //else if (_nowEle == kResetNo)
+            //{
+            //    Gauge.SetActive(true);
+            //    Gauge.transform.GetChild(0).GetComponent<Image>().fillAmount = 0;
+            //    _isResetCheck = true;
+            //    _resetCount = 0;
+            //}
+            //else
             {
                 Sound.PlaySE("1_3_1_Push");
                 // 動かせるかどうかの判定をしていく.
@@ -236,7 +232,22 @@ public class SlideGimmickDirector : MonoBehaviour
             }
         }
 
-        if (Input.GetKeyUp("joystick button 1"))
+        // ワンバック関係
+        if (Input.GetKeyDown("joystick button 2"))
+        {
+            Sound.PlaySE("1_3_1_OneBack");
+            BackOneStep();
+        }
+
+        // リセットボタン関係
+        if (Input.GetKeyDown("joystick button 0"))
+        {
+            Gauge.SetActive(true);
+            Gauge.transform.GetChild(0).GetComponent<Image>().fillAmount = 0;
+            _isResetCheck = true;
+            _resetCount = 0;
+        }
+        if (Input.GetKeyUp("joystick button 0"))
         {
             Gauge.SetActive(false);
             _isResetCheck = false;
