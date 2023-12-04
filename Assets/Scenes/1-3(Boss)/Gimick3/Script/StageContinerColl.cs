@@ -6,12 +6,13 @@ public class StageContinerColl : MonoBehaviour
 {
     [SerializeField] private GameObject _contena;
     [SerializeField] private GameObject _contenaGreen;
-    [SerializeField] private ParticleSystem _contenaEffect;
+    private GameObject _contenaEffect;
+    //[SerializeField] private ParticleSystem _contenaEffect;
     // Start is called before the first frame update
     private void Start()
     {
-        GameObject clone = Instantiate(_contenaGreen, _contena.transform.position, _contena.transform.rotation);
-        _contenaEffect = clone.GetComponent<ParticleSystem>();
+        _contenaEffect = Instantiate(_contenaGreen, transform.position, _contena.transform.rotation);
+        //_contenaEffect = clone.GetComponent<ParticleSystem>();
 
     }
     private void OnCollisionEnter(Collision collision)
@@ -26,17 +27,26 @@ public class StageContinerColl : MonoBehaviour
     // 範囲外に出た処理.
     private void OnCollisionExit(Collision collision)
     {
-        //ContainerDirector._getName = _contena.name;
-        //ContainerDirector._isColl = false;
+        ContainerDirector._getName = _contena.name;
+        ContainerDirector._isColl = false;
+        EffectStop();
     }
     // エフェクト再生
     private void EffectPlay()
     {
         //_contenaEffect.Play();
-        foreach (ParticleSystem _effect in _contenaGreen.GetComponentsInChildren<ParticleSystem>())
+        foreach (ParticleSystem _effect in _contenaEffect.GetComponentsInChildren<ParticleSystem>())
         {
             _effect.Play();
             Debug.Log("さいせい");
+        }
+    }
+    private void EffectStop()
+    {
+        foreach (ParticleSystem _effect in _contenaEffect.GetComponentsInChildren<ParticleSystem>())
+        {
+            _effect.Stop();
+            Debug.Log("ストップ");
         }
     }
 }
