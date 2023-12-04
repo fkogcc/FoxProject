@@ -19,6 +19,7 @@ public class Reset_Button : MonoBehaviour
     private readonly static int _resetMaxCount = 45;
     // リセットしたフラグ
     private bool _isResetCheck = false;
+    private SoundManager _sound;
 
     void Start()
     {
@@ -28,25 +29,10 @@ public class Reset_Button : MonoBehaviour
             _containeInitialPositionr[i] = _stageContainer[i].transform.position;
         }
     }
-
-    //void OnCollisionStay(Collision collision)
-    //{
-    //    //このオブジェクトがプレイヤーに触れているとき.
-    //    if (collision.gameObject.name == "3DPlayer")
-    //    {
-    //        //Aボタンを押したら
-    //        if (Input.GetKeyDown("joystick button 2"))
-    //        {
-    //            ////それぞれのオブジェクトを初期位置へ移動.
-    //            //_stage2_Blue_Container.transform.position = _blue_InitialPosition;
-    //            //_stage2_Red_Container.transform.position = _red_InitialPosition;
-    //            //_stage2_Green_Container.transform.position = _green_InitialPosition;
-    //            //_stage2_Yellow_Container.transform.position = _yellow_InitialPosition;
-
-    //        }
-    //    }
-    //}
-
+    public void SoundDataSet(SoundManager sound)
+    {
+        _sound = sound;
+    }
     // リセットボタンを押したときの処理.
     public void ResetPush(bool isClear)
     {
@@ -78,10 +64,9 @@ public class Reset_Button : MonoBehaviour
         Gauge.transform.GetChild(0).GetComponent<Image>().fillAmount = (float)_resetCount / (float)_resetMaxCount;
         if (_resetCount > _resetMaxCount)
         {
-            Debug.Log("リセット");
             _isResetCheck = true;
-
-            //Sound.PlaySE("1_3_1_Reset");
+            // サウンドを鳴らす.
+            _sound.PlaySE("1_3_1_Reset");
             ResetBox();
         }
     }

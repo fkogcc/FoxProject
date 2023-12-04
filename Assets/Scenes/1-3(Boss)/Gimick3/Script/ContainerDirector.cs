@@ -41,30 +41,34 @@ public class ContainerDirector : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        // 箱が置かれているかどうかチェックする.
-        GimickClearCheck();
-        //// ステージ2にいくときにバリケードを壊す.
-        //if (_isStage1Flag)
-        //{
-        //    Destroy(_Barricade);
-        //}
+    //// Update is called once per frame
+    //void Update()
+    //{
+    //    // 箱が置かれているかどうかチェックする.
+    //    GimickClearCheck();
+    //    //// ステージ2にいくときにバリケードを壊す.
+    //    //if (_isStage1Flag)
+    //    //{
+    //    //    Destroy(_Barricade);
+    //    //}
 
-        // クリア判定.
-        _isAllClear = IsGimickAllClear();
-    }
+    //}
     // ギミックのクリア判定のチェック
-    private void GimickClearCheck()
+    public void GimickClearCheck(SoundManager sound)
     {
         for (int i = 0; i < _gimickClears.Count; i++)
         {
             if (_gimickName[i].name == _getName)
             {
                 _gimickClears[i] = _isColl;
+                //if(_gimickClears[i] == true)
+                //{
+                //    sound.PlaySE("1_3_3_InBox");
+                //}
             }
         }
+        // クリア判定.
+        _isAllClear = IsGimickAllClear();
     }
     //// ギミックの情報の取得をする.
     //public void SetGimickDate(string name,bool iscol)
