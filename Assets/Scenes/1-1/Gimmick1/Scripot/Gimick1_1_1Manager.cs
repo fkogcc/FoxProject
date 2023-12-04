@@ -48,7 +48,6 @@ public class Gimick1_1_1Manager : MonoBehaviour
         {
             if(Input.GetKeyDown(KeyCode.JoystickButton1))
             {
-                Debug.Log("aaftft");
                 _tips.IsUpSlider();
                 _tipsDrawCount++;
             }
