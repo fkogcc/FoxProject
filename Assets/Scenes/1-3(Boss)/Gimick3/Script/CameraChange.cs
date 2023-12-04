@@ -35,7 +35,16 @@ public class CameraChange : MonoBehaviour
             _isPushFlag = !_isPushFlag;
         }
     }
-
+    // 壁を見せるカメラ起動.
+    public void WallCameraChenge()
+    {
+        _wallCameraObject.Priority = 50;
+    }
+    // 壁を見せるカメラoff.
+    public void WallCameraOff()
+    {
+        _wallCameraObject.Priority = 0;
+    }
     public void SetPushFlag(bool ispush)
     {
         _isPushFlag = ispush;
