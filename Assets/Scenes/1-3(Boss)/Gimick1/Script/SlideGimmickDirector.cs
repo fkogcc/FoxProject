@@ -207,29 +207,14 @@ public class SlideGimmickDirector : MonoBehaviour
 
         // 特定のボタンを押したらギミックの処理.
         // 現状Bボタン.
-        if (Input.GetKeyDown(KeyCode.F) || Input.GetKeyDown("joystick button 1"))
+        if (Input.GetKeyDown(KeyCode.F) || Input.GetKeyDown("joystick button 0"))
         {
             // 現在プレイヤーの手がある位置を保存.
             _nowEle = _playerHand.GetComponent<GimmickHand>().HitNo;
 
-            //if (_nowEle == kBackOneStepNo)
-            //{
-            //    Sound.PlaySE("1_3_1_OneBack");
-            //    BackOneStep();
-            //}
-            //else if (_nowEle == kResetNo)
-            //{
-            //    Gauge.SetActive(true);
-            //    Gauge.transform.GetChild(0).GetComponent<Image>().fillAmount = 0;
-            //    _isResetCheck = true;
-            //    _resetCount = 0;
-            //}
-            //else
-            {
-                Sound.PlaySE("1_3_1_Push");
-                // 動かせるかどうかの判定をしていく.
-                EleCheck();
-            }
+            Sound.PlaySE("1_3_1_Push");
+            // 動かせるかどうかの判定をしていく.
+            EleCheck();
         }
 
         // ワンバック関係
@@ -240,14 +225,14 @@ public class SlideGimmickDirector : MonoBehaviour
         }
 
         // リセットボタン関係
-        if (Input.GetKeyDown("joystick button 0"))
+        if (Input.GetKeyDown("joystick button 1"))
         {
             Gauge.SetActive(true);
-            Gauge.transform.GetChild(0).GetComponent<Image>().fillAmount = 0;
+            Gauge.transform.GetComponent<Image>().fillAmount = 0;
             _isResetCheck = true;
             _resetCount = 0;
         }
-        if (Input.GetKeyUp("joystick button 0"))
+        if (Input.GetKeyUp("joystick button 1"))
         {
             Gauge.SetActive(false);
             _isResetCheck = false;
@@ -289,7 +274,7 @@ public class SlideGimmickDirector : MonoBehaviour
         if (_isResetCheck)
         {
             _resetCount++;
-            Gauge.transform.GetChild(0).GetComponent<Image>().fillAmount = (float)_resetCount / (float)kResetFrame;
+            Gauge.transform.GetComponent<Image>().fillAmount = (float)_resetCount / (float)kResetFrame;
 
             if (_resetCount > kResetFrame)
             {

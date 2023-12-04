@@ -11762,7 +11762,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fdead86db66335e4a885272002a5d6a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _color: Sky
+  _color: SkyBule
 --- !u!135 &1284562174
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -22146,15 +22146,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2547387252357561709, guid: 546fe8400816cf942bbf47e67a845ed9, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 2.3173437
       objectReference: {fileID: 0}
     - target: {fileID: 2547387252357561709, guid: 546fe8400816cf942bbf47e67a845ed9, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -0.57106483
       objectReference: {fileID: 0}
     - target: {fileID: 2547387252357561709, guid: 546fe8400816cf942bbf47e67a845ed9, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 0.4190557
       objectReference: {fileID: 0}
     - target: {fileID: 2547387252357561710, guid: 546fe8400816cf942bbf47e67a845ed9, type: 3}
       propertyPath: _player
@@ -41961,7 +41961,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d87828d7826fe704fad7894b78a4c96c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SndManager: {fileID: 1667328610}
   GimmickNum: 8
   IsNext: 0
   ClearText: {fileID: 5641072741966609662, guid: 24e5f477bb0a48347ac33df6c1bbc434, type: 3}
