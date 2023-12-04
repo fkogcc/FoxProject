@@ -39,8 +39,18 @@ public class SoundManager : MonoBehaviour
     public bool[] _playSeTest;
     public bool[] _playBgmTest;
 
+    // マスターボリューム用.
+    [SerializeField] private float _seMasterVolume = 1.0f;
+    [SerializeField] private float _bgmMasterVolume = 1.0f;
+    // 現在流しているBGMの番号.
+    private int _nowPlayBgm;
+
     private void Awake()
     {
+        _seMasterVolume = 1.0f;
+        _bgmMasterVolume = 1.0f;
+        _nowPlayBgm = 0;
+
         // オブジェクトを探す.
         _sePlayObject = GameObject.Find("SeSoundPlay");
         _bgmPlayObject = GameObject.Find("BgmSoundPlay");
@@ -108,6 +118,8 @@ public class SoundManager : MonoBehaviour
                 _bgmSource.PlayOneShot(_bgmData[i].sound);
             }
         }
+
+        Debug.Log("Fixed " + this._bgmMasterVolume);
     }
 
     /// <summary>
@@ -117,7 +129,7 @@ public class SoundManager : MonoBehaviour
     public void PlaySE(string name)
     {
         // ボリュームを調整する.
-        _seSource.volume = _seData[SoundCheck(true, name)].volume;
+        _seSource.volume = _seData[SoundCheck(true, name)].volume * _seMasterVolume;
         // サウンドを再生.
         _seSource.PlayOneShot(_seData[SoundCheck(true, name)].sound);
     }
@@ -132,12 +144,17 @@ public class SoundManager : MonoBehaviour
         // 手抜きなので修正が必要な場合は教えてください.
         if (!_bgmSource.isPlaying)
         {
+            Debug.Log("Play " + this._bgmMasterVolume);
+
             // ループ再生する.
             _bgmSource.loop = true;
             // ボリュームを調整する.
-            _bgmSource.volume = _bgmData[SoundCheck(false, name)].volume;
+            _bgmSource.volume = _bgmData[SoundCheck(false, name)].volume * this._bgmMasterVolume;
             // サウンドを再生.
             _bgmSource.PlayOneShot(_bgmData[SoundCheck(false, name)].sound);
+
+            // 現在流しているBGMの番号を記憶
+            _nowPlayBgm = SoundCheck(false, name);
         }
     }
 
@@ -169,7 +186,15 @@ public class SoundManager : MonoBehaviour
     /// <param name="volume">ボリュームを指定してください、0.0f～1.0fを指定してください.</param>
     public void MasterVolumeChangeSe(float volume)
     {
-        _seSource.volume += volume;
+        _seMasterVolume += volume;
+        if (_seMasterVolume > 1.0f)
+        {
+            _seMasterVolume = 1.0f;
+        }
+        if (_seMasterVolume < 0.0f)
+        {
+            _seMasterVolume = 0.0f;
+        }
     }
 
     /// <summary>
@@ -178,7 +203,18 @@ public class SoundManager : MonoBehaviour
     /// <param name="volume">ボリュームを指定してください、0.0f～1.0fを指定してください.</param>
     public void MasterVolumeChangeBgm(float volume)
     {
-        _bgmSource.volume += volume;
+        this._bgmMasterVolume += volume;
+        if(_bgmMasterVolume > 1.0f)
+        {
+            _bgmMasterVolume = 1.0f;
+        }
+        if (_bgmMasterVolume < 0.0f)
+        {
+            _bgmMasterVolume = 0.0f;
+        }
+
+        // 現在流しているBGMの元ボリュームでマスターボリュームとかける
+        _bgmSource.volume = _bgmData[_nowPlayBgm].volume * _bgmMasterVolume;
     }
 
     /// <summary>
@@ -207,7 +243,7 @@ public class SoundManager : MonoBehaviour
     /// <returns>SEの音量</returns>
     public float GetVolumeSe()
     {
-        return _seSource.volume;
+        return _seMasterVolume;
     }
 
     /// <summary>
@@ -216,7 +252,7 @@ public class SoundManager : MonoBehaviour
     /// <returns>SEの音量</returns>
     public float GetVolumeBgm()
     {
-        return _bgmSource.volume;
+        return _bgmMasterVolume;
     }
 
     /// <summary>

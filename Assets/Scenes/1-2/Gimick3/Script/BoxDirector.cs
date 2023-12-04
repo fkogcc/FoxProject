@@ -4,7 +4,7 @@ using UnityEngine.SceneManagement;
 // Boxの情報(ギミック).
 public class BoxDirector : MonoBehaviour
 {
-    public SoundManager SndManager;
+    private SoundManager _sound;
 
     // ギミックの最大数.
     public int GimmickNum = 0;
@@ -41,6 +41,8 @@ public class BoxDirector : MonoBehaviour
     // 初期化処理
     private void Start()
     {
+        _sound = GameObject.Find("SoundManager").GetComponent<SoundManager>();
+
         _nowObj = new GameObject();
 
         _fade = GameObject.Find("Fade").GetComponent<FadeScene>();
@@ -69,10 +71,10 @@ public class BoxDirector : MonoBehaviour
 
     private void FixedUpdate()
     {
-        SndManager.PlayBGM("1_2_3_BGM");
+        _sound.PlayBGM("1_2_3_BGM");
         if (_isAllClear && _fade.GetAlphColor() >= 0.85f)
         {
-            SndManager.StopBgm();
+            _sound.StopBgm();
 
             if (IsNext)
             {
