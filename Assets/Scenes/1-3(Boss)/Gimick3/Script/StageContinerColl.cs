@@ -4,45 +4,39 @@ using UnityEngine;
 
 public class StageContinerColl : MonoBehaviour
 {
-    [SerializeField] private ParticleSystem _particleRed;
-    [SerializeField] private ParticleSystem _particleGreen;
-    [SerializeField] private ParticleSystem _particlePurple;
     [SerializeField] private GameObject _contena;
     [SerializeField] private GameObject _contenaGreen;
     [SerializeField] private ParticleSystem _contenaEffect;
     // Start is called before the first frame update
     private void Start()
     {
-        GameObject clone = Instantiate(_contenaGreen, this.transform.position, this.transform.rotation);
+        GameObject clone = Instantiate(_contenaGreen, _contena.transform.position, _contena.transform.rotation);
         _contenaEffect = clone.GetComponent<ParticleSystem>();
+
     }
-    void OnTriggerEnter(Collider collision)
+    private void OnCollisionEnter(Collision collision)
     {
-        if (collision.tag != "Gimick3_3")
+        if (collision.gameObject.name == _contena.name)
         {
-            Debug.Log(collision.gameObject.name + "    " + _contena.name);
-            if (collision.gameObject.name == _contena.name)
-            {
-                ContainerDirector._getName = collision.gameObject.name;
-                ContainerDirector._isColl = true;
-                EffectPlay();
-            }
+            ContainerDirector._getName = collision.gameObject.name;
+            ContainerDirector._isColl = true;
+            EffectPlay();
         }
     }
+    // 範囲外に出た処理.
     private void OnCollisionExit(Collision collision)
     {
-        //if (collision.gameObject.name == "stage2_kontena_green")
-        //{
-        ContainerDirector._getName = collision.gameObject.name;
-        ContainerDirector._isColl = false;
-        //}
+        //ContainerDirector._getName = _contena.name;
+        //ContainerDirector._isColl = false;
     }
     // エフェクト再生
     private void EffectPlay()
     {
-        _contenaEffect.Play();
-        //_particleRed.Play();
-        //_particleGreen.Play();
-        //_particlePurple.Play();
+        //_contenaEffect.Play();
+        foreach (ParticleSystem _effect in _contenaGreen.GetComponentsInChildren<ParticleSystem>())
+        {
+            _effect.Play();
+            Debug.Log("さいせい");
+        }
     }
 }
