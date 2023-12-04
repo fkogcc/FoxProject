@@ -151,13 +151,17 @@ public class PullRope : MonoBehaviour
         _axisCenter.z = -_moveVec.x;
     }
     // プレイヤーが判定内にいるかどうか
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerStay(Collider other)
     {
         if (other.gameObject.CompareTag("Player"))
         {
             // プレイヤーが引っ張った初めの位置を取得する
             _startGimmickPos = this.transform.position;
             _isFlag = true;
+            if(_isPull)
+            {
+                _isFlag = false;
+            }
         }
     }
 }
