@@ -360,6 +360,11 @@ public class Player2DMove : MonoBehaviour
     // ワープするときの処理.
     private void Warp()
     {
+        //if (!_isMoveActive) return; 
+        if (_gimmickManager._solve[0] || _gimmickManager._solve[1] ||
+            _gimmickManager._solve[2] || _gimmickManager._solve[3])
+            return;
+
         // ボタン押したら(ボタン配置は仮).
         if (Input.GetKeyDown("joystick button 3"))
         {
@@ -372,6 +377,10 @@ public class Player2DMove : MonoBehaviour
     // 裏世界へワープする時の演出
     private void WarpDirect()
     {
+        if (_gimmickManager._solve[0] || _gimmickManager._solve[1] ||
+            _gimmickManager._solve[2] || _gimmickManager._solve[3])
+            return;
+
         if (!_isMoveActive && !_flag._isGoal && transform.position.x <= _eventPos)
         {
             transform.position = new Vector3(_warpPosition.x + 0.0f, _warpPosition.y, transform.position.z);
@@ -442,7 +451,6 @@ public class Player2DMove : MonoBehaviour
     {
         if (_hp <= 0)
         {
-            //_isMoveActive = false;
             _animator.SetBool("GameOver", _anim.GameOver());
         }
     }
