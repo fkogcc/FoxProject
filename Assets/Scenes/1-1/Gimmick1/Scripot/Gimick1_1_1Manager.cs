@@ -28,7 +28,8 @@ public class Gimick1_1_1Manager : MonoBehaviour
 
     // 説明を描画する
     private TipsDrawer _tips;
-    private int _tipsDrawCount = 0;
+
+    public SoundManager _sound;
 
     void Start()
     {
@@ -39,22 +40,14 @@ public class Gimick1_1_1Manager : MonoBehaviour
 
         _tips = GameObject.Find("Tips0").GetComponent<TipsDrawer>();
         _tips.IsDownSlider();
-        _tipsDrawCount++;
     }
 
     private void Update()
     {
-        if(_tipsDrawCount == 1)
-        {
-            if(Input.GetKeyDown(KeyCode.JoystickButton1))
-            {
-                _tips.IsUpSlider();
-                _tipsDrawCount++;
-            }
-
-        }
 
         
+       // _sound.PlayBGM("");
+
         for (int i = 0; i < _maxNum; i++)
         {
             // ハンドルを入手していない場合.
@@ -66,6 +59,7 @@ public class Gimick1_1_1Manager : MonoBehaviour
                     // ボタンを押したら.
                     if (Input.GetKeyDown(KeyCode.JoystickButton1))
                     {
+                        _sound.PlaySE("1_2_4_Light");
                         _isButtonHandle[i] = true;
                         _handleColl[i].GetComponent<CollsionHandle>().SetNameColl(_handleWallName[i]);
                         _handleColl[i].GetComponent<CollsionHandle>().SetHit(false);
@@ -81,6 +75,7 @@ public class Gimick1_1_1Manager : MonoBehaviour
                     // ボタンを押したら.
                     if (Input.GetKeyDown(KeyCode.JoystickButton1))
                     {
+                        _sound.PlaySE("1_2_3_MetalRota");
                         _isButtonWall[i] = true;
                     }
                 }
@@ -101,7 +96,7 @@ public class Gimick1_1_1Manager : MonoBehaviour
                     // 回転速度.
                     _handlePos[i].GetComponent<HandlePos>().Rota(1.0f);
                     // 回転時間.
-                    if (_handlePos[i].GetComponent<HandlePos>().IsGetRotaTimeOver(350))
+                    if (_handlePos[i].GetComponent<HandlePos>().IsGetRotaTimeOver(350 * 2))
                     {
                         // 回転終了.
                         _isEndRota[i] = true;

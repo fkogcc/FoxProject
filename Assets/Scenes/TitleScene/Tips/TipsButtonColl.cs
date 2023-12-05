@@ -1,34 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
-public class TipsBotton : MonoBehaviour
+public class TipsButtonColl : MonoBehaviour
 {
-    public bool _isA;
-    public bool _isB;
-    public bool _isX;
-    public bool _isY;
-
-    private bool _isHit = false;
-
-    void Start()
-    {
-        
-    }
-
-    void Update()
-    {
-        if(_isHit)
-        {
-            Debug.Log("描画");
-        }
-    }
-
-    private void FixedUpdate()
-    {
-        
-    }
-
+    public bool _isHit { get; set; }
     private void OnTriggerStay(Collider coll)
     {
         // プレイヤーに触れたら
