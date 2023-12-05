@@ -31,10 +31,10 @@ public class SceneTransition1_1_1 : MonoBehaviour
     {
         if(_Gimmick1_1_1.GetResult())
         {
-            //_fade._isFadeOut = true;
+            _fadeDirector._isFade = true;
         }
 
-        //if(_fade.GetAlphColor() >= 0.9f && _fade._isFadeOut)
+        if(_fade.cutoutRange == 1.0f && _fadeDirector._isFade)
         {
             _active = _Gimmick1_1_1.GetResult();
             SceneManager.sceneLoaded += GameSceneLoaded;
