@@ -126,7 +126,7 @@ public class Player3DMove : MonoBehaviour
             _particleSystem.Stop();
         }
 
-        //Debug.Log(_hp);
+        Debug.Log(_hp);
     }
 
     private void FixedUpdate()

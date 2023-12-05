@@ -50,25 +50,21 @@ public class scaffold_UP : MonoBehaviour
             // 座標を設定.
             _myTransform.position = _pos;  
         }        
-        Debug.Log(_myTransform.position.y);
 
-        if (_myTransform.position.y <= 15.0)
+        if (_myTransform.position.y <= 6.0)
         {
             _isMoving = false;
         }
-        if (_myTransform.position.y >= 27.0)
+        if (_myTransform.position.y >= 14.0)
         {
             _isMoving = true;
         }
-        Debug.Log(_myTransform.position.y);
     }
 
     void OnCollisionStay(Collision collision)
     {
-        Debug.Log("HitOutSidee");
         if (collision.gameObject.tag == _player.tag)
         {
-            Debug.Log("Hit");
             _player.transform.SetParent(gameObject.transform);
         }
     }
