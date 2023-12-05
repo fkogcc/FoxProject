@@ -13,7 +13,7 @@ public class PlayerAnim2D : MonoBehaviour
     private void Start()
     {
         _player = GetComponent<Player2DMove>();
-        _flag = GameObject.Find("Fade").GetComponent<Fade2DSceneTransition>();
+        _flag = GameObject.Find("FadeObject2D").GetComponent<Fade2DSceneTransition>();
     }
 
     private void Update()

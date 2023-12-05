@@ -19,6 +19,9 @@ public class GoalMove1_1 : MonoBehaviour
     [Header("円運動の中心点")]
     [SerializeField] private GameObject _sphereCenter;
 
+    // ゴールのチュートリアル.
+    private GoalExplainUpdate _goalExplain;
+
     // ゴールが最初にいる場所の座標.
     private Vector3 _start;
     // 最終的にたどり着く座標.
@@ -46,6 +49,7 @@ public class GoalMove1_1 : MonoBehaviour
     void Start()
     {
         _particle.Stop();
+        _goalExplain = GameObject.Find("GoalExplain").GetComponent<GoalExplainUpdate>();
     }
 
     // Update is called once per frame
@@ -67,6 +71,7 @@ public class GoalMove1_1 : MonoBehaviour
         {
             _particle.Play();
             _playParticleTime++;
+            _goalExplain._isAlphaChange = true;
         }
 
 

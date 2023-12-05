@@ -7,7 +7,7 @@ public class FadeAnimDirector : MonoBehaviour
     // フェードキャンバスの取得.
     [SerializeField] private Fade _fade;
 
-    public bool fade = false;
+    public bool _isFade = false;
 
     void Start()
     {
@@ -22,7 +22,7 @@ public class FadeAnimDirector : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (fade)
+        if (_isFade)
         {
             _fade.FadeIn(1f);
         }
@@ -30,6 +30,5 @@ public class FadeAnimDirector : MonoBehaviour
         {
             _fade.FadeOut(1f);
         }
-            
     }
 }

@@ -74,7 +74,7 @@ public class Player2DMove : MonoBehaviour
         _boxCollider = GetComponent<BoxCollider>();
         _animator = GetComponent<Animator>();
 
-        _flag = GameObject.Find("Fade").GetComponent<Fade2DSceneTransition>();
+        _flag = GameObject.Find("FadeObject2D").GetComponent<Fade2DSceneTransition>();
 
         _gimmickManager = GameObject.FindWithTag("GimmickManager").GetComponent<SolveGimmickManager>();
 

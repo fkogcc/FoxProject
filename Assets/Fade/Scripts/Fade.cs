@@ -35,7 +35,7 @@ public class Fade : MonoBehaviour
 	}
 
 	[SerializeField, Range(0, 1)]
-	float cutoutRange;
+	public float cutoutRange;
 
 	void Init ()
 	{

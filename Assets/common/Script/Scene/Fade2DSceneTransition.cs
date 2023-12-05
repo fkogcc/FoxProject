@@ -1,4 +1,4 @@
-﻿// 2Dのフェードインアウト処理.
+﻿// 2D表ステージからのシーン遷移処理.
 // TODO:マジックナンバーあり.
 
 using UnityEngine;
@@ -7,17 +7,20 @@ using UnityEngine.SceneManagement;
 
 public class Fade2DSceneTransition : MonoBehaviour
 {
+    // プレイヤー.
     private Player2DMove _player;
-
+    // プレイヤーがどのゲート前にいるか.
     private GateFlag _transitionScene;
-
+    // シーン遷移マネージャー.
     private SceneTransitionManager _sceneTransitionManager;
+    // フェード.
+    private Fade _fade;
+    // フェードアニメーション管理.
+    private FadeAnimDirector _fadeDirector;
 
-    // ゴールしたタイミング
+    // ゴールしたタイミング.
     public bool _isGoal;
 
-    // 色.
-    public Color _color;
     // ゲートのボタンを押したかどうか.
     private bool _isPush;
 
@@ -29,70 +32,46 @@ public class Fade2DSceneTransition : MonoBehaviour
     // シーン遷移で共通しているフラグ取得.
     public bool _transitionFlagCommon = false;
 
-    // Start is called before the first frame update
     void Start()
     {
-        _player = GameObject.FindWithTag("Player").GetComponent<Player2DMove>();
         // 初期化.
-        _isGoal = false;
-        _isPush = false;
-        _color = gameObject.GetComponent<Image>().color;
-        _color.r = 0.0f;
-        _color.g = 0.0f;
-        _color.b = 0.0f;
-        _color.a = 1.0f;
-        gameObject.GetComponent<Image>().color = _color;
-        _transitionScene = GameObject.FindWithTag("Player").GetComponent<GateFlag>();
-        _sceneTransitionManager = GetComponent<SceneTransitionManager>();
+        Init();
     }
 
-    // Update is called once per frame
     void Update()
     {
         // 共通フラグ.
-        _transitionFlagCommon = _color.a >= 0.9f && !_player.GetIsMoveActive();
+        //_transitionFlagCommon = _color.a >= 0.9f && !_player.GetIsMoveActive();
 
-        // フェード処理.
-        FadeUpdate();
-        // ゲームオーバー.
-        GameOverSceneTransition();
+        
         // シーン遷移関数.
         SceneTransition();
 
-        
-
+        // ゴールしたかどうか.
         if ((_transitionScene._isGoal1_1 || _transitionScene._isGoal1_2) && Input.GetKeyDown("joystick button 3"))
         {
             _isGoal = true;
         }
     }
 
-    // フェード処理.
-    public void FadeUpdate()
+    private void FixedUpdate()
     {
-        // フェードインフラグ.
-        if (_color.a >= 1.0f)
-        {
-            _isPush = false;
-        }
+        // 共通フラグ.
+        _transitionFlagCommon = _fade.cutoutRange == 1 && !_player.GetIsMoveActive();
+        // ゲームオーバー.
+        GameOverSceneTransition();
+    }
 
-        // 透明度を固定化.
-        if (_color.a <= 0.0f)
-        {
-            _color.a = 0.0f;
-        }
-
-        // フェードイン.
-        if (!_isPush)
-        {
-            _color.a -= 0.01f;
-            gameObject.GetComponent<Image>().color = _color;
-        }
-        else// フェードアウト.
-        {
-            _color.a += 0.005f;
-            gameObject.GetComponent<Image>().color = _color;
-        }
+    // 初期化.
+    private void Init()
+    {
+        _player = GameObject.FindWithTag("Player").GetComponent<Player2DMove>();
+        _fade = GetComponentInChildren<Fade>();
+        _fadeDirector = GetComponentInChildren<FadeAnimDirector>();
+        _isGoal = false;
+        _isPush = false;
+        _transitionScene = GameObject.FindWithTag("Player").GetComponent<GateFlag>();
+        _sceneTransitionManager = GetComponent<SceneTransitionManager>();
     }
 
     // シーン遷移
@@ -119,15 +98,9 @@ public class Fade2DSceneTransition : MonoBehaviour
 
         if (_nextSceneCount <= 0 && _isCount)
         {
-            _isPush = true;
+            _fadeDirector._isFade = true;
         }
 
-        
-
-        //if((_transitionScene._isGoal1_1 || _transitionScene._isGoal1_2) && _transitionFlagCommon)
-        //{
-            
-        //}
         if(_transitionFlagCommon)
         {
             SceneManager.sceneLoaded += GameSceneLoaded;
@@ -218,16 +191,16 @@ public class Fade2DSceneTransition : MonoBehaviour
         _nextSceneCount++;
         if(_nextSceneCount >= 300)
         {
-            _isPush = true;
+            _fadeDirector._isFade = true;
         }
 
 
         //Debug.Log(_transitionFlagCommon);
-        if(SceneManager.GetActiveScene().name == "MainScene1-1" && _color.a >= 0.9f)
+        if(SceneManager.GetActiveScene().name == "MainScene1-1" && _fade.cutoutRange == 1)
         {
             _sceneTransitionManager.MainScene1_1();
         }
-        else if(SceneManager.GetActiveScene().name == "MainScene1-2" && _color.a >= 0.9f)
+        else if(SceneManager.GetActiveScene().name == "MainScene1-2" && _fade.cutoutRange == 1)
         {
             _sceneTransitionManager.MainScene1_2();
         }
