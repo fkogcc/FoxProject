@@ -54,7 +54,6 @@ public class Switch_1_2_2 : MonoBehaviour
         {
             _isLever = true;
             _sound._isLeverFlag = true;
-
         }
     }
 
