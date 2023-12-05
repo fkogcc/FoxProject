@@ -23,6 +23,9 @@ public class Gimick1_3_4Manager : MonoBehaviour
     private bool _isUndo = false;
     // サウンドの取得
     [SerializeField] private SoundManager _sound;
+
+    public TipsDrawer _tipsDrawer;
+
     // Start is called before the first frame update
      private void Start()
     {
@@ -32,6 +35,7 @@ public class Gimick1_3_4Manager : MonoBehaviour
         _cameraShake = _gameObj.GetComponent<CameraShake>();
         _machineObject = _machine.GetComponent<MachineDestory>();
         _sound.PlayBGM("1_3_4_BGM");
+        _tipsDrawer.IsDownSlider();
 
     }
 
