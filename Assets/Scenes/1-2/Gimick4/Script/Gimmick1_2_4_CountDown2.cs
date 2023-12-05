@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 
 public class Gimmick1_2_4_CountDown2 : MonoBehaviour
 {
@@ -22,7 +23,7 @@ public class Gimmick1_2_4_CountDown2 : MonoBehaviour
     private string _column;
 
     // テキスト.
-    private TextMeshProUGUI _countDownText;
+    private Text _countDownText;
 
     // 文字のサイズを変更する.
     private bool _stringSizeChange = false;
@@ -43,7 +44,7 @@ public class Gimmick1_2_4_CountDown2 : MonoBehaviour
         // テキスト関連.
         {
             // テキストを取得用.
-            _countDownText = this.GetComponent<TextMeshProUGUI>();
+            _countDownText = this.GetComponent<Text>();
             // サイズを変更.
             _countDownText.fontSize = 56;
         }
@@ -87,20 +88,23 @@ public class Gimmick1_2_4_CountDown2 : MonoBehaviour
     //繰り返し処理
     private IEnumerator RepeatFunction()
     {
-        while (_isCountDown)
+        if(_isCountDown)
         {
-            //Debug.Log("かうんとダウン");
-            // 時間をカウントダウンする.
-            _countTime -= Time.deltaTime;
-
-            // 経過時間が繰り返す間隔を経過したら.
-            if (_countTime <= _repeatSpan)
+            while (true)
             {
-                //ここで処理をする.
-                _countTime = 0.0f;
+                //Debug.Log("かうんとダウン");
+                // 時間をカウントダウンする.
+                _countTime -= Time.deltaTime;
+
+                // 経過時間が繰り返す間隔を経過したら.
+                if (_countTime <= _repeatSpan)
+                {
+                    //ここで処理をする.
+                    _countTime = 0.0f;
+                }
+                //次のフレームへ.
+                yield return null;  
             }
-            //次のフレームへ.
-            yield return null;  
         }
     }
 
@@ -109,7 +113,7 @@ public class Gimmick1_2_4_CountDown2 : MonoBehaviour
     {
         if (_stringSizeChange)
         {
-            _countDownText.fontSize += 2.0f;
+            _countDownText.fontSize += 2;
             if (_countDownText.fontSize >= 56.0f * 2)
             {
                 _stringSizeChange = false;
@@ -117,7 +121,7 @@ public class Gimmick1_2_4_CountDown2 : MonoBehaviour
         }
         else
         {
-            _countDownText.fontSize -= 2.0f;
+            _countDownText.fontSize -= 2;
             if (_countDownText.fontSize <= 56.0f)
             {
                 _stringSizeChange = true;
@@ -128,7 +132,7 @@ public class Gimmick1_2_4_CountDown2 : MonoBehaviour
     // カウント文字をでかくする.
     private void FontSizeUp()
     {
-        _countDownText.fontSize += 3.0f;
+        _countDownText.fontSize += 3;
     }
 
     // カウントが0かどうか

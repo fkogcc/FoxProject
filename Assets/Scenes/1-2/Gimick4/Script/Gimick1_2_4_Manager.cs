@@ -70,6 +70,9 @@ public class Gimick1_2_4_Manager : MonoBehaviour
     // カウントダウンを止めるかどうか
     private bool _isCountDown = false;
 
+    // 説明を描画
+    public TipsDrawer _tipsDrawer;
+
     void Start()
     {
         // ボタン用.
@@ -107,12 +110,25 @@ public class Gimick1_2_4_Manager : MonoBehaviour
 
         // カウントダウンをするクラスを取得
         _countDown = _count.GetComponent<Gimmick1_2_4_CountDown>();
+
+        _tipsDrawer.IsDownSlider();
+        _countDown.SetTimeCount(false);
     }
 
     void Update()
     {
         //_sound.PlayBGM("1_1_1_BGM");
-        _countDown.SetTimeCount(true);
+        if (_tipsDrawer._isSlideEnd)
+        {
+            Debug.Log("停止");
+            _countDown.SetTimeCount(false);
+        }
+        else if (_tipsDrawer._isSlideStart)
+        {
+            Debug.Log("再生");
+            _countDown.SetTimeCount(true);
+        }
+
         for (int i = 0; i < _objRotaMaxNum; i++)
         {
             // オブジェクトにあたっていたら.

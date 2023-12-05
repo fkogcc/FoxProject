@@ -45,5 +45,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _sprite: {fileID: 21300000, guid: 0ea40816c032d6f4fa54f81a66485c3f, type: 3}
-  _slideDownSpeed: 0.5
-  _slideUpSpeed: 0.2
+  _slideDownSpeed: 30
+  _slideUpSpeed: 19
+  _imageSize: 1.7
+  _is2DPlayer: 0
+  _isFirstTips: 0
+  _isPlayerJump: 0
+  _isPlayerMove: 0
