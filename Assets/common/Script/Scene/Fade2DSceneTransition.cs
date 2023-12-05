@@ -222,7 +222,7 @@ public class Fade2DSceneTransition : MonoBehaviour
         }
 
 
-        Debug.Log(_transitionFlagCommon);
+        //Debug.Log(_transitionFlagCommon);
         if(SceneManager.GetActiveScene().name == "MainScene1-1" && _color.a >= 0.9f)
         {
             _sceneTransitionManager.MainScene1_1();

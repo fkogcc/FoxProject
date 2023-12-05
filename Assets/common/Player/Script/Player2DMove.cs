@@ -337,8 +337,6 @@ public class Player2DMove : MonoBehaviour
         _isHitEnemy = false;
         _isDamage = true;
 
-        Debug.Log("通る");
-
         Damage();
         KnockBack();
     }

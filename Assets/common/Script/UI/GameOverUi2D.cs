@@ -21,7 +21,6 @@ public class GameOverUi2D : MonoBehaviour
     {
         if (_player2D.GetHp() <= 0)
         {
-            Debug.Log("通る");
             _color.a += 0.01f;
             gameObject.GetComponent<Image>().color = _color;
         }
