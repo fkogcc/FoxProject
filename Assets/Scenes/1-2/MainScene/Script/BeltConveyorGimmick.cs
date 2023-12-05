@@ -1,4 +1,5 @@
 ﻿// ベルトコンベアギミック
+// MEMO:ベルトコンベアのSEを流すときに_sound.PlaySE("1_2_0_BeltConbeyor")を入れる
 
 using System.Collections;
 using System.Collections.Generic;
@@ -7,6 +8,8 @@ using UnityEngine;
 public class BeltConveyorGimmick : MonoBehaviour
 {
     private SolveGimmickManager _manager;
+
+    private SoundManager _sound;
 
     // アニメーション.
     private Animator _animator;
@@ -44,6 +47,7 @@ public class BeltConveyorGimmick : MonoBehaviour
     void Start()
     {
         _manager = GameObject.FindWithTag("GimmickManager").GetComponent<SolveGimmickManager>();
+        _sound = GameObject.Find("SoundManager").GetComponent<SoundManager>();
 
         // 方向を正規化する.
         _moveDirection = _moveDirection.normalized;

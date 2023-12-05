@@ -29,7 +29,7 @@ public class Gimick1_1_1Manager : MonoBehaviour
     // 説明を描画する
     private TipsDrawer _tips;
 
-    public SoundManager _sound;
+    private SoundManager _sound;
 
     void Start()
     {
@@ -40,6 +40,8 @@ public class Gimick1_1_1Manager : MonoBehaviour
 
         _tips = GameObject.Find("Tips0").GetComponent<TipsDrawer>();
         _tips.IsDownSlider();
+
+        _sound = GameObject.Find("SoundManager").GetComponent<SoundManager>();
     }
 
     private void Update()
