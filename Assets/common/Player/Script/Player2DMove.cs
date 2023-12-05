@@ -74,7 +74,7 @@ public class Player2DMove : MonoBehaviour
         _boxCollider = GetComponent<BoxCollider>();
         _animator = GetComponent<Animator>();
 
-        _flag = GameObject.Find("Fade").GetComponent<Fade2DSceneTransition>();
+        _flag = GameObject.Find("FadeObject2D").GetComponent<Fade2DSceneTransition>();
 
         _gimmickManager = GameObject.FindWithTag("GimmickManager").GetComponent<SolveGimmickManager>();
 
@@ -172,34 +172,13 @@ public class Player2DMove : MonoBehaviour
             DamageBlinking();
         }
 
-        // ゴールした時に正面を向くようにする.
-        if (_flag._isGoal)
-        {
-            Quaternion rotation = Quaternion.LookRotation(new Vector3(0.0f, 0.0f, -180.0f), Vector3.up);
-
-            transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime * 5);
-        }
+        // ゴールした時の向き.
+        GoalPlayerDirection();
 
         if (_flag._isGoal) return;
 
-        // 右を向く.
-        if (!_isDirection)
-        {
-            if(transform.localEulerAngles.y >= 120.0f)
-            {
-                transform.Rotate(0f, -10f, 0f);
-            }
-        }
-        // 左を向く.
-        else if (_isDirection)
-        {
-            if (transform.localEulerAngles.y <= 240.0f)
-            {
-                transform.Rotate(0f, 10f, 0f);
-            }
-        }
-        
-        
+        // 移動しているプレイヤーの向き.
+        MovePlayerDirection();
     }
 
     private void OnCollisionStay(Collision collision)
@@ -337,8 +316,6 @@ public class Player2DMove : MonoBehaviour
         _isHitEnemy = false;
         _isDamage = true;
 
-        Debug.Log("通る");
-
         Damage();
         KnockBack();
     }
@@ -387,6 +364,39 @@ public class Player2DMove : MonoBehaviour
         for (int rendererNum = 0; rendererNum < _renderer.Length; rendererNum++)
         {
             _renderer[rendererNum].enabled = _isRendererDisplay;
+        }
+    }
+
+    // ゴールした時のプレイヤーの向き.
+    private void GoalPlayerDirection()
+    {
+        // ゴールした時に正面を向くようにする.
+        if (_flag._isGoal)
+        {
+            Quaternion rotation = Quaternion.LookRotation(new Vector3(0.0f, 0.0f, -180.0f), Vector3.up);
+
+            transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime * 5);
+        }
+    }
+
+    // 移動しているプレイヤーの向き.
+    private void MovePlayerDirection()
+    {
+        // 右を向く.
+        if (!_isDirection)
+        {
+            if (transform.localEulerAngles.y >= 120.0f)
+            {
+                transform.Rotate(0f, -10f, 0f);
+            }
+        }
+        // 左を向く.
+        else if (_isDirection)
+        {
+            if (transform.localEulerAngles.y <= 240.0f)
+            {
+                transform.Rotate(0f, 10f, 0f);
+            }
         }
     }
 
