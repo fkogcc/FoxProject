@@ -29417,9 +29417,17 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: -11.2
       objectReference: {fileID: 0}
+    - target: {fileID: 6786851321560622946, guid: e42535a8ab863464baabf27943824034, type: 3}
+      propertyPath: _is2DPlayer
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6859859986040307004, guid: e42535a8ab863464baabf27943824034, type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8513564049177537562, guid: e42535a8ab863464baabf27943824034, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e42535a8ab863464baabf27943824034, type: 3}
