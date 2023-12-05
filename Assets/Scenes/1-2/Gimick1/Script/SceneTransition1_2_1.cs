@@ -6,7 +6,11 @@ public class SceneTransition1_2_1 : MonoBehaviour
 {
     private GameObject _effeect;
     private EffectLine _effectLine;
-    private FadeScene _fade;
+    // フェード処理.
+    private Fade _fade;
+    // フェード管理.
+    private FadeAnimDirector _fadeDirector;
+
     private Player3DMove _Player3D;
 
     // 解いたかどうか.
@@ -17,7 +21,8 @@ public class SceneTransition1_2_1 : MonoBehaviour
     {
         _effeect = GameObject.Find("EffectCreate");
         _effectLine = _effeect.GetComponent<EffectLine>();
-        _fade = GameObject.FindWithTag("Fade").GetComponent<FadeScene>();
+        _fade = GameObject.Find("FadeCanvas").GetComponent<Fade>();
+        _fadeDirector = GameObject.Find("Manager").GetComponent<FadeAnimDirector>();
         _Player3D = GameObject.FindWithTag("Player").GetComponent<Player3DMove>();
     }
 
@@ -26,10 +31,10 @@ public class SceneTransition1_2_1 : MonoBehaviour
     {
         if (_effectLine.GetResult())
         {
-            _fade._isFadeOut = true;
+            _fadeDirector._isFade = true;
         }
 
-        if (_fade.GetAlphColor() >= 0.9f && _fade._isFadeOut)
+        if (_fade.cutoutRange == 1.0f && _fadeDirector._isFade)
         {
             _active = _effectLine.GetResult();
             SceneManager.sceneLoaded += GameSceneLoaded;
