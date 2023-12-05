@@ -6,7 +6,8 @@ using UnityEngine.SceneManagement;
 public class SceneTransition1_2_4 : MonoBehaviour
 {
     private Gimick1_2_4_Manager1Mk2 _gimick1_2_4_Manager1Mk2;
-    private FadeScene _fade;
+    private Fade _fade;
+    private FadeAnimDirector _fadeDirector;
     private Player3DMove _Player3D;
 
     // 解いたかどうか.
@@ -16,7 +17,8 @@ public class SceneTransition1_2_4 : MonoBehaviour
     void Start()
     {
         _gimick1_2_4_Manager1Mk2 = GetComponent<Gimick1_2_4_Manager1Mk2>();
-        _fade = GameObject.FindWithTag("Fade").GetComponent<FadeScene>();
+        _fade = GameObject.Find("FadeCanvas").GetComponent<Fade>();
+        _fadeDirector = GameObject.Find("Manager").GetComponent<FadeAnimDirector>();
         _Player3D = GameObject.FindWithTag("Player").GetComponent<Player3DMove>();
     }
 
@@ -25,10 +27,10 @@ public class SceneTransition1_2_4 : MonoBehaviour
     {
         if (_gimick1_2_4_Manager1Mk2.GetResult())
         {
-            _fade._isFadeOut = true;
+            _fadeDirector._isFade = true;
         }
 
-        if (_fade.GetAlphColor() >= 0.9f && _fade._isFadeOut)
+        if (_fade.cutoutRange == 1.0f && _fadeDirector._isFade)
         {
             _active = _gimick1_2_4_Manager1Mk2.GetResult();
             SceneManager.sceneLoaded += GameSceneLoaded;
