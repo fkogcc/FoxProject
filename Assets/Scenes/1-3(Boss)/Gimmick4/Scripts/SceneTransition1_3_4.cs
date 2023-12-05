@@ -9,8 +9,14 @@ public class SceneTransition1_3_4 : MonoBehaviour
 
     private FadeScene _fade;
 
+    // クリアしたときにclearの画像を表示させる.
+    [SerializeField] private GenerateImg _img;
+
     // 解いたかどうか.
     private bool _active = false;
+
+    //フェードインするまでのカウント
+    private int _fadeCount = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -25,7 +31,14 @@ public class SceneTransition1_3_4 : MonoBehaviour
         if (_manager.GetResult())
         {
             //Debug.Log("a");
-            _fade._isFadeOut = true;
+            // 画像の表示.
+            _img.GenerateImage();
+            _fadeCount++;
+            if (_fadeCount > 50)
+            {
+                _fade._isFadeOut = true;
+                _fadeCount = 0;
+            }
         }
 
         if (_fade.GetAlphColor() >= 0.9f && _fade._isFadeOut)
