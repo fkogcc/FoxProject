@@ -19,6 +19,8 @@ public class Player3DMove : MonoBehaviour
     private Transform _transform;
     // 当たり判定.
     private BoxCollider _collider;
+    // ポーズ画面
+    private UpdatePause _pause;
 
     // レンダーマテリアル.
     public Renderer[] _renderer;
@@ -79,16 +81,7 @@ public class Player3DMove : MonoBehaviour
     float currentGravity = -0.1f;
     void Start()
     {
-        _transitionScene = GameObject.Find("3DPlayer").GetComponent<GateFlag>();
-
-        _camera = GameObject.Find("Camera");
-        _anim3D = GetComponent<PlayerAnim3D>();
-        _animator = GetComponent<Animator>();
-        _rigidbody = GetComponent<Rigidbody>();
-
-        _transform = GetComponent<Transform>();
-
-        _collider = GetComponent<BoxCollider>();
+        Init();
     }
 
     void Update()
@@ -175,6 +168,18 @@ public class Player3DMove : MonoBehaviour
         // false 赤.
         Gizmos.color = IsGroundShpere() ? Color.green : Color.red;
         Gizmos.DrawWireSphere(_SphereCastCenterPosition + -transform.up * (hit.distance), _raySphereLength);
+    }
+
+    // 初期化.
+    private void Init()
+    {
+        _transitionScene = GameObject.Find("3DPlayer").GetComponent<GateFlag>();
+        _camera = GameObject.Find("Camera");
+        _anim3D = GetComponent<PlayerAnim3D>();
+        _animator = GetComponent<Animator>();
+        _rigidbody = GetComponent<Rigidbody>();
+        _transform = GetComponent<Transform>();
+        _collider = GetComponent<BoxCollider>();
     }
 
 

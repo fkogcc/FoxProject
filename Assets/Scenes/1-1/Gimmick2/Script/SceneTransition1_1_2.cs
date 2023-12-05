@@ -1,14 +1,16 @@
-﻿// 1-1-2から表世界へのシーン遷移テスト
+﻿/*1-1-2から表世界へのシーン遷移*/
 
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class SceneTransition1_1_2 : MonoBehaviour
 {
+    // ギミックをクリアしたかの取得.
     private Gimick1_1_2_Manager _Gimmick1_1_2;
-    private FadeScene _fade;
+    // フェード.
+    private Fade _fade;
+    // フェード管理.
+    private FadeAnimDirector _fadeDirector;
     private Player3DMove _Player3D;
 
     // 解いたかどうか.
@@ -18,8 +20,10 @@ public class SceneTransition1_1_2 : MonoBehaviour
     void Start()
     {
         _Gimmick1_1_2 = GetComponent<Gimick1_1_2_Manager>();
-        _fade = GameObject.FindWithTag("Fade").GetComponent<FadeScene>();
+        _fade = GameObject.Find("FadeCanvas").GetComponent<Fade>();
+        _fadeDirector = GameObject.Find("Manager").GetComponent<FadeAnimDirector>();
         _Player3D = GameObject.FindWithTag("Player").GetComponent<Player3DMove>();
+
     }
 
     // Update is called once per frame
@@ -27,10 +31,10 @@ public class SceneTransition1_1_2 : MonoBehaviour
     {
         if (_Gimmick1_1_2.GetResult())
         {
-            _fade._isFadeOut = true;
+            _fadeDirector._isFade = true;
         }
 
-        if (_fade.GetAlphColor() >= 0.9f && _fade._isFadeOut)
+        if (_fade.cutoutRange == 1.0f && _fadeDirector._isFade)
         {
             _active = _Gimmick1_1_2.GetResult();
             SceneManager.sceneLoaded += GameSceneLoaded;
