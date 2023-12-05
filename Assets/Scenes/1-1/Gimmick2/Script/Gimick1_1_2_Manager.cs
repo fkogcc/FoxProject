@@ -5,7 +5,7 @@ public class Gimick1_1_2_Manager : MonoBehaviour
     // 回転させるオブジェクトの取得.
     private GearRotation _gear;
     // サウンドの取得.
-    [SerializeField] private SoundManager _sound;
+    private SoundManager _sound;
     // クリアしたときにclearの画像を表示させる.
     [SerializeField] private GenerateImg _img;
     // 一回転したら時間を計測するためのタイマー.
@@ -21,6 +21,7 @@ public class Gimick1_1_2_Manager : MonoBehaviour
     private void Start()
     {
         _gear = GameObject.Find("GearHandle").GetComponent<GearRotation>();
+        _sound = GameObject.Find("SoundManager").GetComponent<SoundManager>();
         // 計測する時間の最大値.
         _maxTime = 60 * 2;
         // 実際にカウントする時間.
