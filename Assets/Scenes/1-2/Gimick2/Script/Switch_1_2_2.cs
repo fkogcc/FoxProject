@@ -7,6 +7,9 @@ using UnityEditor.U2D.Common;
 
 public class Switch_1_2_2 : MonoBehaviour
 {
+    // 説明画面描画.
+    public TipsDrawer _tipsDrawer;
+
     // プレイヤーがオブジェクトに当たったかどうか.
     private bool _isHit = false;
 
@@ -45,6 +48,8 @@ public class Switch_1_2_2 : MonoBehaviour
         //_sound
         // オブジェクト取得. 
         _leverRota = GameObject.Find("stage03_lever_02/locator1");
+
+        _tipsDrawer.IsDownSlider();
     }
 
     private void Update()
@@ -56,6 +61,7 @@ public class Switch_1_2_2 : MonoBehaviour
             _sound._isLeverFlag = true;
 
         }
+        Debug.Log($"{name}");
     }
 
     private void FixedUpdate()
