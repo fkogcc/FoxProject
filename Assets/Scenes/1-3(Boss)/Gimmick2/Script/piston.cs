@@ -14,6 +14,8 @@ public class piston : MonoBehaviour
     private int _time;
     // ギミックの移動量
     private float _moveX;
+
+    private bool _isMove;
     void Start()
     {
         _count = 0;
@@ -21,34 +23,34 @@ public class piston : MonoBehaviour
         _pos = _myTransform.position;
         _time = 60;
         _moveX = 0.08f;
+        
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
-        _count++;
-
         // 5秒経ったら.
-        if (_count < _time)
+        if (!_isMove)
         {
             // z座標へ0.08減算.
             _pos.x -= _moveX;
             // 座標を設定.
             _myTransform.position = _pos;
         }
-        //10秒経ったら.
-        else if (_count < _time * 2)
+        else
         {
             // z座標へ0.08加算.
             _pos.x += _moveX;
             // 座標を設定.
             _myTransform.position = _pos;
         }
-        //それ以上になったら.
-        else
+        if(_myTransform.position.x >= 15.0)
         {
-            //カウントを初期化する.
-            _count = 0;
+            _isMove = false;
+        }
+        if (_myTransform.position.x <= 10.0)
+        {
+            _isMove = true;
         }
     }
 }

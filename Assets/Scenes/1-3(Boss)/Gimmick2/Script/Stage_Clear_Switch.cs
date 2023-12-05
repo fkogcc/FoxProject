@@ -16,12 +16,11 @@ public class Stage_Clear_Switch : MonoBehaviour
         //プレイヤーが触れたとき.
         if (collision.gameObject.name == "3DPlayer")
         {
-            //Xボタンを押したら.
-            if (Input.GetKeyDown("joystick button 2"))
+            if(Input.GetKeyDown("joystick button 2"))
             {
                 //ステージクリアの関数を呼ぶ
                 _isClear= true;
-            }
+            }                            
         }
     }
 
