@@ -10,18 +10,29 @@ public class TestBoxMove : MonoBehaviour
 	public float _pushPower = 4.0f;
 	// 押している方向.
 	Vector3 _pushDir;
+	private Vector3 _prevPos = Vector3.zero;
+	private Vector3 _nowPos = Vector3.zero;
 	// Start is called before the first frame update
 	void Start()
     {
-        
+        _prevPos = transform.position;
+		_nowPos = transform.position;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-		//Debug.Log("ああああ");
-		//Debug.Log(this.gameObject.name);
-    }
+ //   // Update is called once per frame
+ //   void Update()
+ //   {
+	//	_nowPos = transform.position;
+	//	if(_nowPos != _prevPos)
+ //       {
+	//		Vector3 difference = _nowPos - _prevPos;
+	//		Debug.Log("差    :" + difference);
+	//		Debug.Log("ﾁｶﾞｳ");
+ //       }
+	//	_prevPos = _nowPos;
+	//	//Debug.Log("ああああ");
+	//	//Debug.Log(this.gameObject.name);
+	//}
 	void FixedUpdate()
     {
         

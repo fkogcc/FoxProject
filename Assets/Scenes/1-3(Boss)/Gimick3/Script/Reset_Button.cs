@@ -78,6 +78,11 @@ public class Reset_Button : MonoBehaviour
 
         }
     }
+    // リセットボタンを押したかのフラグを返す.
+    public bool IsReset()
+    {
+        return _isResetCheck;
+    }
 
     private void Move()
     {

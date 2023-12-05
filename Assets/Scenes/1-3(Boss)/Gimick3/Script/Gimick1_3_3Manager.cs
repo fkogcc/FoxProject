@@ -33,6 +33,7 @@ public class Gimick1_3_3Manager : MonoBehaviour
         _effectPos.x -= -1.0f;
         _effectPos.y -= (_barricade.transform.localScale.y * 0.5f);
         _resetButton.SoundDataSet(_sound);
+        _containerDirector.GetSoundData(_sound);
 
     }
 
@@ -40,11 +41,13 @@ public class Gimick1_3_3Manager : MonoBehaviour
     private void Update()
     {
         // サウンドを鳴らす.
-        //_sound.PlayBGM("1_3_3_BGM");
+        _sound.PlayBGM("1_3_3_BGM");
         _cameraChange.ChengeCameraUpdate();
         _stageCamera.CameraUpdate();
+        // リセットの処理.
         _resetButton.ResetPush(_containerDirector.IsStage1Clear());
-        _containerDirector.GimickClearCheck(_sound);
+        _containerDirector.ResetBoxPos(_resetButton.IsReset());
+        _containerDirector.GimickClearCheck();
         if (_containerDirector.IsStage1Clear() && !_isDestory)
         {
             if (!_isSound)

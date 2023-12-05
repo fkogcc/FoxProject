@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class StageContinerColl : MonoBehaviour
 {
+    // オブジェクトの取得.
     [SerializeField] private GameObject _contena;
     [SerializeField] private GameObject _contenaGreen;
     private GameObject _contenaEffect;
@@ -12,7 +13,6 @@ public class StageContinerColl : MonoBehaviour
     private void Start()
     {
         _contenaEffect = Instantiate(_contenaGreen, transform.position, _contena.transform.rotation);
-        //_contenaEffect = clone.GetComponent<ParticleSystem>();
 
     }
     private void OnCollisionEnter(Collision collision)
@@ -22,6 +22,15 @@ public class StageContinerColl : MonoBehaviour
             ContainerDirector._getName = collision.gameObject.name;
             ContainerDirector._isColl = true;
             EffectPlay();
+        }
+    }
+    private void OnCollisionStay(Collision collision)
+    {
+        if (collision.gameObject.name == _contena.name)
+        {
+            ContainerDirector._getName = collision.gameObject.name;
+            ContainerDirector._isColl = true;
+            //EffectPlay();
         }
     }
     // 範囲外に出た処理.
@@ -34,19 +43,17 @@ public class StageContinerColl : MonoBehaviour
     // エフェクト再生
     private void EffectPlay()
     {
-        //_contenaEffect.Play();
         foreach (ParticleSystem _effect in _contenaEffect.GetComponentsInChildren<ParticleSystem>())
         {
             _effect.Play();
-            Debug.Log("さいせい");
         }
     }
+    // エフェクトストップ.
     private void EffectStop()
     {
         foreach (ParticleSystem _effect in _contenaEffect.GetComponentsInChildren<ParticleSystem>())
         {
             _effect.Stop();
-            Debug.Log("ストップ");
         }
     }
 }
