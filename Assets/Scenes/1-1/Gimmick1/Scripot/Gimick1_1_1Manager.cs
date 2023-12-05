@@ -59,7 +59,7 @@ public class Gimick1_1_1Manager : MonoBehaviour
                     // ボタンを押したら.
                     if (Input.GetKeyDown(KeyCode.JoystickButton1))
                     {
-                        _sound.PlayBGM("1_2_4_Light");
+                        _sound.PlaySE("1_2_4_Light");
                         _isButtonHandle[i] = true;
                         _handleColl[i].GetComponent<CollsionHandle>().SetNameColl(_handleWallName[i]);
                         _handleColl[i].GetComponent<CollsionHandle>().SetHit(false);
@@ -75,7 +75,7 @@ public class Gimick1_1_1Manager : MonoBehaviour
                     // ボタンを押したら.
                     if (Input.GetKeyDown(KeyCode.JoystickButton1))
                     {
-                        _sound.PlayBGM("1_2_3_MetalRota");
+                        _sound.PlaySE("1_2_3_MetalRota");
                         _isButtonWall[i] = true;
                     }
                 }

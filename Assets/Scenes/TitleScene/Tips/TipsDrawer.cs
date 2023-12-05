@@ -14,31 +14,36 @@ public class TipsDrawer : MonoBehaviour
     // 画像サイズ
     public float _imageSize;
 
-    // 画像クラスの初期化
+    // 2Dプレイヤーの場合
+    public bool _is2DPlayer;
+
+    // 画像クラスの初期化.
     private Image _image = null;
-    // トランスフォームクラスの初期化
+    // トランスフォームクラスの初期化.
     private RectTransform rectTransform = null;
 
-    // スライド用の速度
+    // スライド用の速度.
     private float _slideSpeed = 0.0f;
 
-    // スライドの方向
+    // スライドの方向.
     private bool _isDownSlider = false;
     private bool _isUpSlider = false;
 
-    // スライドの位置を確かめる
+    // スライドの位置を確かめる.
     public bool _isSlideStart { get; private set; }
     public bool _isSlideEnd   { get; private set; }
 
-    // プレイヤーの操作を受け付けなくする用
+    // プレイヤーの操作を受け付けなくする用.
     private Player3DMove _player;
 
-    // 始めに描画する説明かどうか
+    // 始めに描画する説明かどうか.
     public bool _isFirstTips;
 
+    // プレイヤーの行動の制限.
     public bool _isPlayerJump;
     public bool _isPlayerMove;
 
+    // 動きを有効にするかどうか.
     private bool _isMove = false;
 
     void Start()
@@ -69,7 +74,10 @@ public class TipsDrawer : MonoBehaviour
         _isSlideStart = true;
         _isSlideEnd = false;
 
-        _player = GameObject.Find("3DPlayer").GetComponent<Player3DMove>();
+        if(!_is2DPlayer)
+        {
+            _player = GameObject.Find("3DPlayer").GetComponent<Player3DMove>();
+        }
 
         if(_isFirstTips)
         {
@@ -81,6 +89,7 @@ public class TipsDrawer : MonoBehaviour
 
     private void Update()
     {
+        // 始めの説明描画用.
         if(_isFirstTips)
         {
             if(Input.GetKeyDown(KeyCode.JoystickButton0))
@@ -92,16 +101,20 @@ public class TipsDrawer : MonoBehaviour
         }
         else
         {
+            // 動けるようにする.
             if(_isMove)
             {
                 _isMove = false;
-                if (_isPlayerJump) _player._isController     = true;
-                if (_isPlayerMove) _player._isJumpController = true;
+                if (!_is2DPlayer)
+                {
+                    if (_isPlayerJump) _player._isController     = true;
+                    if (_isPlayerMove) _player._isJumpController = true;
+                }
             }
         }
 
-        // if 下にスライドの場合
-        // else if 上にスライド
+        // if 下にスライドの場合.
+        // else if 上にスライド.
         if(_isDownSlider)
         {
             // Y軸で下にスライドさせるのでマイナス.
@@ -139,28 +152,35 @@ public class TipsDrawer : MonoBehaviour
 
 
     // 下にスライドさせる場合.
-    // 引数には基本的にfalseを入れてください
+    // 引数には基本的にfalseを入れてください.
     public void IsDownSlider(bool isMove = false, bool isJump = false)
     {
         _isDownSlider = true;
-        _isUpSlider = false;          
-        if (_isPlayerMove) _player._isController     = isMove;
-        if (_isPlayerJump) _player._isJumpController = isJump;
+        _isUpSlider = false;
+        if (!_is2DPlayer)
+        {
+            if (_isPlayerMove) _player._isController     = isMove;
+            if (_isPlayerJump) _player._isJumpController = isJump;
+        }
     }
     // 上にスライドさせる場合.
-    // 引数には基本的にtrueを入れてください
+    // 引数には基本的にtrueを入れてください.
     public void IsUpSlider(bool isMove = true, bool isJump = true)
     {
         _isUpSlider = true;
         _isDownSlider = false;
-        if (_isPlayerMove) _player._isController     = isMove;
-        if (_isPlayerJump) _player._isJumpController = isJump;
+        if (!_is2DPlayer)
+        {
+            if (_isPlayerMove) _player._isController     = isMove;
+            if (_isPlayerJump) _player._isJumpController = isJump;
+        }
     }
-
+    // スライドの位置が上だったら.
     public bool IsUpSliderResult()
     {
         return _isUpSlider;
     }
+    // スライドの位置が下だったら.
     public bool IsDownSliderResult()
     {
         return _isDownSlider;

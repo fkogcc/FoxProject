@@ -91,13 +91,13 @@ public class SoundManager : MonoBehaviour
                 _seData[i].volume = 0;
             }
 
-            // デバッグ用.
-            if (_playSeTest[i])
-            {
-                _seSource.volume = _seData[i].volume;
-                _seSource.PlayOneShot(_seData[i].sound);
-                break;
-            }
+            //// デバッグ用.
+            //if (_playSeTest[i])
+            //{
+            //    _seSource.volume = _seData[i].volume;
+            //    _seSource.PlayOneShot(_seData[i].sound);
+            //    break;
+            //}
         }
         for (int i = 0; i < _bgmData.Length; i++)
         {
@@ -111,12 +111,12 @@ public class SoundManager : MonoBehaviour
                 _bgmData[i].volume = 0;
             }
 
-            // デバッグ用.
-            if (_playBgmTest[i])
-            {
-                _bgmSource.volume = _bgmData[i].volume;
-                _bgmSource.PlayOneShot(_bgmData[i].sound);
-            }
+            //// デバッグ用.
+            //if (_playBgmTest[i])
+            //{
+            //    _bgmSource.volume = _bgmData[i].volume;
+            //    _bgmSource.PlayOneShot(_bgmData[i].sound);
+            //}
         }
 
         Debug.Log("Fixed " + this._bgmMasterVolume);
