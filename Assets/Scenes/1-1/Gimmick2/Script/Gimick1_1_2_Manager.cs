@@ -15,15 +15,18 @@ public class Gimick1_1_2_Manager : MonoBehaviour
     private bool _isTimeFlag;
     // 一回転したかどうかのフラグ.
     private bool _isRotaFlag;
+
+    public TipsDrawer _tipsDrawer;
+
     private void Start()
     {
         _gear = GameObject.Find("GearHandle").GetComponent<GearRotation>();
-        _sound.PlayBGM("1_1_2_BGM");
         // 計測する時間の最大値.
         _maxTime = 60 * 2;
         // 実際にカウントする時間.
         _countTime = 0;
 
+        _tipsDrawer.IsDownSlider();
     }
 
     // 60フレームに一回の更新処理.
@@ -37,6 +40,7 @@ public class Gimick1_1_2_Manager : MonoBehaviour
     // 更新処理.
     private void Update()
     {
+        _sound.PlayBGM("1_1_2_BGM");
         _gear.PlayerColRange();
         _isRotaFlag = _gear.IsGearRotated();
     }

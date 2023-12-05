@@ -39,13 +39,13 @@ public class Gimick1_2_1Manager : MonoBehaviour
         _effectPlay = GameObject.Find("EffectCreate").GetComponent<EffectPlay>();
         // エフェクトの初期化処理.
         _effectPlay.EffectInit();
-        // BGMの再生.
-        _sound.PlayBGM("1_2_1_BGM");
     }
 
     // 更新処理.
     private void Update()
     {
+        // BGMの再生.
+        _sound.PlayBGM("1_2_1_BGM");
         // プレイヤーの手の情報を取得する.
         _handObject = GameObject.Find("FoxHand(Clone)");
         // モニターを変えるかどうかをチェックしている
