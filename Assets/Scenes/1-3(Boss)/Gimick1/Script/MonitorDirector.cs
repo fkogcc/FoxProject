@@ -9,6 +9,8 @@ public class MonitorDirector : MonoBehaviour
     private bool _isPlayerCollider;
     // ボタンの状態を渡すためにオブジェクトを取得.
     private GameObject _gameObject;
+    // Pause
+    public GameObject Pause;
 
     // Start is called before the first frame update
     void Start()
@@ -22,21 +24,24 @@ public class MonitorDirector : MonoBehaviour
     // カメラを切り替える処理
     private void Update()
     {
+        // 時間が止まっている場合は止める.
+        if (Pause.GetComponent<UpdatePause>()._isPause) return;
+
         // プレイヤーが判定内にいるとき.
         if (_isPlayerCollider)
         {
-            // Aボタンを押したら
-            if (Input.GetKeyDown("joystick button 1"))
-            {
-                // ボタンのフラグをオンにする(カメラON).
-                _gameObject.GetComponent<MonitorCamera131>().SetPushFlag(false);
+            //// Aボタンを押したら
+            //if (Input.GetKeyDown("joystick button 3"))
+            //{
+            //    // ボタンのフラグをオンにする(カメラON).
+            //    _gameObject.GetComponent<MonitorCamera131>().SetPushFlag(false);
 
-            }
+            //}
             // Xボタンを押したら
-            else if (Input.GetKeyDown("joystick button 3"))
+            if (Input.GetKeyDown("joystick button 3"))
             {
                 // ボタンのフラグをオフにする(カメラOFF).
-                _gameObject.GetComponent<MonitorCamera131>().SetPushFlag(true);
+                _gameObject.GetComponent<MonitorCamera131>().SetPushFlag();
             }
         }
     }
