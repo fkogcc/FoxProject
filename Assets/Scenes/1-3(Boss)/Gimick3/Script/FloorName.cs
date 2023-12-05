@@ -10,16 +10,16 @@ public class FloorName : MonoBehaviour
         _camera = GameObject.Find("MinmapCamera").GetComponent<StageCamera>();
     }
     //  判定内.
-    private void OnTriggerEnter(Collider other)
+    private void OnCollisionEnter(Collision other)
     {
-        if(other.tag == "Player")
+        if(other.transform.tag == "Player")
         {
             _camera.SetCameraName(this.gameObject.name);
         }
     }
 
     //  判定外.
-    private void OnTriggerExit(Collider other)
+    private void OnCollisionExit(Collision other)
     {
         // HACK テスト用で直接指定してる.
         _camera.SetCameraName("GameObject");
