@@ -34,23 +34,24 @@ public class PlayerHand : MonoBehaviour
         // 右.
         if (0.0f < horizontal)
         {
-            _vecAdd = Vector3.right * _moveSpeed;
+            _vecAdd += Vector3.right * _moveSpeed;
         }
         // 左.
-        if (horizontal < 0.0f)
+        else if(horizontal < 0.0f)
         {
-            _vecAdd = Vector3.left * _moveSpeed;
+            _vecAdd += Vector3.left * _moveSpeed;
         }
         // 上.
         if (0.0f < vertical)
         {
-            _vecAdd = Vector3.up * _moveSpeed;
+            _vecAdd += Vector3.up * _moveSpeed;
         }
         // 下.
-        if (vertical < 0.0f)
+        else if (vertical < 0.0f)
         {
-            _vecAdd = Vector3.down * _moveSpeed;
+            _vecAdd += Vector3.down * _moveSpeed;
         }
+
         if (transform.rotation.eulerAngles.y == 0)
         {
             transform.position += _vecAdd;

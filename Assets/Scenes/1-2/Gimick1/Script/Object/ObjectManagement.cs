@@ -14,6 +14,13 @@ public class ObjectManagement : MonoBehaviour
     private GameObject _handObject;
     public CinemachineVirtualCamera _vcamera;
 
+    public TipsDrawer _tipsDrawer;
+
+    private void Start()
+    {
+        _tipsDrawer.IsDownSlider();
+    }
+
     // ターゲットのリストの管理.
     [Serializable] public struct TargetInfo
     {
