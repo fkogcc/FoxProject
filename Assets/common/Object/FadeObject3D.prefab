@@ -55,8 +55,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4224595469975512035}
-  - component: {fileID: 5797151545501798848}
-  - component: {fileID: 3838069999961929819}
   m_Layer: 0
   m_Name: FadeObject3D
   m_TagString: Untagged
@@ -81,33 +79,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5797151545501798848
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4224595469975512060}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7e8cd0078ea79254e9cf5d1f82fbc594, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &3838069999961929819
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4224595469975512060}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 55498f4509ccff9438585d1cca721774, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _isGoal: 0
-  _color: {r: 0, g: 0, b: 0, a: 0}
-  _isPush: 0
 --- !u!1001 &4224595469509069351
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -140,6 +111,10 @@ PrefabInstance:
       value: 0.18867922
       objectReference: {fileID: 0}
     - target: {fileID: 11486218, guid: 53c22e1773be7f84aad8ed8b7b58fa6e, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11486218, guid: 53c22e1773be7f84aad8ed8b7b58fa6e, type: 3}
       propertyPath: _endColor.b
       value: 1
       objectReference: {fileID: 0}
@@ -150,6 +125,10 @@ PrefabInstance:
     - target: {fileID: 11486218, guid: 53c22e1773be7f84aad8ed8b7b58fa6e, type: 3}
       propertyPath: _endColor.r
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11486218, guid: 53c22e1773be7f84aad8ed8b7b58fa6e, type: 3}
+      propertyPath: cutoutRange
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 11486218, guid: 53c22e1773be7f84aad8ed8b7b58fa6e, type: 3}
       propertyPath: maskTexture
@@ -165,6 +144,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 11486218, guid: 53c22e1773be7f84aad8ed8b7b58fa6e, type: 3}
       propertyPath: _startColor.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11491604, guid: 53c22e1773be7f84aad8ed8b7b58fa6e, type: 3}
+      propertyPath: cutoutRange
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 22424616, guid: 53c22e1773be7f84aad8ed8b7b58fa6e, type: 3}
