@@ -1,5 +1,6 @@
 ﻿// 風車ギミックの処理.
 // HACK:マジックナンバー過多.
+// MEMO:強い風を吹かせるところで_sound.PlaySE("1_1_0_StrongWind")を弱い風のところで_sound.PlaySE("1_1_0_WeakWind")
 
 using System.Collections;
 using System.Collections.Generic;
@@ -22,6 +23,9 @@ public class RotateWindmill : MonoBehaviour
     // 回転加速度.
     [SerializeField] private float _rotateAcceleration = 0.1f;
 
+    // サウンドマネージャー.
+    private SoundManager _sound;
+
     // 風の判定が生きているかどうか.
     private bool _isWindActive = false;
 
@@ -35,6 +39,7 @@ public class RotateWindmill : MonoBehaviour
 
     private void Start()
     {
+        _sound = GameObject.Find("SoundManager").GetComponent<SoundManager>();
         _gimmickManager = GameObject.FindWithTag("GimmickManager").GetComponent<SolveGimmickManager>();
     }
 
