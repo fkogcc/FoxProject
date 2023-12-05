@@ -121,7 +121,7 @@ public class ContainerDirector : MonoBehaviour
         return _isStage1Flag;
     }
     // クリア判定.
-    public bool GetResult()
+    public bool GetClearFlag()
     {
         return _isAllClear;
     }

@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class SceneTransition1_3_3 : MonoBehaviour
 {
-    private ContainerDirector _containerDirector;
+    private Gimick1_3_3Manager _gimickManager;
 
     private FadeScene _fade;
 
@@ -15,7 +15,7 @@ public class SceneTransition1_3_3 : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        _containerDirector = GetComponent<ContainerDirector>();
+        _gimickManager = GetComponent<Gimick1_3_3Manager>();
         _fade = GameObject.FindWithTag("Fade").GetComponent<FadeScene>();
     }
 
@@ -23,9 +23,9 @@ public class SceneTransition1_3_3 : MonoBehaviour
     void Update()
     {
 
-        Debug.Log(_containerDirector.GetResult());
+        Debug.Log(_gimickManager.GetResult());
 
-        if (_containerDirector.GetResult())
+        if (_gimickManager.GetResult())
         {
             //Debug.Log("a");
             _fade._isFadeOut = true;
@@ -33,7 +33,7 @@ public class SceneTransition1_3_3 : MonoBehaviour
 
         if (_fade.GetAlphColor() >= 0.9f && _fade._isFadeOut)
         {
-            _active = _containerDirector.GetResult();
+            _active = _gimickManager.GetResult();
             SceneManager.sceneLoaded += GameSceneLoaded;
             SceneManager.LoadScene("MainScene1-3");
         }

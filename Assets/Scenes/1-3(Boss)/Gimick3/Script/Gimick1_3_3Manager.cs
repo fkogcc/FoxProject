@@ -6,6 +6,8 @@ public class Gimick1_3_3Manager : MonoBehaviour
 {
     // サウンド用.
     [SerializeField] private SoundManager _sound;
+    // クリアしたときにclearの画像を表示させる.
+    [SerializeField] private GenerateImg _img;
     // オブジェクトの取得
     private CameraChange _cameraChange;
     private StageCamera _stageCamera;
@@ -20,6 +22,8 @@ public class Gimick1_3_3Manager : MonoBehaviour
     private Vector3 _effectPos;
     // サウンドを鳴らしたかのフラグ.
     private bool _isSound = false;
+    // 待つフレーム.
+    private int _frameWaitTime = 60;
     // Start is called before the first frame update
     void Start()
     {
@@ -92,5 +96,19 @@ public class Gimick1_3_3Manager : MonoBehaviour
         {
             Destroy(_effectClone);
         }
+    }
+    public bool GetResult()
+    {
+        if (_containerDirector.GetClearFlag())
+        {
+            _frameWaitTime--;
+            // 画像の生成.
+            _img.GenerateImage();
+            if (_frameWaitTime <= 0)
+            {
+                return true;
+            }
+        }
+        return false;
     }
 }
