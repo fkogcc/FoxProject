@@ -8,6 +8,7 @@ public class Gimick1_3_3Manager : MonoBehaviour
     [SerializeField] private SoundManager _sound;
     // クリアしたときにclearの画像を表示させる.
     [SerializeField] private GenerateImg _img;
+    [SerializeField] private GameObject Pause;
     // オブジェクトの取得
     private CameraChange _cameraChange;
     private StageCamera _stageCamera;
@@ -24,6 +25,8 @@ public class Gimick1_3_3Manager : MonoBehaviour
     private bool _isSound = false;
     // 待つフレーム.
     private int _frameWaitTime = 60;
+    public TipsDrawer _tipsDrawer;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -39,6 +42,8 @@ public class Gimick1_3_3Manager : MonoBehaviour
         _resetButton.SoundDataSet(_sound);
         _containerDirector.GetSoundData(_sound);
 
+        _tipsDrawer.IsDownSlider();
+
     }
 
     // Update is called once per frame
@@ -46,8 +51,11 @@ public class Gimick1_3_3Manager : MonoBehaviour
     {
         // サウンドを鳴らす.
         _sound.PlayBGM("1_3_3_BGM");
-        _cameraChange.ChengeCameraUpdate();
-        _stageCamera.CameraUpdate();
+        if (!Pause.GetComponent<UpdatePause>()._isPause)
+        {
+            _cameraChange.ChengeCameraUpdate();
+            _stageCamera.CameraUpdate();
+        }
         // リセットの処理.
         _resetButton.ResetPush(_containerDirector.IsStage1Clear());
         _containerDirector.ResetBoxPos(_resetButton.IsReset());
