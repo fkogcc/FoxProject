@@ -88,23 +88,23 @@ public class Gimmick1_2_4_CountDown2 : MonoBehaviour
     //繰り返し処理
     private IEnumerator RepeatFunction()
     {
-        if(_isCountDown)
+        while (true)
         {
-            while (true)
+            //Debug.Log("かうんとダウン");
+            // 時間をカウントダウンする.
+            if (_isCountDown)
             {
-                //Debug.Log("かうんとダウン");
-                // 時間をカウントダウンする.
                 _countTime -= Time.deltaTime;
-
-                // 経過時間が繰り返す間隔を経過したら.
-                if (_countTime <= _repeatSpan)
-                {
-                    //ここで処理をする.
-                    _countTime = 0.0f;
-                }
-                //次のフレームへ.
-                yield return null;  
             }
+
+            // 経過時間が繰り返す間隔を経過したら.
+            if (_countTime <= _repeatSpan)
+            {
+                //ここで処理をする.
+                _countTime = 0.0f;
+            }
+            //次のフレームへ.
+            yield return null;  
         }
     }
 
