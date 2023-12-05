@@ -48,12 +48,6 @@ public class TipsDrawer : MonoBehaviour
 
     void Start()
     {
-        //// Canvasを取得または作成.
-        //Canvas canvas = GetComponent<Canvas>();
-        //canvas = gameObject.AddComponent<Canvas>();
-
-        //canvas.renderMode = RenderMode.ScreenSpaceCamera;
-
         // パネルにImageコンポーネントを追加.
         _image = gameObject.AddComponent<Image>();
         // 画像をアタッチ.
@@ -81,8 +75,8 @@ public class TipsDrawer : MonoBehaviour
 
         if(_isFirstTips)
         {
-            if (_isPlayerJump)  _player._isController     = false;
-            if (_isPlayerMove)  _player._isJumpController = false;
+            if (_isPlayerMove)  _player._isController     = false;
+            if (_isPlayerJump)  _player._isJumpController = false;
         }
     }
 
@@ -107,8 +101,9 @@ public class TipsDrawer : MonoBehaviour
                 _isMove = false;
                 if (!_is2DPlayer)
                 {
-                    if (_isPlayerJump) _player._isController     = true;
-                    if (_isPlayerMove) _player._isJumpController = true;
+                    
+                    if (_isPlayerMove) _player._isController     = true;
+                    if (_isPlayerJump) _player._isJumpController = true;
                 }
             }
         }
