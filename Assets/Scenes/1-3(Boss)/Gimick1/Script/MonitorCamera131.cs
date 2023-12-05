@@ -47,8 +47,8 @@ public class MonitorCamera131 : MonoBehaviour
         }
     }
 
-    public void SetPushFlag(bool ispush)
+    public void SetPushFlag()
     {
-        _isPushFlag = ispush;
+        _isPushFlag = !_isPushFlag;
     }
 }

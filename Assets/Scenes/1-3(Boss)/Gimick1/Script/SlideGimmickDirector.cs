@@ -93,6 +93,8 @@ public class SlideGimmickDirector : MonoBehaviour
     // フェード
     private FadeScene _fade;
 
+    // ギミックの説明描画用.
+    public TipsDrawer _tipsDrawer;
     private void Start()
     {
         // 初期化
@@ -190,6 +192,9 @@ public class SlideGimmickDirector : MonoBehaviour
         _color = Color.black;
 
         _fade = GameObject.Find("Fade").GetComponent<FadeScene>();
+
+        // 説明を描画.
+        _tipsDrawer.IsDownSlider();
     }
 
     private void Update()
