@@ -91,7 +91,7 @@ public class SlideGimmickDirector : MonoBehaviour
     // ゲージ入れるよう
     public GameObject Gauge;
     // フェード
-    private Fade _fade;
+    private FadeScene _fade;
 
     // ギミックの説明描画用.
     public TipsDrawer _tipsDrawer;
@@ -191,7 +191,7 @@ public class SlideGimmickDirector : MonoBehaviour
         _alpha = 0;
         _color = Color.black;
 
-        _fade = GameObject.Find("FadeCanvas").GetComponent<Fade>();
+        _fade = GameObject.Find("Fade").GetComponent<FadeScene>();
 
         // 説明を描画.
         _tipsDrawer.IsDownSlider();
@@ -268,7 +268,7 @@ public class SlideGimmickDirector : MonoBehaviour
 
             _waitClearFrame++;
 
-            if (_fade.cutoutRange == 1.0f)
+            if (_fade.GetAlphColor() >= 0.85f)
             {
                 Sound.StopBgm();
             }

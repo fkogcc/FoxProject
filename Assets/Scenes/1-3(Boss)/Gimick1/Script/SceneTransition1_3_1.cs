@@ -7,8 +7,7 @@ public class SceneTransition1_3_1 : MonoBehaviour
 {
     private SlideGimmickDirector _slideGimmickDirector;
 
-    private Fade _fade;
-    private FadeAnimDirector _fadeDirector;
+    private FadeScene _fade;
 
     // 解いたかどうか.
     private bool _active = false;
@@ -17,8 +16,7 @@ public class SceneTransition1_3_1 : MonoBehaviour
     void Start()
     {
         _slideGimmickDirector = GetComponent<SlideGimmickDirector>();
-        _fade = GameObject.Find("FadeCanvas").GetComponent<Fade>();
-        _fadeDirector = GameObject.Find("Manager").GetComponent<FadeAnimDirector>();
+        _fade = GameObject.FindWithTag("Fade").GetComponent<FadeScene>();
     }
 
     // Update is called once per frame
@@ -27,10 +25,10 @@ public class SceneTransition1_3_1 : MonoBehaviour
         if (_slideGimmickDirector.GetResult())
         {
             //Debug.Log("a");
-            _fadeDirector._isFade = true;
+            _fade._isFadeOut = true;
         }
 
-        if (_fade.cutoutRange == 1.0f && _fadeDirector._isFade)
+        if (_fade.GetAlphColor() >= 0.9f && _fade._isFadeOut)
         {
             _active = _slideGimmickDirector.GetResult();
             SceneManager.sceneLoaded += GameSceneLoaded;

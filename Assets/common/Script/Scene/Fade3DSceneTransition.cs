@@ -13,15 +13,14 @@ public class Fade3DSceneTransition : MonoBehaviour
 
     private SceneTransitionManager _sceneTransitionManager;
 
-    private Fade _fade;
-    private FadeAnimDirector _fadeDirector;
-
     // ゴールしたタイミング
     public bool _isGoal;
 
     // 次のシーンへ行く時のカウント.
     private int _nextSceneCount = 0;
 
+    // 色.
+    public Color _color;
     // ゲートのボタンを押したかどうか.
     public bool _isPush;
 
@@ -29,11 +28,15 @@ public class Fade3DSceneTransition : MonoBehaviour
     void Start()
     {
         _player = GameObject.FindWithTag("Player").GetComponent<Player3DMove>();
-        _fade = GetComponentInChildren<Fade>();
-        _fadeDirector = GetComponentInChildren<FadeAnimDirector>();
         // 初期化.
         _isGoal = false;
         _isPush = false;
+        _color = gameObject.GetComponent<Image>().color;
+        _color.r = 0.0f;
+        _color.g = 0.0f;
+        _color.b = 0.0f;
+        _color.a = 1.0f;
+        gameObject.GetComponent<Image>().color = _color;
         _transitionScene = GameObject.FindWithTag("Player").GetComponent<GateFlag>();
         _sceneTransitionManager = GetComponent<SceneTransitionManager>();
     }
@@ -41,13 +44,41 @@ public class Fade3DSceneTransition : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // フェード処理.
+        FadeUpdate();
         // シーン遷移関数.
         SceneTransition();
 
         GameOverSceneTransition();
     }
 
-    
+    // フェード処理.
+    private void FadeUpdate()
+    {
+        // フェードインフラグ.
+        if (_color.a >= 1.0f)
+        {
+            _isPush = false;
+        }
+
+        // 透明度を固定化.
+        if (_color.a <= 0.0f)
+        {
+            _color.a = 0.0f;
+        }
+
+        // フェードイン.
+        if (!_isPush)
+        {
+            _color.a -= 0.01f;
+            gameObject.GetComponent<Image>().color = _color;
+        }
+        else// フェードアウト.
+        {
+            _color.a += 0.01f;
+            gameObject.GetComponent<Image>().color = _color;
+        }
+    }
 
     // シーン遷移
     private void SceneTransition()
@@ -57,11 +88,11 @@ public class Fade3DSceneTransition : MonoBehaviour
         {
             // ゲートの前にいないときはスキップ.
             if (!_transitionScene.SetGateFlag()) return;
-            _fadeDirector._isFade = true;
+            _isPush = true;
         }
 
         // 共通フラグ
-        bool transitionFlagCommon = _fade.cutoutRange == 1.0f && !_player.GetIsMoveActive();
+        bool transitionFlagCommon = _color.a >= 0.9f && !_player.GetIsMoveActive();
 
         // シーン遷移.
         if (_transitionScene._isGateGimmick1_1 && transitionFlagCommon)
@@ -152,7 +183,7 @@ public class Fade3DSceneTransition : MonoBehaviour
         _nextSceneCount++;
         if(_nextSceneCount >= 300)
         {
-            _fadeDirector._isFade = true;
+            _isPush = true;
         }
 
         // いずれかのシーンであるかないか.
@@ -161,7 +192,7 @@ public class Fade3DSceneTransition : MonoBehaviour
             SceneManager.GetActiveScene().name == "GimmickRoad3_3" ||
             SceneManager.GetActiveScene().name == "GimmickRoad3_4";
 
-        if (isEitherScene && _fade.cutoutRange == 1.0f)
+        if (isEitherScene && _color.a >= 0.9f)
         {
             _sceneTransitionManager.MainScene1_3();
         }
