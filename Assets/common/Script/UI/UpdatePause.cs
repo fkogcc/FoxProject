@@ -5,7 +5,7 @@ using UnityEngine;
 public class UpdatePause : MonoBehaviour
 {
     // ポーズ画面を開いたかどうか.
-    [SerializeField] private bool _isPause = false;
+    public bool _isPause = false;
     // ポーズ画面のオブジェクト
     [SerializeField] private GameObject _pauseCanvas;
 

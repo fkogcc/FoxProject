@@ -63,103 +63,33 @@ public class Player2DMove : MonoBehaviour
 
     // イベントが発生する座標.
     [SerializeField] private float _eventPos;
+
+    // ポーズ画面.
+    private UpdatePause _pause;
     
 
     void Start()
     {
         // 初期化処理.
-        _anim = this.GetComponent<PlayerAnim2D>();
-        _transitionScene = GetComponent<GateFlag>();
-        _rigid = GetComponent<Rigidbody>();
-        _boxCollider = GetComponent<BoxCollider>();
-        _animator = GetComponent<Animator>();
-
-        _flag = GameObject.Find("FadeObject2D").GetComponent<Fade2DSceneTransition>();
-
-        _gimmickManager = GameObject.FindWithTag("GimmickManager").GetComponent<SolveGimmickManager>();
-
-        
-
-        //_hp = 5;
-        _isDirection = false;
+        Init();
     }
     
     void Update()
     {
-        // ボタン押したら(ボタン配置は仮).
-        if (Input.GetKeyDown("joystick button 3"))
-        {
-            // ゲートの前にいないときはスキップ.
-            if (!_transitionScene.SetGateFlag()) return;
-            _isMoveActive = false;
-        }
-
-        if (_hp > 0 && _isMoveActive && !_gimmickManager.GetSolve())
-        {
-            // プレイヤーの移動処理.
-            Move();
-
-            // アニメーション.
-            Anim();
-
-        }
-        else
-        {
-            // 重力以外の力をなくす.
-            _rigid.velocity = new Vector3(0.0f,_rigid.velocity.y, 0.0f);
-
-            // ゴールしていないときとしている時とでアニメーションを変更.
-            if(!_flag._isGoal)
-            {
-                ForciblyIdle();
-            }
-            else if(_flag._isGoal)
-            {
-                GoalAnim();
-            }
-            
-        }
-
+        if (_pause._isPause) return;
+        // ワープ.
+        Warp();
+        // 全体の挙動.
+        WholeBehavior();
         // やられた時の処理
-        if (_hp <= 0)
-        {
-            //_isMoveActive = false;
-            _animator.SetBool("GameOver", _anim.GameOver());
-        }
-
+        GameOver();
         // ワープするときの演出.
-        if (!_isMoveActive && !_flag._isGoal && transform.position.x <= _eventPos)
-        {
-            transform.position = new Vector3(_warpPosition.x + 0.0f, _warpPosition.y, transform.position.z);
-
-            Vector3 warpPos = new Vector3(_warpPosition.x, _warpPosition.y, 0.0f);
-            Vector3 velocity = Vector3.zero;
-
-            _rigid.useGravity = false;
-
-            transform.position = Vector3.SmoothDamp(transform.position, _warpPosition, ref velocity, 0.1f);
-
-            transform.localScale -= new Vector3(0.01f, 0.01f, 0.01f);
-
-            if (transform.localScale.x < 0.05f && transform.localScale.y < 0.05f && transform.localScale.z < 0.05f)
-            {
-                transform.localScale = new Vector3(0.05f,0.05f, 0.05f);
-            }
-
-            //transform.rotation = Quaternion.Euler(0.0f,0.0f,1.0f);
-
-            //transform.Rotate(0, 0, 10);
-
-            transform.RotateAround(_warpPosition, -Vector3.forward, 500 * Time.deltaTime);
-            //transform.Translate(0.01f, 0, 0);
-        }
+        WarpDirect();
     }
 
     private void FixedUpdate()
     {
-        // ワープ座標.
-        //Debug.Log(_warpPosition);
-
+        if (_pause._isPause) return;
         // デバッグ用の処理.
         FallDebug();
         // 敵と当たった時の処理.
@@ -235,6 +165,61 @@ public class Player2DMove : MonoBehaviour
         _warpPosition = Vector3.zero;
     }
 
+    // 初期化.
+    private void Init()
+    {
+        _anim = this.GetComponent<PlayerAnim2D>();
+        _transitionScene = GetComponent<GateFlag>();
+        _rigid = GetComponent<Rigidbody>();
+        _boxCollider = GetComponent<BoxCollider>();
+        _animator = GetComponent<Animator>();
+
+        _flag = GameObject.Find("FadeObject2D").GetComponent<Fade2DSceneTransition>();
+
+        _gimmickManager = GameObject.FindWithTag("GimmickManager").GetComponent<SolveGimmickManager>();
+
+        _pause = GameObject.Find("PauseSystem").GetComponent<UpdatePause>();
+
+        _isDirection = false;
+    }
+
+    // プレイヤーの全体の挙動.
+    private void WholeBehavior()
+    {
+        // ジャンプ力の限界値.
+        if (_rigid.velocity.y >= 30.0f)
+        {
+            Debug.Log("通る");
+            _rigid.velocity = new Vector3(_rigid.velocity.x, 30.0f, _rigid.velocity.z);
+        }
+
+        if (_hp > 0 && _isMoveActive && !_gimmickManager.GetSolve())
+        {
+            // プレイヤーの移動処理.
+            Move();
+
+            // アニメーション.
+            Anim();
+
+        }
+        else
+        {
+            // 重力以外の力をなくす.
+            _rigid.velocity = new Vector3(0.0f, _rigid.velocity.y, 0.0f);
+
+            // ゴールしていないときとしている時とでアニメーションを変更.
+            if (!_flag._isGoal)
+            {
+                ForciblyIdle();
+            }
+            else if (_flag._isGoal)
+            {
+                GoalAnim();
+            }
+
+        }
+    }
+
     // アニメーション制御.
     private void Anim()
     {
@@ -261,9 +246,14 @@ public class Player2DMove : MonoBehaviour
     // ジャンプ処理.
     void Jump()
     {
-        if(_isJumpNow) return;
+        
+
+        if (_isJumpNow) return;
 
         _rigid.AddForce(transform.up* _jumpPower, ForceMode.Impulse);
+
+        
+
         _isJumpNow = true;
     }
     // 移動処理.
@@ -367,6 +357,43 @@ public class Player2DMove : MonoBehaviour
         }
     }
 
+    // ワープするときの処理.
+    private void Warp()
+    {
+        // ボタン押したら(ボタン配置は仮).
+        if (Input.GetKeyDown("joystick button 3"))
+        {
+            // ゲートの前にいないときはスキップ.
+            if (!_transitionScene.SetGateFlag()) return;
+            _isMoveActive = false;
+        }
+    }
+
+    // 裏世界へワープする時の演出
+    private void WarpDirect()
+    {
+        if (!_isMoveActive && !_flag._isGoal && transform.position.x <= _eventPos)
+        {
+            transform.position = new Vector3(_warpPosition.x + 0.0f, _warpPosition.y, transform.position.z);
+
+            Vector3 warpPos = new Vector3(_warpPosition.x, _warpPosition.y, 0.0f);
+            Vector3 velocity = Vector3.zero;
+
+            _rigid.useGravity = false;
+
+            transform.position = Vector3.SmoothDamp(transform.position, _warpPosition, ref velocity, 0.1f);
+
+            transform.localScale -= new Vector3(0.01f, 0.01f, 0.01f);
+
+            if (transform.localScale.x < 0.05f && transform.localScale.y < 0.05f && transform.localScale.z < 0.05f)
+            {
+                transform.localScale = new Vector3(0.05f, 0.05f, 0.05f);
+            }
+
+            transform.RotateAround(_warpPosition, -Vector3.forward, 500 * Time.deltaTime);
+        }
+    }
+
     // ゴールした時のプレイヤーの向き.
     private void GoalPlayerDirection()
     {
@@ -407,6 +434,16 @@ public class Player2DMove : MonoBehaviour
         if (transform.position.y < -10)
         {
             transform.position = new Vector3(-6.0f, 1.0f, 0.0f);
+        }
+    }
+
+    // 体力が0になった時.
+    private void GameOver()
+    {
+        if (_hp <= 0)
+        {
+            //_isMoveActive = false;
+            _animator.SetBool("GameOver", _anim.GameOver());
         }
     }
 
