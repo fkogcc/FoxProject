@@ -12,33 +12,22 @@ public class Pendulum_Move_3 : MonoBehaviour
     private float _rotateY = 0;
     //Z座標の回転速度.
     private float _rotateZ = 30;
-    //秒数のカウント.
-    int _count = 0;
+    Quaternion _rotation;
+
+    bool _isMoving;
 
     private void Start()
     {
         //回転の軸を名前指定で取得する.
         _Cube = GameObject.Find("CubeRotate3");
+        _rotation = _Cube.transform.rotation;
+        _isMoving = false;
     }
 
     void FixedUpdate()
     {
-        //カウントを追加する.
-        _count++;
         //カウントに対して処理を変える.
-        if (_count < 75)
-        {
-            // X,Y,Z軸に対してそれぞれ、指定した角度ずつ回転させている。
-            // deltaTimeをかけることで、フレームごとではなく、1秒ごとに回転するようにしている。
-            _Cube.transform.Rotate(new Vector3(_rotateX, _rotateY, _rotateZ) * -Mathf.Deg2Rad * 2);
-        }
-        else if (_count < 225)
-        {
-            // X,Y,Z軸に対してそれぞれ、指定した角度ずつ回転させている。
-            // deltaTimeをかけることで、フレームごとではなく、1秒ごとに回転するようにしている。
-            _Cube.transform.Rotate(new Vector3(_rotateX, _rotateY, _rotateZ) * Mathf.Deg2Rad * 2);
-        }
-        else if (_count < 300)
+        if (!_isMoving)
         {
             // X,Y,Z軸に対してそれぞれ、指定した角度ずつ回転させている。
             // deltaTimeをかけることで、フレームごとではなく、1秒ごとに回転するようにしている。
@@ -46,8 +35,19 @@ public class Pendulum_Move_3 : MonoBehaviour
         }
         else
         {
-            _count = 0;
+            // X,Y,Z軸に対してそれぞれ、指定した角度ずつ回転させている。
+            // deltaTimeをかけることで、フレームごとではなく、1秒ごとに回転するようにしている。
+            _Cube.transform.Rotate(new Vector3(_rotateX, _rotateY, _rotateZ) * Mathf.Deg2Rad * 2);
         }
-
+        if (_rotation.z <= -0.5)
+        {
+            _isMoving = true;
+        }
+        if (_rotation.z >= 0.5)
+        {
+            _isMoving = false;
+        }
+        //角度の更新
+        _rotation = _Cube.transform.rotation;
     }
 }

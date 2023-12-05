@@ -6,9 +6,9 @@ public class scaffold_Delete : MonoBehaviour
 {
 
     //足場がプレイヤーに接触したとき.
-    private void OnTriggerEnter(Collider other)
+    private void OnCollisionEnter(Collision collision)
     {
         //足場を削除する.
-        Destroy(this.gameObject);   
+        Destroy(this.gameObject);
     }
 }

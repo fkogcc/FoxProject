@@ -16,6 +16,8 @@ public class scaffold_Move : MonoBehaviour
     private float _moveZ;
 
     public GameObject _player;
+
+    private bool _isMove; 
     void Start()
     {
         _count = 0;
@@ -23,15 +25,16 @@ public class scaffold_Move : MonoBehaviour
         _pos = _myTransform.position;
         _time = 300;
         _moveZ = 0.08f;
+        _isMove = false;
     }
     
     // Update is called once per frame
     void FixedUpdate()
     {
-        _count++;
+        
 
         //5秒経ったら.
-        if (_count < _time)
+        if (!_isMove)
         {
             // z座標へ0.08減算.
             _pos.z += _moveZ;
@@ -39,18 +42,20 @@ public class scaffold_Move : MonoBehaviour
             _myTransform.position = _pos;  
         }
         //10秒経ったら.
-        else if (_count < _time * 2)
+        else
         {
             // z座標へ0.08加算.
             _pos.z -= _moveZ;
             // 座標を設定.
             _myTransform.position = _pos;  
         }
-        //それ以上になったら.
-        else
+        if(_myTransform.position.z >= 15.0)
         {
-            //カウントを初期化する.
-            _count = 0;
+            _isMove = true;
+        }
+        if (_myTransform.position.z <= -7.0)
+        {
+            _isMove = false;
         }
     }
 
