@@ -17,6 +17,8 @@ public class Fade2DSceneTransition : MonoBehaviour
     private Fade _fade;
     // フェードアニメーション管理.
     private FadeAnimDirector _fadeDirector;
+    // ポーズ画面.
+    private UpdatePause _pause;
 
     // ゴールしたタイミング.
     public bool _isGoal;
@@ -72,11 +74,15 @@ public class Fade2DSceneTransition : MonoBehaviour
         _isPush = false;
         _transitionScene = GameObject.FindWithTag("Player").GetComponent<GateFlag>();
         _sceneTransitionManager = GetComponent<SceneTransitionManager>();
+        _pause = GameObject.Find("PauseSystem").GetComponent<UpdatePause>();
     }
 
     // シーン遷移
     private void SceneTransition()
     {
+        // ポーズ画面を開いていたら止める.
+        if (_pause._isPause) return;
+
         // ボタン押したら(ボタン配置は仮).
         if (Input.GetKeyDown("joystick button 3"))
         {
