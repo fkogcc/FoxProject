@@ -16,7 +16,7 @@ public class Gimick1_2_1Manager : MonoBehaviour
     // エフェクトの取得.
     private EffectPlay _effectPlay;
     // サウンドの取得.
-    [SerializeField] private SoundManager _sound;
+    private SoundManager _sound;
     // 前フレームにいたモニターの場所の取得.
     private string _prevFrameName = null;
     // 今のフレームにいるモニターの場所の取得.
@@ -25,6 +25,7 @@ public class Gimick1_2_1Manager : MonoBehaviour
     // 初期化処理.
     private void Start()
     {
+        _sound = GameObject.Find("SoundManager").GetComponent<SoundManager>();
         // カメラの取得.
         _monitorCamera = GameObject.Find("MonitorCamera").GetComponent<MonitorCamera>();
         // オブジェクトのマネージャー取得.

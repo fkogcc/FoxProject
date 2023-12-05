@@ -2,6 +2,7 @@
 // モニターの更新スクリプト.
 public class MonitorCollider : MonoBehaviour
 {
+    public GameObject Pause;
     // プレイヤーが範囲内にいるかどうか.
     private bool _isPlayerCollider;
     // ボタンを押されたかどうか.
@@ -26,6 +27,7 @@ public class MonitorCollider : MonoBehaviour
 
     private void Update()
     {
+        if (Pause.GetComponent<UpdatePause>()._isPause) return;
         CameraFlag();
     }
     // カメラを切り替える処理
