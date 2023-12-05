@@ -5,8 +5,13 @@ using UnityEngine.SceneManagement;
 
 public class SceneTransition1_2_3 : MonoBehaviour
 {
+    // ギミックをクリアした情報を取得.
     private BoxDirector _boxDirector;
-    private FadeScene _fade;
+    // フェード.
+    private Fade _fade;
+    // フェード管理.
+    private FadeAnimDirector _fadeDirector;
+    // プレイヤー
     private Player3DMove _Player3D;
 
     // 解いたかどうか.
@@ -16,7 +21,8 @@ public class SceneTransition1_2_3 : MonoBehaviour
     void Start()
     {
         _boxDirector = GameObject.Find("GimmickDirector").GetComponent<BoxDirector>();
-        _fade = GameObject.FindWithTag("Fade").GetComponent<FadeScene>();
+        _fade = GameObject.Find("FadeCanvas").GetComponent<Fade>();
+        _fadeDirector = GameObject.Find("Manager").GetComponent<FadeAnimDirector>();
         _Player3D = GameObject.FindWithTag("Player").GetComponent<Player3DMove>();
     }
 
@@ -25,10 +31,10 @@ public class SceneTransition1_2_3 : MonoBehaviour
     {
         if (_boxDirector.GetResult())
         {
-            _fade._isFadeOut = true;
+            _fadeDirector._isFade = true;
         }
 
-        if (_fade.GetAlphColor() >= 0.9f && _fade._isFadeOut)
+        if (_fade.cutoutRange == 1.0f && _fadeDirector._isFade)
         {
             _active = _boxDirector.GetResult();
             SceneManager.sceneLoaded += GameSceneLoaded;

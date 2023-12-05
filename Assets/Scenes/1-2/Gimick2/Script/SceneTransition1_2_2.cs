@@ -5,8 +5,14 @@ using UnityEngine.SceneManagement;
 
 public class SceneTransition1_2_2 : MonoBehaviour
 {
-    private FadeScene _fade;
+    // ギミックをクリアしたかどうかの情報を取得.
     private Switch_1_2_2 _switch;
+    // フェード処理.
+    private Fade _fade;
+    // フェード管理.
+    private FadeAnimDirector _fadeDirector;
+
+    // プレイヤー.
     private Player3DMove _Player3D;
 
     // 解いたかどうか.
@@ -14,8 +20,9 @@ public class SceneTransition1_2_2 : MonoBehaviour
 
     void Start()
     {
-        _fade = GameObject.FindWithTag("Fade").GetComponent<FadeScene>();
         _switch = GameObject.Find("stage03_lever_02").GetComponent<Switch_1_2_2>();
+        _fade = GameObject.Find("FadeCanvas").GetComponent<Fade>();
+        _fadeDirector = GameObject.Find("Manager").GetComponent<FadeAnimDirector>();
         _Player3D = GameObject.FindWithTag("Player").GetComponent<Player3DMove>();
     }
 
@@ -23,9 +30,9 @@ public class SceneTransition1_2_2 : MonoBehaviour
     {
         if (_switch.GetResult())
         {
-            _fade._isFadeOut = true;
+            _fadeDirector._isFade = true;
         }
-        if (_fade.GetAlphColor() >= 0.9f && _fade._isFadeOut)
+        if (_fade.cutoutRange == 1.0f && _fadeDirector._isFade)
         {
             _active = true;
             SceneManager.sceneLoaded += GameSceneLoaded;

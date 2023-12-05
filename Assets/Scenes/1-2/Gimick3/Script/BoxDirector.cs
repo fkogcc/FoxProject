@@ -15,8 +15,10 @@ public class BoxDirector : MonoBehaviour
     // true: 次のステージに
     // false : Mainに戻る
     public bool IsNext;
-    // フェード用
-    private FadeScene _fade;
+    // フェード.
+    private Fade _fade;
+    // フェード管理.
+    private FadeAnimDirector _fadeDirector;
 
     // クリア数カウント.
     private int _clearCount;
@@ -45,7 +47,8 @@ public class BoxDirector : MonoBehaviour
 
         _nowObj = new GameObject();
 
-        _fade = GameObject.Find("Fade").GetComponent<FadeScene>();
+        _fade = GameObject.Find("FadeCanvas").GetComponent<Fade>();
+        _fadeDirector = GameObject.Find("Manager").GetComponent<FadeAnimDirector>();
 
         _clearCount = 0;
         _isSetFlag = false;
@@ -72,7 +75,7 @@ public class BoxDirector : MonoBehaviour
     private void FixedUpdate()
     {
         _sound.PlayBGM("1_2_3_BGM");
-        if (_isAllClear && _fade.GetAlphColor() >= 0.85f)
+        if (_isAllClear && _fade.cutoutRange == 1.0f)
         {
             _sound.StopBgm();
 
@@ -133,7 +136,7 @@ public class BoxDirector : MonoBehaviour
 
                 if (IsNext)
                 {
-                    _fade._isFadeOut = true;
+                    _fadeDirector._isFade = true;
                 }
                 else
                 {
