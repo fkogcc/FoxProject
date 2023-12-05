@@ -26,13 +26,20 @@ public class TipsDrawer : MonoBehaviour
     private bool _isDownSlider = false;
     private bool _isUpSlider = false;
 
-    private UpdatePause _pause;
-
     // スライドの位置を確かめる
     public bool _isSlideStart { get; private set; }
     public bool _isSlideEnd   { get; private set; }
 
+    // プレイヤーの操作を受け付けなくする用
     private Player3DMove _player;
+
+    // 始めに描画する説明かどうか
+    public bool _isFirstTips;
+
+    public bool _isPlayerJump;
+    public bool _isPlayerMove;
+
+    private bool _isMove = false;
 
     void Start()
     {
@@ -46,7 +53,6 @@ public class TipsDrawer : MonoBehaviour
         _image = gameObject.AddComponent<Image>();
         // 画像をアタッチ.
         _image.sprite = _sprite;
-
         // RectTransformを取得して設定.
         rectTransform = _image.rectTransform;
 
@@ -60,17 +66,40 @@ public class TipsDrawer : MonoBehaviour
         rectTransform.anchoredPosition = new Vector2(0.0f, 1080.0f);
         rectTransform.localScale       = new Vector3(_imageSize, _imageSize, _imageSize);
 
-        _pause = GameObject.Find("PauseSystem").GetComponent<UpdatePause>();
-
         _isSlideStart = true;
         _isSlideEnd = false;
 
         _player = GameObject.Find("3DPlayer").GetComponent<Player3DMove>();
+
+        if(_isFirstTips)
+        {
+            if (_isPlayerJump)  _player._isController     = false;
+            if (_isPlayerMove)  _player._isJumpController = false;
+        }
     }
 
 
     private void Update()
     {
+        if(_isFirstTips)
+        {
+            if(Input.GetKeyDown(KeyCode.JoystickButton0))
+            {
+                IsUpSlider(true, false);
+                _isFirstTips = false;
+                _isMove = true;
+            }
+        }
+        else
+        {
+            if(_isMove)
+            {
+                _isMove = false;
+                if (_isPlayerJump) _player._isController     = true;
+                if (_isPlayerMove) _player._isJumpController = true;
+            }
+        }
+
         // if 下にスライドの場合
         // else if 上にスライド
         if(_isDownSlider)
@@ -107,21 +136,25 @@ public class TipsDrawer : MonoBehaviour
         rectTransform.anchoredPosition += new Vector2(0.0f, _slideSpeed);
     }
 
-    
+
 
     // 下にスライドさせる場合.
-    public void IsDownSlider()
+    // 引数には基本的にfalseを入れてください
+    public void IsDownSlider(bool isMove = false, bool isJump = false)
     {
         _isDownSlider = true;
-        _isUpSlider = false;
-        _player._isController = false;
+        _isUpSlider = false;          
+        if (_isPlayerMove) _player._isController     = isMove;
+        if (_isPlayerJump) _player._isJumpController = isJump;
     }
     // 上にスライドさせる場合.
-    public void IsUpSlider()
+    // 引数には基本的にtrueを入れてください
+    public void IsUpSlider(bool isMove = true, bool isJump = true)
     {
         _isUpSlider = true;
         _isDownSlider = false;
-        _player._isController = true;
+        if (_isPlayerMove) _player._isController     = isMove;
+        if (_isPlayerJump) _player._isJumpController = isJump;
     }
 
     public bool IsUpSliderResult()
