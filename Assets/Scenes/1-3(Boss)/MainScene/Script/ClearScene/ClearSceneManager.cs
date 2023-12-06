@@ -10,9 +10,13 @@ public class ClearSceneManager : MonoBehaviour
     // フェード.
     private FadeScene _fade;
 
+    private SoundManager _soundManager;
+
     private void Start()
     {
         _fade = GameObject.Find("Fade").GetComponent<FadeScene>();
+        _soundManager = GameObject.Find("SoundManager").GetComponent<SoundManager>();
+        _soundManager.PlaySE("1_3_MainSceneClear");
     }
 
     private void FixedUpdate()
