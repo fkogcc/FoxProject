@@ -6,7 +6,7 @@ public class GoalScene : MonoBehaviour
 {
     private SolveGimmickManager _manager;
     private GateFlag _flag;
-    private Fade3DSceneTransition _sceneTransition;
+    private FadeAnimDirector _fadeDirector;
     private Player3DMove _player;
 
     // 次のシーンへ行くタイミング.
@@ -17,7 +17,7 @@ public class GoalScene : MonoBehaviour
     {
         _manager = GameObject.FindWithTag("GimmickManager").GetComponent<SolveGimmickManager>();
         _flag = GameObject.Find("3DPlayer").GetComponent<GateFlag>();
-        _sceneTransition = GameObject.Find("Fade").GetComponent<Fade3DSceneTransition>();
+        _fadeDirector = GameObject.Find("Manager").GetComponent<FadeAnimDirector>();
         _player = GameObject.FindWithTag("Player").GetComponent<Player3DMove>();
         _nextSceneTime = 0;
     }
@@ -34,7 +34,7 @@ public class GoalScene : MonoBehaviour
         if(_manager.GetAllClear())
         {
             _nextSceneTime++;
-            _sceneTransition._isPush = true;
+            _fadeDirector._isFade = true;
             //_flag._isGoal1_3 = true;
             _player._isController = false;
 
