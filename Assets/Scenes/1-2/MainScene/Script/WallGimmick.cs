@@ -7,6 +7,7 @@ using UnityEngine;
 public class WallGimmick : MonoBehaviour
 {
     private SolveGimmickManager _manager;
+    private SoundManager _soundManager;
 
     // 扉が開いた時の最終位置.
     private Vector3 _targetPosition;
@@ -22,6 +23,7 @@ public class WallGimmick : MonoBehaviour
     {
         _manager = GameObject.FindWithTag("GimmickManager").GetComponent<SolveGimmickManager>();
         _targetPosition = new Vector3(transform.position.x, transform.position.y + 10.0f, transform.position.z);
+        _soundManager = GameObject.Find("SoundManager").GetComponent<SoundManager>();
     }
 
     private void FixedUpdate()
@@ -30,6 +32,11 @@ public class WallGimmick : MonoBehaviour
         if (_manager._solve[0])
         {
             _operatingTime++;
+        }
+
+        if(_operatingTime == 40)
+        {
+            _soundManager.PlaySE("1_2_0_IronDoor");
         }
 
         if(_operatingTime == 130)
