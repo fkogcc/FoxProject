@@ -26,7 +26,7 @@ public class Gimick1_3_3Manager : MonoBehaviour
     // 待つフレーム.
     private int _frameWaitTime = 60;
     public TipsDrawer _tipsDrawer;
-
+    [SerializeField] private PauseController _pauseController;
     // Start is called before the first frame update
     void Start()
     {
@@ -49,8 +49,6 @@ public class Gimick1_3_3Manager : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
-        // サウンドを鳴らす.
-        _sound.PlayBGM("1_3_3_BGM");
         if (!Pause.GetComponent<UpdatePause>()._isPause)
         {
             _cameraChange.ChengeCameraUpdate();
@@ -114,6 +112,7 @@ public class Gimick1_3_3Manager : MonoBehaviour
             _img.GenerateImage();
             if (_frameWaitTime <= 0)
             {
+                _pauseController._getResult = true;
                 return true;
             }
         }

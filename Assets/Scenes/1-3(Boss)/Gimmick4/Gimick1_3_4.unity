@@ -1594,6 +1594,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5466878129856705187, guid: 9e35e8dbce7c02644a838763b21a4200, type: 3}
+      propertyPath: bgmName
+      value: 1_3_4_BGM
+      objectReference: {fileID: 0}
     - target: {fileID: 5466878129856705188, guid: 9e35e8dbce7c02644a838763b21a4200, type: 3}
       propertyPath: m_Name
       value: PauseSystem
@@ -3633,15 +3637,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2547387252357561709, guid: 546fe8400816cf942bbf47e67a845ed9, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1.8083158
+      value: 1.6530528
       objectReference: {fileID: 0}
     - target: {fileID: 2547387252357561709, guid: 546fe8400816cf942bbf47e67a845ed9, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.44567445
+      value: -0.99199575
       objectReference: {fileID: 0}
     - target: {fileID: 2547387252357561709, guid: 546fe8400816cf942bbf47e67a845ed9, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.32701778
+      value: 0.44091392
       objectReference: {fileID: 0}
     - target: {fileID: 2547387252357561709, guid: 546fe8400816cf942bbf47e67a845ed9, type: 3}
       propertyPath: m_LocalRotation.w
@@ -4767,6 +4771,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3604957786674507959, guid: ea3f55fb9dcadd544b71c3d0acb68b20, type: 3}
   m_PrefabInstance: {fileID: 2019074393}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1629733729 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5466878129856705187, guid: 9e35e8dbce7c02644a838763b21a4200, type: 3}
+  m_PrefabInstance: {fileID: 491963578}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f18a63e7784c1c489a7de893c443fa0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1645531050
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6213,6 +6228,10 @@ PrefabInstance:
       propertyPath: _tipsDrawer
       value: 
       objectReference: {fileID: 868817057}
+    - target: {fileID: 5512031663197956266, guid: 5b1c33ddbee4849408b4282bb2469b1c, type: 3}
+      propertyPath: _pauseController
+      value: 
+      objectReference: {fileID: 1629733729}
     - target: {fileID: 5512031663197956267, guid: 5b1c33ddbee4849408b4282bb2469b1c, type: 3}
       propertyPath: _shakeScreen
       value: 

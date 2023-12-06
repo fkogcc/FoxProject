@@ -25,9 +25,9 @@ public class Gimick1_3_4Manager : MonoBehaviour
     [SerializeField] private SoundManager _sound;
 
     public TipsDrawer _tipsDrawer;
-
+    [SerializeField] private PauseController _pauseController;
     // Start is called before the first frame update
-     private void Start()
+    private void Start()
     {
         _moveWall = _wall.GetComponent<MoveWall>();
         _pullRope = _rope.GetComponent<PullRope>();
@@ -73,10 +73,8 @@ public class Gimick1_3_4Manager : MonoBehaviour
     }
     public bool GetResult()
     {
-        if(_isUndo)
-        {
-            _sound.StopBgm();
-        }
+        _pauseController._getResult = _isUndo;
+
         return _isUndo;
     }
 }
