@@ -40,6 +40,7 @@ public class BoxDirector : MonoBehaviour
 
     Dictionary<string, GameObject> _lineObj;
 
+    private bool _soundDestory = false;
     // 初期化処理
     private void Start()
     {
@@ -74,9 +75,13 @@ public class BoxDirector : MonoBehaviour
 
     private void FixedUpdate()
     {
-        _sound.PlayBGM("1_2_3_BGM");
+        if (!_soundDestory)
+        {
+            _sound.PlayBGM("1_2_3_BGM");
+        }
         if (_isAllClear && _fade.cutoutRange == 1.0f)
         {
+            _soundDestory = true;
             _sound.StopBgm();
 
             if (IsNext)

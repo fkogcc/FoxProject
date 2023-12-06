@@ -178,6 +178,10 @@ PrefabInstance:
       propertyPath: bgmName
       value: 1_3_MainScene
       objectReference: {fileID: 0}
+    - target: {fileID: 5466878129856705187, guid: 9e35e8dbce7c02644a838763b21a4200, type: 3}
+      propertyPath: _getResult
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5466878129856705188, guid: 9e35e8dbce7c02644a838763b21a4200, type: 3}
       propertyPath: m_Name
       value: PauseSystem
