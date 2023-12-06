@@ -19,7 +19,7 @@ public class PauseController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (_getResult)
+        if (_getResult || IsFadeCheck())
         {
             _sound.StopBgm();
         }
@@ -27,5 +27,13 @@ public class PauseController : MonoBehaviour
         {
             _sound.PlayBGM(bgmName);
         }
+    }
+    private bool IsFadeCheck()
+    {
+        if(_animDirector != null)
+        {
+            return _animDirector._isFade;
+        }
+        return false;
     }
 }
