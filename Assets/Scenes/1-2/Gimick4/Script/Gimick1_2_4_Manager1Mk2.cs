@@ -10,9 +10,6 @@ public class Gimick1_2_4_Manager1Mk2 : MonoBehaviour
     // ゲームのリセット用カウント
     static readonly int GameOverCountMaxFrame = 60;
 
-    // ボタン操作.
-    private GameObject _botton;
-
     // ワープするための変数
     private Gimick1_2_4_PlayerWarp _warp;
     private Gimick1_2_4_PlayerWarp _warpFirst;
@@ -79,8 +76,7 @@ public class Gimick1_2_4_Manager1Mk2 : MonoBehaviour
     [SerializeField] private PauseController _pauseController;
     void Start()
     {
-        // ボタン用.
-        _botton = GameObject.Find("GameManager2");
+        _sound = GameObject.Find("SoundManager").GetComponent<SoundManager>();
 
         // 回転する回路のクラス
         for (int i = 0; i < _objRotaMaxNum; i++)
@@ -103,7 +99,7 @@ public class Gimick1_2_4_Manager1Mk2 : MonoBehaviour
 
         // カウントダウンをするクラスを取得
         _countDown = _count.GetComponent<Gimmick1_2_4_CountDown2>();
-        _countDown.SetTimeCount(true);
+        _countDown.SetTimeCount(true);        
     }
 
     void Update()
@@ -122,15 +118,12 @@ public class Gimick1_2_4_Manager1Mk2 : MonoBehaviour
 
         for (int i = 0; i < _objRotaMaxNum; i++)
         {
-            // オブジェクトにあたっていたら.
             if (_coll[i].GetComponent<MyCollsion3D>().IsGetHit())
             {
-                // ボタンをおしたら.
-                if (_botton.GetComponent<Botton>().GetButtonB())
+                if (Input.GetKeyDown(KeyCode.JoystickButton1))
                 {
-                    // サウンドを再生
+                    // サウンドを再生.
                     _sound.PlaySE("1_2_3_MetalRota");
-
                     // 回転したら.
                     _rota[i].GetComponent<TurnGraph>().Rota();
                 }
@@ -191,7 +184,7 @@ public class Gimick1_2_4_Manager1Mk2 : MonoBehaviour
         {
             if(_clearFrameCount == 0)
             {
-                _sound.PlaySE("1_2_4_Light");
+               _sound.PlaySE("1_2_4_Light");
             }
 
             _isCountDown = true;
