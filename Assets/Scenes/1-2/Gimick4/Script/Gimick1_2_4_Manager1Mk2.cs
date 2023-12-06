@@ -76,6 +76,7 @@ public class Gimick1_2_4_Manager1Mk2 : MonoBehaviour
     // 説明を描画
     public TipsDrawer _tipsDrawer;
 
+    [SerializeField] private PauseController _pauseController;
     void Start()
     {
         // ボタン用.
@@ -248,6 +249,7 @@ public class Gimick1_2_4_Manager1Mk2 : MonoBehaviour
     // クリアしたかどうか.
     public bool GetResult()
     {
+        _pauseController._getResult = _isClear;
         return _isClear;
     }
 

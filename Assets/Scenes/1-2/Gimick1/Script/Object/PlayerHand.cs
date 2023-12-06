@@ -16,7 +16,7 @@ public class PlayerHand : MonoBehaviour
     // 初期化処理.
     void Start()
     {
-        _speed = 2.5f;
+        _speed = 5.0f;
         _moveSpeed = _speed * Time.deltaTime;
         _isButtonState = false;
         _isCollision = false;

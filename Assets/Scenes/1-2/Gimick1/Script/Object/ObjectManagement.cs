@@ -16,10 +16,6 @@ public class ObjectManagement : MonoBehaviour
 
     public TipsDrawer _tipsDrawer;
 
-    private void Start()
-    {
-        _tipsDrawer.IsDownSlider();
-    }
 
     // ターゲットのリストの管理.
     [Serializable] public struct TargetInfo
@@ -33,6 +29,10 @@ public class ObjectManagement : MonoBehaviour
     // 追従対象リスト
     [SerializeField] private TargetInfo[] _targetList;
     // カメラをチェンジさせる.
+    private void Start()
+    {
+        _tipsDrawer.IsDownSlider();
+    }
     public void CameraChenge()
     {
         // ボタンの状態によって分岐させる.

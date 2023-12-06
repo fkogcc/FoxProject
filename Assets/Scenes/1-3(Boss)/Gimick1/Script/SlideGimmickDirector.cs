@@ -95,12 +95,11 @@ public class SlideGimmickDirector : MonoBehaviour
 
     // ギミックの説明描画用.
     public TipsDrawer _tipsDrawer;
+    [SerializeField] private PauseController _pauseController;
 
     private void Start()
     {
-        // 説明を描画.
-        _tipsDrawer.IsDownSlider();
-
+        
         // 初期化
         _playerHand = new GameObject();
 
@@ -195,7 +194,9 @@ public class SlideGimmickDirector : MonoBehaviour
         _alpha = 0;
         _color = Color.black;
 
-        _fade = GameObject.Find("Fade").GetComponent<FadeScene>();
+        // 説明を描画.
+        _tipsDrawer.IsDownSlider();
+        //_fade = GameObject.Find("Fade").GetComponent<FadeScene>();
     }
 
     private void Update()
@@ -511,6 +512,14 @@ public class SlideGimmickDirector : MonoBehaviour
 
     public bool GetResult()
     {
-        return _waitClearFrame > kWaitClearFrame;
+        if(_waitClearFrame > kWaitClearFrame)
+        {
+            _pauseController._getResult = true;
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 }

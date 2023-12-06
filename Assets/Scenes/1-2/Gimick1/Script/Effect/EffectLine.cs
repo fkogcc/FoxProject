@@ -18,6 +18,7 @@ public class EffectLine : MonoBehaviour
     // 線の最大値.
     private int _lineMax = 5;
     private float _time = 0;
+    [SerializeField] private PauseController _pauseController;
     // エフェクトの初期化.
     public void LineInit()
     {
@@ -125,6 +126,7 @@ public class EffectLine : MonoBehaviour
     // ゲームをクリアしたかのフラグ.
     public bool GetResult()
     {
+        _pauseController._getResult = IsTimeCount();
         return IsTimeCount();
     }
     public bool GetClearFlag()

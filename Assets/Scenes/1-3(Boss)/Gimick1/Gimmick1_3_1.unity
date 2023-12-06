@@ -813,6 +813,17 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 5466878129856705188, guid: 9e35e8dbce7c02644a838763b21a4200, type: 3}
   m_PrefabInstance: {fileID: 1066613608}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &306518240 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5466878129856705187, guid: 9e35e8dbce7c02644a838763b21a4200, type: 3}
+  m_PrefabInstance: {fileID: 1066613608}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 306518239}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f18a63e7784c1c489a7de893c443fa0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &309226634
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1294,9 +1305,10 @@ MonoBehaviour:
   Sound: {fileID: 1026231560}
   ResetText: {fileID: 401514061252935756, guid: 815d6598ff872194f936bf9d9ae70dfd, type: 3}
   OneBackText: {fileID: 401514061252935756, guid: 07589c1387b760243ad859ce05acb0b9, type: 3}
-  Canvas: {fileID: 0}
+  Canvas: {fileID: 1672913865}
   Gauge: {fileID: 949460619}
   _tipsDrawer: {fileID: 2049896539}
+  _pauseController: {fileID: 306518240}
 --- !u!114 &429927427
 MonoBehaviour:
   m_ObjectHideFlags: 0
