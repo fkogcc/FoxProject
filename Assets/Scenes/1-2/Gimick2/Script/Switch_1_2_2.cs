@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
-using UnityEditor.U2D.Common;
+//using UnityEditor.U2D.Common;
 
 public class Switch_1_2_2 : MonoBehaviour
 {
