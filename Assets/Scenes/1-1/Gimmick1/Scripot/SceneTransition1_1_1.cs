@@ -33,8 +33,9 @@ public class SceneTransition1_1_1 : MonoBehaviour
         {
             _fadeDirector._isFade = true;
         }
-
-        if(_fade.cutoutRange == 1.0f && _fadeDirector._isFade)
+        //Debug.Log(_fade.cutoutRange);
+        //Debug.Log(_fadeDirector._isFade);
+        if((_fade.cutoutRange >= 1.0f) && (_fadeDirector._isFade))
         {
             _active = _Gimmick1_1_1.GetResult();
             SceneManager.sceneLoaded += GameSceneLoaded;
