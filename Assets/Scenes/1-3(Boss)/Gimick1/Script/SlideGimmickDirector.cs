@@ -95,8 +95,12 @@ public class SlideGimmickDirector : MonoBehaviour
 
     // ギミックの説明描画用.
     public TipsDrawer _tipsDrawer;
+
     private void Start()
     {
+        // 説明を描画.
+        _tipsDrawer.IsDownSlider();
+
         // 初期化
         _playerHand = new GameObject();
 
@@ -192,9 +196,6 @@ public class SlideGimmickDirector : MonoBehaviour
         _color = Color.black;
 
         _fade = GameObject.Find("Fade").GetComponent<FadeScene>();
-
-        // 説明を描画.
-        _tipsDrawer.IsDownSlider();
     }
 
     private void Update()
@@ -246,8 +247,6 @@ public class SlideGimmickDirector : MonoBehaviour
 
     private void FixedUpdate()
     {
-        Sound.PlayBGM("1_3_1_BGM");
-
         // クリアしていたら光らせる処理のみする.
         if (_isClear)
         {
