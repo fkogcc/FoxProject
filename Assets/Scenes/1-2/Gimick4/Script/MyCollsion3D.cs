@@ -23,7 +23,7 @@ public class MyCollsion3D : MonoBehaviour
     // 指定したオブジェクトに当たったら.
     private void OnTriggerStay(Collider other)
     {
-        if (other.name == _objectName)
+        if (other.tag == "Player")
         {
             _isColliding = true;    
         }
@@ -31,7 +31,7 @@ public class MyCollsion3D : MonoBehaviour
     // 指定したオブジェクトに当たっていなかったら.
     private void OnTriggerExit(Collider other)
     {
-        if (other.name == _objectName)
+        if (other.tag == "Player")
         {
             _isColliding = false;
         }

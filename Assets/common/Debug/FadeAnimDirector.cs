@@ -24,11 +24,11 @@ public class FadeAnimDirector : MonoBehaviour
     {
         if (_isFade)
         {
-            _fade.FadeIn(1f);
+            _fade.FadeIn(1.0f);
         }
         else
         {
-            _fade.FadeOut(1f);
+            _fade.FadeOut(1.0f);
         }
     }
 }

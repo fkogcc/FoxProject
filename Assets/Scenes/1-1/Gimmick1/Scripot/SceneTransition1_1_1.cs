@@ -6,13 +6,13 @@ using UnityEngine.SceneManagement;
 public class SceneTransition1_1_1 : MonoBehaviour
 {
     // ギミックをクリアした情報を取得.
-    private Gimick1_1_1Manager _Gimmick1_1_1;
+    public Gimick1_1_1Manager _Gimmick1_1_1;
     // フェード処理.
-    private Fade _fade;
+    private Fade _fade = null;
     // フェード管理.
-    private FadeAnimDirector _fadeDirector;
+    private FadeAnimDirector _fadeDirector = null;
     // プレイヤー.
-    private Player3DMove _Player3D;
+    private Player3DMove _Player3D = null;
 
     // 解いたかどうか.
     private bool _active = false;
@@ -20,7 +20,7 @@ public class SceneTransition1_1_1 : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        _Gimmick1_1_1 = GetComponent<Gimick1_1_1Manager>();
+        //_Gimmick1_1_1 = GetComponent<Gimick1_1_1Manager>();
         _fade = GameObject.Find("FadeCanvas").GetComponent<Fade>();
         _fadeDirector = GameObject.Find("Manager").GetComponent<FadeAnimDirector>();
         _Player3D = GameObject.FindWithTag("Player").GetComponent<Player3DMove>();
@@ -29,7 +29,7 @@ public class SceneTransition1_1_1 : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(_Gimmick1_1_1.GetResult())
+        if (_Gimmick1_1_1.GetResult())
         {
             _fadeDirector._isFade = true;
         }

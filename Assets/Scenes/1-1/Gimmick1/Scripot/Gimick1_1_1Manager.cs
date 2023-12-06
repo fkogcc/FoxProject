@@ -122,14 +122,14 @@ public class Gimick1_1_1Manager : MonoBehaviour
 
         if(_clearFrameCount > 60)
         {
-            _sound.StopBgm();
+//            _sound.StopBgm();
             _clear = true;
+            _pauseController._getResult = _clear;
         }
     }
     // クリアしたかどうか
     public bool GetResult()
-    {
-        _pauseController._getResult = _clear;
+    {        
         return _clear;
     }
 }
