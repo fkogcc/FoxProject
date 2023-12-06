@@ -9,6 +9,11 @@ public class Stage_Clear_Switch : MonoBehaviour
     private int _waitTimer = 45;
     // クリア画像.
     [SerializeField]private GenerateImg _img;
+    // エフェクト
+    [SerializeField] private GameObject _effect;
+    private GameObject _particleSystem;
+    // サウンド.
+    [SerializeField] private SoundManager _sound;
     private void Start()
     {
         _isClear = false;
@@ -32,9 +37,10 @@ public class Stage_Clear_Switch : MonoBehaviour
         //プレイヤーが触れたとき.
         if (other.gameObject.name == "3DPlayer")
         {
-            if (Input.GetKeyDown("joystick button 2"))
+            if (Input.GetKeyDown("joystick button 1"))
             {
-
+                _sound.PlaySE("1_3_3_InBox");
+                _particleSystem = Instantiate(_effect, this.transform.position, this.transform.rotation);
                 _isPushSwich = true;
             }
         }

@@ -21,6 +21,7 @@ public class ResetButton : MonoBehaviour
     private bool _isResetCheck = false;
     private SoundManager _sound;
 
+
     void Start()
     {
         _respawnPos = new Vector3[_resetPos.Length];
@@ -37,7 +38,7 @@ public class ResetButton : MonoBehaviour
     // リセットボタンを押したときの処理.
     public void ResetPush()
     {
-        if (Input.GetKey(KeyCode.F) || Input.GetKey("joystick button 1"))
+        if (Input.GetKey(KeyCode.F) || Input.GetKey("joystick button 2"))
         {
             if (!_isResetCheck)
             {
