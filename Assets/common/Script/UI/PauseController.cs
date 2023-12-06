@@ -9,7 +9,7 @@ public class PauseController : MonoBehaviour
 {
     private SoundManager _sound;
     [SerializeField] private string bgmName;
-
+    public bool _getResult = false;
     void Start()
     {
         _sound = GameObject.Find("SoundManager").GetComponent<SoundManager>();
@@ -18,6 +18,13 @@ public class PauseController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        _sound.PlayBGM(bgmName);
+        if (_getResult)
+        {
+            _sound.StopBgm();
+        }
+        else
+        {
+            _sound.PlayBGM(bgmName);
+        }
     }
 }

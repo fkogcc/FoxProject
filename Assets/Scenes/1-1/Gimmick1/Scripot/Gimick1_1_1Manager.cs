@@ -34,7 +34,7 @@ public class Gimick1_1_1Manager : MonoBehaviour
     public GenerateImg _image;
 
     private int _clearFrameCount = 0;
-
+    [SerializeField] private PauseController _pauseController;
     void Start()
     {
         string objName = "3DPlayer";
@@ -49,7 +49,7 @@ public class Gimick1_1_1Manager : MonoBehaviour
     }
 
     private void Update()
-    {     
+    {
         for (int i = 0; i < _maxNum; i++)
         {
             // ハンドルを入手していない場合.
@@ -121,12 +121,14 @@ public class Gimick1_1_1Manager : MonoBehaviour
 
         if(_clearFrameCount > 60)
         {
+            _sound.StopBgm();
             _clear = true;
         }
     }
     // クリアしたかどうか
     public bool GetResult()
     {
+        _pauseController._getResult = _clear;
         return _clear;
     }
 }
