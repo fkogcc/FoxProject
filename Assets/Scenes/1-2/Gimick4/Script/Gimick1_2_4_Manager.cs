@@ -55,7 +55,7 @@ public class Gimick1_2_4_Manager : MonoBehaviour
     public float _clearCameraRotaX;
 
     // サウンド
-    public SoundManager _sound;
+    private SoundManager _sound;
 
     // カウントダウンを確認
     public GameObject _count;
@@ -113,6 +113,8 @@ public class Gimick1_2_4_Manager : MonoBehaviour
 
         _tipsDrawer.IsDownSlider();
         _countDown.SetTimeCount(false);
+
+        _sound = GameObject.Find("SoundManager").GetComponent<SoundManager>();
     }
 
     void Update()
@@ -120,12 +122,10 @@ public class Gimick1_2_4_Manager : MonoBehaviour
         //_sound.PlayBGM("1_1_1_BGM");
         if (_tipsDrawer._isSlideEnd)
         {
-            Debug.Log("停止");
             _countDown.SetTimeCount(false);
         }
         else if (_tipsDrawer._isSlideStart)
         {
-            Debug.Log("再生");
             _countDown.SetTimeCount(true);
         }
 
