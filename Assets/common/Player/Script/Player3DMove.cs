@@ -53,10 +53,7 @@ public class Player3DMove : MonoBehaviour
     private Vector3 _moveDirection = Vector3.zero;
     Vector3 vector = Vector3.zero;
 
-    private Ray ray; // 飛ばすレイ.
-    private float distance = 0.5f; // レイを飛ばす距離.
     private RaycastHit hit; // レイが何かに当たった時の情報.
-    private Vector3 rayPosition; // レイを発射する位置.
 
     // 操作可能かどうか.
     public bool _isController = true;

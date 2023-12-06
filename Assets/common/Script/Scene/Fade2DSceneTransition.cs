@@ -27,9 +27,6 @@ public class Fade2DSceneTransition : MonoBehaviour
     // ゴールしたタイミング.
     public bool _isGoal;
 
-    // ゲートのボタンを押したかどうか.
-    private bool _isPush;
-
     // 次のシーンへ行く時のカウント.
     private int _nextSceneCount = 0;
     // カウント開始しているかどうか.
@@ -75,7 +72,6 @@ public class Fade2DSceneTransition : MonoBehaviour
         _fade = GetComponentInChildren<Fade>();
         _fadeDirector = GetComponentInChildren<FadeAnimDirector>();
         _isGoal = false;
-        _isPush = false;
         _transitionScene = GameObject.FindWithTag("Player").GetComponent<GateFlag>();
         _sceneTransitionManager = GetComponent<SceneTransitionManager>();
         _pause = GameObject.Find("PauseSystem").GetComponent<UpdatePause>();
