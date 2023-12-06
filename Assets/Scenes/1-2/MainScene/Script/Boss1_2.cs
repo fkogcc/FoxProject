@@ -12,12 +12,14 @@ public class Boss1_2 : MonoBehaviour
     private bool _isEvent = false;
     // アニメーター
     private Animator _animator;
+    private SoundManager _soundManager;
 
 
     void Start()
     {
         _goalFlag = GameObject.FindWithTag("Player").GetComponent<GateFlag>();
         _animator = GetComponent<Animator>();
+        _soundManager = GameObject.Find("SoundManager").GetComponent<SoundManager>();
     }
 
     void Update()
