@@ -12,6 +12,8 @@ public class rabbit1_1 : MonoBehaviour
     private Player2DMove _move;
     private GoalMove1_1 _goal;
 
+    private SoundManager _soundManager;
+
     // アニメーション.
     private bool _jumping = false;
     private bool _jumpMoving = false;
@@ -29,8 +31,13 @@ public class rabbit1_1 : MonoBehaviour
     private int _moveTime = 60;
     // 動けない時間.
     private int _dontMoveTime = 10;
-
+    // 動ける最大時間.
     private int _moveMaxtime = 75;
+    // SEを鳴らすタイミング
+    private int _playSeTime = 70;
+
+    // SEが鳴ったらtrueならない.
+    private bool _isPalySe;
 
 
     // Start is called before the first frame update
@@ -39,6 +46,8 @@ public class rabbit1_1 : MonoBehaviour
         _animator = GetComponent<Animator>();
         _move = _player.GetComponent<Player2DMove>();
         _goal = GameObject.Find("goal_02").GetComponent<GoalMove1_1>();
+        _soundManager = GameObject.Find("SoundManager").GetComponent<SoundManager>();
+        _isPalySe = false;
     }
 
     // Update is called once per frame
@@ -46,7 +55,6 @@ public class rabbit1_1 : MonoBehaviour
     {
         
 
-        //Debug.Log(time);
         
     }
 
@@ -62,12 +70,18 @@ public class rabbit1_1 : MonoBehaviour
             _move._isMoveActive = false;
             _jumping = true;
             _animTime++;
-
+            _playSeTime++;
+            if (_playSeTime > 70)
+            {
+                _soundManager.PlaySE("Jump");
+                _playSeTime = 0;
+            }
         }
         // その場でジャンプ.
         else if (_animTime >= _maxAnimTime)
         {
             _jumping = false;
+            
         }
 
         // ジャンプアニメーションをしながら移動.
@@ -86,7 +100,12 @@ public class rabbit1_1 : MonoBehaviour
                 if (_moveInterval < _moveTime && _moveInterval > _dontMoveTime)
                 {
                     transform.position += new Vector3(0.4f, 0.0f, 0.0f);
-
+                    if(!_isPalySe)
+                    {
+                        _soundManager.PlaySE("Jump");
+                        _isPalySe = true;
+                    }
+                    
                 }
                 else if (_moveInterval > _moveMaxtime)
                 {

@@ -23,6 +23,8 @@ public class Player2DMove : MonoBehaviour
     [SerializeField] private ParticleSystem _particle;
     // ギミックを解いたかどうか.
     private SolveGimmickManager _gimmickManager;
+    // サウンドマネージャー.
+    private SoundManager _soundManager;
 
     // ワープの座標.
     private Vector3 _warpPosition = Vector3.zero;
@@ -41,6 +43,8 @@ public class Player2DMove : MonoBehaviour
     private int _invincibleTime;
     // ダメージを受けた後の最大無敵時間.
     public int _invincibleMaxTime = 120;
+    // 足音のするタイミング.
+    private int _footstepsTime = 0;
 
     // ジャンプ力.
     private float _jumpPower = 30.0f;
@@ -60,6 +64,9 @@ public class Player2DMove : MonoBehaviour
     private bool _isDamage = false;
     // Rendererの表示、非表示.
     private bool _isRendererDisplay = true;
+
+    // ゲームオーバーSEが鳴ったらtrueにする.
+    private bool _isSeGameOver;
 
     // イベントが発生する座標.
     [SerializeField] private float _eventPos;
@@ -173,6 +180,7 @@ public class Player2DMove : MonoBehaviour
         _rigid = GetComponent<Rigidbody>();
         _boxCollider = GetComponent<BoxCollider>();
         _animator = GetComponent<Animator>();
+        _soundManager = GameObject.Find("SoundManager").GetComponent<SoundManager>();
 
         _flag = GameObject.Find("FadeObject2D").GetComponent<Fade2DSceneTransition>();
 
@@ -181,6 +189,7 @@ public class Player2DMove : MonoBehaviour
         _pause = GameObject.Find("PauseSystem").GetComponent<UpdatePause>();
 
         _isDirection = false;
+        _isSeGameOver = false;
     }
 
     // プレイヤーの全体の挙動.
@@ -252,7 +261,7 @@ public class Player2DMove : MonoBehaviour
 
         _rigid.AddForce(transform.up* _jumpPower, ForceMode.Impulse);
 
-        
+        _soundManager.PlaySE("Jump");
 
         _isJumpNow = true;
     }
@@ -297,6 +306,18 @@ public class Player2DMove : MonoBehaviour
             if (_isJumpNow) return;
             _isDirection = false;
         }
+
+        // 移動するSE
+        if(hori != 0 && !_isJumpNow)
+        {
+            _footstepsTime++;
+            if(_footstepsTime >= 50)
+            {
+                _soundManager.PlaySE("Fottsteps");
+                _footstepsTime = 0;
+            }
+            
+        }
     }
 
     // 敵に当たった時の処理.
@@ -314,6 +335,9 @@ public class Player2DMove : MonoBehaviour
     private void Damage()
     {
         _hp -= 1;
+
+        _soundManager.PlaySE("Damage");
+
         if (_hp <= 0)
         {
             _hp = 0;
@@ -371,6 +395,14 @@ public class Player2DMove : MonoBehaviour
             // ゲートの前にいないときはスキップ.
             if (!_transitionScene.SetGateFlag()) return;
             _isMoveActive = false;
+            if(!_flag._isGoal)
+            {
+                _soundManager.PlaySE("Warp");
+            }
+            else
+            {
+                _soundManager.PlaySE("Goal");
+            }
         }
     }
 
@@ -452,6 +484,9 @@ public class Player2DMove : MonoBehaviour
         if (_hp <= 0)
         {
             _animator.SetBool("GameOver", _anim.GameOver());
+            if (_isSeGameOver) return;
+            _soundManager.PlaySE("GameOver");
+            _isSeGameOver = true;
         }
     }
 

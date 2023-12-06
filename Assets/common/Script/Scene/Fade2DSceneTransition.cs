@@ -21,6 +21,8 @@ public class Fade2DSceneTransition : MonoBehaviour
     private UpdatePause _pause;
     // ギミックマネージャー.
     private SolveGimmickManager _solveGimmickManager;
+    // サウンドマネージャー
+    private SoundManager _soundManager;
 
     // ゴールしたタイミング.
     public bool _isGoal;
@@ -78,6 +80,7 @@ public class Fade2DSceneTransition : MonoBehaviour
         _sceneTransitionManager = GetComponent<SceneTransitionManager>();
         _pause = GameObject.Find("PauseSystem").GetComponent<UpdatePause>();
         _solveGimmickManager = GameObject.Find("GimmickManager").GetComponent<SolveGimmickManager>();
+        _soundManager = GameObject.Find("SoundManager").GetComponent<SoundManager>();
     }
 
     // シーン遷移
@@ -252,6 +255,8 @@ public class Fade2DSceneTransition : MonoBehaviour
             player3D._hp = _player.GetHp();
         }
 
+        _soundManager.StopSe();
+        _soundManager.StopBgm();
         // 削除
         SceneManager.sceneLoaded -= GameSceneLoaded;
     }
