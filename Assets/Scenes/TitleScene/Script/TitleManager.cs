@@ -36,7 +36,7 @@ public class TitleManager : MonoBehaviour
         }
 
         _select.SelectUpdate();
-        if (Input.GetKeyDown("joystick button 1"))
+        if (Input.GetKeyDown("joystick button 0"))
         {
             SndManager.PlaySE("1_3_1_Push");
 
