@@ -42,10 +42,11 @@ public class Gimick1_1_1Manager : MonoBehaviour
         _handleColl[1].GetComponent<CollsionHandle>().SetNameColl(objName);
         _maxNum = 2;
 
+        _sound = GameObject.Find("SoundManager").GetComponent<SoundManager>();
+
         _tips = GameObject.Find("Tips0").GetComponent<TipsDrawer>();
         _tips.IsDownSlider();
 
-        _sound = GameObject.Find("SoundManager").GetComponent<SoundManager>();
     }
 
     private void Update()
