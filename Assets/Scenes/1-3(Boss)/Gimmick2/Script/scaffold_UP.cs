@@ -31,6 +31,10 @@ public class scaffold_UP : MonoBehaviour
 
     public Gimick1_3_2Manager _manager;
 
+    public Vector3 _originalLocalScale;
+
+    private Vector3 _originalLocalPosition;  // 子オブジェクトの元のローカルポジション
+
     // プレイヤーが乗っているかどうか.
     //private bool _isPlayerCol;
     void Start()
@@ -46,14 +50,18 @@ public class scaffold_UP : MonoBehaviour
         _upPosition = new Vector3(this._myTransform.position.x, 14, this._myTransform.position.z);
         _downPosition = new Vector3(this._myTransform.position.x, 6, this._myTransform.position.z);
         _playerScale = new Vector3(_player.transform.localScale.x, _player.transform.localScale.y, _player.transform.localScale.z);
+
+        // 子オブジェクトのローカルスケールを保存
+        _originalLocalScale = _manager.GetPlayerLocalScale();
+        _originalLocalPosition = _player.transform.localPosition;
     }
 
     private void Update()
     {
-        _player.transform.localScale = new Vector3(
-        _manager.GetPlayerLocalScale().x / _manager.GetPlayerLossyScale().x * _manager.GetPlayerLossyScale().x,
-        _manager.GetPlayerLocalScale().y / _manager.GetPlayerLossyScale().y * _manager.GetPlayerLossyScale().y,
-        _manager.GetPlayerLocalScale().z / _manager.GetPlayerLossyScale().z * _manager.GetPlayerLossyScale().z);
+        //_player.transform.localScale = new Vector3(
+        //_manager.GetPlayerLocalScale().x / _manager.GetPlayerLossyScale().x * _manager.GetPlayerLossyScale().x,
+        //_manager.GetPlayerLocalScale().y / _manager.GetPlayerLossyScale().y * _manager.GetPlayerLossyScale().y,
+        //_manager.GetPlayerLocalScale().z / _manager.GetPlayerLossyScale().z * _manager.GetPlayerLossyScale().z);
     }
 
     // Update is called once per frame
@@ -115,21 +123,32 @@ public class scaffold_UP : MonoBehaviour
     {
         if (collision.gameObject.tag == _player.tag)
         {
-            _player.transform.SetParent(gameObject.transform);
-            _player.transform.localScale = new Vector3(
-                   transform.localScale.x / transform.lossyScale.x * _manager.GetPlayerLossyScale().x,
-                   transform.localScale.y / transform.lossyScale.y * _manager.GetPlayerLossyScale().y,
-                   transform.localScale.z / transform.lossyScale.z * _manager.GetPlayerLossyScale().z);
+          //  // 子オブジェクトのローカルスケールを保存
+          //  _originalLocalScale = _player.transform.localScale;
+
+          //  // 子オブジェクトのローカルポジションを保存
+          ////  _originalLocalPosition = _player.transform.localPosition;
+
+          //  _player.transform.SetParent(gameObject.transform,false);
+
+          //  // ローカルスケールを再設定
+          //  _player.transform.localScale = new Vector3(
+          //         _originalLocalScale.x / transform.lossyScale.x * _manager.GetPlayerLocalScale().x,
+          //         _originalLocalScale.y / transform.lossyScale.y * _manager.GetPlayerLocalScale().y,
+          //         _originalLocalScale.z / transform.lossyScale.z * _manager.GetPlayerLocalScale().z);
         }
     }
+    
     // 外に出た判定.
     private void OnCollisionExit(Collision collision)
     {
-        // 外に出た判定
-        _player.transform.SetParent(null);
-        _player.transform.localScale = new Vector3(
-               transform.localScale.x / transform.lossyScale.x * _manager.GetPlayerLossyScale().x,
-               transform.localScale.y / transform.lossyScale.y * _manager.GetPlayerLossyScale().y,
-               transform.localScale.z / transform.lossyScale.z * _manager.GetPlayerLossyScale().z);
+        //// 外に出た判定
+        //_player.transform.SetParent(null);
+        ////// 子オブジェクトのローカルスケールを保存
+        //_player.transform.localScale = _originalLocalScale;
+
+
+        //// 元のローカルポジションに戻す
+      //  _player.transform.localPosition = _originalLocalPosition;
     }
 }
