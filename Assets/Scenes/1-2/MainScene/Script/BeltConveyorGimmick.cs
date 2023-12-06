@@ -36,8 +36,6 @@ public class BeltConveyorGimmick : MonoBehaviour
     // コンベアに載っている物体の加速度.
     [SerializeField] private float _forcePower;
 
-    // ベルトコンベアの現在の速度.
-    private float _currentSpeed = 0;
 
     private List<Rigidbody> _rigidbodies = new List<Rigidbody>();
 

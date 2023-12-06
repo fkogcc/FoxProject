@@ -16,8 +16,6 @@ public class WallGimmick : MonoBehaviour
     [SerializeField] private float _time;
     // 作動時間.
     private int _operatingTime = 0;
-    // 作動を始めるまでの時間.
-    private int _operatingStartTime = 10;
 
     private void Start()
     {
