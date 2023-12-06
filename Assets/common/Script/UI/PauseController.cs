@@ -10,6 +10,7 @@ public class PauseController : MonoBehaviour
     private SoundManager _sound;
     [SerializeField] private string bgmName;
     public bool _getResult = false;
+    [SerializeField] private FadeAnimDirector _animDirector = null;
     void Start()
     {
         _sound = GameObject.Find("SoundManager").GetComponent<SoundManager>();
