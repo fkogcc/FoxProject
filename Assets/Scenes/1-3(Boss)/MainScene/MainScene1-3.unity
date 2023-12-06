@@ -182,6 +182,10 @@ PrefabInstance:
       propertyPath: _getResult
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5466878129856705187, guid: 9e35e8dbce7c02644a838763b21a4200, type: 3}
+      propertyPath: _animDirector
+      value: 
+      objectReference: {fileID: 189681787}
     - target: {fileID: 5466878129856705188, guid: 9e35e8dbce7c02644a838763b21a4200, type: 3}
       propertyPath: m_Name
       value: PauseSystem
@@ -346,6 +350,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bd037697781acda40b5e323c73a69281, type: 3}
+--- !u!114 &189681787 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4224595468105592121, guid: 45a9e2bbdc0a63846b1dbbbf21d153ea, type: 3}
+  m_PrefabInstance: {fileID: 1516958680}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bec7ec599065e114d8f9c68a565d7790, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &222033092
 PrefabInstance:
   m_ObjectHideFlags: 0

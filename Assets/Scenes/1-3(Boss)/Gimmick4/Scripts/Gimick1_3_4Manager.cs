@@ -34,7 +34,7 @@ public class Gimick1_3_4Manager : MonoBehaviour
         _effect = _gameObj.GetComponent<BourstEffectPlay>();
         _cameraShake = _gameObj.GetComponent<CameraShake>();
         _machineObject = _machine.GetComponent<MachineDestory>();
-        _sound.PlayBGM("1_3_4_BGM");
+        //_sound.PlayBGM("1_3_4_BGM");
         _tipsDrawer.IsDownSlider();
 
     }
