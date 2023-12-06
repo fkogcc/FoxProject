@@ -17,7 +17,18 @@ public class scaffold_Move : MonoBehaviour
 
     public GameObject _player;
 
-    private bool _isMove; 
+    private bool _isMove;
+
+    // それぞれの最大値.
+    private Vector3 _rightPosition;
+    private Vector3 _leftPosition;
+
+    // 一番上か一番下に行った時の処理.
+    private int _waitTimer = 0;
+    // 待つ最大フレーム
+    [SerializeField] private int _waitTimeMax = 75;
+    private Vector3 _playerScale = Vector3.zero;
+
     void Start()
     {
         _count = 0;
@@ -26,6 +37,9 @@ public class scaffold_Move : MonoBehaviour
         _time = 300;
         _moveZ = 0.08f;
         _isMove = false;
+        _rightPosition = new Vector3(this._myTransform.position.x, this._myTransform.position.y, 15.0f);
+        _leftPosition = new Vector3(this._myTransform.position.x, this._myTransform.position.y, -7.0f);
+        _playerScale = new Vector3(_player.transform.localScale.x, _player.transform.localScale.y, _player.transform.localScale.z);
     }
     
     // Update is called once per frame
@@ -47,16 +61,41 @@ public class scaffold_Move : MonoBehaviour
             // 座標を設定.
             _myTransform.position = _pos;  
         }
-        if(_myTransform.position.z >= 15.0)
+        MoveOverControl();
+    }
+    private void MoveOverControl()
+    {
+        // 最大値より上に行かないようにする処理.
+        if (_myTransform.position.z <= _leftPosition.z)
         {
-            _isMove = true;
+            _myTransform.position = _leftPosition;
+            if (TimerWait())
+            {
+                _isMove = false;
+            }
         }
-        if (_myTransform.position.z <= -7.0)
+        // 最大値より下に行かないようにする処理.
+        if (_myTransform.position.z >= _rightPosition.z)
         {
-            _isMove = false;
+            _myTransform.position = _rightPosition;
+            if (TimerWait())
+            {
+                _isMove = true;
+            }
         }
     }
+    // 一番下か一番上に行ったとき数秒待つ処理.
+    private bool TimerWait()
+    {
+        _waitTimer++;
+        if (_waitTimer > _waitTimeMax)
+        {
+            _waitTimer = 0;
+            return true;
+        }
+        return false;
 
+    }
     void OnCollisionStay(Collision collision)
     {
         Debug.Log("HitOutSidee");
@@ -71,6 +110,7 @@ public class scaffold_Move : MonoBehaviour
     {
         if (collision.gameObject.tag == _player.tag)
         {
+            _player.transform.localScale = _playerScale;
             _player.transform.parent = null;
         }
     }
