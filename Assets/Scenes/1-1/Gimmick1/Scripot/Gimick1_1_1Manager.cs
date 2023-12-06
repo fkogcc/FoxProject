@@ -50,8 +50,6 @@ public class Gimick1_1_1Manager : MonoBehaviour
 
     private void Update()
     {     
-       // _sound.PlayBGM("");
-
         for (int i = 0; i < _maxNum; i++)
         {
             // ハンドルを入手していない場合.
