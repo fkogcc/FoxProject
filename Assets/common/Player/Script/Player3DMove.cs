@@ -25,6 +25,8 @@ public class Player3DMove : MonoBehaviour
     // レンダーマテリアル.
     public Renderer[] _renderer;
 
+    private UpdatePause _updatePause;
+
     // 体力.
     public int _hp = 3;
 
@@ -86,7 +88,8 @@ public class Player3DMove : MonoBehaviour
 
     void Update()
     {
-        if(Input.GetKeyDown("joystick button 3"))
+        if (_pause._isPause) return;
+        if (Input.GetKeyDown("joystick button 3"))
         {
             // ゲートの前にいないときはスキップ.
             if (!_transitionScene.SetGateFlag()) return;
@@ -123,6 +126,7 @@ public class Player3DMove : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if(_pause._isPause) return;
         _SphereCastCenterPosition = 
             new Vector3(_transform.position.x,
             _transform.position.y + _SphereCastRegulationY,
@@ -180,6 +184,7 @@ public class Player3DMove : MonoBehaviour
         _rigidbody = GetComponent<Rigidbody>();
         _transform = GetComponent<Transform>();
         _collider = GetComponent<BoxCollider>();
+        _pause = GameObject.Find("PauseSystem").GetComponent<UpdatePause>();
     }
 
 
