@@ -14,6 +14,8 @@ public class Boss1_2 : MonoBehaviour
     private Animator _animator;
     private SoundManager _soundManager;
 
+    private bool _isPlaySe = false;
+
 
     void Start()
     {
@@ -36,9 +38,12 @@ public class Boss1_2 : MonoBehaviour
         {
             transform.position += new Vector3(-0.7f,0.0f,0.0f);
             _animator.SetFloat("Eat", 0.35f);
+
+            if (!_isPlaySe)
+            {
+                _soundManager.PlaySE("BossMove");
+                _isPlaySe = true;
+            }
         }
-
-        
-
     }
 }

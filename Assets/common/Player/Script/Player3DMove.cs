@@ -27,6 +27,8 @@ public class Player3DMove : MonoBehaviour
 
     private UpdatePause _updatePause;
 
+    private SoundManager _soundManager;
+
     // 体力.
     public int _hp = 3;
 
@@ -34,6 +36,9 @@ public class Player3DMove : MonoBehaviour
     private int _invincibleTime;
     // ダメージを受けた後の最大無敵時間.
     public int _invincibleMaxTime = 120;
+
+    // 足音のするタイミング.
+    private int _footstepsTime = 0;
 
     // 着地しているかどうか.
     public bool _isGround;
@@ -81,6 +86,9 @@ public class Player3DMove : MonoBehaviour
     private bool _isRendererDisplay = true;
     
     float currentGravity = -0.1f;
+
+    private bool _isPlaySe = false;
+
     void Start()
     {
         Init();
@@ -101,6 +109,12 @@ public class Player3DMove : MonoBehaviour
         {
             _isController = false;
             _animator.SetBool("isDead", _anim3D.GameOver());
+            if(!_isPlaySe)
+            {
+                _soundManager.PlaySE("GameOver");
+                _isPlaySe = true;
+            }
+            
         }
 
         if (!_isController) return;
@@ -185,17 +199,7 @@ public class Player3DMove : MonoBehaviour
         _transform = GetComponent<Transform>();
         _collider = GetComponent<BoxCollider>();
         _pause = GameObject.Find("PauseSystem").GetComponent<UpdatePause>();
-    }
-
-
-    // 落下時の復帰判定
-    private void FallDebug()
-    {
-        if (_transform.position.y <= -5.0f)
-        {
-            _transform.position = new Vector3(0.0f, 1.0f, 0.0f);
-            HpDown();
-        }
+        _soundManager = GameObject.Find("SoundManager").GetComponent<SoundManager>();
     }
 
 
@@ -233,6 +237,15 @@ public class Player3DMove : MonoBehaviour
         // プレイヤーの移動.
         _rigidbody.velocity = new Vector3(_moveDirection.x, _rigidbody.velocity.y, _moveDirection.z);
 
+        if(_isGround && (vertical != 0 || horizontal != 0))
+        {
+            _footstepsTime++;
+            if (_footstepsTime >= 50)
+            {
+                _soundManager.PlaySE("Fottsteps");
+                _footstepsTime = 0;
+            }
+        }
     }
 
     // ジャンプ処理.
@@ -243,6 +256,7 @@ public class Player3DMove : MonoBehaviour
             if (IsGroundShpere())
             {
                 _rigidbody.AddForce(Vector3.up * _jumpPower, ForceMode.Impulse);
+                _soundManager.PlaySE("Jump");
             }
         }
     }
@@ -300,7 +314,7 @@ public class Player3DMove : MonoBehaviour
     private void HpDown()
     {
         if (_isDamage) return;
-
+        _soundManager.PlaySE("Damage");
         _hp--;
     }
 
