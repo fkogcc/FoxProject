@@ -14,6 +14,7 @@ public class Stage_Clear_Switch : MonoBehaviour
     private GameObject _particleSystem;
     // サウンド.
     [SerializeField] private SoundManager _sound;
+    [SerializeField] private PauseController _pauseController;
     private void Start()
     {
         _isClear = false;
@@ -62,6 +63,7 @@ public class Stage_Clear_Switch : MonoBehaviour
         {
             ClearWaitTime();
         }
+        _pauseController._getResult = _isClear;
         return _isClear;
     }
 }

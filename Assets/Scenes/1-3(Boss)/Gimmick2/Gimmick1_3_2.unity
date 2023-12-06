@@ -378,7 +378,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _player: {fileID: 892573696}
   _waitTimeMax: 75
-  _manager: {fileID: 0}
+  _manager: {fileID: 489763370}
 --- !u!1 &63030004 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -2796567591376725739, guid: 57c4e794688456e4281db7299d8d1b69, type: 3}
@@ -2374,7 +2374,7 @@ MonoBehaviour:
   _reset: {fileID: 489763369}
   _sound: {fileID: 2036029821}
   _tips: {fileID: 85574652}
-  _player: {fileID: 0}
+  _player: {fileID: 892573696}
 --- !u!1 &490382478 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -2793727289926329592, guid: bf587a5fa1ed42a468f0ad68d271881e, type: 3}
@@ -5647,6 +5647,17 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.013652652, y: 0.013652672, z: 0.013652659}
   m_Center: {x: 0.000000003026799, y: 0.000000014901163, z: 0.038863637}
+--- !u!114 &1171247799 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5466878129856705187, guid: 9e35e8dbce7c02644a838763b21a4200, type: 3}
+  m_PrefabInstance: {fileID: 2007356718}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f18a63e7784c1c489a7de893c443fa0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1177353763 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6443651601089855719, guid: bf587a5fa1ed42a468f0ad68d271881e, type: 3}
@@ -5902,6 +5913,7 @@ MonoBehaviour:
   _img: {fileID: 472985084}
   _effect: {fileID: 7745473962118335533, guid: 530cbec8516ee754fbb04260484cae09, type: 3}
   _sound: {fileID: 2036029821}
+  _pauseController: {fileID: 1171247799}
 --- !u!114 &1247622876
 MonoBehaviour:
   m_ObjectHideFlags: 0
