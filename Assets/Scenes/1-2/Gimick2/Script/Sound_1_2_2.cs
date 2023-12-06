@@ -13,12 +13,19 @@ public class Sound_1_2_2 : MonoBehaviour
     private bool _isPlaying = false;
     //連続でならないようにする
     private int _count = 0;
-
+    [SerializeField] private Switch_1_2_2 _switch;
     void FixedUpdate()
     {
         _count++;
         // BGMを鳴らす
-        _sound.PlayBGM("1_2_2BGM");
+        if (_switch.GetResult())
+        {
+            _sound.StopBgm();
+        }
+        else
+        {
+            _sound.PlayBGM("1_2_2BGM");
+        }
         if(_count < 30)
         {
             _isPlaneFlag = false;

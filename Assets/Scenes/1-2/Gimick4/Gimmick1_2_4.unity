@@ -1038,6 +1038,7 @@ MonoBehaviour:
   _count: {fileID: 707517377}
   _image: {fileID: 78374085}
   _tipsDrawer: {fileID: 1258082258}
+  _pauseController: {fileID: 241407978}
 --- !u!114 &141163506
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1675,6 +1676,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 7d836771a091a2345a8a1ad923d094e4, type: 3}
   m_PrefabInstance: {fileID: 1599572266}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &241407978 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5466878129856705187, guid: 9e35e8dbce7c02644a838763b21a4200, type: 3}
+  m_PrefabInstance: {fileID: 1513998053}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f18a63e7784c1c489a7de893c443fa0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &246990622 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2247410881092023790, guid: 3d419c9ce7c0de241bab4b97fe16d4f7, type: 3}
@@ -8483,7 +8495,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5466878129856705187, guid: 9e35e8dbce7c02644a838763b21a4200, type: 3}
       propertyPath: bgmName
-      value: 1_1_1_BGM
+      value: 1_2_4_BGM
       objectReference: {fileID: 0}
     - target: {fileID: 5466878129856705188, guid: 9e35e8dbce7c02644a838763b21a4200, type: 3}
       propertyPath: m_Name
@@ -9887,7 +9899,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4224595469975512060, guid: 45a9e2bbdc0a63846b1dbbbf21d153ea, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 45a9e2bbdc0a63846b1dbbbf21d153ea, type: 3}
