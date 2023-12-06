@@ -17,7 +17,7 @@ public class Gimick1_1_2_Manager : MonoBehaviour
     private bool _isRotaFlag;
 
     public TipsDrawer _tipsDrawer;
-
+    [SerializeField] private PauseController _pauseController;
     private void Start()
     {
         _gear = GameObject.Find("GearHandle").GetComponent<GearRotation>();
@@ -41,7 +41,6 @@ public class Gimick1_1_2_Manager : MonoBehaviour
     // 更新処理.
     private void Update()
     {
-        _sound.PlayBGM("1_1_2_BGM");
         _gear.PlayerColRange();
         _isRotaFlag = _gear.IsGearRotated();
     }
@@ -69,13 +68,8 @@ public class Gimick1_1_2_Manager : MonoBehaviour
             // 画像の表示.
             _img.GenerateImage();
         }
-        //指定した時間がたったらBGMをストップさせる.
-        if (_isTimeFlag)
-        {
-            // BGMをストップさせる.
-            _sound.StopBgm();
-        }
         // 指定した時間がたっていたらフェード処理をさせる.
+        _pauseController._getResult = _isTimeFlag;
         return _isTimeFlag;
     }
 }

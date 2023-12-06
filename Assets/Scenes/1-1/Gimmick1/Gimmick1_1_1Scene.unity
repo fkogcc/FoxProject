@@ -327,6 +327,17 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 9.784248, y: 10.106444, z: 0.24940765}
   m_Center: {x: 0.00000023841858, y: 0, z: 0.0000001527369}
+--- !u!114 &270234632 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5466878129856705187, guid: 9e35e8dbce7c02644a838763b21a4200, type: 3}
+  m_PrefabInstance: {fileID: 1593402674}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f18a63e7784c1c489a7de893c443fa0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &292412548 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4147758394102519361, guid: 6f6c870681346004187a36cdbaf60ab4, type: 3}
@@ -1491,6 +1502,7 @@ MonoBehaviour:
   - {fileID: 350392106}
   - {fileID: 371341485}
   _image: {fileID: 847134895}
+  _pauseController: {fileID: 270234632}
 --- !u!114 &1153946839
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1977,15 +1989,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2547387252357561709, guid: 546fe8400816cf942bbf47e67a845ed9, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1.5321681
+      value: 1.6605232
       objectReference: {fileID: 0}
     - target: {fileID: 2547387252357561709, guid: 546fe8400816cf942bbf47e67a845ed9, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.8609017
+      value: -0.40926042
       objectReference: {fileID: 0}
     - target: {fileID: 2547387252357561709, guid: 546fe8400816cf942bbf47e67a845ed9, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.3944509
+      value: 0.30029345
       objectReference: {fileID: 0}
     - target: {fileID: 2547387252357561709, guid: 546fe8400816cf942bbf47e67a845ed9, type: 3}
       propertyPath: m_LocalRotation.w
