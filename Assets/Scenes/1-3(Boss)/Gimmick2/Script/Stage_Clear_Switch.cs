@@ -39,7 +39,7 @@ public class Stage_Clear_Switch : MonoBehaviour
         {
             if (Input.GetKeyDown("joystick button 1"))
             {
-                _sound.PlaySE("1_3_3_InBox");
+                _sound.PlaySE("1_3_2_Button");
                 _particleSystem = Instantiate(_effect, this.transform.position, this.transform.rotation);
                 _isPushSwich = true;
             }

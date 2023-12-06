@@ -27,7 +27,7 @@ public class scaffold_UP : MonoBehaviour
     private int _waitTimer = 0;
     // 待つ最大フレーム
     [SerializeField] private int _waitTimeMax = 75;
-
+    private Vector3 _playerScale = Vector3.zero;
     // プレイヤーが乗っているかどうか.
     //private bool _isPlayerCol;
     void Start()
@@ -42,8 +42,9 @@ public class scaffold_UP : MonoBehaviour
         _player = GameObject.Find("3DPlayer");
         _upPosition = new Vector3(this._myTransform.position.x, 14, this._myTransform.position.z);
         _downPosition = new Vector3(this._myTransform.position.x, 6, this._myTransform.position.z);
+        _playerScale = new Vector3(_player.transform.localScale.x, _player.transform.localScale.y, _player.transform.localScale.z);
     }
-    
+
     // Update is called once per frame
     void FixedUpdate()
     {
@@ -109,6 +110,7 @@ public class scaffold_UP : MonoBehaviour
     // 外に出た判定.
     private void OnCollisionExit(Collision collision)
     {
+        _player.transform.localScale = _playerScale;
         // 外に出た判定
         _player.transform.SetParent(null);
     }
