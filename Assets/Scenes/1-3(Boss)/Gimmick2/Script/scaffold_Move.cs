@@ -39,7 +39,7 @@ public class scaffold_Move : MonoBehaviour
         _isMove = false;
         _rightPosition = new Vector3(this._myTransform.position.x, this._myTransform.position.y, 15.0f);
         _leftPosition = new Vector3(this._myTransform.position.x, this._myTransform.position.y, -7.0f);
-        _playerScale = new Vector3(_player.transform.localScale.x, _player.transform.localScale.y, _player.transform.localScale.z);
+        _playerScale = new Vector3(_player.transform.lossyScale.x, _player.transform.lossyScale.y, _player.transform.lossyScale.z);
     }
     
     // Update is called once per frame
@@ -103,14 +103,19 @@ public class scaffold_Move : MonoBehaviour
         {
             Debug.Log("Hit");
             _player.transform.SetParent(gameObject.transform);
+            _player.transform.localScale = _playerScale;
+
+            _player.transform.localScale = new Vector3(
+                transform.localScale.x / transform.lossyScale.x * _playerScale.x,
+                transform.localScale.y / transform.lossyScale.y * _playerScale.y,
+                transform.localScale.z / transform.lossyScale.z * _playerScale.z);
         }
     }
 
     void OnCollisionExit(Collision collision)
     {
         if (collision.gameObject.tag == _player.tag)
-        {
-            _player.transform.localScale = _playerScale;
+        {            
             _player.transform.parent = null;
         }
     }

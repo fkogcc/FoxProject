@@ -117,19 +117,19 @@ public class scaffold_UP : MonoBehaviour
         {
             _player.transform.SetParent(gameObject.transform);
             _player.transform.localScale = new Vector3(
-                    _manager.GetPlayerLocalScale().x / _manager.GetPlayerLossyScale().x * _manager.GetPlayerLossyScale().x,
-                    _manager.GetPlayerLocalScale().y / _manager.GetPlayerLossyScale().y * _manager.GetPlayerLossyScale().y,
-                    _manager.GetPlayerLocalScale().z / _manager.GetPlayerLossyScale().z * _manager.GetPlayerLossyScale().z);
+                   transform.localScale.x / transform.lossyScale.x * _manager.GetPlayerLossyScale().x,
+                   transform.localScale.y / transform.lossyScale.y * _manager.GetPlayerLossyScale().y,
+                   transform.localScale.z / transform.lossyScale.z * _manager.GetPlayerLossyScale().z);
         }
     }
     // 外に出た判定.
     private void OnCollisionExit(Collision collision)
-    {     
+    {
         // 外に出た判定
         _player.transform.SetParent(null);
         _player.transform.localScale = new Vector3(
-                _manager.GetPlayerLocalScale().x / _manager.GetPlayerLossyScale().x * _manager.GetPlayerLossyScale().x,
-                _manager.GetPlayerLocalScale().y / _manager.GetPlayerLossyScale().y * _manager.GetPlayerLossyScale().y,
-                _manager.GetPlayerLocalScale().z / _manager.GetPlayerLossyScale().z * _manager.GetPlayerLossyScale().z);
+               transform.localScale.x / transform.lossyScale.x * _manager.GetPlayerLossyScale().x,
+               transform.localScale.y / transform.lossyScale.y * _manager.GetPlayerLossyScale().y,
+               transform.localScale.z / transform.lossyScale.z * _manager.GetPlayerLossyScale().z);
     }
 }
