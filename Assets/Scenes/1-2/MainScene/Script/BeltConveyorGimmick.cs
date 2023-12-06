@@ -70,7 +70,10 @@ public class BeltConveyorGimmick : MonoBehaviour
             _operatingTime++;
             _animSpeed += _animSpeedAddForce;
             //_textureSpeed = new Vector2(5.0f, 0.0f);
-
+            if(_operatingTime == 1)
+            {
+                _sound.PlaySE("1_2_0_BeltConbeyor");
+            }
             _textureSpeedX += _textureSpeedXAddForce;
 
             if (_animSpeed >= _animMaxSpeed)
@@ -101,6 +104,7 @@ public class BeltConveyorGimmick : MonoBehaviour
         if(_operatingTime >= 180)
         {
             _manager._solve[1] = false;
+            _sound.StopSe();
             _operatingTime = 0;
         }
     }

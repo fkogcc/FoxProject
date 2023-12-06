@@ -36,6 +36,9 @@ public class ExplosionGimmick : MonoBehaviour
     [Header("爆発するまでの時間")]
     [SerializeField] private int _blastTime;
 
+    // サウンドマネージャー.
+    private SoundManager _soundManager;
+
     // パーティクル再生時間
     private float _particleCount;
 
@@ -56,6 +59,7 @@ public class ExplosionGimmick : MonoBehaviour
     private void Start()
     {
         _manager = GameObject.FindWithTag("GimmickManager").GetComponent<SolveGimmickManager>();
+        _soundManager = GameObject.Find("SoundManager").GetComponent<SoundManager>();
         //_particleSystem.Stop();
         _ignitionParticle.Stop();
         _sparkParticle.Stop();
@@ -82,6 +86,7 @@ public class ExplosionGimmick : MonoBehaviour
         if(_operatingTime > _blastTime)
         {
             UpdateExplosion();
+            
         }
 
         if(_operatingTime > 70)
@@ -117,6 +122,7 @@ public class ExplosionGimmick : MonoBehaviour
         if(_isBombExist)
         {
             Instantiate(_blastParticle, _bombObject.transform.position, Quaternion.identity);
+            _soundManager.PlaySE("1_2_0_Bomb");
         }
 
         // ボム座標を代入.
@@ -135,6 +141,7 @@ public class ExplosionGimmick : MonoBehaviour
                 rigidbody.AddExplosionForce(_force, _ExplosionPosition, _radius, _upwardsPower, ForceMode.Impulse);
                 rigidbody.constraints = RigidbodyConstraints.None;
                 rigidbody.useGravity = true;
+                rigidbody.tag = "Untagged";
             }
         }
 

@@ -15,6 +15,9 @@ public class FireGimmick : MonoBehaviour
     // 炎が燃え続ける最大時間
     [SerializeField] private float _burningMaxCount;
 
+    // サウンドマネージャー.
+    private SoundManager _soundManager;
+
     // 炎が燃え続けている時間
     private float _burningCount = 0;
 
@@ -22,6 +25,7 @@ public class FireGimmick : MonoBehaviour
     {
         _gimmickManager = GameObject.FindWithTag("GimmickManager").GetComponent<SolveGimmickManager>();
         _particleSystem.Pause();
+        _soundManager = GameObject.Find("SoundManager").GetComponent<SoundManager>();
     }
 
     private void FixedUpdate()
@@ -40,6 +44,11 @@ public class FireGimmick : MonoBehaviour
     {
         // パーティクル再生.
         _particleSystem.Play();
+
+        if(_burningCount == 1)
+        {
+            _soundManager.PlaySE("1_2_0_Fire");
+        }
 
         _debugEnemyObject.transform.position += new Vector3(0.0f, 0.12f, 0.0f);
 
