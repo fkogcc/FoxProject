@@ -15,8 +15,6 @@ public class UpdatePause : MonoBehaviour
     // 現在のタイムスケールを取得する
     public float _timeScale { get;  set; }
     
-    // ボタンを押したかどうか
-    private bool _isPressB = false;
 
     void Start()
     {
@@ -41,13 +39,12 @@ public class UpdatePause : MonoBehaviour
             _isPause = true;
         }
         // B
-        if (Input.GetKeyDown("joystick button 1"))
+        if (Input.GetKeyUp("joystick button 1"))
         {
             // 説明が出ている場合
             if (_tipsDrawer._isSlideEnd)
             {
                 _tipsDrawer.IsUpSlider();
-                _isPressB = true;
             }
             else
             {
