@@ -31,8 +31,6 @@ public class scaffold_Move : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        
-
         //5秒経ったら.
         if (!_isMove)
         {
