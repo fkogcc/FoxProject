@@ -142,6 +142,13 @@ public class Player2DMove : MonoBehaviour
             // 自身と敵の距離と方向の正規化.
             _enemyDirection = (transform.position - collision.transform.position).normalized;
         }
+
+        if(collision.gameObject.tag == "DamageFloor")
+        {
+            Damage();
+
+            transform.position = new Vector3(25.0f, 0.0f, 0.0f);
+        }
     }
 
     private void OnCollisionExit(Collision collision)

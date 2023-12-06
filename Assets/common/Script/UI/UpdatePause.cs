@@ -8,6 +8,7 @@ public class UpdatePause : MonoBehaviour
     public bool _isPause = false;
     // ポーズ画面のオブジェクト
     [SerializeField] private GameObject _pauseCanvas;
+    private SoundManager _soundManager;
 
     // 説明用クラス
     private TipsDrawer _tipsDrawer;
@@ -19,6 +20,7 @@ public class UpdatePause : MonoBehaviour
     void Start()
     {
         _tipsDrawer = GameObject.Find("Tips").GetComponent<TipsDrawer>();
+        _soundManager = GameObject.Find("SoundManager").GetComponent<SoundManager>();
     }
 
     // Update is called once per frame

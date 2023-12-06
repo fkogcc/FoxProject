@@ -80,6 +80,11 @@ public class RotateWindmill : MonoBehaviour
             _isWindActive = false;
             //_sound.StopSe();
         }
+
+        if(_rotateSpeed < 20.0f && _rotateSpeed > 19.0f)
+        {
+            _sound.StopSe();
+        }
     }
 
     // 風車の羽の回転速度の処理.
