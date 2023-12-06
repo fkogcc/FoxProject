@@ -71,6 +71,11 @@ public class Gimick1_2_4_Manager1Mk2 : MonoBehaviour
     // カウントダウンを止めるかどうか
     private bool _isCountDown = false;
 
+    public GenerateImg _image;
+
+    // 説明を描画
+    public TipsDrawer _tipsDrawer;
+
     void Start()
     {
         // ボタン用.
@@ -97,15 +102,11 @@ public class Gimick1_2_4_Manager1Mk2 : MonoBehaviour
 
         // カウントダウンをするクラスを取得
         _countDown = _count.GetComponent<Gimmick1_2_4_CountDown2>();
+        _countDown.SetTimeCount(true);
     }
 
     void Update()
     {
-       // _sound.PlayBGM("1_1_1_BGM");
-        _countDown.SetTimeCount(true);
-        // ゲームクリアした場合ライトが光るので
-        // 光ってない場合はプレイヤーを追跡する
-        // 光ってる場合はカメラはクリア用の位置に行く
         if (!_isLight)
         {
             _camera.Follow = GameObject.Find("3DPlayer").transform;
@@ -159,6 +160,7 @@ public class Gimick1_2_4_Manager1Mk2 : MonoBehaviour
 
     private void FixedUpdate()
     {
+        _countDown.SetTimeCount(true);
         if (_countDown.IsCount())
         {
             // ゲームオーバーになるとカウントする
@@ -198,6 +200,9 @@ public class Gimick1_2_4_Manager1Mk2 : MonoBehaviour
 
             // 光った演出用のライトを表示させる.
             _isLight = true;
+
+            // コンプリートを描画
+            _image.GenerateImage();
 
             // カメラのターゲット位置と角度を変更.
             _camera.Follow = _cameraPos;

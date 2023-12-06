@@ -7,7 +7,6 @@ using UnityEngine.UI;
 
 public class Gimmick1_2_4_CountDown2 : MonoBehaviour
 {
-
     // 制限時間.
     private float _repeatSpan = 0;
     // 残り時間.
@@ -34,10 +33,12 @@ public class Gimmick1_2_4_CountDown2 : MonoBehaviour
     // カウントダウンするかどうか
     private bool _isCountDown = true;
 
+    private bool _firstCount = true;
+
     void Start()
     {
         // 繰り返し処理を呼び出す.
-        StartCoroutine(RepeatFunction());
+    //    StartCoroutine(RepeatFunction());
 
         _countTimeRecord = (int)_countTime;
 
@@ -72,6 +73,12 @@ public class Gimmick1_2_4_CountDown2 : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if(_firstCount)
+        {
+            // 繰り返し処理を呼び出す.
+            StartCoroutine(RepeatFunction());
+            _firstCount = false;
+        }
         // 制限時間が10になった場合.
         if (_countTime < 10)
         {

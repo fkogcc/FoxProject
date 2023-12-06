@@ -31,6 +31,10 @@ public class Gimick1_1_1Manager : MonoBehaviour
 
     private SoundManager _sound;
 
+    public GenerateImg _image;
+
+    private int _clearFrameCount = 0;
+
     void Start()
     {
         string objName = "3DPlayer";
@@ -45,9 +49,7 @@ public class Gimick1_1_1Manager : MonoBehaviour
     }
 
     private void Update()
-    {
-
-        
+    {     
        // _sound.PlayBGM("");
 
         for (int i = 0; i < _maxNum; i++)
@@ -108,8 +110,18 @@ public class Gimick1_1_1Manager : MonoBehaviour
                 _isOneFrameStop[i] = true;
             }
         }
+    }
+
+    private void FixedUpdate()
+    {
         // 謎解きが終わったかどうか.
         if (_isEndRota[0] && _isEndRota[1])
+        {
+            _clearFrameCount++;            
+            _image.GenerateImage();
+        }
+
+        if(_clearFrameCount > 60)
         {
             _clear = true;
         }

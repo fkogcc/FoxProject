@@ -30,7 +30,7 @@ public class CameraChange : MonoBehaviour
             // カメラを動かす.
             _minMapCameraObject.Priority = 15;
         }
-        if (Input.GetKeyDown("joystick button 2"))
+        if (Input.GetKeyDown("joystick button 3"))
         {
             _isPushFlag = !_isPushFlag;
         }
