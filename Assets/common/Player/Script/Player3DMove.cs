@@ -102,6 +102,7 @@ public class Player3DMove : MonoBehaviour
             // ゲートの前にいないときはスキップ.
             if (!_transitionScene.SetGateFlag()) return;
 
+            _soundManager.PlaySE("Warp");
             _isController = false;
         }
 
