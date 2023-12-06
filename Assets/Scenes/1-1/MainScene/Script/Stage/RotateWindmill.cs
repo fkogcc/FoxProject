@@ -37,10 +37,14 @@ public class RotateWindmill : MonoBehaviour
     // ギミックが作動中かどうか
     private bool _isOperationGimmick;
 
+    // SEが鳴ったらtrueにする.
+    private bool _isPlaySE;
+
     private void Start()
     {
         _sound = GameObject.Find("SoundManager").GetComponent<SoundManager>();
         _gimmickManager = GameObject.FindWithTag("GimmickManager").GetComponent<SolveGimmickManager>();
+        _isPlaySE = false;
     }
 
     private void FixedUpdate()
@@ -53,8 +57,6 @@ public class RotateWindmill : MonoBehaviour
 
         if (_gimmickManager._solve[1])
         {
-            //UpdateRotateWindmill();
-
             RotateSpeed();
         }
     }
@@ -66,10 +68,17 @@ public class RotateWindmill : MonoBehaviour
         if (_rotateSpeed > 25.0f)
         {
             _isWindActive = true;
+            if(!_isPlaySE)
+            {
+                _sound.PlaySE("1_1_0_StrongWind");
+                _isPlaySE = true;
+            }
+            
         }
         else if (_rotateSpeed < 20.0f)
         {
             _isWindActive = false;
+            //_sound.StopSe();
         }
     }
 

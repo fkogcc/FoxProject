@@ -19,6 +19,9 @@ public class GoalMove1_1 : MonoBehaviour
     [Header("円運動の中心点")]
     [SerializeField] private GameObject _sphereCenter;
 
+    // サウンドマネージャー.
+    private SoundManager _soundManager;
+
     // ゴールのチュートリアル.
     private GoalExplainUpdate _goalExplain;
 
@@ -45,11 +48,14 @@ public class GoalMove1_1 : MonoBehaviour
     // パーティクル再生時間.
     private int _playParticleTime;
 
-    // Start is called before the first frame update
+    // Seが鳴ったらtrueにする.
+    private bool _isPlaySe;
+
     void Start()
     {
         _particle.Stop();
         _goalExplain = GameObject.Find("GoalExplain").GetComponent<GoalExplainUpdate>();
+        _soundManager = GameObject.Find("SoundManager").GetComponent<SoundManager>();
     }
 
     // Update is called once per frame
@@ -71,6 +77,12 @@ public class GoalMove1_1 : MonoBehaviour
         {
             _particle.Play();
             _playParticleTime++;
+
+            if(!_isPlaySe)
+            {
+                _soundManager.PlaySE("GoalLanding");
+                _isPlaySe = true;
+            }
             _goalExplain._isAlphaChange = true;
         }
 
