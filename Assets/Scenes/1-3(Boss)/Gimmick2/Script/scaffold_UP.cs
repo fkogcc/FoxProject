@@ -28,6 +28,9 @@ public class scaffold_UP : MonoBehaviour
     // 待つ最大フレーム
     [SerializeField] private int _waitTimeMax = 75;
     private Vector3 _playerScale = Vector3.zero;
+
+    public Gimick1_3_2Manager _manager;
+
     // プレイヤーが乗っているかどうか.
     //private bool _isPlayerCol;
     void Start()
@@ -43,6 +46,14 @@ public class scaffold_UP : MonoBehaviour
         _upPosition = new Vector3(this._myTransform.position.x, 14, this._myTransform.position.z);
         _downPosition = new Vector3(this._myTransform.position.x, 6, this._myTransform.position.z);
         _playerScale = new Vector3(_player.transform.localScale.x, _player.transform.localScale.y, _player.transform.localScale.z);
+    }
+
+    private void Update()
+    {
+        _player.transform.localScale = new Vector3(
+        _manager.GetPlayerLocalScale().x / _manager.GetPlayerLossyScale().x * _manager.GetPlayerLossyScale().x,
+        _manager.GetPlayerLocalScale().y / _manager.GetPlayerLossyScale().y * _manager.GetPlayerLossyScale().y,
+        _manager.GetPlayerLocalScale().z / _manager.GetPlayerLossyScale().z * _manager.GetPlayerLossyScale().z);
     }
 
     // Update is called once per frame
@@ -105,13 +116,20 @@ public class scaffold_UP : MonoBehaviour
         if (collision.gameObject.tag == _player.tag)
         {
             _player.transform.SetParent(gameObject.transform);
+            _player.transform.localScale = new Vector3(
+                    _manager.GetPlayerLocalScale().x / _manager.GetPlayerLossyScale().x * _manager.GetPlayerLossyScale().x,
+                    _manager.GetPlayerLocalScale().y / _manager.GetPlayerLossyScale().y * _manager.GetPlayerLossyScale().y,
+                    _manager.GetPlayerLocalScale().z / _manager.GetPlayerLossyScale().z * _manager.GetPlayerLossyScale().z);
         }
     }
     // 外に出た判定.
     private void OnCollisionExit(Collision collision)
-    {
-        _player.transform.localScale = _playerScale;
+    {     
         // 外に出た判定
         _player.transform.SetParent(null);
+        _player.transform.localScale = new Vector3(
+                _manager.GetPlayerLocalScale().x / _manager.GetPlayerLossyScale().x * _manager.GetPlayerLossyScale().x,
+                _manager.GetPlayerLocalScale().y / _manager.GetPlayerLossyScale().y * _manager.GetPlayerLossyScale().y,
+                _manager.GetPlayerLocalScale().z / _manager.GetPlayerLossyScale().z * _manager.GetPlayerLossyScale().z);
     }
 }
