@@ -69,6 +69,10 @@ public class Gimick1_2_4_Manager : MonoBehaviour
     // カウントダウンを止めるかどうか
     private bool _isCountDown = false;
 
+    // Bボタンを押したかどうか.
+    private bool _isBottomB = false;
+    private int _collArry = 0;
+
     // 説明を描画
     public TipsDrawer _tipsDrawer;
 
@@ -124,22 +128,7 @@ public class Gimick1_2_4_Manager : MonoBehaviour
         else if (_tipsDrawer._isSlideStart)
         {
             _countDown.SetTimeCount(true);
-        }
-
-
-        for (int i = 0; i < _objRotaMaxNum; i++)
-        {
-            if(_coll[i].GetComponent<MyCollsion3D>().IsGetHit())
-            {
-                if (Input.GetKeyDown(KeyCode.JoystickButton1))
-                {
-                    // サウンドを再生.
-                    _sound.PlaySE("1_2_3_MetalRota");
-                    // 回転したら.
-                    _rota[i].GetComponent<TurnGraph>().Rota();
-                }
-            }
-        }
+        }        
            
         // 回路が正しく接続されている数を確認.
         for (int i = 0; i < _objRotaMaxNum; i++)
@@ -159,6 +148,23 @@ public class Gimick1_2_4_Manager : MonoBehaviour
             }
         }
 
+        if (!_isCountDown)
+        {
+            for (int i = 0; i < _objRotaMaxNum; i++)
+            {
+                if (_coll[i].GetComponent<MyCollsion3D>().IsGetHit())
+                {
+                    if (Input.GetKeyDown(KeyCode.JoystickButton1))
+                    {
+                        _isBottomB = true;
+                        // サウンドを再生.
+                        _sound.PlaySE("1_2_3_MetalRota");
+                        _collArry = i;
+                    }
+                }
+            }
+        }
+
         // マップ全体を見る.
         MapDrawer();
         // クリアしたら音を止める.
@@ -171,6 +177,13 @@ public class Gimick1_2_4_Manager : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if(_isBottomB)
+        {
+            // 回転したら.
+            _rota[_collArry].GetComponent<TurnGraph>().Rota();
+            _isBottomB = false;
+        }
+
         // 時間がなくなった場合
         if (_countDown.IsCount())
         {

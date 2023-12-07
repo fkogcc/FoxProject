@@ -37,7 +37,7 @@ public class Player2DMove : MonoBehaviour
     private Color[] _color;
 
     // プレイヤーの体力.
-    public int _hp = 3;
+    public int _hp = 10000;
 
     // ダメージを受けた後の無敵時間.
     private int _invincibleTime;
