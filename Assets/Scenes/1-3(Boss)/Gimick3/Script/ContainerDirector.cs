@@ -108,11 +108,11 @@ public class ContainerDirector : MonoBehaviour
             {
                 return false;
             }
-            // ステージ1をクリアした(0の分をカウントするために1つたす).
-            if (i + 1 >= _stage2_Count)
-            {
-                _isStage1Flag = true;
-            }
+            //// ステージ1をクリアした(0の分をカウントするために1つたす).
+            //if (i + 1 >= _stage2_Count)
+            //{
+            //    _isStage1Flag = true;
+            //}
         }
         return true;
     }
