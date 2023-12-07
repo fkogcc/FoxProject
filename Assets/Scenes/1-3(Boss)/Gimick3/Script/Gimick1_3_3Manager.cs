@@ -109,7 +109,7 @@ public class Gimick1_3_3Manager : MonoBehaviour
         {
             _frameWaitTime--;
             // 画像の生成.
-            _img.GenerateImage();
+            _img.GenerateCompleteImage();
             if (_frameWaitTime <= 0)
             {
                 _pauseController._getResult = true;

@@ -13,6 +13,9 @@ public class MonitorCollider : MonoBehaviour
     private MonitorCamera _monitorObject;
     // どこのモニターを見ているかを保存する変数.
     private string _name;
+    // ボタンの取得(UI).
+    public GameObject _aButton;
+    public GameObject _bButton;
 
     private void Start()
     {
@@ -65,8 +68,23 @@ public class MonitorCollider : MonoBehaviour
             // プレイヤーの手を破壊する.
             _gameManager.PlayerHandDestory();
         }
+        // ボタン(UI)の変更処理.
+        ButtonUIActive();
     }
-
+    // どちらのUIをアクティブにするか.
+    private void ButtonUIActive()
+    {
+        if(_isPushButton)
+        {
+            _aButton.SetActive(true);
+            _bButton.SetActive(false);
+        }
+        else
+        {
+            _aButton.SetActive(false);
+            _bButton.SetActive(true);
+        }
+    }
     // 当たり判定の処理
     void OnTriggerEnter(Collider other)
     {

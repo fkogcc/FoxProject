@@ -66,7 +66,7 @@ public class Gimick1_1_2_Manager : MonoBehaviour
         if (_isRotaFlag)
         {
             // 画像の表示.
-            _img.GenerateImage();
+            _img.GenerateCompleteImage();
         }
         // 指定した時間がたっていたらフェード処理をさせる.
         _pauseController._getResult = _isTimeFlag;
