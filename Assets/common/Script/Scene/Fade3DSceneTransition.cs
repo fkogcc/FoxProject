@@ -25,6 +25,9 @@ public class Fade3DSceneTransition : MonoBehaviour
     // ゲートのボタンを押したかどうか.
     public bool _isPush;
 
+    // DontDestroyOnLoadを消す用の変数
+    //public GameObject _eraseObject;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -130,7 +133,7 @@ public class Fade3DSceneTransition : MonoBehaviour
         }
         else if (_transitionScene._isGoal1_3 && transitionFlagCommon)
         {
-
+            //SceneManager.MoveGameObjectToScene(_eraseObject, SceneManager.GetActiveScene());
             _sceneTransitionManager.ClearScene();
         }
 
@@ -165,5 +168,6 @@ public class Fade3DSceneTransition : MonoBehaviour
         {
             _sceneTransitionManager.MainScene1_3();
         }
+
     }
 }
