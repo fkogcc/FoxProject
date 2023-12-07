@@ -50,7 +50,9 @@ public class Gimick1_2_4_Manager1Mk2 : MonoBehaviour
     public float _clearCameraRotaX;
 
     // サウンド
-    public SoundManager _sound;
+    private SoundManager _sound;
+    private bool _isSoundStop = false;
+    //[SerializeField] private PauseController _pauseController;
 
     // ライトが光るかどうか
     private bool _isLight = false;
@@ -73,7 +75,6 @@ public class Gimick1_2_4_Manager1Mk2 : MonoBehaviour
     // 説明を描画
     public TipsDrawer _tipsDrawer;
 
-    [SerializeField] private PauseController _pauseController;
     void Start()
     {
         _sound = GameObject.Find("SoundManager").GetComponent<SoundManager>();
@@ -104,6 +105,11 @@ public class Gimick1_2_4_Manager1Mk2 : MonoBehaviour
 
     void Update()
     {
+        // サウンドを鳴らす(テスト).
+        if (!_isSoundStop)
+        {
+            _sound.PlayBGM("1_1_2_BGM");
+        }
         if (!_isLight)
         {
             _camera.Follow = GameObject.Find("3DPlayer").transform;
@@ -150,6 +156,12 @@ public class Gimick1_2_4_Manager1Mk2 : MonoBehaviour
 
         // マップ全体を見る.
         MapDrawer();
+        //_pauseController._getResult = _isClear;
+        if (_isClear)
+        {
+            _sound.StopBgm();
+            _isSoundStop = true;
+        }
     }
 
     private void FixedUpdate()
@@ -242,7 +254,6 @@ public class Gimick1_2_4_Manager1Mk2 : MonoBehaviour
     // クリアしたかどうか.
     public bool GetResult()
     {
-        _pauseController._getResult = _isClear;
         return _isClear;
     }
 
