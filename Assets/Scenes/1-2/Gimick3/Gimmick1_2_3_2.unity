@@ -266,7 +266,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b23952c7882b6a47bed49bf000d0545, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Sound: {fileID: 0}
   Color: Pink
 --- !u!135 &161860630
 SphereCollider:
@@ -5139,7 +5138,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &406013648
 Transform:
   m_ObjectHideFlags: 0
@@ -5167,7 +5166,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b23952c7882b6a47bed49bf000d0545, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Sound: {fileID: 0}
   Color: Yellow
 --- !u!135 &406013650
 SphereCollider:
@@ -5227,7 +5225,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b23952c7882b6a47bed49bf000d0545, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Sound: {fileID: 0}
   Color: SkyBule
 --- !u!135 &418387873
 SphereCollider:
@@ -10208,7 +10205,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &672089362
 Transform:
   m_ObjectHideFlags: 0
@@ -10236,7 +10233,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b23952c7882b6a47bed49bf000d0545, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Sound: {fileID: 0}
   Color: YellowGreen
 --- !u!135 &672089364
 SphereCollider:
@@ -10704,7 +10700,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b23952c7882b6a47bed49bf000d0545, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Sound: {fileID: 0}
   Color: Green
 --- !u!135 &1005679202
 SphereCollider:
@@ -10764,7 +10759,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b23952c7882b6a47bed49bf000d0545, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Sound: {fileID: 0}
   Color: Red
 --- !u!135 &1024830843
 SphereCollider:
@@ -10842,7 +10836,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b23952c7882b6a47bed49bf000d0545, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Sound: {fileID: 0}
   Color: Orange
 --- !u!135 &1066565934
 SphereCollider:
@@ -11740,7 +11733,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b23952c7882b6a47bed49bf000d0545, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Sound: {fileID: 0}
   Color: Bule
 --- !u!135 &1241902687
 SphereCollider:
@@ -17165,7 +17157,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1335661386
 Transform:
   m_ObjectHideFlags: 0
@@ -22451,7 +22443,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1687093741
 Transform:
   m_ObjectHideFlags: 0
