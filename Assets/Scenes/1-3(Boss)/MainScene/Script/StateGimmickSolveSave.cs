@@ -5,28 +5,19 @@ using UnityEngine.SceneManagement;
 
 public class StateGimmickSolveSave : MonoBehaviour
 {
-    // インスタンスが存在するか.
-    static bool _inctanceExit = false;
+    private GateFlag _transitionScene;
 
-    private void Awake()
+    private void Start()
     {
-        if (_inctanceExit)
-        {
-            Destroy(gameObject);
-
-            return;
-        }
-
-        _inctanceExit = true;
-
+        _transitionScene = GameObject.FindWithTag("Player").GetComponent<GateFlag>();
         DontDestroyOnLoad(gameObject);
     }
 
     private void FixedUpdate()
     {
-        //if(SceneManager.GetActiveScene().name == "ClearScene1-3")
-        //{
-        //    SceneManager.MoveGameObjectToScene(gameObject, SceneManager.GetActiveScene());
-        //}
+        if(_transitionScene._isGoal1_3)
+        {
+            SceneManager.MoveGameObjectToScene(gameObject, SceneManager.GetActiveScene());
+        }
     }
 }
