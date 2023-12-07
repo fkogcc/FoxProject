@@ -5729,7 +5729,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _particleSystem: {fileID: 404527537}
   _debugEnemyObject: {fileID: 0}
-  _burningMaxCount: 200
 --- !u!1001 &571297401
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5785,6 +5784,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: FadeObject2D
       objectReference: {fileID: 0}
+    - target: {fileID: 4224595469975512060, guid: aabeb60a9654710419409745df4f4e73, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: aabeb60a9654710419409745df4f4e73, type: 3}
 --- !u!1001 &578449517
@@ -5800,7 +5803,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2519987739933323313, guid: efd49aba95bbbb648975da0474da9c3a, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 300
       objectReference: {fileID: 0}
     - target: {fileID: 2519987739933323313, guid: efd49aba95bbbb648975da0474da9c3a, type: 3}
       propertyPath: m_LocalPosition.y
@@ -5808,7 +5811,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2519987739933323313, guid: efd49aba95bbbb648975da0474da9c3a, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 2.2
       objectReference: {fileID: 0}
     - target: {fileID: 2519987739933323313, guid: efd49aba95bbbb648975da0474da9c3a, type: 3}
       propertyPath: m_LocalRotation.w
@@ -8254,7 +8257,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _particleSystem: {fileID: 1450029657}
   _debugEnemyObject: {fileID: 59019400}
-  _burningMaxCount: 200
 --- !u!65 &1639750162
 BoxCollider:
   m_ObjectHideFlags: 0
