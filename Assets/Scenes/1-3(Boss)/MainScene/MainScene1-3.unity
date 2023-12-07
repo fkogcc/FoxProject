@@ -1599,6 +1599,22 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4284831359935134945, guid: f62a55325b10d774ba7f21149690a283, type: 3}
+      propertyPath: _solve.Array.data[0]
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4284831359935134945, guid: f62a55325b10d774ba7f21149690a283, type: 3}
+      propertyPath: _solve.Array.data[1]
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4284831359935134945, guid: f62a55325b10d774ba7f21149690a283, type: 3}
+      propertyPath: _solve.Array.data[2]
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4284831359935134945, guid: f62a55325b10d774ba7f21149690a283, type: 3}
+      propertyPath: _solve.Array.data[3]
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4284831359935134975, guid: f62a55325b10d774ba7f21149690a283, type: 3}
       propertyPath: m_Name
       value: GimmickManager

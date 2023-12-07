@@ -28,6 +28,8 @@ public class Reset_Button : MonoBehaviour
         {
             _containeInitialPositionr[i] = _stageContainer[i].transform.position;
         }
+
+        _sound = GameObject.Find("SoundManager").GetComponent<SoundManager>();
     }
     public void SoundDataSet(SoundManager sound)
     {

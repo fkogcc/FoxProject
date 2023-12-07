@@ -3397,7 +3397,7 @@ PrefabInstance:
       objectReference: {fileID: 1136428851}
     - target: {fileID: 6916387122602811121, guid: 976dfdaafcbf24c4e8892b7b35b08a4f, type: 3}
       propertyPath: _bgmData.Array.size
-      value: 13
+      value: 14
       objectReference: {fileID: 0}
     - target: {fileID: 6916387122602811121, guid: 976dfdaafcbf24c4e8892b7b35b08a4f, type: 3}
       propertyPath: _playSeTest.Array.size
@@ -3416,6 +3416,10 @@ PrefabInstance:
       value: EndScene_BGM
       objectReference: {fileID: 0}
     - target: {fileID: 6916387122602811121, guid: 976dfdaafcbf24c4e8892b7b35b08a4f, type: 3}
+      propertyPath: _bgmData.Array.data[13].name
+      value: 1_3_MainScene
+      objectReference: {fileID: 0}
+    - target: {fileID: 6916387122602811121, guid: 976dfdaafcbf24c4e8892b7b35b08a4f, type: 3}
       propertyPath: _bgmData.Array.data[11].sound
       value: 
       objectReference: {fileID: 8300000, guid: 9f407be1fc525ca4ea1e83c9c401abf6, type: 3}
@@ -3423,6 +3427,10 @@ PrefabInstance:
       propertyPath: _bgmData.Array.data[12].sound
       value: 
       objectReference: {fileID: 8300000, guid: d4fea914adf0c9b4db3a1725f8576ca2, type: 3}
+    - target: {fileID: 6916387122602811121, guid: 976dfdaafcbf24c4e8892b7b35b08a4f, type: 3}
+      propertyPath: _bgmData.Array.data[13].sound
+      value: 
+      objectReference: {fileID: 8300000, guid: 26961eb3dce44304ab41946e753a591f, type: 3}
     - target: {fileID: 6916387122602811121, guid: 976dfdaafcbf24c4e8892b7b35b08a4f, type: 3}
       propertyPath: _bgmData.Array.data[11].volume
       value: 1

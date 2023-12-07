@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -38,7 +39,7 @@ public class SlideGimmickDirector : MonoBehaviour
     // プレイヤーの手.
     private GameObject _playerHand;
     // 音用変数
-    public SoundManager Sound;
+    private SoundManager Sound;
     
     // ギミック子オブジェ.
     private GameObject[] _gimmickObj;
@@ -91,7 +92,7 @@ public class SlideGimmickDirector : MonoBehaviour
     // ゲージ入れるよう
     public GameObject Gauge;
     // フェード
-    private FadeScene _fade;
+    private Fade _fade;
 
     // ギミックの説明描画用.
     public TipsDrawer _tipsDrawer;
@@ -126,6 +127,9 @@ public class SlideGimmickDirector : MonoBehaviour
 
         // プレイヤーを探す
         _playerHand = GameObject.Find("FoxHand");
+
+        // サウンドマネージャーを探す.
+        Sound = GameObject.Find("SoundManager").GetComponent<SoundManager>();
 
         // 親オブジェクトを探す(光るやつ).
         GameObject _parentObj = GameObject.Find("PieceLightBox");
@@ -196,7 +200,7 @@ public class SlideGimmickDirector : MonoBehaviour
 
         // 説明を描画.
         _tipsDrawer.IsDownSlider();
-        //_fade = GameObject.Find("Fade").GetComponent<FadeScene>();
+        _fade = GameObject.Find("FadeCanvas").GetComponent<Fade>();
     }
 
     private void Update()
@@ -268,7 +272,7 @@ public class SlideGimmickDirector : MonoBehaviour
 
             _waitClearFrame++;
 
-            if (_fade.GetAlphColor() >= 0.85f)
+            if (_fade.cutoutRange == 1.0f)
             {
                 Sound.StopBgm();
             }
