@@ -22,7 +22,7 @@ public class Gimick1_3_4Manager : MonoBehaviour
     // カメラをもとに戻すフラグを入れる
     private bool _isUndo = false;
     // サウンドの取得
-    [SerializeField] private SoundManager _sound;
+    private SoundManager _sound;
 
     public TipsDrawer _tipsDrawer;
     [SerializeField] private PauseController _pauseController;
@@ -34,6 +34,8 @@ public class Gimick1_3_4Manager : MonoBehaviour
         _effect = _gameObj.GetComponent<BourstEffectPlay>();
         _cameraShake = _gameObj.GetComponent<CameraShake>();
         _machineObject = _machine.GetComponent<MachineDestory>();
+
+        _sound = GameObject.Find("SoundManager").GetComponent<SoundManager>();
         //_sound.PlayBGM("1_3_4_BGM");
         _tipsDrawer.IsDownSlider();
 

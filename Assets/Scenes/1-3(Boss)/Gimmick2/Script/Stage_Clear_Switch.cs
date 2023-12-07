@@ -13,11 +13,12 @@ public class Stage_Clear_Switch : MonoBehaviour
     [SerializeField] private GameObject _effect;
     private GameObject _particleSystem;
     // サウンド.
-    [SerializeField] private SoundManager _sound;
+    private SoundManager _sound;
     [SerializeField] private PauseController _pauseController;
     private void Start()
     {
         _isClear = false;
+        _sound = GameObject.Find("SoundManager").GetComponent<SoundManager>();
     }
 
     void OnCollisionStay(Collision collision)
