@@ -5180,6 +5180,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: stage2_kontena_green
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 2310f9e0c599cd7438412c0316bf05b8, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5242644381045314590, guid: 2310f9e0c599cd7438412c0316bf05b8, type: 3}
       propertyPath: m_Name
       value: stage2_kontena_green
@@ -10336,7 +10340,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &201818850
 Transform:
   m_ObjectHideFlags: 0
@@ -10569,7 +10573,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &215951428
 Transform:
   m_ObjectHideFlags: 0
@@ -20773,7 +20777,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &344868132
 Transform:
   m_ObjectHideFlags: 0
@@ -21040,6 +21044,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 75fbcd51da325f242b1be98527a1fab7, type: 3}
       propertyPath: m_Name
       value: stage2_kontena_yellow
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 75fbcd51da325f242b1be98527a1fab7, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3775600559536782834, guid: 75fbcd51da325f242b1be98527a1fab7, type: 3}
       propertyPath: m_Name
@@ -21431,7 +21439,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &413892597
 Transform:
   m_ObjectHideFlags: 0
@@ -21708,6 +21716,10 @@ PrefabInstance:
     - target: {fileID: 5646336740854910328, guid: 87135a7b29ed43d409d00c63e3ae00d0, type: 3}
       propertyPath: m_Name
       value: Stage2_Container_Green_Input
+      objectReference: {fileID: 0}
+    - target: {fileID: 5646336740854910328, guid: 87135a7b29ed43d409d00c63e3ae00d0, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5646336740854910330, guid: 87135a7b29ed43d409d00c63e3ae00d0, type: 3}
       propertyPath: m_IsTrigger
@@ -46895,7 +46907,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &719616099
 Transform:
   m_ObjectHideFlags: 0
@@ -52166,7 +52178,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 840767487}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.4142685, y: 0.741662, z: -11.731335}
+  m_LocalPosition: {x: -32.82, y: -10.43, z: -18.16}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -57591,7 +57603,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &974767527
 Transform:
   m_ObjectHideFlags: 0
@@ -77969,6 +77981,10 @@ PrefabInstance:
       value: 1-3-3-2
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 92b2af0a7e529114490085b62e8bb194, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 92b2af0a7e529114490085b62e8bb194, type: 3}
       propertyPath: m_TagString
       value: Untagged
       objectReference: {fileID: 0}
@@ -83586,7 +83602,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1464831974
 Transform:
   m_ObjectHideFlags: 0
@@ -88546,6 +88562,10 @@ PrefabInstance:
     - target: {fileID: 5646336740854910328, guid: 87135a7b29ed43d409d00c63e3ae00d0, type: 3}
       propertyPath: m_Name
       value: Stage2_Container_Red_Input
+      objectReference: {fileID: 0}
+    - target: {fileID: 5646336740854910328, guid: 87135a7b29ed43d409d00c63e3ae00d0, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5646336740854910330, guid: 87135a7b29ed43d409d00c63e3ae00d0, type: 3}
       propertyPath: m_IsTrigger
@@ -98393,6 +98413,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 7507f2f2b1794e44dbe80f3930cf0ac1, type: 3}
       propertyPath: m_Name
       value: stage2_kontena_red
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 7507f2f2b1794e44dbe80f3930cf0ac1, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4159537980272797200, guid: 7507f2f2b1794e44dbe80f3930cf0ac1, type: 3}
       propertyPath: m_LocalScale.x
@@ -108348,6 +108372,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: stage2_kontena_blue
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 94096174c0b3a894493268026db9730e, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8297317333018259234, guid: 94096174c0b3a894493268026db9730e, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
@@ -109217,7 +109245,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5646336740854910328, guid: 87135a7b29ed43d409d00c63e3ae00d0, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5646336740854910330, guid: 87135a7b29ed43d409d00c63e3ae00d0, type: 3}
       propertyPath: m_IsTrigger
@@ -119218,10 +119246,6 @@ MonoBehaviour:
   - {fileID: 238166671}
   - {fileID: 359049445}
   - {fileID: 840880940}
-  - {fileID: 2046932313}
-  - {fileID: 722488037}
-  - {fileID: 1405339382}
-  - {fileID: 986168987}
 --- !u!4 &2070172388 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2547387253882364434, guid: 546fe8400816cf942bbf47e67a845ed9, type: 3}
@@ -124076,6 +124100,10 @@ PrefabInstance:
     - target: {fileID: 5646336740854910328, guid: 87135a7b29ed43d409d00c63e3ae00d0, type: 3}
       propertyPath: m_Name
       value: Stage2_Container_Yellow_Input
+      objectReference: {fileID: 0}
+    - target: {fileID: 5646336740854910328, guid: 87135a7b29ed43d409d00c63e3ae00d0, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5646336740854910330, guid: 87135a7b29ed43d409d00c63e3ae00d0, type: 3}
       propertyPath: m_IsTrigger
