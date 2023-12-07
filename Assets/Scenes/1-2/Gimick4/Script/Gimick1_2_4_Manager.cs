@@ -51,8 +51,10 @@ public class Gimick1_2_4_Manager : MonoBehaviour
     public float _clearCameraRotaY;
     public float _clearCameraRotaX;
 
+    //[SerializeField] private PauseController _pauseController;
     // サウンド
     private SoundManager _sound;
+    private bool _isSoundStop = false;
 
     // カウントダウンを確認
     public GameObject _count;
@@ -113,7 +115,8 @@ public class Gimick1_2_4_Manager : MonoBehaviour
 
     void Update()
     {
-        //_sound.PlayBGM("1_1_1_BGM");
+        // サウンドを鳴らす(テスト).
+        _sound.PlayBGM("1_1_2_BGM");
         if (_tipsDrawer._isSlideEnd)
         {
             _countDown.SetTimeCount(false);
@@ -158,6 +161,12 @@ public class Gimick1_2_4_Manager : MonoBehaviour
 
         // マップ全体を見る.
         MapDrawer();
+        // クリアしたら音を止める.
+        if (_isClear)
+        {
+            _sound.StopBgm();
+            _isSoundStop = true;
+        }
     }
 
     private void FixedUpdate()
