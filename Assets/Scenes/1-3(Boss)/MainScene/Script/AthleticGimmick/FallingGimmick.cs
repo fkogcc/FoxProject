@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class FallingGimmick : MonoBehaviour
 {
-    private Rigidbody _rigidbody;
     // 落ちるスピード.
     [SerializeField] private Vector3 _FallingSpeed = new Vector3(0.0f,-1.0f,0.0f);
     // 落ちているかどうか
@@ -12,12 +11,15 @@ public class FallingGimmick : MonoBehaviour
 
     private Vector3 _initialPosition;
 
+    // 床の上昇する上限の座標.
+    private float _upperPosition = 0;
+
 
     // Start is called before the first frame update
     void Start()
     {
-        _rigidbody = GetComponent<Rigidbody>();
         _initialPosition = transform.position;
+        _upperPosition = transform.position.y;
     }
 
     // Update is called once per frame
@@ -30,9 +32,11 @@ public class FallingGimmick : MonoBehaviour
     {
         if(_isFalling)
         {
-            //_rigidbody.AddForce(_FallingSpeed);
-
             transform.position += _FallingSpeed;
+        }
+        else if(!_isFalling && transform.position.y < _upperPosition)
+        {
+            transform.position -= _FallingSpeed * 3;
         }
 
         if(transform.position.y <= -6.0f)
@@ -42,12 +46,21 @@ public class FallingGimmick : MonoBehaviour
         }
     }
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnCollisionStay(Collision collision)
     {
         if(collision.gameObject.tag == "Player")
         {
-            //Debug.Log("通る");
+            Debug.Log("Stay");
             _isFalling = true;
+        }
+    }
+
+    private void OnCollisionExit(Collision collision)
+    {
+        if (collision.gameObject.tag == "Player")
+        {
+            Debug.Log("Exit");
+            _isFalling = false;
         }
     }
 
