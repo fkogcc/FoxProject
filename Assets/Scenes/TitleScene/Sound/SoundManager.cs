@@ -119,7 +119,7 @@ public class SoundManager : MonoBehaviour
             //}
         }
 
-        Debug.Log("Fixed " + this._bgmMasterVolume);
+        //Debug.Log("Fixed " + this._bgmMasterVolume);
     }
 
     /// <summary>
@@ -144,7 +144,7 @@ public class SoundManager : MonoBehaviour
         // 手抜きなので修正が必要な場合は教えてください.
         if (!_bgmSource.isPlaying)
         {
-            Debug.Log("Play " + this._bgmMasterVolume);
+            //Debug.Log("Play " + this._bgmMasterVolume);
 
             // ループ再生する.
             _bgmSource.loop = true;
