@@ -48,7 +48,7 @@ public class Stage_Clear_Switch : MonoBehaviour
     }
     private void ClearWaitTime()
     {
-        _img.GenerateImage();
+        _img.GenerateCompleteImage();
         _waitTimer--;
         if (_waitTimer <= 0)
         {

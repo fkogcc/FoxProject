@@ -208,7 +208,7 @@ public class Gimick1_2_4_Manager1Mk2 : MonoBehaviour
             _isLight = true;
 
             // コンプリートを描画
-            _image.GenerateImage();
+            _image.GenerateCompleteImage();
 
             // カメラのターゲット位置と角度を変更.
             _camera.Follow = _cameraPos;

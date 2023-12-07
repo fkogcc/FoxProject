@@ -16,6 +16,7 @@ public class EffectPlay : MonoBehaviour
     // クリアしたときにclearの画像を表示させる.
     [SerializeField] private GenerateImg _img;
     private bool _isSePlaying = false;
+    private int _genereteCount = 0;
     // エフェクトの初期化処理.
     public void EffectInit()
     {
@@ -65,6 +66,12 @@ public class EffectPlay : MonoBehaviour
         {
             if (!_isSePlaying)
             {
+                if (_genereteCount < 2)
+                {
+                    _genereteCount++;
+                    // クリアテキストの表示.
+                    _img.GenerateClearText();
+                }
                 // 一回だけならしたいのでフラグをtrueにする.
                 _isSePlaying = true;
                 // クリア音を鳴らす.
@@ -83,6 +90,8 @@ public class EffectPlay : MonoBehaviour
     {
         if (destory)
         {
+            // 不正解テキストの表示.
+            _img.GenerateResetText();
             // 不正解の音を鳴らす.
             _soundManager.PlaySE("1_2_1_Miss");
             // 線のエフェクトを壊す.
@@ -103,7 +112,7 @@ public class EffectPlay : MonoBehaviour
             // BGMをとめる.
             _soundManager.StopBgm();
             // 一回だけ画像を生成する.
-            _img.GenerateImage();
+            _img.GenerateCompleteImage();
         }
     }
 }

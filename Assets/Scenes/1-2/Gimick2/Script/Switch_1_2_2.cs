@@ -88,7 +88,7 @@ public class Switch_1_2_2 : MonoBehaviour
                 else
                 {
                     // 画像の表示.
-                    _img.GenerateImage();
+                    _img.GenerateCompleteImage();
                     // 角度が50.0fになったら.
                     _fadeCount++;
                     //COMPLETEが表示されてから2秒たったらクリア判定を入れる

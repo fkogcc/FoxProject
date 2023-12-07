@@ -117,7 +117,7 @@ public class Gimick1_1_1Manager : MonoBehaviour
         if (_isEndRota[0] && _isEndRota[1])
         {
             _clearFrameCount++;            
-            _image.GenerateImage();
+            _image.GenerateCompleteImage();
         }
 
         if(_clearFrameCount > 60)
