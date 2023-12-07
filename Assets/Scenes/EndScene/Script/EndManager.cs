@@ -9,13 +9,14 @@ public class EndManager : MonoBehaviour
     public GameObject Rabbit;
     public GameObject Player;
     public GameObject Boss;
-    public SoundManager SndManager;
+    private SoundManager SndManager;
     private MoveBackGround _bg;
     private StaffRool _rool;
     private FadeScene _fade;
 
     private void Start()
     {
+        SndManager = GameObject.Find("SoundManager").GetComponent<SoundManager>();
         _bg = GetComponent<MoveBackGround>();
         _rool = GetComponent<StaffRool>();
         _fade = GameObject.Find("Fade").GetComponent<FadeScene>();

@@ -33,7 +33,7 @@ public class ContainerDirector : MonoBehaviour
     void Start()
     {
         //_getName = 0;
-
+        _sound = GameObject.Find("SoundManager").GetComponent<SoundManager>();
         _isAllClear= false;
         GetGimickName();
     }
