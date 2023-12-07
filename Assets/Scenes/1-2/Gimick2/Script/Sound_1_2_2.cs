@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Sound_1_2_2 : MonoBehaviour
 {
-    public SoundManager _sound;
+    private SoundManager _sound;
     // 床の効果音を鳴らす,
     public bool _isPlaneFlag { get; set; }
     // レバーの効果音を鳴らす,
@@ -14,6 +14,12 @@ public class Sound_1_2_2 : MonoBehaviour
     //連続でならないようにする
     private int _count = 0;
     [SerializeField] private Switch_1_2_2 _switch;
+
+    private void Start()
+    {
+        _sound = GameObject.Find("SoundManager").GetComponent<SoundManager>();
+    }
+
     void FixedUpdate()
     {
         _count++;
@@ -24,7 +30,7 @@ public class Sound_1_2_2 : MonoBehaviour
         }
         else
         {
-            _sound.PlayBGM("1_2_2BGM");
+            _sound.PlayBGM("1_2_2_BGM");
         }
         if(_count < 30)
         {

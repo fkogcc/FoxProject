@@ -17,7 +17,7 @@ public class BoxPull : MonoBehaviour
     private Transform _player;
 
     // サウンド用
-    [SerializeField] private SoundManager Sound;
+    private SoundManager Sound;
 
     // ギミックの色.
     public string Color;
@@ -57,6 +57,8 @@ public class BoxPull : MonoBehaviour
         _director = GameObject.Find("GimmickDirector").GetComponent<BoxDirector>();
 
         _player = GameObject.Find("3DPlayer").GetComponent<Transform>();
+
+        Sound = GameObject.Find("SoundManager").GetComponent<SoundManager>();
 
         // クリア前までのオブジェ.
         _gimmick = (GameObject)Resources.Load(Color + "Cube");

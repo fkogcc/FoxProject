@@ -11,7 +11,7 @@ public class ElevatorDirector : MonoBehaviour
     // 上がるときにプレイヤーも一緒に上げるよう.
     private GameObject _player;
     // サウンド用.
-    [SerializeField] private SoundManager _sound;
+    private SoundManager _sound;
     // 前鳴らした情報用.
     private bool _isPlaySound;
     // 移動量.
@@ -28,6 +28,7 @@ public class ElevatorDirector : MonoBehaviour
     private void Start()
     {
         _player = GameObject.Find("3DPlayer");
+        _sound = GameObject.Find ("SoundManager").GetComponent<SoundManager>();
         _vec = new Vector3(0f, 0.125f, 0f);
         _frameCount = 0;
         _isStay = false;
