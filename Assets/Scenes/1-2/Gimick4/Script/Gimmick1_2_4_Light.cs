@@ -9,7 +9,7 @@ public class Gimmick1_2_4_Light : MonoBehaviour
     Light[] _light = new Light[2];
     void Start()
     {
-        for (int i = 0; i < 2; i++)
+        for (int i = 0; i < 1; i++)
         {
             _light[i] = _lightData[i].GetComponent<Light>();
             _light[i].range = 0;
@@ -18,7 +18,7 @@ public class Gimmick1_2_4_Light : MonoBehaviour
 
     void Update()
     {
-        for (int i = 0; i < 2; i++)
+        for (int i = 0; i < 1; i++)
         {
             _light[i].range += 0.1f;
         }
