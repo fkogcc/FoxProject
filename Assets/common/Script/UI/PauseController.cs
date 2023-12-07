@@ -4,6 +4,7 @@
 
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class PauseController : MonoBehaviour
 {
@@ -11,9 +12,16 @@ public class PauseController : MonoBehaviour
     [SerializeField] private string bgmName;
     public bool _getResult = false;
     [SerializeField] private FadeAnimDirector _animDirector = null;
+
+    private Text _text;
+
     void Start()
     {
         _sound = GameObject.Find("SoundManager").GetComponent<SoundManager>();
+        if(SceneManager.GetActiveScene().name == "MainScene1-3")
+        {
+            _text = GameObject.Find("de").GetComponent<Text>();
+        }
     }
 
     // Update is called once per frame
@@ -27,6 +35,12 @@ public class PauseController : MonoBehaviour
         {
             _sound.PlayBGM(bgmName);
         }
+
+        if (SceneManager.GetActiveScene().name == "MainScene1-3")
+        {
+            _text.text = bgmName.ToString();
+        }
+            
     }
     private bool IsFadeCheck()
     {
