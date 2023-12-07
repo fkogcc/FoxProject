@@ -75,6 +75,10 @@ public class Gimick1_2_4_Manager1Mk2 : MonoBehaviour
     // 説明を描画
     public TipsDrawer _tipsDrawer;
 
+    // Bボタンを押したかどうか.
+    private bool _isBottomB = false;
+    private int _collArry = 0;
+
     void Start()
     {
         _sound = GameObject.Find("SoundManager").GetComponent<SoundManager>();
@@ -122,20 +126,6 @@ public class Gimick1_2_4_Manager1Mk2 : MonoBehaviour
             _camera.GetCinemachineComponent(CinemachineCore.Stage.Aim).GetComponent<CinemachinePOV>().m_HorizontalAxis.Value = _clearCameraRotaX;
         }
 
-        for (int i = 0; i < _objRotaMaxNum; i++)
-        {
-            if (_coll[i].GetComponent<MyCollsion3D>().IsGetHit())
-            {
-                if (Input.GetKeyDown(KeyCode.JoystickButton1))
-                {
-                    // サウンドを再生.
-                    _sound.PlaySE("1_2_3_MetalRota");
-                    // 回転したら.
-                    _rota[i].GetComponent<TurnGraph>().Rota();
-                }
-            }
-        }
-
         // 回路が正しく接続されている数を確認.
         for (int i = 0; i < _objRotaMaxNum; i++)
         {
@@ -150,6 +140,24 @@ public class Gimick1_2_4_Manager1Mk2 : MonoBehaviour
                 if (_ansFrameCount < _objRotaMaxNum)
                 {
                     _ansFrameCount++;
+                }
+            }
+        }
+
+
+        if (!_isCountDown)
+        {
+            for (int i = 0; i < _objRotaMaxNum; i++)
+            {
+                if (_coll[i].GetComponent<MyCollsion3D>().IsGetHit())
+                {
+                    if (Input.GetKeyDown(KeyCode.JoystickButton1))
+                    {
+                        _isBottomB = true;
+                        // サウンドを再生.
+                        _sound.PlaySE("1_2_3_MetalRota");
+                        _collArry = i;
+                    }
                 }
             }
         }
@@ -208,7 +216,7 @@ public class Gimick1_2_4_Manager1Mk2 : MonoBehaviour
             _isLight = true;
 
             // コンプリートを描画
-            _image.GenerateImage();
+            _image.GenerateCompleteImage();
 
             // カメラのターゲット位置と角度を変更.
             _camera.Follow = _cameraPos;
@@ -227,6 +235,13 @@ public class Gimick1_2_4_Manager1Mk2 : MonoBehaviour
     // マップ全体を見る
     private void MapDrawer()
     {
+        if (_isBottomB)
+        {
+            // 回転したら.
+            _rota[_collArry].GetComponent<TurnGraph>().Rota();
+            _isBottomB = false;
+        }
+
         // Yを押した場合.
         if (Input.GetKeyDown(KeyCode.JoystickButton3))
         {

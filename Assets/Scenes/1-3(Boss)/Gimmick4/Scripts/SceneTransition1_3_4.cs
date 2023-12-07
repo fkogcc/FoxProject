@@ -34,7 +34,7 @@ public class SceneTransition1_3_4 : MonoBehaviour
         {
             //Debug.Log("a");
             // 画像の表示.
-            _img.GenerateImage();
+            _img.GenerateCompleteImage();
             _fadeCount++;
             if (_fadeCount > 50)
             {
