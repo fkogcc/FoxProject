@@ -5,7 +5,8 @@ using UnityEngine.SceneManagement;
 public class BoxDirector : MonoBehaviour
 {
     private SoundManager _sound;
-
+    // クリアしたときにclearの画像を表示させる.
+    [SerializeField] private GenerateImg _img;
     // ギミックの最大数.
     public int GimmickNum = 0;
 
@@ -33,14 +34,14 @@ public class BoxDirector : MonoBehaviour
 
     // 全てクリアしているかのフラグ.
     private bool _isAllClear;
-    // クリアのテキスト.
-    public GameObject ClearText;
-    // Canvasを入れるよう
-    public GameObject Canvas;
-
+    //// クリアのテキスト.
+    //public GameObject ClearText;
+    //// Canvasを入れるよう
+    //public GameObject Canvas;
+    [SerializeField] private PauseController _pauseController;
     Dictionary<string, GameObject> _lineObj;
 
-    private bool _soundDestory = false;
+    //private bool _soundDestory = false;
     // 初期化処理
     private void Start()
     {
@@ -66,8 +67,8 @@ public class BoxDirector : MonoBehaviour
         _lineObj.Add("Red", GameObject.Find("RedLine"));
         if (4 < GimmickNum)
         {
-            _lineObj.Add("Yellow", GameObject.Find("YellowLine"));
-            _lineObj.Add("YellowGreen", GameObject.Find("YellowGreenLine"));
+            //_lineObj.Add("Yellow", GameObject.Find("YellowLine"));
+            //_lineObj.Add("YellowGreen", GameObject.Find("YellowGreenLine"));
             _lineObj.Add("SkyBule", GameObject.Find("SkyBuleLine"));
             _lineObj.Add("Orange", GameObject.Find("OrangeLine"));
         }
@@ -75,20 +76,21 @@ public class BoxDirector : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (!_soundDestory)
-        {
-            _sound.PlayBGM("1_2_3_BGM");
-        }
+        //if (!_soundDestory)
+        //{
+        //    _sound.PlayBGM("1_2_3_BGM");
+        //}
         if (_isAllClear && _fade.cutoutRange == 1.0f)
         {
-            _soundDestory = true;
-            _sound.StopBgm();
+            //_soundDestory = true;
+            //_sound.StopBgm();
 
             if (IsNext)
             {
                 SceneManager.LoadScene("Gimmick1_2_3_2");
             }
         }
+        _pauseController._getResult = _isAllClear;
     }
 
     // 引き始めた色の取得
@@ -137,17 +139,19 @@ public class BoxDirector : MonoBehaviour
 
             if (GimmickNum <= _clearCount)
             {
+                // 画像の表示.
+                _img.GenerateCompleteImage();
                 _isAllClear = true;
 
                 if (IsNext)
                 {
                     _fadeDirector._isFade = true;
                 }
-                else
-                {
-                    GameObject clone = Instantiate(ClearText);
-                    clone.transform.SetParent(Canvas.transform, false);
-                }
+                //else
+                //{
+                //    GameObject clone = Instantiate(ClearText);
+                //    clone.transform.SetParent(Canvas.transform, false);
+                //}
             }
             return true;
         }
