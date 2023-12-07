@@ -49,7 +49,8 @@ public class SceneTransitionManager : MonoBehaviour
     // 1-2-3ギミック.
     public void MainScene1_2_3()
     {
-        SceneManager.LoadScene("Gimmick1_2_3");
+        //SceneManager.LoadScene("Gimmick1_2_3");
+        SceneManager.LoadScene("Gimmick1_2_3_2");
     }
 
     // 1-2-4ギミック.
