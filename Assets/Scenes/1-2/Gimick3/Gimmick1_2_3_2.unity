@@ -123,6 +123,67 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1001 &21908406
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 1322746869}
+    m_Modifications:
+    - target: {fileID: 4074231544799372734, guid: 5e66571aa08be5c4789dab943e4e7d42, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4074231544799372734, guid: 5e66571aa08be5c4789dab943e4e7d42, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 9.765984
+      objectReference: {fileID: 0}
+    - target: {fileID: 4074231544799372734, guid: 5e66571aa08be5c4789dab943e4e7d42, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -7.0919075
+      objectReference: {fileID: 0}
+    - target: {fileID: 4074231544799372734, guid: 5e66571aa08be5c4789dab943e4e7d42, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -5.578678
+      objectReference: {fileID: 0}
+    - target: {fileID: 4074231544799372734, guid: 5e66571aa08be5c4789dab943e4e7d42, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4074231544799372734, guid: 5e66571aa08be5c4789dab943e4e7d42, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4074231544799372734, guid: 5e66571aa08be5c4789dab943e4e7d42, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4074231544799372734, guid: 5e66571aa08be5c4789dab943e4e7d42, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4074231544799372734, guid: 5e66571aa08be5c4789dab943e4e7d42, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4074231544799372734, guid: 5e66571aa08be5c4789dab943e4e7d42, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4074231544799372734, guid: 5e66571aa08be5c4789dab943e4e7d42, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5199982537851916609, guid: 5e66571aa08be5c4789dab943e4e7d42, type: 3}
+      propertyPath: m_Name
+      value: Tips1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6927645245570308665, guid: 5e66571aa08be5c4789dab943e4e7d42, type: 3}
+      propertyPath: _sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: a5e19746eb5b25145a557c496f462bb7, type: 3}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 5e66571aa08be5c4789dab943e4e7d42, type: 3}
 --- !u!1 &38785672
 GameObject:
   m_ObjectHideFlags: 0
@@ -266,7 +327,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b23952c7882b6a47bed49bf000d0545, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Sound: {fileID: 0}
   Color: Pink
 --- !u!135 &161860630
 SphereCollider:
@@ -5167,7 +5227,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b23952c7882b6a47bed49bf000d0545, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Sound: {fileID: 0}
   Color: Yellow
 --- !u!135 &406013650
 SphereCollider:
@@ -5227,7 +5286,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b23952c7882b6a47bed49bf000d0545, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Sound: {fileID: 0}
   Color: SkyBule
 --- !u!135 &418387873
 SphereCollider:
@@ -10236,7 +10294,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b23952c7882b6a47bed49bf000d0545, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Sound: {fileID: 0}
   Color: YellowGreen
 --- !u!135 &672089364
 SphereCollider:
@@ -10704,7 +10761,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b23952c7882b6a47bed49bf000d0545, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Sound: {fileID: 0}
   Color: Green
 --- !u!135 &1005679202
 SphereCollider:
@@ -10764,7 +10820,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b23952c7882b6a47bed49bf000d0545, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Sound: {fileID: 0}
   Color: Red
 --- !u!135 &1024830843
 SphereCollider:
@@ -10842,7 +10897,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b23952c7882b6a47bed49bf000d0545, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Sound: {fileID: 0}
   Color: Orange
 --- !u!135 &1066565934
 SphereCollider:
@@ -11740,7 +11794,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b23952c7882b6a47bed49bf000d0545, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Sound: {fileID: 0}
   Color: Bule
 --- !u!135 &1241902687
 SphereCollider:
@@ -17146,6 +17199,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9593fc29a69412047a74abc6130ecad3, type: 3}
+--- !u!4 &1322746869 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4986299440606812783, guid: 9593fc29a69412047a74abc6130ecad3, type: 3}
+  m_PrefabInstance: {fileID: 1322746868}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1335661385
 GameObject:
   m_ObjectHideFlags: 0
@@ -22343,15 +22401,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2547387252357561709, guid: 546fe8400816cf942bbf47e67a845ed9, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 2.3173437
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2547387252357561709, guid: 546fe8400816cf942bbf47e67a845ed9, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.57106483
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2547387252357561709, guid: 546fe8400816cf942bbf47e67a845ed9, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.4190557
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2547387252357561709, guid: 546fe8400816cf942bbf47e67a845ed9, type: 3}
       propertyPath: m_LocalRotation.w
@@ -41999,6 +42057,7 @@ MonoBehaviour:
   GimmickNum: 6
   IsNext: 0
   _pauseController: {fileID: 1558302093}
+  _tipsDrawer: {fileID: 0}
 --- !u!4 &2124426015
 Transform:
   m_ObjectHideFlags: 0
