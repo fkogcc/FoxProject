@@ -5,12 +5,26 @@ using UnityEngine.SceneManagement;
 
 public class StateGimmickSolveSave : MonoBehaviour
 {
+    public static StateGimmickSolveSave singleton;
     private GateFlag _transitionScene;
+
+    private void Awake()
+    {
+        if(singleton == null)
+        {
+            DontDestroyOnLoad(gameObject);
+            singleton = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
 
     private void Start()
     {
         _transitionScene = GameObject.FindWithTag("Player").GetComponent<GateFlag>();
-        DontDestroyOnLoad(gameObject);
+        
     }
 
     private void FixedUpdate()
