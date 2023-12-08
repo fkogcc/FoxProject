@@ -88,6 +88,17 @@ public class PullRope : MonoBehaviour
             _gimmicks.Clear();
             _isPull = false;
         }
+
+        // 想定を反対方向に進むとひもを消す
+        if (_player.transform.position.x < 0.0f)
+        {
+            foreach (var temp in _gimmicks)
+            {
+                Destroy(temp.gameObject);
+            }
+            _gimmicks.Clear();
+            _isPull = false;
+        }
     }
     public void PlacementUpdate()
     {
