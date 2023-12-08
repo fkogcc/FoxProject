@@ -50,7 +50,6 @@ public class FallingGimmick : MonoBehaviour
     {
         if(collision.gameObject.tag == "Player")
         {
-            Debug.Log("Stay");
             _isFalling = true;
         }
     }
@@ -59,7 +58,6 @@ public class FallingGimmick : MonoBehaviour
     {
         if (collision.gameObject.tag == "Player")
         {
-            Debug.Log("Exit");
             _isFalling = false;
         }
     }
