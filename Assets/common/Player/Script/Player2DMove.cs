@@ -451,6 +451,8 @@ public class Player2DMove : MonoBehaviour
             Quaternion rotation = Quaternion.LookRotation(new Vector3(0.0f, 0.0f, -180.0f), Vector3.up);
 
             transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime * 5);
+
+            transform.position = new Vector3(transform.position.x, 0.0f, transform.position.z);
         }
     }
 

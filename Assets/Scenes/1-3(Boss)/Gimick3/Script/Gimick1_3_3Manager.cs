@@ -5,7 +5,7 @@ using UnityEngine;
 public class Gimick1_3_3Manager : MonoBehaviour
 {
     // サウンド用.
-    [SerializeField] private SoundManager _sound;
+    private SoundManager _sound;
     // クリアしたときにclearの画像を表示させる.
     [SerializeField] private GenerateImg _img;
     [SerializeField] private GameObject Pause;
@@ -35,6 +35,7 @@ public class Gimick1_3_3Manager : MonoBehaviour
         _stageCamera = GameObject.Find("MinmapCamera").GetComponent<StageCamera>();
         _containerDirector = GameObject.Find("Container Director").GetComponent<ContainerDirector>();
         _resetButton = GameObject.Find("Reset_Button").GetComponent<Reset_Button>();
+        _sound = GameObject.Find("SoundManager").GetComponent<SoundManager>();
         // バリケード初期位置を取得.
         //_effectPos = _barricade.transform.position;
         //_effectPos.x -= -1.0f;

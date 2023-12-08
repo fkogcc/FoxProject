@@ -218,7 +218,7 @@ public class SlideGimmickDirector : MonoBehaviour
 
         // 特定のボタンを押したらギミックの処理.
         // 現状Bボタン.
-        if (Input.GetKeyDown(KeyCode.F) || Input.GetKeyDown("joystick button 0"))
+        if (Input.GetKeyDown(KeyCode.F) || Input.GetKeyDown("joystick button 1"))
         {
             // 現在プレイヤーの手がある位置を保存.
             _nowEle = _playerHand.GetComponent<GimmickHand>().HitNo;
@@ -236,14 +236,14 @@ public class SlideGimmickDirector : MonoBehaviour
         }
 
         // リセットボタン関係
-        if (Input.GetKeyDown("joystick button 1"))
+        if (Input.GetKeyDown("joystick button 0"))
         {
             Gauge.SetActive(true);
             Gauge.transform.GetComponent<Image>().fillAmount = 0;
             _isResetCheck = true;
             _resetCount = 0;
         }
-        if (Input.GetKeyUp("joystick button 1"))
+        if (Input.GetKeyUp("joystick button 0"))
         {
             Gauge.SetActive(false);
             _isResetCheck = false;
