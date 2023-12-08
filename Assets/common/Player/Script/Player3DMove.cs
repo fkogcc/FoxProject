@@ -1,7 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿/*3Dプレイヤーの挙動*/
+
 using UnityEngine;
-using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
 
 public class Player3DMove : MonoBehaviour
 {
@@ -17,15 +17,11 @@ public class Player3DMove : MonoBehaviour
     private Rigidbody _rigidbody;
     // transformをキャッシュ.
     private Transform _transform;
-    // 当たり判定.
-    private BoxCollider _collider;
     // ポーズ画面
     private UpdatePause _pause;
 
     // レンダーマテリアル.
     public Renderer[] _renderer;
-
-    private UpdatePause _updatePause;
 
     private SoundManager _soundManager;
 
@@ -146,11 +142,20 @@ public class Player3DMove : MonoBehaviour
 
         _isGround = IsGroundShpere();
 
-        if(_rigidbody.velocity.y <= -20.0f && IsGroundShpere())
+        if(SceneManager.GetActiveScene().name == "Gimmick1_3_2" ||
+           SceneManager.GetActiveScene().name == "Gimick1_3_4" ||
+           SceneManager.GetActiveScene().name == "GimmickRoad3_1" ||
+           SceneManager.GetActiveScene().name == "GimmickRoad3_2" ||
+           SceneManager.GetActiveScene().name == "GimmickRoad3_3" ||
+           SceneManager.GetActiveScene().name == "GimmickRoad3_4")
         {
-            HpDown();
-            _isDamage = true;
+            if (_rigidbody.velocity.y <= -20.0f && IsGroundShpere())
+            {
+                HpDown();
+                _isDamage = true;
+            }
         }
+        
 
         if(_isDamage)
         {
@@ -195,7 +200,6 @@ public class Player3DMove : MonoBehaviour
         _animator = GetComponent<Animator>();
         _rigidbody = GetComponent<Rigidbody>();
         _transform = GetComponent<Transform>();
-        _collider = GetComponent<BoxCollider>();
         _pause = GameObject.Find("PauseSystem").GetComponent<UpdatePause>();
         _soundManager = GameObject.Find("SoundManager").GetComponent<SoundManager>();
     }

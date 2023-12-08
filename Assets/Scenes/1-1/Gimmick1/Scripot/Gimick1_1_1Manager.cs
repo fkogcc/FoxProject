@@ -99,7 +99,7 @@ public class Gimick1_1_1Manager : MonoBehaviour
                     // 回転速度.
                     _handlePos[i].GetComponent<HandlePos>().Rota(1.0f);
                     // 回転時間.
-                    if (_handlePos[i].GetComponent<HandlePos>().IsGetRotaTimeOver(350 * 2))
+                    if (_handlePos[i].GetComponent<HandlePos>().IsGetRotaTimeOver(300))
                     {
                         // 回転終了.
                         _isEndRota[i] = true;
