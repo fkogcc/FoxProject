@@ -112,7 +112,7 @@ public class Gimick1_2_4_Manager1Mk2 : MonoBehaviour
         // サウンドを鳴らす(テスト).
         if (!_isSoundStop)
         {
-            _sound.PlayBGM("1_1_2_BGM");
+            _sound.PlayBGM("1_2_4_BGM");
         }
         if (!_isLight)
         {
