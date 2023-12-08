@@ -78,8 +78,6 @@ public class Gimick1_2_4_Manager : MonoBehaviour
 
     void Start()
     {
-        _sound = GameObject.Find("SoundManager").GetComponent<SoundManager>();
-
         // 回転する回路のクラス.
         for (int i = 0; i < _objRotaMaxNum; i++)
         {
@@ -115,6 +113,8 @@ public class Gimick1_2_4_Manager : MonoBehaviour
 
         _tipsDrawer.IsDownSlider();
         _countDown.SetTimeCount(false);
+
+        _sound = GameObject.Find("SoundManager").GetComponent<SoundManager>();
     }
 
     void Update()
