@@ -784,6 +784,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8278299569564085725, guid: 2eb649105269d1143a16f6b96d2f7853, type: 3}
+      propertyPath: m_SortingOrder
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8278299569564085726, guid: 2eb649105269d1143a16f6b96d2f7853, type: 3}
       propertyPath: m_Name
       value: UICanvas
@@ -5804,7 +5808,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _img: {fileID: 472985084}
   _effect: {fileID: 7745473962118335533, guid: 530cbec8516ee754fbb04260484cae09, type: 3}
-  _sound: {fileID: 0}
   _pauseController: {fileID: 1171247799}
 --- !u!114 &1247622876
 MonoBehaviour:
