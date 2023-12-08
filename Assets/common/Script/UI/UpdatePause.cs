@@ -1,6 +1,7 @@
 ﻿// ポーズ画面の処理.
 
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class UpdatePause : MonoBehaviour
 {
@@ -16,6 +17,8 @@ public class UpdatePause : MonoBehaviour
     // 現在のタイムスケールを取得する
     public float _timeScale { get;  set; }
     
+    // Tipsをひらけるかどうか.
+    private bool _isOpenTips = false;
 
     void Start()
     {
@@ -53,12 +56,22 @@ public class UpdatePause : MonoBehaviour
                 _isPause = false;
             }
         }
+
+        _isOpenTips = SceneManager.GetActiveScene().name == "MainScene1-1" ||
+                    SceneManager.GetActiveScene().name == "MainScene1-2" ||
+                    SceneManager.GetActiveScene().name == "MainScene1-3" ||
+                    SceneManager.GetActiveScene().name == "GimmickRoad3_1" ||
+                    SceneManager.GetActiveScene().name == "GimmickRoad3_2" ||
+                    SceneManager.GetActiveScene().name == "GimmickRoad3_3" ||
+                    SceneManager.GetActiveScene().name == "GimmickRoad3_4";
+
         // 時間がとまっている場合
         if (_isPause)
         {
             // 画像表示
             if (Input.GetKeyDown("joystick button 3"))
             {
+                if (_isOpenTips) return;
                 _tipsDrawer.IsDownSlider();
             }
 
