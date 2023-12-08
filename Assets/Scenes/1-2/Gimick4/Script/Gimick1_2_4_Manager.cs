@@ -120,7 +120,7 @@ public class Gimick1_2_4_Manager : MonoBehaviour
     void Update()
     {
         // サウンドを鳴らす(テスト).
-        _sound.PlayBGM("1_2_4_BGM");
+        _sound.PlayBGM("1_1_2_BGM");
         if (_tipsDrawer._isSlideEnd)
         {
             _countDown.SetTimeCount(false);
