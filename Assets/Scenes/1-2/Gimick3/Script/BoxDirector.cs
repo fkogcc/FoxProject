@@ -40,7 +40,7 @@ public class BoxDirector : MonoBehaviour
     //public GameObject Canvas;
     [SerializeField] private PauseController _pauseController;
     Dictionary<string, GameObject> _lineObj;
-
+    public TipsDrawer _tipsDrawer;
     //private bool _soundDestory = false;
     // 初期化処理
     private void Start()
@@ -72,6 +72,7 @@ public class BoxDirector : MonoBehaviour
             _lineObj.Add("SkyBule", GameObject.Find("SkyBuleLine"));
             _lineObj.Add("Orange", GameObject.Find("OrangeLine"));
         }
+        _tipsDrawer.IsDownSlider();
     }
 
     private void FixedUpdate()
