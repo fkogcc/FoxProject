@@ -46,6 +46,7 @@ public class BoxDirector : MonoBehaviour
     private void Start()
     {
         _sound = GameObject.Find("SoundManager").GetComponent<SoundManager>();
+        _tipsDrawer.IsDownSlider();
 
         _nowObj = new GameObject();
 
@@ -72,7 +73,6 @@ public class BoxDirector : MonoBehaviour
             _lineObj.Add("SkyBule", GameObject.Find("SkyBuleLine"));
             _lineObj.Add("Orange", GameObject.Find("OrangeLine"));
         }
-        _tipsDrawer.IsDownSlider();
     }
 
     private void FixedUpdate()
