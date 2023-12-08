@@ -10,6 +10,8 @@ public class SceneTransition1_3_4 : MonoBehaviour
     private Fade _fade;
     private FadeAnimDirector _fadeDirector;
 
+    private Player3DMove _player;
+
     // クリアしたときにclearの画像を表示させる.
     [SerializeField] private GenerateImg _img;
 
@@ -25,16 +27,20 @@ public class SceneTransition1_3_4 : MonoBehaviour
         _manager = gameObject.GetComponent<Gimick1_3_4Manager>();
         _fade = GameObject.Find("FadeCanvas").GetComponent<Fade>();
         _fadeDirector = GameObject.Find("Manager").GetComponent<FadeAnimDirector>();
+        _player = GameObject.Find("3DPlayer").GetComponent<Player3DMove>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (_manager.GetResult())
+        if (_manager.GetResult() || _player.GetHp() == 0)
         {
             //Debug.Log("a");
             // 画像の表示.
-            _img.GenerateCompleteImage();
+            if(_player.GetHp() != 0)
+            {
+                _img.GenerateCompleteImage();
+            }
             _fadeCount++;
             if (_fadeCount > 50)
             {
