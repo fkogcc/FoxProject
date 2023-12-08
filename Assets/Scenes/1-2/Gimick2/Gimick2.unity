@@ -5351,7 +5351,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5199982537851916609, guid: 5e66571aa08be5c4789dab943e4e7d42, type: 3}
       propertyPath: m_Name
-      value: Tips
+      value: Tips1
       objectReference: {fileID: 0}
     - target: {fileID: 6927645245570308665, guid: 5e66571aa08be5c4789dab943e4e7d42, type: 3}
       propertyPath: _sprite
@@ -5773,7 +5773,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 46cd8dbe1a15fc843b5ff850204e2943, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _sound: {fileID: 0}
   _switch: {fileID: 1342346341}
 --- !u!1001 &1134142763
 PrefabInstance:
@@ -10482,15 +10481,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2547387252357561709, guid: 546fe8400816cf942bbf47e67a845ed9, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1.5157524
+      value: 1.5462321
       objectReference: {fileID: 0}
     - target: {fileID: 2547387252357561709, guid: 546fe8400816cf942bbf47e67a845ed9, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.23281103
+      value: 0.05903939
       objectReference: {fileID: 0}
     - target: {fileID: 2547387252357561709, guid: 546fe8400816cf942bbf47e67a845ed9, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.51371074
+      value: -0.28386474
       objectReference: {fileID: 0}
     - target: {fileID: 2547387252357561709, guid: 546fe8400816cf942bbf47e67a845ed9, type: 3}
       propertyPath: m_LocalRotation.w
