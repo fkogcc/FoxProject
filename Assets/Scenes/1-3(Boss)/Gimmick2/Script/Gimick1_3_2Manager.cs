@@ -5,7 +5,7 @@ using UnityEngine;
 public class Gimick1_3_2Manager : MonoBehaviour
 {
     [SerializeField] private ResetButton _reset;
-    [SerializeField] private SoundManager _sound;
+    private SoundManager _sound;
     [SerializeField] private TipsDrawer _tips;
 
     //private Vector3 _tempPlayerLocalSize = Vector3.zero;
@@ -18,11 +18,13 @@ public class Gimick1_3_2Manager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        _reset.SoundDataSet(_sound);
         _tips.IsDownSlider();
 
         _playerLocalSize = _player.transform.localScale;
         _playerLossySize = _player.transform.lossyScale;
+
+        _sound = GameObject.Find("SoundManager").GetComponent<SoundManager>();
+        _reset.SoundDataSet(_sound);
     }
 
     // Update is called once per frame
