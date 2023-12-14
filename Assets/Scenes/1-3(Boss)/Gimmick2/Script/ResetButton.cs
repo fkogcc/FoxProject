@@ -24,6 +24,7 @@ public class ResetButton : MonoBehaviour
 
     void Start()
     {
+        Debug.Log($"{name}");
         _respawnPos = new Vector3[_resetPos.Length];
         //それぞれのオブジェクトの初期位置を保存.
         for (int i = 0; i < _resetPos.Length; i++)
