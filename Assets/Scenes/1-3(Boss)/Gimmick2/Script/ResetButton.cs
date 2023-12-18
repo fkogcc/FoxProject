@@ -69,7 +69,7 @@ public class ResetButton : MonoBehaviour
     {
         for (int i = _count; i < _resetPos.Length; i++)
         {
-            _player.transform.position = _respawnPos[i];
+            //_player.transform.position = _respawnPos[i];
 
         }
     }

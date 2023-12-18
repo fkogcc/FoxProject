@@ -824,6 +824,10 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: 8ce0d4ea0fb54c645b2af335d3764909, type: 3}
+    - target: {fileID: 8278299570013114361, guid: 2eb649105269d1143a16f6b96d2f7853, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8278299570199274450, guid: 2eb649105269d1143a16f6b96d2f7853, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.68
@@ -846,6 +850,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8278299570199274450, guid: 2eb649105269d1143a16f6b96d2f7853, type: 3}
       propertyPath: m_ConstrainProportionsScale
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8278299570199274453, guid: 2eb649105269d1143a16f6b96d2f7853, type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -2289,7 +2297,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 489763366}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 976670a616954bb4d9146d6677d0a89c, type: 3}
   m_Name: 
@@ -7674,7 +7682,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1981182828
 MonoBehaviour:
   m_ObjectHideFlags: 0
